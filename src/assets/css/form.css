@@ -1,0 +1,33 @@
+.v-form {
+    border-radius: 15px !important;
+    color: #35353a !important;
+}
+
+.v-form::placeholder {
+    color: #737375 !important;
+}
+
+.vue-tel-input {
+    border: none !important;
+}
+
+.vti__input {
+    border-radius: 0 15px 15px 0 !important;
+}
+
+.vti__dropdown {
+    border-radius: 15px 0 0 15px !important;
+    background: #fff;
+    color: #35353a;
+}
+
+.v3dp__popout {
+    box-shadow: 10px 10px 14px -6px rgba(0, 0, 0, 0.75) !important;
+    -webkit-box-shadow: 10px 10px 14px -6px rgba(71, 23, 23, 0.75) !important;
+    -moz-box-shadow: 10px 10px 14px -6px rgba(0, 0, 0, 0.75) !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    bottom: -30px !important;
+    /* background: #F0AB54 !important; */
+    /* color: #fff; */
+}

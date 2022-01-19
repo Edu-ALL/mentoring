@@ -1,0 +1,79 @@
+button, input, optgroup, select, textarea {
+    border: 0;
+    padding-left: 0;
+}
+
+label, span {
+    font-size: 13px;
+}
+
+label::after {
+    content: " :";
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.small {
+    font-size: 10px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+    border-color: rgba(235, 127, 26, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(239, 169, 104, 0);
+    outline: 0 none;
+    padding-left: 0;
+} */
+
+/* .form-control {
+    padding-left: 0;
+    border: 0;
+    border-bottom: 1.5px solid #dedede;
+    border-radius: 0 !important;
+} */
+
+.swal2-shown>[aria-hidden="true"] {
+    transition: 0.1s filter;
+    filter: blur(4px);
+}
+
+input.bday {
+    width: 100% !important;
+    padding: 5px 0px;
+    border-bottom: 1.5px solid #dedede !important;
+}
+
+input.bday[read-only] {
+    background-color: #fff !important;
+}
+
+.bg-primary {
+    background: #223872 !important;
+    color: #fff;
+}
+
+.bg-secondary {
+    background: #F0AB54 !important;
+    color: #fff;
+}
+
+.text-primary {
+    color: #223872 !important;
+}
+
+.text-secondary {
+    color: #F0AB54 !important;
+}
+
+.btn-allin {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+.content-title {
+    color: #223872;
+    font-weight: bold;
+}

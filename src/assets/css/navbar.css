@@ -1,0 +1,117 @@
+.v-navbar {
+    background: #223872;
+    /* padding: 15px 0; */
+    color: white;
+    vertical-align: middle;
+}
+
+.navbar-logo {
+    width: 150px;
+    display: inline-block;
+}
+
+.navbar-menu {
+    /* display: inline-block; */
+    margin-left: 50px;
+}
+
+.navbar-menu ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.navbar-menu ul li {
+    padding: 15px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-menu ul li:hover {
+    background: white;
+    color: #000;
+}
+
+.navbar-menu ul li.active {
+    background: #F0AB54;
+}
+
+.navbar-button {
+    margin-top: 8px;
+    float: right;
+}
+
+.navbar-overlay {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(43, 43, 43);
+    opacity: 0.97;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+    .v-navbar {
+        padding: 15px 0;
+        vertical-align: middle;
+    }
+
+    .navbar-icon {
+        margin-top: 5px;
+    }
+
+    .navbar-menu {
+        position: absolute;
+        z-index: 1001;
+        margin-left: 0;
+        left: 3%;
+        width: 94%;
+    }
+
+    .navbar-menu ul {
+        display: block;
+        padding-left: 0;
+        width: 100%;
+    }
+
+    .navbar-menu ul li {
+        background: white;
+        color: #000;
+        width: 100%;
+        display: block;
+        margin: 5px 0;
+        padding: 5px 10px;
+        border-radius: 15px;
+    }
+
+
+    .navbar-button {
+        position: absolute;
+        z-index: 1001;
+        margin-top: 130px;
+        right: 4%;
+        display: block;
+    }
+
+    .navbar-title {
+        position: relative;
+        z-index: 1001;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .navbar-close {
+        position: absolute;
+        border-radius: 50%;
+        background: rgb(78, 63, 221);
+        padding: 10px;
+        left: 43%;
+        z-index: 1001;
+        bottom: 5%;
+        display: block;
+    }
+}
