@@ -33,8 +33,5 @@ app.use(VueTelInput, VueTelInputOptions)
 app.use(Datepicker)
 app.component(VueFeather.name, VueFeather);
 app.use(VueSplide)
-app.use(VueLazyLoad, {
-    loading: 'https://dummyimage.com/600x400/f5f5f5/ededed&text=Loading',
-    error: 'https://dummyimage.com/600x400/f5f5f5/ededed&text=Error',
-})
+app.use(VueLazyLoad)
 app.mount('#app')

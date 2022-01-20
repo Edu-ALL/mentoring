@@ -1,7 +1,7 @@
 <template>
   <div id="ex-card">
     <!-- Career Module  -->
-    <div
+    <v-card
       v-if="feature_name == 'career-module'"
       class="card content-card bg-primary shadow"
       lazy="loading"
@@ -18,10 +18,15 @@
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>
-    </div>
+      <img
+        src="@/assets/img/home/card-blue.webp"
+        alt="ALL-in Mentoring"
+        class="card-corner"
+      />
+    </v-card>
 
     <!-- CV Builder  -->
-    <div
+    <v-card
       v-if="feature_name == 'cv-builder'"
       class="card content-card bg-secondary shadow"
       lazy="loading"
@@ -36,10 +41,15 @@
         </div>
         <button class="btn btn-allin bg-primary mt-3">Explore Now!</button>
       </div>
-    </div>
+      <img
+        src="@/assets/img/home/card-orange.webp"
+        alt="ALL-in Mentoring"
+        class="card-corner"
+      />
+    </v-card>
 
     <!-- CV Builder  -->
-    <div
+    <v-card
       v-if="feature_name == 'essay'"
       class="card content-card bg-primary shadow"
       lazy="loading"
@@ -54,10 +64,15 @@
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>
-    </div>
+      <img
+        src="@/assets/img/home/card-orange.webp"
+        alt="ALL-in Mentoring"
+        class="card-corner"
+      />
+    </v-card>
 
     <!-- Academic Tutoring  -->
-    <div
+    <v-card
       v-if="feature_name == 'acad'"
       class="card content-card bg-secondary shadow"
       lazy="loading"
@@ -72,10 +87,15 @@
         </div>
         <button class="btn btn-allin bg-primary mt-3">Explore Now!</button>
       </div>
-    </div>
+      <img
+        src="@/assets/img/home/card-blue.webp"
+        alt="ALL-in Mentoring"
+        class="card-corner"
+      />
+    </v-card>
 
     <!-- SAT  -->
-    <div
+    <v-card
       v-if="feature_name == 'sat'"
       class="card content-card bg-primary shadow"
       lazy="loading"
@@ -90,7 +110,12 @@
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>
-    </div>
+      <img
+        src="@/assets/img/home/card-orange.webp"
+        alt="ALL-in Mentoring"
+        class="card-corner"
+      />
+    </v-card>
   </div>
 </template>
 <script>
@@ -102,6 +127,28 @@ export default {
 };
 </script>
 <style scoped>
+h3 {
+  margin-bottom: 30px !important;
+}
+
+.bg-primary {
+  background: rgb(34, 56, 114) !important;
+  background: linear-gradient(
+    35deg,
+    rgba(34, 56, 114, 1) 0%,
+    rgba(70, 99, 173, 1) 59%
+  ) !important;
+}
+
+.bg-secondary {
+  background: rgb(240, 171, 84) !important;
+  background: linear-gradient(
+    35deg,
+    rgba(240, 171, 84, 1) 0%,
+    rgba(254, 205, 142, 1) 59%
+  ) !important;
+}
+
 .content-card {
   border-radius: 10px;
   padding: 10px 20px;
@@ -112,16 +159,21 @@ export default {
 
 .content-title {
   font-weight: 600;
-  width: 30%;
+  width: 50%;
   margin-bottom: 20px;
+  font-size: 2em;
 }
 
 .content-desc {
-  width: 60%;
+  font-size: 1.2em;
+  width: 80%;
 }
 
-div[lazy="loading"] {
-  background: red;
+.card-corner {
+  position: absolute;
+  width: 30% !important;
+  bottom: -1px;
+  right: -1px;
 }
 
 @media only screen and (max-width: 800px) {

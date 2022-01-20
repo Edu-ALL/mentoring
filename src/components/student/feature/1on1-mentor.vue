@@ -2,23 +2,23 @@
   <div id="1on1">
     <h2 class="content-title">1-on-1 Mentoring</h2>
     <Splide :options="options">
-      <SplideSlide v-for="i in 10" :key="i">
+      <SplideSlide v-for="(i, index) in mentor" :key="index">
         <div class="card pointer shadow shadow-md border-0 h-100">
-          <div class="call-label" v-if="i % 2 == 0 && type == 'mentor-project'">
+          <div
+            class="call-label"
+            v-if="index % 2 == 0 && type == 'mentor-project'"
+          >
             Personal Project Only
           </div>
           <div class="card-body">
             <div class="img-call mb-2">
-              <img
-                v-lazy="'https://picsum.photos/id/' + i * 2 + '/200/200'"
-                alt="Mentoring"
-              />
+              <img :src="i.foto" alt="Mentoring" />
             </div>
-            <h5 class="call-name">Mentor Name {{ i }}</h5>
+            <h5 class="call-name">{{ i.name }}</h5>
             <p class="call-desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing
+              {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-success">
+            <button class="btn btn-allin btn-sm btn-success btn-call">
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -40,6 +40,28 @@ export default {
   },
   data() {
     return {
+      mentor: [
+        {
+          name: "Devi Kasih",
+          foto: require("@/assets/img/mentor/devi.webp"),
+          uni: "University of Pennsylvania",
+        },
+        {
+          name: "Nicholas Soepriatna",
+          foto: require("@/assets/img/mentor/nich.webp"),
+          uni: "Purdue University, University of Texas at Austin",
+        },
+        {
+          name: "Paul Edison",
+          foto: require("@/assets/img/mentor/paul.webp"),
+          uni: "UC Berkeley",
+        },
+        {
+          name: "Sharon Angela",
+          foto: require("@/assets/img/mentor/sharon.webp"),
+          uni: "Taipei Medical University",
+        },
+      ],
       options: {
         autoPlay: true,
         // type: "loop",
@@ -82,6 +104,12 @@ export default {
   height: auto;
   overflow: hidden;
   border-radius: 15px;
+  background: rgb(240, 171, 84);
+  background: linear-gradient(
+    180deg,
+    rgba(240, 171, 84, 1) 18%,
+    rgba(255, 242, 226, 1) 65%
+  );
 }
 
 .img-call img {
@@ -109,10 +137,18 @@ export default {
 .call-name {
   font-size: 1.3em;
   font-weight: bold;
-  color: #eaa464;
+  color: #dd8d41;
+  margin-bottom: 0px;
 }
 
 .call-desc {
   color: #223872;
+  margin-bottom: 50px;
+  line-height: 1.2;
+}
+
+.btn-call {
+  position: absolute;
+  bottom: 20px;
 }
 </style>

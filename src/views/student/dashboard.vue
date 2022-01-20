@@ -169,7 +169,7 @@
                 <!-- Uni Admission  -->
                 <transition name="fade">
                   <div v-if="tab == 'ua'">
-                    <v-uni-admission class="mb-4"></v-uni-admission>
+                    <!-- <v-uni-admission class="mb-4"></v-uni-admission> -->
                     <v-webinar class="mb-4" type="uni-prep"></v-webinar>
                     <v-call-mentor class="mb-4" type="mentor"></v-call-mentor>
                     <v-ex-card class="mb-4" feature_name="essay"></v-ex-card>
@@ -195,6 +195,7 @@
           </transition>
         </div>
       </div>
+      <img src="@/assets/img/home/homepage-1.png" class="dashboard-corner" />
     </div>
   </transition>
 </template>
@@ -209,7 +210,7 @@ import callAlumni from "@/components/student/feature/1on1-alumni";
 import Message from "@/components/student/feature/message";
 import exCard from "@/components/student/feature/ex-card";
 import Webinar from "@/components/student/feature/webinar";
-import uniAdmission from "@/components/student/feature/uni-admission";
+// import uniAdmission from "@/components/student/feature/uni-admission";
 
 export default {
   name: "dashboard",
@@ -222,7 +223,7 @@ export default {
     "v-message": Message,
     "v-ex-card": exCard,
     "v-webinar": Webinar,
-    "v-uni-admission": uniAdmission,
+    // "v-uni-admission": uniAdmission,
   },
   data() {
     return {
@@ -245,6 +246,23 @@ export default {
 </script>
 
 <style scoped>
+#dashboard {
+  padding-bottom: 40px;
+  min-height: 100vh;
+  background: rgb(197, 225, 242);
+  background: linear-gradient(
+    20deg,
+    rgba(197, 225, 242, 1) 0%,
+    rgba(255, 255, 255, 0.9668242296918768) 57%
+  );
+}
+
+.tabs-content {
+  border-radius: 0 0 15px 15px;
+  background: white;
+  padding-bottom: 40px !important;
+}
+
 .user-picture {
   width: 15em;
   height: 15em;
@@ -296,10 +314,22 @@ export default {
   transform: scale(1.2);
 }
 
+.dashboard-corner {
+  width: 50%;
+  position: absolute;
+  right: 0;
+  margin-top: -28%;
+  z-index: 98;
+}
+
 @media only screen and (max-width: 800px) {
   .user-desc {
     width: 100%;
     font-size: 1.1em;
+  }
+  .dashboard-corner {
+    width: 100%;
+    margin-top: -49%;
   }
 }
 </style>

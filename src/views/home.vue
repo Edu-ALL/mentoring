@@ -58,6 +58,10 @@
                       </button>
                     </div>
                   </div>
+                  <img
+                    src="@/assets/img/home/homepage-1.png"
+                    class="home-img"
+                  />
                 </div>
               </div>
             </div>
@@ -90,6 +94,10 @@
                       </button>
                     </div>
                   </div>
+                  <img
+                    src="@/assets/img/home/homepage-2.png"
+                    class="home-img"
+                  />
                 </div>
               </div>
             </div>
@@ -122,6 +130,10 @@
                       </button>
                     </div>
                   </div>
+                  <img
+                    src="@/assets/img/home/homepage-3.png"
+                    class="home-img"
+                  />
                 </div>
               </div>
             </div>
@@ -239,23 +251,45 @@ export default {
 <style>
 #section1 {
   height: 100vh;
-  background: #dedede;
+  background: rgb(197, 225, 242);
+  background: linear-gradient(
+    20deg,
+    rgba(197, 225, 242, 1) 0%,
+    rgba(255, 255, 255, 0.9668242296918768) 57%
+  );
 }
 
 #section2 {
   height: 100vh;
-  background: #fff;
+  background: rgb(197, 225, 242);
+  background: linear-gradient(
+    20deg,
+    rgba(197, 225, 242, 1) 0%,
+    rgba(255, 255, 255, 0.9668242296918768) 57%
+  );
 }
 
 #section3 {
   height: 100vh;
-  background: rgb(201, 206, 255);
+  background: rgb(197, 225, 242);
+  background: linear-gradient(
+    20deg,
+    rgba(197, 225, 242, 1) 0%,
+    rgba(255, 255, 255, 0.9668242296918768) 57%
+  );
 }
 
 .home-logo {
   width: 250px;
   object-fit: cover;
   margin-bottom: 20px;
+}
+
+.home-img {
+  position: absolute;
+  bottom: 0;
+  right: -15px;
+  width: 70% !important;
 }
 
 .home-title {
@@ -267,7 +301,7 @@ export default {
 }
 
 .home-desc {
-  width: 70%;
+  width: 60%;
   font-size: 1.2em;
   font-weight: normal;
   margin-bottom: 3%;

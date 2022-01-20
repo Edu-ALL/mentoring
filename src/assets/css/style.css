@@ -77,3 +77,10 @@ input.bday[read-only] {
     color: #223872;
     font-weight: bold;
 }
+
+img[lazy="loading"] {
+    background: #adadad;
+    background-image: url("~@/assets/img/img.webp");
+    object-fit: 100%;
+    background-position: center;
+}

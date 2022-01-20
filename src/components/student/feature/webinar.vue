@@ -7,7 +7,7 @@
           <iframe
             lazy="loading"
             width="100%"
-            height="200"
+            height="100%"
             :src="
               i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
             "
@@ -27,7 +27,7 @@
           <iframe
             lazy="loading"
             width="100%"
-            height="200"
+            height="100%"
             :src="
               i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
             "
@@ -47,7 +47,7 @@
           <iframe
             lazy="loading"
             width="100%"
-            height="200"
+            height="100%"
             :src="
               i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
             "
@@ -99,8 +99,15 @@ export default {
   created() {},
 };
 </script>
+<style>
+.splide__list {
+  padding: 20px 0 !important;
+}
+</style>
 <style scoped>
 iframe {
+  width: 100% !important;
+  height: 20em;
   border-radius: 10px;
   border: none;
   box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
@@ -121,6 +128,15 @@ iframe {
 }
 
 iframe[lazy="loading"] {
-  background: url("https://dummyimage.com/600x150/f5f5f5/ededed&text=Loading");
+  background: #adadad;
+  background-image: url("~@/assets/img/video.webp");
+  object-fit: cover;
+  background-position: center;
+}
+
+@media only screen and (max-width: 800px) {
+  iframe {
+    height: 9em;
+  }
 }
 </style>
