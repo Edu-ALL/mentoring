@@ -316,9 +316,10 @@ export default {
 
 .dashboard-corner {
   width: 50%;
-  position: absolute;
-  right: 0;
-  margin-top: -28%;
+  position: relative;
+  margin-top: -20%;
+  margin-bottom: -40px;
+  left: 50%;
   z-index: 98;
 }
 
@@ -329,7 +330,8 @@ export default {
   }
   .dashboard-corner {
     width: 100%;
-    margin-top: -49%;
+    left: 0%;
+    margin-top: -40%;
   }
 }
 </style>
