@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/home.vue'
+import userDashboard from '../views/student/dashboard'
 
 const routes = [
   {
@@ -18,19 +19,22 @@ const routes = [
   {
     path: '/user/',
     name: 'userDashboard',
-    component: () => import('../views/student/dashboard')
+    component: userDashboard
+    // component: () => import('../views/student/dashboard')
   },
 
   {
     path: '/user/:page',
     name: 'userDashboardPage',
-    component: () => import('../views/student/dashboard')
+    component: userDashboard
+    // component: () => import('../views/student/dashboard')
   },
 
   {
     path: '/test',
     name: 'test',
-    component: () => import('../views/old-home')
+    component: Home
+    // component: () => import('../views/old-home')
   },
 
 
