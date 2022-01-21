@@ -89,7 +89,7 @@ export default {
 }
 
 .card-img {
-  height: auto;
+  height: 300px;
   overflow: hidden;
   border-radius: 15px;
 }
@@ -122,5 +122,11 @@ export default {
   font-size: 12px;
   font-weight: bold;
   border-radius: 0 0 15px 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .card-img {
+    height: 150px;
+  }
 }
 </style>

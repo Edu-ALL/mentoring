@@ -79,8 +79,9 @@ input.bday[read-only] {
 }
 
 img[lazy="loading"] {
-    background: #adadad;
     background-image: url("~@/assets/img/img.webp");
     object-fit: 100%;
     background-position: center;
+    transform: scale(0.5);
+
 }

@@ -103,6 +103,7 @@
                   </div>
                 </div>
               </div>
+              <div class="col-12" style="height: 20vh"></div>
             </div>
           </transition>
 
@@ -162,6 +163,8 @@
                     ></v-call-mentor>
                     <v-ex-card class="mb-4" feature_name="cv-builder">
                     </v-ex-card>
+                    <v-ex-card class="mb-4" feature_name="internship">
+                    </v-ex-card>
                     <v-message></v-message>
                   </div>
                 </transition>
@@ -169,7 +172,7 @@
                 <!-- Uni Admission  -->
                 <transition name="fade">
                   <div v-if="tab == 'ua'">
-                    <!-- <v-uni-admission class="mb-4"></v-uni-admission> -->
+                    <v-uni-admission class="mb-4"></v-uni-admission>
                     <v-webinar class="mb-4" type="uni-prep"></v-webinar>
                     <v-call-mentor class="mb-4" type="mentor"></v-call-mentor>
                     <v-ex-card class="mb-4" feature_name="essay"></v-ex-card>
@@ -210,7 +213,7 @@ import callAlumni from "@/components/student/feature/1on1-alumni";
 import Message from "@/components/student/feature/message";
 import exCard from "@/components/student/feature/ex-card";
 import Webinar from "@/components/student/feature/webinar";
-// import uniAdmission from "@/components/student/feature/uni-admission";
+import uniAdmission from "@/components/student/feature/uni-admission";
 
 export default {
   name: "dashboard",
@@ -223,7 +226,7 @@ export default {
     "v-message": Message,
     "v-ex-card": exCard,
     "v-webinar": Webinar,
-    // "v-uni-admission": uniAdmission,
+    "v-uni-admission": uniAdmission,
   },
   data() {
     return {
@@ -247,7 +250,7 @@ export default {
 
 <style scoped>
 #dashboard {
-  padding-bottom: 40px;
+  padding-bottom: 10px;
   min-height: 100vh;
   background: rgb(197, 225, 242);
   background: linear-gradient(
@@ -288,6 +291,8 @@ export default {
   cursor: pointer;
   transition: all 0.6s ease-in-out;
   color: #223872;
+  position: relative;
+  z-index: 99;
 }
 
 .card-main:hover {
@@ -305,6 +310,7 @@ export default {
 }
 
 .user-main-picture {
+  height: 150px;
   width: 100%;
   transition: transform 0.5s ease;
   object-fit: cover;
@@ -317,7 +323,7 @@ export default {
 .dashboard-corner {
   width: 50%;
   position: relative;
-  margin-top: -20%;
+  margin-top: -31%;
   margin-bottom: -40px;
   left: 50%;
   z-index: 98;

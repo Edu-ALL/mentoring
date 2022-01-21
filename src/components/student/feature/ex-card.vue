@@ -48,7 +48,30 @@
       />
     </v-card>
 
-    <!-- CV Builder  -->
+    <!-- Internship  -->
+    <v-card
+      v-if="feature_name == 'internship'"
+      class="card content-card bg-primary shadow"
+      lazy="loading"
+    >
+      <div class="card-body">
+        <h3 class="content-title text-white">Internship</h3>
+        <div class="content-desc text-white">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
+          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
+          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
+          autem, voluptatum voluptas.
+        </div>
+        <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
+      </div>
+      <img
+        src="@/assets/img/home/card-orange.webp"
+        alt="ALL-in Mentoring"
+        class="card-corner"
+      />
+    </v-card>
+
+    <!-- Essay  -->
     <v-card
       v-if="feature_name == 'essay'"
       class="card content-card bg-primary shadow"

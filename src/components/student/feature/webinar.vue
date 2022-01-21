@@ -3,7 +3,7 @@
     <div v-if="type == 'career'">
       <h2 class="content-title">Career Industry Webinar</h2>
       <Splide :options="options">
-        <SplideSlide v-for="i in playlist" :key="i">
+        <SplideSlide v-for="i in career_webinar" :key="i">
           <iframe
             lazy="loading"
             width="100%"
@@ -23,7 +23,7 @@
     <div v-if="type == 'uni-prep'">
       <h2 class="content-title">University Preparation Webinar</h2>
       <Splide :options="options">
-        <SplideSlide v-for="i in playlist" :key="i">
+        <SplideSlide v-for="i in uniprep_webinar" :key="i">
           <iframe
             lazy="loading"
             width="100%"
@@ -69,15 +69,32 @@ export default {
   },
   data() {
     return {
-      playlist: [
+      uniprep_webinar: [
+        "https://youtube.com/embed/mHA4BxZTXlk",
+        "https://youtube.com/embed/XksK1_YWZhU",
+        "https://youtube.com/embed/gio1Z7rXiAY",
+        "https://youtube.com/embed/j7hGVxciCYg",
+      ],
+      career_webinar: [
+        "https://youtube.com/embed/PQTG3xcNW_o",
         "https://www.youtube.com/embed/BDNf_pWDKGc",
         "https://www.youtube.com/embed/KMIvfZWJjn0",
         "https://www.youtube.com/embed/Em3Rtgb7uNw",
+      ],
+      playlist: [
+        "https://www.youtube.com/embed/Em3Rtgb7uNw",
+        "https://youtube.com/embed/XksK1_YWZhU",
+        "https://www.youtube.com/embed/BDNf_pWDKGc",
+        "https://youtube.com/embed/gio1Z7rXiAY",
+        "https://www.youtube.com/embed/KMIvfZWJjn0",
+        "https://youtube.com/embed/j7hGVxciCYg",
         "https://www.youtube.com/embed/PQTG3xcNW_o",
+        "https://youtube.com/embed/mHA4BxZTXlk",
       ],
       options: {
         autoPlay: true,
-        // type: "loop",
+        type: "loop",
+        focus: "center",
         arrows: true,
         pagination: false,
         width: "100%",
