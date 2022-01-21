@@ -10,21 +10,27 @@ const routes = [
 
   {
     path: '/reset/:token',
-    name: 'Page',
+    name: 'Reset',
     component: Home,
   },
 
 
   {
-    path: '/user',
-    name: 'user_dashboard',
+    path: '/user/',
+    name: 'userDashboard',
     component: () => import('../views/student/dashboard')
   },
 
   {
     path: '/user/:page',
-    name: 'user_dashboard_page',
+    name: 'userDashboardPage',
     component: () => import('../views/student/dashboard')
+  },
+
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/old-home')
   },
 
 
