@@ -330,6 +330,10 @@ export default {
 }
 
 @media only screen and (max-width: 800px) {
+  #dashboard {
+    padding-bottom: 0;
+  }
+
   .user-desc {
     width: 100%;
     font-size: 1.1em;
@@ -337,7 +341,8 @@ export default {
   .dashboard-corner {
     width: 100%;
     left: 0%;
-    margin-top: -40%;
+    margin-top: -400px;
+    margin-bottom: -165px;
   }
 }
 </style>

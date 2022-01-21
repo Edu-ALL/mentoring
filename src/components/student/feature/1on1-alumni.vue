@@ -36,20 +36,22 @@ export default {
     return {
       options: {
         autoPlay: true,
-        // type: "loop",
+        focus: "center",
         arrows: false,
         pagination: false,
         width: "100%",
         perPage: 4,
         gap: 20,
-        padding: { left: "0", right: "4rem" },
+        padding: { left: "0", right: "10rem" },
         breakpoints: {
           800: {
             perPage: 2,
           },
           640: {
+            focus: "center",
+            type: "loop",
             perPage: 1,
-            padding: { left: "0", right: "2rem" },
+            padding: { left: "2rem", right: "2rem" },
           },
         },
       },

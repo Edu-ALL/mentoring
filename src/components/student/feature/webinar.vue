@@ -95,8 +95,8 @@ export default {
         autoPlay: true,
         type: "loop",
         focus: "center",
-        arrows: true,
-        pagination: false,
+        arrows: false,
+        pagination: true,
         width: "100%",
         perPage: 2,
         gap: 20,
@@ -107,7 +107,7 @@ export default {
           },
           640: {
             perPage: 1,
-            padding: { left: "0", right: "1rem" },
+            padding: { left: "0", right: "0" },
           },
         },
       },
@@ -116,11 +116,6 @@ export default {
   created() {},
 };
 </script>
-<style>
-.splide__list {
-  padding: 20px 0 !important;
-}
-</style>
 <style scoped>
 iframe {
   width: 100% !important;
@@ -130,6 +125,7 @@ iframe {
   box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
+  transition: all 0.3s ease-in-out;
 }
 
 .label-webinar {
@@ -145,7 +141,6 @@ iframe {
 }
 
 iframe[lazy="loading"] {
-  background: #adadad;
   background-image: url("~@/assets/img/video.webp");
   object-fit: cover;
   background-position: center;

@@ -15,7 +15,6 @@ const routes = [
     component: Home,
   },
 
-
   {
     path: '/user/:page?',
     name: 'userDashboard',
@@ -23,12 +22,6 @@ const routes = [
     // component: () => import('../views/student/dashboard')
   },
 
-  // {
-  //   path: '/user/page/:page',
-  //   name: 'userDashboardPage',
-  //   component: userDashboard
-  //   // component: () => import('../views/student/dashboard')
-  // },
 
 ]
 

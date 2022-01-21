@@ -13,10 +13,15 @@
           @click="showMenu"
         ></vue-feather>
         <div
-          class="navbar-overlay d-md-none d-block"
+          :class="
+            menu
+              ? 'navbar-overlay transform d-md-none d-block'
+              : 'navbar-overlay transform-active d-md-none d-block'
+          "
           v-if="menu"
           @click="menu = false"
         ></div>
+
         <div class="navbar-title d-md-none d-block" v-if="menu">MENU</div>
         <vue-feather
           type="x"

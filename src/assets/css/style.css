@@ -85,3 +85,20 @@ img[lazy="loading"] {
     transform: scale(0.5);
 
 }
+
+.splide__slide {
+    margin-bottom: 40px !important;
+}
+
+
+.splide__list {
+    margin-bottom: 40px !important;
+}
+
+.splide__pagination__page {
+    background: #3e5ba3 !important;
+}
+
+.splide__pagination__page.is-active {
+    background: #f0ab54 !important;
+}

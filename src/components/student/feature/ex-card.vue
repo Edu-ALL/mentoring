@@ -150,6 +150,10 @@ export default {
 };
 </script>
 <style scoped>
+v-card {
+  margin-bottom: 40px !important;
+}
+
 h3 {
   margin-bottom: 30px !important;
 }
