@@ -4,7 +4,7 @@ import userDashboard from '../views/student/dashboard'
 
 const routes = [
   {
-    path: '/',
+    path: '/test',
     name: 'Home',
     component: Home
   },
