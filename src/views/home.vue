@@ -238,7 +238,7 @@ export default {
     },
   },
   created() {
-    if (this.$route.params.page && this.$route.params.token) {
+    if (this.$route.params.token) {
       this.checkReset();
     }
 

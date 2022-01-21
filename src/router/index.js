@@ -4,7 +4,7 @@ import userDashboard from '../views/student/dashboard'
 
 const routes = [
   {
-    path: '/test',
+    path: '/',
     name: 'Home',
     component: Home
   },
@@ -17,26 +17,18 @@ const routes = [
 
 
   {
-    path: '/user/',
+    path: '/user/:page?',
     name: 'userDashboard',
     component: userDashboard
     // component: () => import('../views/student/dashboard')
   },
 
-  {
-    path: '/user/:page',
-    name: 'userDashboardPage',
-    component: userDashboard
-    // component: () => import('../views/student/dashboard')
-  },
-
-  {
-    path: '/test',
-    name: 'test',
-    component: Home
-    // component: () => import('../views/old-home')
-  },
-
+  // {
+  //   path: '/user/page/:page',
+  //   name: 'userDashboardPage',
+  //   component: userDashboard
+  //   // component: () => import('../views/student/dashboard')
+  // },
 
 ]
 
