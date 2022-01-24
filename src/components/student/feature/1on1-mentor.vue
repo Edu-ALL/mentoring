@@ -173,7 +173,7 @@ export default {
 
 .call-desc {
   color: #223872;
-  margin-bottom: 35px;
+  margin-bottom: 45px;
   line-height: 1.2;
 }
 
