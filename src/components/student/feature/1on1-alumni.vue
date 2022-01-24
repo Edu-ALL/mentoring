@@ -2,20 +2,17 @@
   <div id="1on1">
     <h2 class="content-title">1-on-1 with Existing University Students</h2>
     <Splide :options="options">
-      <SplideSlide v-for="i in 4" :key="i">
+      <SplideSlide v-for="i in alumni" :key="i">
         <div class="card pointer shadow shadow-md border-0 h-100">
           <div class="card-body">
             <div class="img-call mb-2">
-              <img
-                v-lazy="'https://picsum.photos/id/' + i * 32 + '/200/200'"
-                alt="Existing Univ Student"
-              />
+              <img v-lazy="i.photo" />
             </div>
-            <h5 class="call-name">Students Name {{ i }}</h5>
+            <h5 class="call-name">{{ i.name }}</h5>
             <p class="call-desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing
+              {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-success">
+            <button class="btn btn-allin btn-sm btn-call bg-secondary">
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -55,6 +52,33 @@ export default {
           },
         },
       },
+      alumni: [
+        {
+          name: "Stanislas Alysha Wang",
+          uni: "SC School of Cinematics Art - Cinematic Film and TV Production",
+          photo: require("@/assets/img/alumni/alysha.webp"),
+        },
+        {
+          name: "Valencia Kandila",
+          uni: "University of Pennsylvania - Neuroscience",
+          photo: require("@/assets/img/alumni/valencia.webp"),
+        },
+        {
+          name: "Kelly Bajuadji",
+          uni: "New York University - Psychology",
+          photo: require("@/assets/img/alumni/kelly.webp"),
+        },
+        {
+          name: "Darren Lee",
+          uni: "UC Berkeley - Political Science",
+          photo: require("@/assets/img/alumni/darren.webp"),
+        },
+        {
+          name: "Anushka Daruka",
+          uni: "Simon Fraser University - Business",
+          photo: require("@/assets/img/alumni/anushka.webp"),
+        },
+      ],
     };
   },
   created() {},
@@ -75,6 +99,12 @@ export default {
 }
 
 .img-call {
+  background: rgb(117, 107, 248);
+  background: linear-gradient(
+    180deg,
+    rgb(112, 109, 252) 18%,
+    rgba(69, 66, 235, 0.39) 65%
+  );
   height: auto;
   overflow: hidden;
   border-radius: 15px;
@@ -96,6 +126,13 @@ export default {
 }
 
 .call-desc {
+  margin-bottom: 50px;
   color: #4d4d4d;
+  line-height: 1.2;
+}
+
+.btn-call {
+  position: absolute !important;
+  bottom: 20px !important;
 }
 </style>

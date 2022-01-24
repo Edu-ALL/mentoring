@@ -4,10 +4,7 @@
     <Splide :options="options">
       <SplideSlide v-for="(i, index) in mentor" :key="index">
         <div class="card pointer shadow shadow-md border-0 h-100">
-          <div
-            class="call-label"
-            v-if="index % 2 == 0 && type == 'mentor-project'"
-          >
+          <div class="call-label" v-if="i.type && type == 'mentor-project'">
             Personal Project Only
           </div>
           <div class="card-body">
@@ -45,21 +42,49 @@ export default {
           name: "Devi Kasih",
           foto: require("@/assets/img/mentor/devi.webp"),
           uni: "University of Pennsylvania",
+          type: "",
         },
         {
           name: "Nicholas Soepriatna",
           foto: require("@/assets/img/mentor/nich.webp"),
           uni: "Purdue University, University of Texas at Austin",
+          type: "",
         },
         {
           name: "Paul Edison",
           foto: require("@/assets/img/mentor/paul.webp"),
           uni: "UC Berkeley",
+          type: "",
         },
         {
           name: "Sharon Angela",
           foto: require("@/assets/img/mentor/sharon.webp"),
           uni: "Taipei Medical University",
+          type: "",
+        },
+        {
+          name: "Ivana Rachmawati",
+          foto: require("@/assets/img/mentor/ivana.webp"),
+          uni: "Harvard University",
+          type: "project",
+        },
+        {
+          name: "Michael Kurniawan",
+          foto: require("@/assets/img/mentor/michael.webp"),
+          uni: "Carnegie Mellon University, Nanyang Technological University",
+          type: "project",
+        },
+        {
+          name: "Jane Tjahjono",
+          foto: require("@/assets/img/mentor/jane.webp"),
+          uni: "Harvard Kennedy School",
+          type: "project",
+        },
+        {
+          name: "Farand Anugerah",
+          foto: require("@/assets/img/mentor/farand.webp"),
+          uni: "Shanghai Jiaotong University, Harvard Business School",
+          type: "project",
         },
       ],
       options: {
