@@ -141,8 +141,9 @@ iframe {
 }
 
 iframe[lazy="loading"] {
-  background-image: url("~@/assets/img/video.webp");
-  object-fit: cover;
+  background-image: url("~@/assets/img/loading.gif");
+  background-size: 30%;
+  background-repeat: no-repeat;
   background-position: center;
 }
 

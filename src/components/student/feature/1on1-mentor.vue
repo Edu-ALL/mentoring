@@ -4,7 +4,10 @@
     <Splide :options="options">
       <SplideSlide v-for="(i, index) in mentor" :key="index">
         <div class="card pointer shadow shadow-md border-0 h-100">
-          <div class="call-label" v-if="i.type && type == 'mentor-project'">
+          <div
+            class="call-label"
+            v-if="i.type == 'project' && type == 'mentor-project'"
+          >
             Personal Project Only
           </div>
           <div class="card-body">
@@ -170,7 +173,7 @@ export default {
 
 .call-desc {
   color: #223872;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   line-height: 1.2;
 }
 

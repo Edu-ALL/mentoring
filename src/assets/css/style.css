@@ -79,11 +79,10 @@ input.bday[read-only] {
 }
 
 img[lazy="loading"] {
-    background-image: url("~@/assets/img/img.webp");
-    object-fit: 100%;
+    background-image: url("~@/assets/img/loading.gif");
+    background-size: 30%;
+    background-repeat: no-repeat;
     background-position: center;
-    transform: scale(0.5);
-
 }
 
 .splide__slide {
@@ -92,7 +91,7 @@ img[lazy="loading"] {
 
 
 .splide__list {
-    margin-bottom: 40px !important;
+    /* margin-bottom: 40px !important; */
 }
 
 .splide__pagination__page {
