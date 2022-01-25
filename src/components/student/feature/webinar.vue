@@ -4,18 +4,21 @@
       <h2 class="content-title">Career Industry Webinar</h2>
       <Splide :options="options">
         <SplideSlide v-for="i in career_webinar" :key="i">
-          <iframe
-            lazy="loading"
-            width="100%"
-            height="100%"
-            :src="
-              i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
-            "
-            title="YouTube video player"
-            frameborder="1"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <div class="frame">
+            <iframe
+              lazy="loading"
+              width="100%"
+              height="100%"
+              :src="
+                i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
+              "
+              title="YouTube video player"
+              frameborder="1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            <div class="frame-overlay">View More</div>
+          </div>
         </SplideSlide>
       </Splide>
     </div>
@@ -142,9 +145,22 @@ iframe {
 
 iframe[lazy="loading"] {
   background-image: url("~@/assets/img/loading.gif");
-  background-size: 30%;
+  background-size: 8%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.frame-overlay {
+  position: absolute;
+  top: 0;
+  padding: 25%;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background: #1a2e63cc;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 800px) {

@@ -85,7 +85,8 @@ export default {
   transition: transform 0.5s ease;
 }
 
-.img-call img:hover {
+.img-call img:hover,
+.card:hover .img-call img {
   transform: scale(1.1);
 }
 

@@ -99,7 +99,8 @@ export default {
   transition: transform 0.5s ease;
 }
 
-.card-img img:hover {
+.card-img img:hover,
+.card:hover .card-img img {
   transform: scale(1.1);
 }
 

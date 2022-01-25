@@ -80,7 +80,7 @@ input.bday[read-only] {
 
 img[lazy="loading"] {
     background-image: url("~@/assets/img/loading.gif");
-    background-size: 30%;
+    background-size: 8%;
     background-repeat: no-repeat;
     background-position: center;
 }
