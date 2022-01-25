@@ -27,18 +27,21 @@
       <h2 class="content-title">University Preparation Webinar</h2>
       <Splide :options="options">
         <SplideSlide v-for="i in uniprep_webinar" :key="i">
-          <iframe
-            lazy="loading"
-            width="100%"
-            height="100%"
-            :src="
-              i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
-            "
-            title="YouTube video player"
-            frameborder="1"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <div class="frame">
+            <iframe
+              lazy="loading"
+              width="100%"
+              height="100%"
+              :src="
+                i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
+              "
+              title="YouTube video player"
+              frameborder="1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            <div class="frame-overlay">View More</div>
+          </div>
         </SplideSlide>
       </Splide>
     </div>
@@ -47,18 +50,21 @@
       <h2 class="content-title">ALL-in Webinar</h2>
       <Splide :options="options">
         <SplideSlide v-for="i in playlist" :key="i">
-          <iframe
-            lazy="loading"
-            width="100%"
-            height="100%"
-            :src="
-              i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
-            "
-            title="YouTube video player"
-            frameborder="1"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <div class="frame">
+            <iframe
+              lazy="loading"
+              width="100%"
+              height="100%"
+              :src="
+                i + '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
+              "
+              title="YouTube video player"
+              frameborder="1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            <div class="frame-overlay">View More</div>
+          </div>
         </SplideSlide>
       </Splide>
     </div>
@@ -151,16 +157,24 @@ iframe[lazy="loading"] {
 }
 
 .frame-overlay {
+  border-radius: 15px;
   position: absolute;
   top: 0;
+  width: 100%;
   padding: 25%;
   text-align: center;
-  width: 100%;
-  height: 100%;
-  background: #1a2e63cc;
-  font-weight: bold;
+  background: #1a2d63d5;
+  opacity: 0;
   font-size: 18px;
+  font-weight: bold;
+  height: 100%;
+  color: #fff;
   cursor: pointer;
+  transition: all 0.4s ease-in;
+}
+
+.frame:hover .frame-overlay {
+  opacity: 1;
 }
 
 @media only screen and (max-width: 800px) {
