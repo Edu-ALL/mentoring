@@ -8,7 +8,7 @@
     >
       <div class="card-body">
         <h3 class="content-title text-white">
-          Explore More Career Path with Us!
+          Explore More Career Paths with Us!
         </h3>
         <div class="content-desc text-white">
           Still looking to find a career that matches your passion and goal in
