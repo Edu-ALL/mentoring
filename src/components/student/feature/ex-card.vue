@@ -11,10 +11,13 @@
           Explore More Career Path with Us!
         </h3>
         <div class="content-desc text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
-          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
-          autem, voluptatum voluptas.
+          Still looking to find a career that matches your passion and goal in
+          the future? Let’s explore various career paths and job roles in
+          different industries with ALL-in!
+          <br />
+          Grasp the key and basic knowledge of each career and simulate yourself
+          on how to apply it through case studies. Come start to take a step on
+          your career exploration journey with the experts!
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>
@@ -34,10 +37,11 @@
       <div class="card-body">
         <h3 class="content-title text-white">Build your CV with Us!</h3>
         <div class="content-desc text-dark">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
-          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
-          autem, voluptatum voluptas.
+          Don’t underestimate the power of a CV! It’s important to give the
+          right impression to the employers through a well-endowed CV.
+          <br />
+          Make your potential shine! Construct your CV with ALL-in through
+          easy-to-follow steps.
         </div>
         <button class="btn btn-allin bg-primary mt-3">Explore Now!</button>
       </div>
@@ -57,10 +61,11 @@
       <div class="card-body">
         <h3 class="content-title text-white">Internship</h3>
         <div class="content-desc text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
-          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
-          autem, voluptatum voluptas.
+          Start off your career in the right way! Improve your skill set, expand
+          connections, and develop your career goal path through an internship.
+          <br />
+          Look for the best-fit internship positions offered by numerous
+          renowned companies right now!
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>
@@ -80,10 +85,11 @@
       <div class="card-body">
         <h3 class="content-title text-white">Editing Your Essay Better</h3>
         <div class="content-desc text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
-          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
-          autem, voluptatum voluptas.
+          If you want to make sure your essay is well-written and ready to be
+          submitted, take this one last step: edit your essay with help from
+          mentors and essay editors.
+          <br />
+          It’s safe and simple. Try it out!
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>
@@ -103,10 +109,12 @@
       <div class="card-body">
         <h3 class="content-title text-white">Academic Tutoring</h3>
         <div class="content-desc text-dark">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
-          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
-          autem, voluptatum voluptas.
+          Behold for the new way of tutoring! Not only this program will result
+          in a better academic score but there will be also major exploration at
+          the same time. Our experienced, IB and A level high achievers and
+          friendly mentors will bring you a real-life application learning
+          style, making sure that you will completely understand the concepts by
+          relating them to their life and having fun learning them.
         </div>
         <button class="btn btn-allin bg-primary mt-3">Explore Now!</button>
       </div>
@@ -126,10 +134,11 @@
       <div class="card-body">
         <h3 class="content-title text-white">SAT</h3>
         <div class="content-desc text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          rem reiciendis quas aspernatur magnam repudiandae quisquam repellat
-          quasi laboriosam libero id ipsum tempore quod doloremque rerum vero
-          autem, voluptatum voluptas.
+          Get the guidance to make your study session time-efficient, strategize
+          the learning by targeting weaknesses, have learning materials tailored
+          to your needs, learn on concept understanding, and get the drills to
+          improve your performance. Enroll in our semi-private or private SAT
+          Prep Class.
         </div>
         <button class="btn btn-allin bg-secondary mt-3">Explore Now!</button>
       </div>

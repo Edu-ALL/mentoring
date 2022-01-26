@@ -16,11 +16,17 @@ const routes = [
   },
 
   {
-    path: '/user/:page?',
+    path: '/user',
     name: 'userDashboard',
     component: userDashboard
     // component: () => import('../views/student/dashboard')
   },
+
+  {
+    path: '/user/:page',
+    name: 'userPage',
+    component: () => import('../views/student/page')
+  }
 
 
 ]

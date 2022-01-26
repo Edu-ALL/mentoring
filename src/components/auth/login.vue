@@ -48,13 +48,13 @@
             <strong> Sign In </strong>
           </button>
           <p class="mb-0">
-            Don't have an account?
+            Don't have an account? <br />
             <u
               class="text-secondary pointer"
               @click="this.$emit('show', 'register')"
               >Take our profile quiz</u
             >
-            now to create an account!
+            to create one!
           </p>
         </div>
       </form>

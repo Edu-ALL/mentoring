@@ -35,9 +35,7 @@
           :class="!menu ? 'd-none' : ''"
         >
           <ul>
-            <li @click="this.$router.push({ path: '/user/my-profile' })">
-              My Profile
-            </li>
+            <li @click="this.$router.push({ path: '/user' })">My Profile</li>
             <li @click="this.$router.push({ path: '/user/my-activity' })">
               My Activity
             </li>

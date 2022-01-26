@@ -9,7 +9,7 @@
         <div class="row align-items-center">
           <div class="col-md-3 text-md-start text-center">
             <img
-              v-lazy="'https://picsum.photos/id/6/400/250'"
+              src="@/assets/img/saeka.webp"
               class="user-picture"
               alt="ALL-in Mentoring"
             />
@@ -18,12 +18,54 @@
             <h5>Hello,</h5>
             <h2 class="user-name">Saeka</h2>
             <div class="user-desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad et
-              optio saepe amet minus.
+              <div class="d-md-flex d-block">
+                <div class="py-1 me-3">
+                  <vue-feather
+                    size="25"
+                    type="mail"
+                    class="float-start mt-md-1 me-2"
+                  ></vue-feather>
+                  saeka@all-inedu.com
+                </div>
+                <div class="py-1">
+                  <vue-feather
+                    size="25"
+                    type="phone"
+                    class="float-start mt-md-1 me-2"
+                  ></vue-feather>
+                  +62 8712492xxx
+                </div>
+              </div>
+              <div class="d-md-flex d-block">
+                <div class="py-1 me-3">
+                  <vue-feather
+                    type="facebook"
+                    stroke="blue"
+                    class="float-start mt-md-1 me-1"
+                  ></vue-feather>
+                  saeka
+                </div>
+                <div class="py-1 me-3">
+                  <vue-feather
+                    type="instagram"
+                    stroke="#DB554A"
+                    class="float-start mt-md-1 me-1"
+                  ></vue-feather>
+                  saeka
+                </div>
+                <div class="py-1">
+                  <vue-feather
+                    type="linkedin"
+                    stroke="#0A66C2"
+                    class="float-start mt-md-1 me-1"
+                  ></vue-feather>
+                  saeka
+                </div>
+              </div>
             </div>
-            <button class="btn btn-allin bg-primary mt-4">
+            <!-- <button class="btn btn-allin bg-primary mt-4">
               My Diagnostic Results
-            </button>
+            </button> -->
           </div>
         </div>
 
@@ -75,7 +117,7 @@
                   @click="tab = 'ua'"
                 >
                   <div class="card-body">
-                    <h5 class="user-main">Univeristy Admission</h5>
+                    <h5 class="user-main">University Admission</h5>
                     <div class="user-layout-picture">
                       <img
                         v-lazy="'https://picsum.photos/id/12/400/250'"
@@ -316,7 +358,8 @@ export default {
   object-fit: cover;
 }
 
-.user-main-picture:hover {
+.user-main-picture:hover,
+.card:hover .user-main-picture {
   transform: scale(1.2);
 }
 
@@ -336,7 +379,7 @@ export default {
 
   .user-desc {
     width: 100%;
-    font-size: 1.1em;
+    font-size: 1.2em;
   }
   .dashboard-corner {
     width: 100%;

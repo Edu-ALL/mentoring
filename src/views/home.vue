@@ -46,11 +46,18 @@
                     />
                     <h1 class="home-title">DARE TO DREAM</h1>
                     <h2 class="home-desc">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni beatae repudiandae quas consectetur et pariatur
-                      animi distinctio, error incidunt repellendus atque! Maxime
-                      dignissimos minima et laboriosam obcaecati, dolore magni
-                      ipsam!
+                      Here at ALL-in, we encourage you to dream big and set your
+                      future goal from this second, right now. So, to those who
+                      dare to dream: we’re here, going all in with our programs
+                      that touch all aspects needed to enter top universities:
+                      academic performance improvement, career and interest
+                      exploration, test preparation, and writing skills
+                      development.
+                      <br />
+                      <br />
+                      Let’s start to
+                      <div class="d-inline text-primary">#TakeOnYourFuture</div>
+                      with us!
                     </h2>
                     <div class="home-button">
                       <button class="btn btn-allin bg-secondary py-1">
@@ -59,7 +66,7 @@
                     </div>
                   </div>
                   <img
-                    src="@/assets/img/home/homepage-1.png"
+                    src="@/assets/img/home/homepage-1.webp"
                     class="home-img"
                   />
                 </div>
@@ -82,11 +89,9 @@
                       GLOBAL UNIVERSITY GRADUATE MENTORS
                     </h1>
                     <h2 class="home-desc">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni beatae repudiandae quas consectetur et pariatur
-                      animi distinctio, error incidunt repellendus atque! Maxime
-                      dignissimos minima et laboriosam obcaecati, dolore magni
-                      ipsam!
+                      Our mentors are graduates of the world’s top universities
+                      with various academic backgrounds and work experiences to
+                      provide tailored needs for our mentees.
                     </h2>
                     <div class="home-button">
                       <button class="btn btn-allin bg-secondary py-1">
@@ -95,7 +100,7 @@
                     </div>
                   </div>
                   <img
-                    src="@/assets/img/home/homepage-2.png"
+                    src="@/assets/img/home/homepage-2.webp"
                     class="home-img"
                   />
                 </div>
@@ -118,11 +123,13 @@
                       WEBINAR
                     </h1>
                     <h2 class="home-desc">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni beatae repudiandae quas consectetur et pariatur
-                      animi distinctio, error incidunt repellendus atque! Maxime
-                      dignissimos minima et laboriosam obcaecati, dolore magni
-                      ipsam!
+                      So far, we have held more than 100 webinars with topics
+                      around university application and career exploration,
+                      brought to you by ALL-in and company partners.
+                      <div class="text-primary mt-3">
+                        You can now conveniently watch our previous webinars
+                        here!
+                      </div>
                     </h2>
                     <div class="home-button">
                       <button class="btn btn-allin bg-secondary py-1">
@@ -131,7 +138,7 @@
                     </div>
                   </div>
                   <img
-                    src="@/assets/img/home/homepage-3.png"
+                    src="@/assets/img/home/homepage-3.webp"
                     class="home-img"
                   />
                 </div>
@@ -309,6 +316,10 @@ export default {
 
 .carousel-indicators [data-bs-target] {
   background-color: #223872 !important;
+}
+
+img[lazy="loading"] {
+  background-image: #dedede00;
 }
 
 @media only screen and (max-width: 600px) {
