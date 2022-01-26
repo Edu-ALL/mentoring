@@ -1,6 +1,12 @@
 <template>
   <div id="1on1">
     <h2 class="content-title">1-on-1 Mentoring</h2>
+    <h5 class="content-desc">
+      Have an individual session and get guidance on improving your skills
+      directly! <br />
+      Our top world’s universities graduate & experienced mentors are here,
+      ready to support you.
+    </h5>
     <Splide :options="options">
       <SplideSlide v-for="(i, index) in mentor" :key="index">
         <div class="card pointer shadow shadow-md border-0 h-100">

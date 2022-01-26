@@ -47,12 +47,13 @@
                     <h1 class="home-title">DARE TO DREAM</h1>
                     <h2 class="home-desc">
                       Here at ALL-in, we encourage you to dream big and set your
-                      future goal from this second, right now. So, to those who
-                      dare to dream: we’re here, going all in with our programs
-                      that touch all aspects needed to enter top universities:
-                      academic performance improvement, career and interest
-                      exploration, test preparation, and writing skills
-                      development.
+                      future goal from this second, right now.
+                      <br />
+                      So, to those who dare to dream: we’re here, going all in
+                      with our programs that touch all aspects needed to enter
+                      top universities: academic performance improvement, career
+                      and interest exploration, test preparation, and writing
+                      skills development.
                       <br />
                       <br />
                       Let’s start to

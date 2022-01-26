@@ -17,7 +17,10 @@
                   </div>
                 </div>
                 <div class="col text-end">
-                  <button class="btn btn-allin bg-primary float-end">
+                  <button
+                    class="btn btn-allin bg-primary float-end"
+                    @click="add = !add"
+                  >
                     Upload File
                     <vue-feather
                       type="upload"
@@ -28,61 +31,112 @@
                   <vue-feather
                     :type="grid ? 'list' : 'grid'"
                     @click="grid = !grid"
-                    class="float-end mt-1 me-2"
+                    class="float-end mt-1 me-2 pointer"
                   ></vue-feather>
                 </div>
               </div>
-              <!-- Grid  -->
-              <div class="row row-cols-md-5 row-cols-1 mt-1 g-2" v-if="grid">
-                <div class="col" v-for="i in 20" :key="i">
-                  <div class="card card-media" v-if="i % 2 == 0">
-                    <div class="card-image">
-                      <img
-                        src="https://picsum.photos/id/6/200/200"
-                        alt="Files"
-                        class="img"
-                      />
+
+              <div class="library-content" v-if="!add">
+                <!-- Grid  -->
+                <transition name="fade">
+                  <div
+                    class="row row-cols-md-5 row-cols-1 mt-1 g-2"
+                    v-if="grid"
+                  >
+                    <div class="col" v-for="i in 20" :key="i">
+                      <div class="card card-media" v-if="i % 2 == 0">
+                        <div class="card-image">
+                          <img
+                            src="https://picsum.photos/id/6/200/200"
+                            alt="Files"
+                            class="img"
+                          />
+                        </div>
+                        <div class="card-name">
+                          <vue-feather
+                            type="image"
+                            size="15"
+                            class="float-start mt-1 me-2"
+                          ></vue-feather>
+                          Image
+                        </div>
+                        <div class="card-overlay">Download</div>
+                      </div>
+                      <div class="card card-media" v-if="i % 2 == 1">
+                        <div class="card-image">
+                          <img
+                            src="~@/assets/img/docs.png"
+                            alt="Files"
+                            class="docs"
+                          />
+                        </div>
+                        <div class="card-name">
+                          <vue-feather
+                            type="file-text"
+                            size="15"
+                            class="float-start mt-1 me-2"
+                          ></vue-feather>
+                          Docs
+                        </div>
+                        <div class="card-overlay">Download</div>
+                      </div>
                     </div>
-                    <div class="card-name">
-                      <vue-feather
-                        type="image"
-                        size="15"
-                        class="float-start mt-1 me-2"
-                      ></vue-feather>
-                      Image
-                    </div>
-                    <div class="card-overlay">Download</div>
                   </div>
-                  <div class="card card-media" v-if="i % 2 == 1">
-                    <div class="card-image">
-                      <img
-                        src="~@/assets/img/docs.png"
-                        alt="Files"
-                        class="docs"
-                      />
+                </transition>
+
+                <!-- List  -->
+                <transition name="fade">
+                  <div class="row row-cols-1 mt-3 mx-2" v-if="!grid">
+                    <div
+                      class="col border-bottom py-2"
+                      v-for="i in 20"
+                      :key="i"
+                    >
+                      <div class="row">
+                        <div class="col">Documents Name</div>
+                        <div class="col text-end">12 Dec 2021</div>
+                      </div>
                     </div>
-                    <div class="card-name">
-                      <vue-feather
-                        type="file-text"
-                        size="15"
-                        class="float-start mt-1 me-2"
-                      ></vue-feather>
-                      Docs
-                    </div>
-                    <div class="card-overlay">Download</div>
                   </div>
-                </div>
+                </transition>
               </div>
 
-              <!-- List  -->
-              <div class="row row-cols-1 mt-3 mx-2" v-if="!grid">
-                <div class="col border-bottom">
-                  <div class="row">
-                    <div class="col">Documents Name</div>
-                    <div class="col text-end">12 Dec 2021</div>
+              <transition name="fade">
+                <div class="library-add" v-if="add">
+                  <div class="row justify-content-center">
+                    <div class="col-md-5">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="mb-3">
+                            <label>File Name</label>
+                            <input type="text" class="form-control" />
+                          </div>
+                          <div class="mb-3">
+                            <label>Category Name</label>
+                            <select class="form-control">
+                              <option value="">Category</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label>Upload File</label>
+                            <input type="file" class="form-control" />
+                          </div>
+                          <div class="float-start">
+                            <button class="btn btn-allin btn-outline-info">
+                              Cancel
+                            </button>
+                          </div>
+                          <div class="float-end">
+                            <button class="btn btn-allin bg-primary">
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </transition>
             </div>
           </div>
         </div>
@@ -95,6 +149,7 @@ export default {
   name: "files",
   data() {
     return {
+      add: false,
       grid: true,
     };
   },
@@ -153,5 +208,39 @@ export default {
 
 .file-search {
   border-radius: 15px;
+}
+
+.library-content {
+  height: 70vh;
+  padding: 0px 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+/* width */
+.library-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.library-content::-webkit-scrollbar-track {
+  background: rgb(202, 141, 49);
+  border-radius: 20px;
+}
+
+/* Handle */
+.library-content::-webkit-scrollbar-thumb {
+  background: rgb(26, 14, 99);
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+.library-content::-webkit-scrollbar-thumb:hover {
+  background: rgb(26, 14, 99);
+}
+
+.library-add {
+  margin: 5% 0;
 }
 </style>

@@ -78,6 +78,11 @@ input.bday[read-only] {
     font-weight: bold;
 }
 
+.content-desc {
+    font-weight: 100;
+    margin-bottom: 30px;
+}
+
 img[lazy="loading"] {
     background-image: url("~@/assets/img/loading.gif");
     background-size: 8%;

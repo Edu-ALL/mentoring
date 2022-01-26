@@ -1,6 +1,11 @@
 <template>
   <div id="1on1">
     <h2 class="content-title">1-on-1 with Essay Editors</h2>
+    <h5 class="content-desc">
+      Set a time to perfect your essay! Connect with our highly-experienced,
+      professional essay editors that could help to navigate your essay writing
+      process.
+    </h5>
     <Splide :options="options">
       <SplideSlide v-for="i in 4" :key="i">
         <div class="card pointer shadow shadow-md border-0 h-100">

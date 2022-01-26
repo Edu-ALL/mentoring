@@ -1,6 +1,12 @@
 <template>
   <div id="1on1">
     <h2 class="content-title">1-on-1 with Existing University Students</h2>
+    <h5 class="content-desc">
+      How is life in university? This is a question that can only be answered if
+      you’re going through it firsthand. Our mentees who are currently in their
+      undergraduate and graduate study are happy to talk personally with you and
+      give all the information based on their experience.
+    </h5>
     <Splide :options="options">
       <SplideSlide v-for="i in alumni" :key="i">
         <div class="card pointer shadow shadow-md border-0 h-100">
