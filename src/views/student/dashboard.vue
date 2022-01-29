@@ -8,11 +8,22 @@
       <div class="container mt-3">
         <div class="row align-items-center">
           <div class="col-md-3 text-md-start text-center">
-            <img
-              src="@/assets/img/saeka.webp"
-              class="user-picture"
-              alt="ALL-in Mentoring"
-            />
+            <div class="picture">
+              <div class="user-picture-overlay">
+                <div class="row align-items-center h-100">
+                  <div class="col text-center user-picture-font">
+                    <vue-feather type="camera" size="30"></vue-feather> <br />
+                    Change <br />
+                    Profile Picture
+                  </div>
+                </div>
+              </div>
+              <img
+                src="@/assets/img/saeka.webp"
+                class="user-picture"
+                alt="ALL-in Mentoring"
+              />
+            </div>
           </div>
           <div class="col-md-9 py-3">
             <h5>Hello,</h5>
@@ -313,6 +324,33 @@ export default {
   height: 15em;
   object-fit: cover;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.user-picture-overlay {
+  position: absolute;
+  width: 15em;
+  height: 15em;
+  margin-top: 40;
+  background: rgb(240, 171, 84);
+  background: linear-gradient(
+    180deg,
+    rgba(240, 171, 84, 1) 10%,
+    rgba(244, 200, 144, 1) 65%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.4s ease-in;
+}
+
+.picture:hover .user-picture-overlay {
+  opacity: 1 !important;
+  cursor: pointer;
+}
+
+.user-picture-font {
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .user-name {
@@ -382,11 +420,19 @@ export default {
     width: 100%;
     font-size: 1.2em;
   }
+
   .dashboard-corner {
     width: 100%;
     left: 0%;
     margin-top: -400px;
     margin-bottom: -165px;
+  }
+
+  .user-picture-overlay {
+    position: relative;
+    margin-bottom: -15em;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>
