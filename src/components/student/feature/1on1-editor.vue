@@ -7,20 +7,17 @@
       process.
     </h5>
     <Splide :options="options">
-      <SplideSlide v-for="i in 4" :key="i">
+      <SplideSlide v-for="i in editor" :key="i">
         <div class="card pointer shadow shadow-md border-0 h-100">
           <div class="card-body">
             <div class="img-call mb-2">
-              <img
-                v-lazy="'https://picsum.photos/id/' + i * 12 + '/200/200'"
-                alt="Essay Editor"
-              />
+              <img v-lazy="i.photo" />
             </div>
-            <h5 class="call-name">Editor Name {{ i }}</h5>
+            <h5 class="call-name">{{ i.name }}</h5>
             <p class="call-desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing
+              {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-success">
+            <button class="btn btn-allin btn-sm btn-success btn-call">
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -60,6 +57,28 @@ export default {
           },
         },
       },
+      editor: [
+        {
+          name: "Anushka Gupta",
+          photo: require("@/assets/img/editor/anushka.webp"),
+          uni: "Imperial College London",
+        },
+        {
+          name: "Alysha Manik",
+          photo: require("@/assets/img/editor/alysha.webp"),
+          uni: "University of Southern California",
+        },
+        {
+          name: "Keren",
+          photo: require("@/assets/img/editor/keren.webp"),
+          uni: "Royal Holloway, University of London",
+        },
+        {
+          name: "Fedora Gracia",
+          photo: require("@/assets/img/editor/fedora.webp"),
+          uni: "Monash University",
+        },
+      ],
     };
   },
   created() {},
@@ -83,6 +102,12 @@ export default {
   height: auto;
   overflow: hidden;
   border-radius: 15px;
+  background: rgb(86, 84, 240);
+  background: linear-gradient(
+    180deg,
+    rgba(86, 84, 240, 1) 10%,
+    rgba(102, 109, 201, 1) 65%
+  );
 }
 
 .img-call img {
@@ -103,5 +128,12 @@ export default {
 
 .call-desc {
   color: #a86629;
+  margin-bottom: 45px;
+  line-height: 1.2;
+}
+
+.btn-call {
+  position: absolute;
+  bottom: 20px;
 }
 </style>

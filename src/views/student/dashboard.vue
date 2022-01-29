@@ -103,7 +103,7 @@
                     <h5 class="user-main">Career Exploration</h5>
                     <div class="user-layout-picture">
                       <img
-                        v-lazy="'https://picsum.photos/id/34/400/250'"
+                        src="~@/assets/img/home/career-exp.jpeg"
                         alt="Career Exploration"
                         class="user-main-picture"
                       />
@@ -137,7 +137,7 @@
                     <h5 class="user-main">Life at University</h5>
                     <div class="user-layout-picture">
                       <img
-                        v-lazy="'https://picsum.photos/id/237/400/250'"
+                        src="~@/assets/img/home/life-at-uni.jpeg"
                         alt="Life at University"
                         class="user-main-picture"
                       />
@@ -334,6 +334,7 @@ export default {
   transition: all 0.6s ease-in-out;
   color: #223872;
   position: relative;
+  border-radius: 15px;
   z-index: 99;
 }
 

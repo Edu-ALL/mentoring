@@ -12,24 +12,25 @@
           class="navbar-icon d-md-none d-block float-end"
           @click="showMenu"
         ></vue-feather>
-        <div
-          :class="
-            menu
-              ? 'navbar-overlay transform d-md-none d-block'
-              : 'navbar-overlay transform-active d-md-none d-block'
-          "
-          v-if="menu"
-          @click="menu = false"
-        ></div>
 
-        <div class="navbar-title d-md-none d-block" v-if="menu">MENU</div>
-        <vue-feather
-          type="x"
-          class="navbar-close d-md-none d-block"
-          v-if="menu"
-          @click="menu = false"
-        >
-        </vue-feather>
+        <transition name="fade">
+          <div class="navbar-overlay" v-if="menu" @click="menu = false"></div>
+        </transition>
+
+        <transition name="fade">
+          <div class="navbar-title d-md-none d-block" v-if="menu">MENU</div>
+        </transition>
+
+        <transition name="fade">
+          <vue-feather
+            type="x"
+            class="navbar-close d-md-none d-block"
+            v-if="menu"
+            @click="menu = false"
+          >
+          </vue-feather>
+        </transition>
+
         <div
           class="navbar-menu d-md-inline-block"
           :class="!menu ? 'd-none' : ''"

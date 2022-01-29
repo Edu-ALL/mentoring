@@ -1,6 +1,5 @@
 .v-navbar {
     background: #223872;
-    /* padding: 15px 0; */
     color: white;
     vertical-align: middle;
 }
@@ -22,7 +21,7 @@
 }
 
 .navbar-menu ul li {
-    padding: 15px 15px;
+    padding: 25px 15px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
@@ -37,7 +36,7 @@
 }
 
 .navbar-button {
-    margin-top: 8px;
+    margin-top: 20px;
     float: right;
 }
 
@@ -49,16 +48,8 @@
     background: rgb(43, 43, 43);
     opacity: 0.97;
     width: 100%;
+    opacity: 1;
     height: 100%;
-}
-
-.transform {
-    transition: all 0.9s ease-out !important;
-}
-
-.transform-active {
-    filter: blur(1px) !important;
-    opacity: 0 !important;
 }
 
 @media only screen and (max-width: 800px) {

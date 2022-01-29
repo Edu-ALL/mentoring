@@ -59,7 +59,7 @@
       lazy="loading"
     >
       <div class="card-body">
-        <h3 class="content-title text-white">Internship</h3>
+        <h3 class="content-title text-white">Find & Land Internships</h3>
         <div class="content-desc text-white">
           Start off your career in the right way! Improve your skill set, expand
           connections, and develop your career goal path through an internship.

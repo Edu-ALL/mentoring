@@ -86,13 +86,16 @@
 
                 <!-- List  -->
                 <transition name="fade">
-                  <div class="row row-cols-1 mt-3 mx-2" v-if="!grid">
+                  <div
+                    class="row row-cols-1 mt-3 mx-2 align-items-center"
+                    v-if="!grid"
+                  >
                     <div
                       class="col border-bottom py-2"
                       v-for="i in 20"
                       :key="i"
                     >
-                      <div class="row">
+                      <div class="row align-items-center">
                         <div class="col">Documents Name</div>
                         <div class="col text-end">12 Dec 2021</div>
                       </div>
