@@ -97,7 +97,7 @@
                     <h5 class="user-main">Life Skill</h5>
                     <div class="user-layout-picture">
                       <img
-                        v-lazy="'https://picsum.photos/id/1/400/250'"
+                        src="~@/assets/img/home/life-skill.jpeg"
                         alt="Life Skill"
                         class="user-main-picture"
                       />
@@ -131,7 +131,7 @@
                     <h5 class="user-main">University Admission</h5>
                     <div class="user-layout-picture">
                       <img
-                        v-lazy="'https://picsum.photos/id/12/400/250'"
+                        src="~@/assets/img/home/uni-admission.jpeg"
                         alt="University Admission"
                         class="user-main-picture"
                       />

@@ -109,12 +109,12 @@
       <div class="card-body">
         <h3 class="content-title text-white">Academic Tutoring</h3>
         <div class="content-desc text-dark">
-          Behold for the new way of tutoring! Not only this program will result
-          in a better academic score but there will be also major exploration at
-          the same time. Our experienced, IB and A level high achievers and
-          friendly mentors will bring you a real-life application learning
-          style, making sure that you will completely understand the concepts by
-          relating them to their life and having fun learning them.
+          Come embrace the new way of a tutoring session. Not only this program
+          will result in a better academic score but there will be also major
+          exploration at the same time. Our experienced, IB and A level high
+          achievers and friendly mentors will bring you a real-life application
+          learning style, making sure that you will completely understand the
+          concepts by relating them to their life and having fun learning them.
         </div>
         <button class="btn btn-allin bg-primary mt-3">Explore Now!</button>
       </div>

@@ -86,7 +86,7 @@ export default {
 </script>
 <style>
 .splide__list {
-  padding: 20px !important;
+  padding: 20px 0 !important;
 }
 </style>
 <style scoped>

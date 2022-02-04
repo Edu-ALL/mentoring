@@ -32,7 +32,8 @@
 }
 
 .navbar-menu ul li.active {
-    background: #F0AB54;
+    background: #ffffff;
+    color: #223872;
 }
 
 .navbar-button {

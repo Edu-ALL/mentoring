@@ -4,7 +4,7 @@
     <h5 class="content-desc">
       Have an individual session and get guidance on improving your skills
       directly! <br />
-      Our top world’s universities graduate & experienced mentors are here,
+      Our top world’s universities graduate & accomplished mentors are here,
       ready to support you.
     </h5>
     <Splide :options="options">
@@ -72,6 +72,18 @@ export default {
           type: "",
         },
         {
+          name: "Eviana Misty",
+          foto: require("@/assets/img/mentor/evi.webp"),
+          uni: "Tarumanagara University",
+          type: "",
+        },
+        {
+          name: "Chiara Situmorang",
+          foto: require("@/assets/img/mentor/chiara.webp"),
+          uni: "University of Melbourne",
+          type: "",
+        },
+        {
           name: "Ivana Rachmawati",
           foto: require("@/assets/img/mentor/ivana.webp"),
           uni: "Harvard University",
@@ -124,7 +136,7 @@ export default {
 </script>
 <style>
 .splide__list {
-  padding: 20px !important;
+  padding: 20px 0 !important;
 }
 </style>
 <style scoped>
@@ -137,30 +149,39 @@ export default {
 }
 
 .img-call {
-  height: auto;
+  height: 210px;
   overflow: hidden;
   border-radius: 15px;
   background: rgb(240, 171, 84);
   background: linear-gradient(
     180deg,
     rgba(240, 171, 84, 1) 18%,
-    rgba(255, 242, 226, 1) 65%
+    rgb(255, 219, 174) 65%
   );
+  transition: all 10s ease-in;
+  object-fit: cover;
 }
 
 .img-call img {
   width: 100%;
-  transition: transform 0.5s ease;
+  transition: all 0.5s ease-in-out;
 }
 
-.img-call img:hover,
 .card:hover .img-call img {
-  transform: scale(1.1);
+  border-radius: 15px;
+  transform: scale(1.05);
+  /* background: rgb(51, 43, 156);
+  background: linear-gradient(
+    180deg,
+    rgb(60, 23, 161) 18%,
+    rgb(110, 100, 255) 65%
+  ); */
 }
 
 .call-label {
   background: #223872;
   position: absolute;
+  z-index: 99999;
   top: 0;
   right: -5px;
   border-radius: 10px;
@@ -168,7 +189,6 @@ export default {
   font-size: 12px;
   color: #fff;
   font-weight: bold;
-  z-index: 99;
 }
 
 .call-name {
@@ -186,6 +206,7 @@ export default {
 
 .btn-call {
   position: absolute;
+  z-index: 99;
   bottom: 20px;
 }
 </style>

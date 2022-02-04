@@ -36,11 +36,22 @@
           :class="!menu ? 'd-none' : ''"
         >
           <ul>
-            <li @click="this.$router.push({ path: '/user' })">My Profile</li>
-            <li @click="this.$router.push({ path: '/user/my-activity' })">
+            <li
+              @click="this.$router.push({ path: '/user' })"
+              :class="params == '' ? 'active' : ''"
+            >
+              Dashboard
+            </li>
+            <li
+              @click="this.$router.push({ path: '/user/my-activity' })"
+              :class="params == 'my-activity' ? 'active' : ''"
+            >
               My Activity
             </li>
-            <li @click="this.$router.push({ path: '/user/my-files' })">
+            <li
+              @click="this.$router.push({ path: '/user/my-files' })"
+              :class="params == 'my-files' ? 'active' : ''"
+            >
               My Files
             </li>
           </ul>
@@ -63,6 +74,7 @@ export default {
   data() {
     return {
       menu: false,
+      params: "",
     };
   },
   methods: {
@@ -70,5 +82,27 @@ export default {
       this.menu = true;
     },
   },
+  watch: {
+    $route(to) {
+      this.params = to.params.page;
+    },
+  },
+  created() {
+    if (this.$route.params.page) {
+      this.params = this.$route.params.page;
+    }
+  },
 };
 </script>
+
+<style scoped>
+.navbar-menu {
+  margin-left: 150px;
+}
+
+@media only screen and (max-width: 800px) {
+  .navbar-menu {
+    margin-left: 0;
+  }
+}
+</style>

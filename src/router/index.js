@@ -26,6 +26,12 @@ const routes = [
     path: '/user/:page',
     name: 'userPage',
     component: () => import('../views/student/page')
+  },
+
+  {
+    path: '/user/call/:type/:id',
+    name: '1on1Call',
+    component: () => import('../views/student/call-detail')
   }
 
 

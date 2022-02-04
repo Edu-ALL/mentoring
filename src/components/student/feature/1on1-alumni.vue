@@ -18,7 +18,7 @@
             <p class="call-desc">
               {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-call bg-secondary">
+            <button class="btn btn-allin btn-sm btn-call bg-primary">
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -92,12 +92,12 @@ export default {
 </script>
 <style>
 .splide__list {
-  padding: 20px !important;
+  padding: 20px 0 !important;
 }
 </style>
 <style scoped>
 .card {
-  background: #ddddf8;
+  background: #def8dd;
   border-radius: 15px;
   box-shadow: 8px 10px 4px -7px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 8px 10px 4px -7px rgba(0, 0, 0, 0.75);
@@ -105,11 +105,11 @@ export default {
 }
 
 .img-call {
-  background: rgb(117, 107, 248);
+  background: rgb(105, 115, 255);
   background: linear-gradient(
     180deg,
-    rgb(112, 109, 252) 18%,
-    rgba(69, 66, 235, 0.39) 65%
+    rgb(129, 162, 255) 18%,
+    rgb(175, 212, 255) 65%
   );
   height: auto;
   overflow: hidden;
