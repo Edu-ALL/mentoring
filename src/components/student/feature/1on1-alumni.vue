@@ -15,7 +15,7 @@
         >
           <div class="card-body">
             <div class="img-call mb-2">
-              <img v-lazy="i.photo" />
+              <img v-lazy="i.foto" />
             </div>
             <h5 class="call-name">{{ i.name }}</h5>
             <p class="call-desc">
