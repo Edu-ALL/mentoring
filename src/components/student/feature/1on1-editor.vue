@@ -8,16 +8,22 @@
     </h5>
     <Splide :options="options">
       <SplideSlide v-for="i in editor" :key="i">
-        <div class="card pointer shadow shadow-md border-0 h-100">
+        <div
+          class="card pointer shadow shadow-md border-0 h-100"
+          @click="call(i)"
+        >
           <div class="card-body">
             <div class="img-call mb-2">
-              <img v-lazy="i.photo" />
+              <img v-lazy="i.foto" />
             </div>
             <h5 class="call-name">{{ i.name }}</h5>
             <p class="call-desc">
               {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-success btn-call">
+            <button
+              class="btn btn-allin btn-sm btn-success btn-call"
+              @click="call(i)"
+            >
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -34,6 +40,9 @@
 <script>
 export default {
   name: "1on1-editor",
+  props: {
+    tab: String,
+  },
   data() {
     return {
       options: {
@@ -60,26 +69,34 @@ export default {
       editor: [
         {
           name: "Anushka Gupta",
-          photo: require("@/assets/img/editor/anushka.webp"),
+          foto: require("@/assets/img/editor/anushka.webp"),
           uni: "Imperial College London",
         },
         {
           name: "Alysha Manik",
-          photo: require("@/assets/img/editor/alysha.webp"),
+          foto: require("@/assets/img/editor/alysha.webp"),
           uni: "University of Southern California",
         },
         {
           name: "Keren",
-          photo: require("@/assets/img/editor/keren.webp"),
+          foto: require("@/assets/img/editor/keren.webp"),
           uni: "Royal Holloway, University of London",
         },
         {
           name: "Fedora Gracia",
-          photo: require("@/assets/img/editor/fedora.webp"),
+          foto: require("@/assets/img/editor/fedora.webp"),
           uni: "Monash University",
         },
       ],
     };
+  },
+  methods: {
+    call(i) {
+      this.$router.push({
+        name: "1on1Call",
+        params: { cat: "editor", tab: this.tab, userData: JSON.stringify(i) },
+      });
+    },
   },
   created() {},
 };

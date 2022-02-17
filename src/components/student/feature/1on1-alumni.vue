@@ -9,7 +9,10 @@
     </h5>
     <Splide :options="options">
       <SplideSlide v-for="i in alumni" :key="i">
-        <div class="card pointer shadow shadow-md border-0 h-100">
+        <div
+          class="card pointer shadow shadow-md border-0 h-100"
+          @click="call(i)"
+        >
           <div class="card-body">
             <div class="img-call mb-2">
               <img v-lazy="i.photo" />
@@ -18,7 +21,10 @@
             <p class="call-desc">
               {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-call bg-primary">
+            <button
+              class="btn btn-allin btn-sm btn-call bg-primary"
+              @click="call(i)"
+            >
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -35,6 +41,9 @@
 <script>
 export default {
   name: "1on1-alumni",
+  props: {
+    tab: String,
+  },
   data() {
     return {
       options: {
@@ -62,30 +71,38 @@ export default {
         {
           name: "Stanislas Alysha Wang",
           uni: "SC School of Cinematics Art - Cinematic Film and TV Production",
-          photo: require("@/assets/img/alumni/alysha.webp"),
+          foto: require("@/assets/img/alumni/alysha.webp"),
         },
         {
           name: "Valencia Kandila",
           uni: "University of Pennsylvania - Neuroscience",
-          photo: require("@/assets/img/alumni/valencia.webp"),
+          foto: require("@/assets/img/alumni/valencia.webp"),
         },
         {
           name: "Kelly Bajuadji",
           uni: "New York University - Psychology",
-          photo: require("@/assets/img/alumni/kelly.webp"),
+          foto: require("@/assets/img/alumni/kelly.webp"),
         },
         {
           name: "Darren Lee",
           uni: "UC Berkeley - Political Science",
-          photo: require("@/assets/img/alumni/darren.webp"),
+          foto: require("@/assets/img/alumni/darren.webp"),
         },
         {
           name: "Anushka Daruka",
           uni: "Simon Fraser University - Business",
-          photo: require("@/assets/img/alumni/anushka.webp"),
+          foto: require("@/assets/img/alumni/anushka.webp"),
         },
       ],
     };
+  },
+  methods: {
+    call(i) {
+      this.$router.push({
+        name: "1on1Call",
+        params: { cat: "alumni", tab: this.tab, userData: JSON.stringify(i) },
+      });
+    },
   },
   created() {},
 };

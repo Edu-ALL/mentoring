@@ -1,11 +1,11 @@
 <template>
   <div id="page">
-    <transition name="fade">
+    <!-- <transition name="fade">
       <v-loader v-if="loading"></v-loader>
-    </transition>
+    </transition> -->
+    <v-header></v-header>
     <transition name="fade">
       <div id="content" v-if="!loading">
-        <v-header></v-header>
         <transition name="fade">
           <v-profile v-if="page == 'my-profile'"></v-profile>
         </transition>
@@ -21,7 +21,7 @@
 </template>
 <script>
 import Header from "@/components/layout/student/header";
-import Loader from "@/components/library/loader";
+// import Loader from "@/components/library/loader";
 
 import Profile from "@/components/student/page/profile";
 import Activity from "@/components/student/page/activity";
@@ -31,7 +31,7 @@ export default {
   name: "page",
   components: {
     "v-header": Header,
-    "v-loader": Loader,
+    // "v-loader": Loader,
     "v-profile": Profile,
     "v-activity": Activity,
     "v-files": Files,
@@ -56,7 +56,7 @@ export default {
     document.title = "Your Dashboard";
     setTimeout(() => {
       this.load(false);
-    }, 1000);
+    }, 100);
   },
 };
 </script>

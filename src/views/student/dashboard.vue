@@ -1,11 +1,11 @@
 <template>
-  <transition name="fade">
+  <!-- <transition name="fade">
     <v-loader v-if="loading"></v-loader>
-  </transition>
+  </transition> -->
+  <v-header></v-header>
   <transition name="fade">
     <div id="dashboard" v-if="!loading">
-      <v-header></v-header>
-      <div class="container mt-3">
+      <div class="container mt-5">
         <div class="row align-items-center">
           <div class="col-md-3 text-md-start text-center">
             <div class="picture">
@@ -197,7 +197,11 @@
                 <!-- Life Skill  -->
                 <transition name="fade">
                   <div v-if="tab == 'ls'">
-                    <v-call-mentor class="mb-4" type="mentor"></v-call-mentor>
+                    <v-call-mentor
+                      class="mb-4"
+                      type="mentor"
+                      tab="ls"
+                    ></v-call-mentor>
                     <v-message></v-message>
                   </div>
                 </transition>
@@ -205,7 +209,7 @@
                 <!-- Career Exploration  -->
                 <transition name="fade">
                   <div v-if="tab == 'ce'">
-                    <v-webinar class="mb-4" type="career"></v-webinar>
+                    <v-webinar class="mb-4" type="career" tab="ce"></v-webinar>
                     <v-ex-card
                       class="mb-4"
                       feature_name="career-module"
@@ -213,6 +217,7 @@
                     <v-call-mentor
                       class="mb-4"
                       type="mentor-project"
+                      tab="ce"
                     ></v-call-mentor>
                     <v-ex-card class="mb-4" feature_name="cv-builder">
                     </v-ex-card>
@@ -225,14 +230,22 @@
                 <!-- Uni Admission  -->
                 <transition name="fade">
                   <div v-if="tab == 'ua'">
-                    <v-uni-admission class="mb-4"></v-uni-admission>
-                    <v-webinar class="mb-4" type="uni-prep"></v-webinar>
-                    <v-call-mentor class="mb-4" type="mentor"></v-call-mentor>
+                    <v-upcoming-event class="mb-4"></v-upcoming-event>
+                    <v-webinar
+                      class="mb-4"
+                      type="uni-prep"
+                      tab="ua"
+                    ></v-webinar>
+                    <v-call-mentor
+                      class="mb-4"
+                      type="mentor"
+                      tab="ua"
+                    ></v-call-mentor>
                     <v-ex-card class="mb-4" feature_name="essay"></v-ex-card>
-                    <v-call-editor class="mb-4"></v-call-editor>
+                    <v-call-editor class="mb-4" tab="ua"></v-call-editor>
                     <v-ex-card class="mb-4" feature_name="acad"></v-ex-card>
                     <v-ex-card class="mb-4" feature_name="sat"></v-ex-card>
-                    <v-call-alumni class="mb-4"></v-call-alumni>
+                    <v-call-alumni class="mb-4" tab="ua"></v-call-alumni>
                     <v-message></v-message>
                   </div>
                 </transition>
@@ -240,9 +253,13 @@
                 <!-- Life at Uni -->
                 <transition name="fade">
                   <div v-if="tab == 'lu'">
-                    <v-webinar class="mb-4" type="all-in"></v-webinar>
-                    <v-call-mentor class="mb-4" type="mentor"></v-call-mentor>
-                    <v-call-alumni class="mb-4"></v-call-alumni>
+                    <v-webinar class="mb-4" type="all-in" tab="lu"></v-webinar>
+                    <v-call-mentor
+                      class="mb-4"
+                      type="mentor"
+                      tab="lu"
+                    ></v-call-mentor>
+                    <v-call-alumni class="mb-4" tab="lu"></v-call-alumni>
                     <v-message></v-message>
                   </div>
                 </transition>
@@ -257,7 +274,7 @@
 </template>
 <script>
 import Header from "@/components/layout/student/header";
-import Loader from "@/components/library/loader";
+// import Loader from "@/components/library/loader";
 
 // Features
 import callMentor from "@/components/student/feature/1on1-mentor";
@@ -266,20 +283,24 @@ import callAlumni from "@/components/student/feature/1on1-alumni";
 import Message from "@/components/student/feature/message";
 import exCard from "@/components/student/feature/ex-card";
 import Webinar from "@/components/student/feature/webinar";
-import uniAdmission from "@/components/student/feature/uni-admission";
+import upcomingEvent from "@/components/student/feature/upcoming-event";
 
 export default {
   name: "dashboard",
+  props: {
+    newTab: String,
+    newLoading: Boolean,
+  },
   components: {
     "v-header": Header,
-    "v-loader": Loader,
+    // "v-loader": Loader,
     "v-call-mentor": callMentor,
     "v-call-editor": callEditor,
     "v-call-alumni": callAlumni,
     "v-message": Message,
     "v-ex-card": exCard,
     "v-webinar": Webinar,
-    "v-uni-admission": uniAdmission,
+    "v-upcoming-event": upcomingEvent,
   },
   data() {
     return {
@@ -296,7 +317,11 @@ export default {
     document.title = "Your Dashboard";
     setTimeout(() => {
       this.load(false);
-    }, 1000);
+    }, 100);
+
+    if (this.newTab) {
+      this.tab = this.newTab;
+    }
   },
 };
 </script>
@@ -304,7 +329,7 @@ export default {
 <style scoped>
 #dashboard {
   padding-bottom: 10px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: rgb(197, 225, 242);
   background: linear-gradient(
     20deg,

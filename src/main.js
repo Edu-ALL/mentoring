@@ -33,8 +33,8 @@ const VueTelInputOptions = {
 const app = createApp(App)
 app.use(router)
 app.use(VueTelInput, VueTelInputOptions)
-app.use(Datepicker)
-app.component(VueFeather.name, VueFeather);
+app.component('datepicker', Datepicker)
+app.component(VueFeather.name, VueFeather)
 app.component('v-datepicker', Datetimepicker)
 app.use(VueSplide)
 app.use(VueLazyLoad)

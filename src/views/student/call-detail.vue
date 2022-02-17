@@ -1,16 +1,24 @@
 <template>
   <div id="page">
+    <v-header></v-header>
     <transition name="fade">
-      <div id="content">
-        <v-header></v-header>
+      <div id="content" v-if="!loading">
         <div class="container">
           <div class="row g-3 my-3">
             <div class="col-md-4">
               <div class="card border-0 shadow-sm">
                 <div class="card-body">
+                  <div class="float-start">
+                    <vue-feather
+                      type="arrow-left"
+                      @click="back"
+                      class="back-btn"
+                      >Back</vue-feather
+                    >
+                  </div>
                   <img src="@/assets/img/logo-color.png" class="logo-picture" />
                   <div class="call-picture">
-                    <img src="@/assets/img/mentor/devi.webp" alt="" />
+                    <img :src="mentor.foto" alt="" />
                   </div>
                   <p class="text-primary my-2">
                     <vue-feather
@@ -32,16 +40,16 @@
             <div class="col-md-8">
               <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                  <div class="call-name">Devi Kasih</div>
-                  <div class="call-desc text-muted">Lorem ipsum</div>
+                  <div class="call-name">{{ mentor.name }}</div>
+                  <div class="call-desc text-muted">{{ mentor.uni }}</div>
                   <hr class="my-2" />
-                  <p class="my-0 mb-2">Select 1-on-1 Call Date & Time</p>
+                  <p class="my-0 mb-2">Select Date</p>
                   <div class="float-end">
                     <button class="btn-select" @click="openDate()">
                       <vue-feather
                         type="calendar"
                         size="18"
-                        class="float-start mt-0 me-2"
+                        class="float-start mt-1 me-2"
                       ></vue-feather>
                       {{
                         this.selectDate ? formatDate(this.selectDate) : "Select"
@@ -51,6 +59,7 @@
                       @update:modelValue="checkTime"
                       placeholder="Select"
                       ref="datepicker"
+                      :enableTimePicker="false"
                       v-model="selectDate"
                     >
                     </v-datepicker>
@@ -70,6 +79,7 @@
                     </button>
                   </div>
                   <div class="time-list my-2">
+                    <p class="my-0 mb-2">Select Time</p>
                     <div class="card">
                       <div class="card-body pt-3">
                         <div
@@ -114,7 +124,6 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="float-end my-3">
                     <button class="btn btn-allin bg-primary">
                       Make an Appointment
@@ -136,12 +145,19 @@ import moment from "moment";
 
 export default {
   name: "call-detail",
+  props: {
+    cat: String,
+    tab: String,
+    userData: Object,
+  },
   components: {
     "v-header": Header,
   },
   data() {
     return {
+      loading: true,
       selectDate: null,
+      mentor: [],
     };
   },
   methods: {
@@ -154,10 +170,29 @@ export default {
     formatDate(data) {
       return moment(data).format("MMM Do");
     },
+    back() {
+      this.$router.push({
+        name: "userDashboard",
+        params: { newTab: this.tab },
+      });
+    },
   },
-  created() {},
+  created() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 100);
+
+    this.mentor = JSON.parse(this.userData);
+  },
 };
 </script>
+<style>
+@media only screen and (max-width: 800px) {
+  .dp__menu {
+    left: 60% !important;
+  }
+}
+</style>
 <style scoped>
 .dp__main {
   width: 115px !important;
@@ -167,7 +202,7 @@ export default {
 
 .call-picture {
   width: 100%;
-  height: 300px;
+  height: 350px;
   overflow: hidden;
 }
 
@@ -234,5 +269,21 @@ export default {
   background: #26398b;
   border: 1px solid #17276d;
   color: #fff;
+}
+
+.back-btn {
+  cursor: pointer;
+  color: #17276d;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-btn:hover {
+  color: #eea74a;
+}
+
+@media only screen and (max-width: 800px) {
+  .dp__menu {
+    left: 60% !important;
+  }
 }
 </style>

@@ -17,7 +17,7 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
-            <div class="frame-overlay">View More</div>
+            <div class="frame-overlay" @click="webinar(i)">View More</div>
           </div>
         </SplideSlide>
       </Splide>
@@ -40,7 +40,7 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
-            <div class="frame-overlay">View More</div>
+            <div class="frame-overlay" @click="webinar(i)">View More</div>
           </div>
         </SplideSlide>
       </Splide>
@@ -63,7 +63,7 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
-            <div class="frame-overlay">View More</div>
+            <div class="frame-overlay" @click="webinar(i)">View More</div>
           </div>
         </SplideSlide>
       </Splide>
@@ -75,6 +75,7 @@ export default {
   name: "webinar",
   props: {
     type: String,
+    tab: String,
   },
   data() {
     return {
@@ -121,6 +122,14 @@ export default {
         },
       },
     };
+  },
+  methods: {
+    webinar(i) {
+      this.$router.push({
+        name: "webinar",
+        params: { slug: "title", tab: this.tab, webinarData: i },
+      });
+    },
   },
   created() {},
 };

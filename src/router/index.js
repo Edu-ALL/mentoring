@@ -18,6 +18,7 @@ const routes = [
   {
     path: '/user',
     name: 'userDashboard',
+    props: true,
     component: userDashboard
     // component: () => import('../views/student/dashboard')
   },
@@ -29,10 +30,21 @@ const routes = [
   },
 
   {
-    path: '/user/call/:type/:id',
+    path: '/user/call/:cat',
     name: '1on1Call',
+    props: true,
     component: () => import('../views/student/call-detail')
+  },
+
+  {
+    path: '/user/webinar/:slug',
+    name: 'webinar',
+    props: true,
+    component: () => import('../views/student/webinar-detail')
   }
+
+
+
 
 
 ]

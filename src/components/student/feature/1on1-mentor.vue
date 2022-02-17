@@ -9,7 +9,10 @@
     </h5>
     <Splide :options="options">
       <SplideSlide v-for="(i, index) in mentor" :key="index">
-        <div class="card pointer shadow shadow-md border-0 h-100">
+        <div
+          class="card pointer shadow shadow-md border-0 h-100"
+          @click="call(i)"
+        >
           <div
             class="call-label"
             v-if="i.type == 'project' && type == 'mentor-project'"
@@ -18,13 +21,16 @@
           </div>
           <div class="card-body">
             <div class="img-call mb-2">
-              <img :src="i.foto" alt="Mentoring" />
+              <img v-lazy="i.foto" alt="Mentoring" />
             </div>
             <h5 class="call-name">{{ i.name }}</h5>
             <p class="call-desc">
               {{ i.uni }}
             </p>
-            <button class="btn btn-allin btn-sm btn-success btn-call">
+            <button
+              class="btn btn-allin btn-sm btn-success btn-call"
+              @click="call(i)"
+            >
               <vue-feather
                 type="phone-call"
                 size="15"
@@ -43,6 +49,7 @@ export default {
   name: "1on1-mentoring",
   props: {
     type: String,
+    tab: String,
   },
   data() {
     return {
@@ -131,6 +138,14 @@ export default {
       },
     };
   },
+  methods: {
+    call(i) {
+      this.$router.push({
+        name: "1on1Call",
+        params: { cat: "mentor", tab: this.tab, userData: JSON.stringify(i) },
+      });
+    },
+  },
   created() {},
 };
 </script>
@@ -149,7 +164,7 @@ export default {
 }
 
 .img-call {
-  height: 210px;
+  height: 250px;
   overflow: hidden;
   border-radius: 15px;
   background: rgb(240, 171, 84);
