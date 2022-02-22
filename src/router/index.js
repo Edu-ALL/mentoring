@@ -41,6 +41,13 @@ const routes = [
     name: 'webinar',
     props: true,
     component: () => import('../views/student/webinar-detail')
+  },
+
+  {
+    path: '/user/event/:slug',
+    name: 'upcoming',
+    props: true,
+    component: () => import('../views/student/event-detail')
   }
 
 

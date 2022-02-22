@@ -230,7 +230,7 @@
                 <!-- Uni Admission  -->
                 <transition name="fade">
                   <div v-if="tab == 'ua'">
-                    <v-upcoming-event class="mb-4"></v-upcoming-event>
+                    <v-upcoming-event class="mb-4" tab="ua"></v-upcoming-event>
                     <v-webinar
                       class="mb-4"
                       type="uni-prep"

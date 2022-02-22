@@ -28,7 +28,6 @@
               ></iframe>
             </div>
             <h2 class="w-title">
-              {{ tab }}
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
               in nisi laborum temporibus tempore numquam porro sed
             </h2>

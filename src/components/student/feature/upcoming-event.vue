@@ -3,7 +3,7 @@
     <h2 class="content-title">Upcoming Events</h2>
     <Splide :options="options">
       <SplideSlide v-for="(i, index) in events" :key="index">
-        <div class="card h-100">
+        <div class="card h-100" @click="detail(i)">
           <!-- <div class="card-type bg-primary text-white" v-if="i % 2 == 0">
             Introduction
           </div>
@@ -48,6 +48,9 @@
 <script>
 export default {
   name: "upcoming-event",
+  props: {
+    tab: String,
+  },
   data() {
     return {
       options: {
@@ -88,6 +91,16 @@ export default {
       ],
     };
   },
+  methods: {
+    detail(i) {
+      console.log(i);
+      this.$router.push({
+        name: "upcoming",
+        params: { slug: "test", tab: this.tab, eventData: JSON.stringify(i) },
+      });
+    },
+  },
+  created() {},
 };
 </script>
 <style scoped>
