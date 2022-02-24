@@ -224,4 +224,14 @@ export default {
   z-index: 99;
   bottom: 20px;
 }
+
+@media only screen and (max-width: 800px) {
+  .img-call {
+    /* height: 300px; */
+  }
+
+  .img-call img {
+    padding: 0 30px;
+  }
+}
 </style>

@@ -48,7 +48,15 @@ const routes = [
     name: 'upcoming',
     props: true,
     component: () => import('../views/student/event-detail')
+  },
+
+  {
+    path: '/admin/dashboard',
+    name: 'adminDashboard',
+    props: true,
+    component: () => import('../views/admin/dashboard')
   }
+
 
 
 
