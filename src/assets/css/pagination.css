@@ -1,0 +1,15 @@
+.page-item:first-child .page-link,
+.page-item:last-child .page-link,
+.page-item:not(:first-child) .page-link  {
+    border-radius: 15px;
+    margin: 0 3px;
+    color: #EFA859;
+}
+
+.page-item:first-child .page-link:focus,
+.page-item:last-child .page-link:focus,
+.page-item:not(:first-child) .page-link:focus {
+    background: #EFA859;
+    color: #fff;
+    box-shadow: none !important;
+}

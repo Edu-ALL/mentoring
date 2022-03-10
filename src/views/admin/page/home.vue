@@ -84,6 +84,11 @@
                 <v-webinar></v-webinar>
               </div>
             </div>
+            <div class="col">
+              <div class="card card-act border-0 px-2 py-3">
+                <v-event></v-event>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -95,6 +100,7 @@
 import Call from "@/components/admin/home/1on1";
 import Transaction from "@/components/admin/home/transaction";
 import Webinar from "@/components/admin/home/webinar.vue";
+import Event from "@/components/admin/home/event.vue";
 
 export default {
   name: "adminHome",
@@ -102,6 +108,7 @@ export default {
     "v-1on1": Call,
     "v-transaction": Transaction,
     "v-webinar": Webinar,
+    "v-event": Event,
   },
   data() {
     return {};
@@ -148,6 +155,13 @@ export default {
 
 .card-act {
   border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-act:hover {
+  box-shadow: 0px 0px 100px -50px rgba(207, 207, 207, 0.514);
+  -webkit-box-shadow: 0px 0px 100px -50px rgba(184, 184, 184, 0.75);
+  -moz-box-shadow: 0px 0px 100px -50px rgba(184, 184, 184, 0.75);
 }
 
 @media only screen and (max-width: 800px) {

@@ -51,16 +51,11 @@ const routes = [
   },
 
   {
-    path: '/admin/dashboard',
+    path: '/admin/:menu?/:submenu?/:key?',
     name: 'adminDashboard',
     props: true,
     component: () => import('../views/admin/dashboard')
-  }
-
-
-
-
-
+  },
 
 ]
 

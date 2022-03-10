@@ -31,3 +31,57 @@
     /* background: #F0AB54 !important; */
     /* color: #fff; */
 }
+
+.form-mentoring,
+textarea {
+    padding:5px 15px;
+    border:2px solid #dedede;
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-mentoring::placeholder,
+textarea::placeholder {
+    color:rgb(206, 206, 206)
+}
+
+.form-mentoring:focus,
+textarea:focus {
+    outline: none;
+    border:2px solid #EFA859;
+    box-shadow: 0;
+}
+
+.btn-mentoring {
+    padding: 7px 20px;
+    border-radius: 20px;
+}
+
+.btn-small {
+    font-size: 12px;
+}
+
+.btn-type-1 {
+    background: #EFA859;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-type-1:hover {
+    background: #223872;
+    color: #EFA859;
+    outline: 1px solid #EFA859;
+}
+
+.btn-type-2 {
+    background: #fff;
+    color: #EFA859;
+    outline: 1px solid #EFA859;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-type-2:hover {
+    background: #EFA859;
+    color: #223872;
+    outline: 1px solid #223872;
+}

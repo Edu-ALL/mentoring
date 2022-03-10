@@ -11,6 +11,7 @@ import './assets/css/modal.css'
 import './assets/css/form.css'
 import './assets/css/navbar.css'
 import './assets/css/tabs.css'
+import './assets/css/pagination.css'
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import 'vue3-date-time-picker/dist/main.css'
 
