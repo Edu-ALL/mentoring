@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="card-white">
-      <table class="table table-borderless table-hover">
+      <table class="table table-borderless table-hover pointer">
         <thead>
           <tr>
             <th>Full Name</th>

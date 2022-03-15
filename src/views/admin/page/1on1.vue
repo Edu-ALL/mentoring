@@ -13,7 +13,7 @@
     </div>
     <div class="card-white">
       <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table align-middle table-hover">
           <thead>
             <tr class="text-center">
               <th>No</th>
@@ -25,7 +25,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center" v-for="i in 5" :key="i">
+            <tr class="text-center pointer" v-for="i in 5" :key="i">
               <td>{{ i }}</td>
               <td>Devi Kasih</td>
               <td>Life Skill - Mentor</td>

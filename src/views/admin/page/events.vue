@@ -17,17 +17,19 @@
         </div>
         <div class="card-white">
           <div class="table-responsive">
-            <table class="table align-middle">
+            <table class="table align-middle table-hover">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="5%">No</th>
                   <th>Event Name</th>
+                  <th>Participants</th>
+                  <th>Status</th>
                   <th>Date & Time</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  class="text-center"
+                  class="text-center pointer"
                   v-for="i in 5"
                   :key="i"
                   @click="
@@ -36,6 +38,8 @@
                 >
                   <td>{{ i }}</td>
                   <td>Lorem Ipsum</td>
+                  <td>{{ 123 + i }}</td>
+                  <td>Closed</td>
                   <td>20 Feburary 2022</td>
                 </tr>
               </tbody>
