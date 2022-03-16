@@ -76,6 +76,12 @@
         <transition name="fade">
           <v-inbox v-if="menus.menu == 'inbox'"></v-inbox>
         </transition>
+        <transition name="fade">
+          <v-transaction
+            v-if="menus.menu == 'transactions'"
+            :menus="menus"
+          ></v-transaction>
+        </transition>
       </div>
     </div>
   </div>
@@ -91,6 +97,7 @@ import Files from "@/views/admin/page/files";
 import Webinar from "@/views/admin/page/webinar";
 import Events from "@/views/admin/page/events";
 import Inbox from "@/views/admin/page/inbox";
+import Transaction from "@/views/admin/page/transaction";
 
 export default {
   name: "adminDashboard",
@@ -103,6 +110,7 @@ export default {
     "v-webinar": Webinar,
     "v-events": Events,
     "v-inbox": Inbox,
+    "v-transaction": Transaction,
   },
   data() {
     return {
