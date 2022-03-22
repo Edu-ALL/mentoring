@@ -56,56 +56,59 @@
         </ul>
       </nav>
     </div>
-  </div>
 
-  <transition name="fade">
-    <div v-if="detail">
-      <div class="vue-modal vue-modal-lg">
-        <h5>Files Detail</h5>
-        <hr />
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-2">
-              <label>File Name</label> <br />
-              Lorem Ipsum
+    <transition name="fade">
+      <div v-if="detail">
+        <div class="vue-modal vue-modal-lg">
+          <h5>Files Detail</h5>
+          <hr />
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-2">
+                <label>File Name</label> <br />
+                Lorem Ipsum
+              </div>
+              <div class="mb-2">
+                <label>Category File</label> <br />
+                Resume
+              </div>
+              <div class="mb-2">
+                <label>Uploaded by</label> <br />
+                User Name
+              </div>
             </div>
-            <div class="mb-2">
-              <label>Category File</label> <br />
-              Resume
-            </div>
-            <div class="mb-2">
-              <label>Uploaded by</label> <br />
-              User Name
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-2">
-              <label>Need Verification</label> <br />
-              No
-            </div>
-            <div class="mb-2">
-              <button class="btn btn-sm btn-primary btn-mentoring">
-                Download File
-              </button>
-            </div>
-            <div class="mb-2">
-              <label>Verification Status</label> <br />
-              <select name="" id="" class="form-control form-mentoring">
-                <option value="">Verify</option>
-                <option value="">Not Verify</option>
-              </select>
+            <div class="col-md-6">
+              <div class="mb-2">
+                <label>Need Verification</label> <br />
+                No
+              </div>
+              <div class="mb-2">
+                <button class="btn btn-sm btn-primary btn-mentoring">
+                  Download File
+                </button>
+              </div>
+              <div class="mb-2">
+                <label>Verification Status</label> <br />
+                <select name="" id="" class="form-control form-mentoring">
+                  <option value="">Verify</option>
+                  <option value="">Not Verify</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
+        <div class="vue-modal-overlay" @click="detail = false"></div>
       </div>
-      <div class="vue-modal-overlay" @click="detail = false"></div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {
   name: "files",
+  props: {
+    menus: Object,
+  },
   data() {
     return {
       detail: false,

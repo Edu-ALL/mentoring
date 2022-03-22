@@ -65,7 +65,7 @@
           <v-1on1 v-if="menus.menu == '1on1'"></v-1on1>
         </transition>
         <transition name="fade">
-          <v-files v-if="menus.menu == 'files'"></v-files>
+          <v-files v-if="menus.menu == 'files'" :menus="menus"></v-files>
         </transition>
         <transition name="fade">
           <v-webinar v-if="menus.menu == 'webinar'" :menus="menus"></v-webinar>
@@ -81,6 +81,9 @@
             v-if="menus.menu == 'transactions'"
             :menus="menus"
           ></v-transaction>
+        </transition>
+        <transition name="fade">
+          <v-mail v-if="menus.menu == 'mail'" :menus="menus"></v-mail>
         </transition>
       </div>
     </div>
@@ -98,6 +101,7 @@ import Webinar from "@/views/admin/page/webinar";
 import Events from "@/views/admin/page/events";
 import Inbox from "@/views/admin/page/inbox";
 import Transaction from "@/views/admin/page/transaction";
+import MailLog from "@/views/admin/page/maillog";
 
 export default {
   name: "adminDashboard",
@@ -111,6 +115,7 @@ export default {
     "v-events": Events,
     "v-inbox": Inbox,
     "v-transaction": Transaction,
+    "v-mail": MailLog,
   },
   data() {
     return {

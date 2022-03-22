@@ -64,9 +64,4 @@ export default {
 </script>
 
 <style>
-.card-white {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-}
 </style>

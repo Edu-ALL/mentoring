@@ -92,7 +92,7 @@
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
-        ><span v-if="sidebar">Upcoming Events</span>
+        ><span v-if="sidebar">Events</span>
       </li>
       <li :class="menus.menu == 'inbox' ? 'active' : ''" @click="goTo('inbox')">
         <vue-feather
@@ -111,7 +111,15 @@
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
-        ><span v-if="sidebar">Transacations</span>
+        ><span v-if="sidebar">Transactions</span>
+      </li>
+      <li :class="menus.menu == 'mail' ? 'active' : ''" @click="goTo('mail')">
+        <vue-feather
+          type="mail"
+          size="18"
+          :class="sidebar ? 'float-start mt-1 me-2' : ''"
+        ></vue-feather
+        ><span v-if="sidebar">Mail Log</span>
       </li>
     </ul>
   </div>
