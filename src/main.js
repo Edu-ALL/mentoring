@@ -29,6 +29,10 @@ const VueTelInputOptions = {
     mode: "international",
     onlyCountries: ['ID', 'SG', "GB", "US", "CA", "MY"]
 }
+
+const url = 'https://services.all-inedu.com/api/v1/'
+const adminToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGY4NDhkZThlYmYyZTg4YjMyZGMzZmEyY2M3OWI5ZDE4ZTY3ZGQzMTQ1ZTlkMTJjZTMwNzk5YzhjMjgwM2E0OTEzOTMwNzMwMzkzZDE1YmQiLCJpYXQiOjE2NDc5MTY3MDQuMTk2OTgsIm5iZiI6MTY0NzkxNjcwNC4xOTY5ODQsImV4cCI6MTY0ODUyMTUwNC4xOTU0MTcsInN1YiI6IjEiLCJzY29wZXMiOlsiYWRtaW4iXX0.QorG8V-DLJ_htsRgRT3B4SsEB4AAz_PwrasyVJSUT6POGqQzBeh1fX_m0dKxZiGwmj7be64lMP2Nwp-ygRRcXyz6Br6egwrk9aCJvjDAm6y5fz1Jm2M2EE1j2qGCuXkk3CQxjblONwnVzvKKuSpScmv50HXeEsVSZxQhJqslOqweKyHoMdtIEUeM6iSwNApUH9wYKuc3zkM43SE59C8IHi_ocoYcor1RukitIQA6fDHpH1SBg7P8RiakxEgKYD9-r0tGtaAxeRG1ddUaIthCqjEvYnjoxkECkAWOiuTkUpzf6vDXlJ4XQ0idD7DLltA1EWqTJXrcDj02AGB6HK7O4aDI-LHEwC_lOE7u-BwmnSjhWN7-5FDDT1JbXC1g6qZvKZ_v6jjrkMx9HSKWHjxSOMnLP4eCbDb_yclxVo7RBDKRhGOX7VzfqF-qdVDf0f0QK85WbKOo7-jWaNGRCCf51P8p0Dz5bDk3XgXMnJX_cRYWPIJoLieUWGw4OFT1iPNE8EWqg4TwsL2Fo3qOdmxwUJVsxUhGAHtYkn7oSfdo7DOPeOQXCKUSaDmroAm-vpCFq_LlFeSQi7aqKYQ6bbx2b7ppbF6tERWsy_fo5Ut2esrVRqVj6IuGjycq7BIytTMvN5x6eu8-ttEaqNH_w5n1Vn100U7KM7PrkzlLr73psqQ';
+
 // import sessionStorage from 'sessionstorage'
 
 const app = createApp(App)
@@ -39,4 +43,6 @@ app.component(VueFeather.name, VueFeather)
 app.component('v-datepicker', Datetimepicker)
 app.use(VueSplide)
 app.use(VueLazyLoad)
+app.config.globalProperties.$url = url
+app.config.globalProperties.$adminToken = adminToken
 app.mount('#app')

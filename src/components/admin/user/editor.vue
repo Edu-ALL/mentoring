@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="i in 10"
+            v-for="i in 2"
             :key="i"
             @click="this.$router.push({ path: '/admin/user/editor/' + i })"
           >
@@ -44,7 +44,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "editor",
+};
 </script>
 
 <style>
