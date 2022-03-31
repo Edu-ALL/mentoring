@@ -43,16 +43,32 @@
           </tbody>
         </table>
       </div>
-      <hr />
       <nav class="mt-2">
         <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#">Previous</a>
+          <li class="page-item" v-if="files.current_page != 1">
+            <a class="page-link" @click="getPage(files.links[0].url)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <div v-for="i in files.last_page" :key="i">
+            <li
+              class="page-item"
+              v-if="files.current_page - 2 < i && files.current_page + 2 > i"
+            >
+              <a
+                class="page-link"
+                :class="files.current_page == i ? 'bg-primary text-white' : ''"
+                href="#"
+                @click="getPage(files.path + '?page=' + i)"
+                >{{ i }}</a
+              >
+            </li>
+          </div>
+          <li class="page-item" v-if="files.current_page != files.last_page">
+            <a class="page-link" @click="getPage(files.next_page_url)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -111,14 +127,49 @@ export default {
   },
   data() {
     return {
+      files: [],
       detail: false,
     };
   },
   methods: {
+    getData() {
+      this.$axios
+        .get(this.$url + "list/student/files", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.files = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getPage(link) {
+      this.$axios
+        .get(link, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.files = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     checkDetail(i) {
       console.log(i);
       this.detail = true;
     },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

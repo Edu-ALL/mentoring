@@ -10,6 +10,7 @@
         <table class="table table-hover pointer">
           <thead>
             <tr>
+              <th width="1%">No</th>
               <th>Full Name</th>
               <th>Service</th>
               <th>Date</th>
@@ -20,9 +21,12 @@
           </thead>
           <tbody>
             <tr v-for="i in 10" :key="i">
+              <td>{{ i }}</td>
               <td>Full Name</td>
               <td>Events</td>
-              <td>24 March 2022</td>
+              <td>
+                <i class="fa-regular fa-calendar fa-fw"></i> 24 March 2022
+              </td>
               <td @click="check = true">
                 <vue-feather
                   type="search"
@@ -42,7 +46,7 @@
                   class="btn btn-sm btn-outline-info me-2"
                   @click="report = 'invoice'"
                 >
-                  Invoice
+                  <i class="fa-regular fa-file fa-fw"></i>Invoice
                 </button>
               </td>
             </tr>
@@ -50,13 +54,37 @@
         </table>
         <nav class="mt-2">
           <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#">Previous</a>
+            <li class="page-item" v-if="confirms.current_page != 1">
+              <a class="page-link" @click="getPage(confirms.links[0].url)">
+                <i class="fa-solid fa-chevron-left"></i>
+              </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <div v-for="i in confirms.last_page" :key="i">
+              <li
+                class="page-item"
+                v-if="
+                  confirms.current_page - 2 < i && confirms.current_page + 2 > i
+                "
+              >
+                <a
+                  class="page-link"
+                  :class="
+                    confirms.current_page == i ? 'bg-primary text-white' : ''
+                  "
+                  href="#"
+                  @click="getPage(confirms.path + '?page=' + i)"
+                  >{{ i }}</a
+                >
+              </li>
+            </div>
+            <li
+              class="page-item"
+              v-if="confirms.current_page != confirms.last_page"
+            >
+              <a class="page-link" @click="getPage(confirms.next_page_url)">
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -93,9 +121,46 @@ export default {
   },
   data() {
     return {
+      confirms: [],
       check: false,
       report: "",
     };
+  },
+  methods: {
+    getData() {
+      this.$axios
+        .get(this.$url + "list/transaction/need-confirmation", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.confirms = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getPage(link) {
+      this.$axios
+        .get(link, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.confirms = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

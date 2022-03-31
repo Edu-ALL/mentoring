@@ -28,12 +28,17 @@
           <tbody>
             <tr class="text-center" v-for="i in 5" :key="i">
               <td>{{ i }}</td>
-              <td>Eric</td>
-              <td>Hafidz</td>
+              <td><i class="fa-regular fa-user fa-fw"></i> Eric</td>
+              <td><i class="fa-regular fa-user fa-fw"></i> Hafidz</td>
               <td>Resume</td>
               <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-              <td>20 Feburary 2022</td>
-              <td class="pointer">Success</td>
+              <td>
+                <i class="fa-regular fa-calendar fa-fw"></i> 20 Feburary 2022
+              </td>
+              <td class="pointer text-success">
+                <i class="fa-regular fa-circle-check fa-fw"></i>
+                Success
+              </td>
             </tr>
           </tbody>
         </table>
@@ -58,9 +63,46 @@
 export default {
   name: "successMail",
   data() {
-    return {};
+    return {
+      mails: [],
+    };
   },
-  methods: {},
+  methods: {
+    getData() {
+      this.$axios
+        .get(this.$url + "list/mail/log", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.mails = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getPage(link) {
+      this.$axios
+        .get(link, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.mails = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.getData();
+  },
 };
 </script>
 
