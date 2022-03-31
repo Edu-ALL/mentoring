@@ -22,26 +22,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="i in 10"
-            :key="i"
-            @click="this.$router.push({ path: '/admin/user/student/' + i })"
-          >
-            <td>Full Name</td>
-            <td>Email</td>
-            <td>School Name</td>
-            <td>Grade</td>
+          <tr v-for="i in students.data" :key="i">
+            <td>{{ i.first_name + " " + i.last_name }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.grade }}</td>
           </tr>
         </tbody>
       </table>
       <hr />
       <nav class="mt-2">
         <ul class="pagination justify-content-center">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <li class="page-item">
+            <a class="page-link" @click="getPage(students.links[0].url)"
+              >Previous</a
+            >
+          </li>
+
+          <li class="page-item" v-for="i in students.last_page" :key="i">
+            <a
+              class="page-link"
+              :class="students.current_page == i ? 'active' : ''"
+              href="#"
+              @click="getPage(students.path + '?page=' + i)"
+              >{{ i }}</a
+            >
+          </li>
+          <li class="page-item">
+            <a class="page-link" @click="getPage(students.links[2].url)">
+              Next
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -49,7 +59,52 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  name: "student",
+  data() {
+    return {
+      students: [],
+    };
+  },
+  methods: {
+    getData() {
+      axios
+        .get(this.$url + "list/student", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.students = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    },
+
+    getPage(link) {
+      axios
+        .get(link, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.students = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+  },
+  created() {
+    this.getData();
+  },
+};
+    
 </script>
 
 <style>

@@ -5,8 +5,8 @@
         <div class="col-md-12">
           <div class="card-white">
             <div class="">
-              <button class="btn btn-mentoring position-relative me-3 btn-type-2 py-1" :class="menus.submenu == '' ? 'btn-type-1' : ' btn-type-2'" @click="this.$router.push({ path: '/mentor/activity' })">Pending</button>
-              <button class="btn btn-mentoring position-relative me-3 btn-type-2 py-1" :class="menus.submenu == 'history' ? 'btn-type-1' : ' btn-type-2'" @click="this.$router.push({ path: '/mentor/activity/history' })">History</button>
+              <button class="btn btn-mentoring position-relative me-3 btn-type-2 py-1" :class="menus.submenu == '' ? 'btn-type-1' : ' btn-type-2'" @click="this.$router.push({ path: '/editor/activity' })">Pending</button>
+              <button class="btn btn-mentoring position-relative me-3 btn-type-2 py-1" :class="menus.submenu == 'history' ? 'btn-type-1' : ' btn-type-2'" @click="this.$router.push({ path: '/editor/activity/history' })">History</button>
             </div>
             <div class="row">
               <div class="col-md-12 mt-4">
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import Pending from "@/components/mentor/activity/pending";
-import History from "@/components/mentor/activity/history";
+import Pending from "@/components/editor/activity/pending";
+import History from "@/components/editor/activity/history";
 export default {
   name: "activity",
   props: {

@@ -27,10 +27,7 @@
           </thead>
           <tbody>
             <tr
-              class="text-center pointer"
-              v-for="i in 5"
-              :key="i"
-              @click="checkDetail(i)"
+              class="text-center pointer" v-for="i in 5" :key="i" @click="checkDetail(i)"
             >
               <td>{{ i }}</td>
               <td>Lorem Ipsum</td>

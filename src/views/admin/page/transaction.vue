@@ -28,28 +28,11 @@
                 </span>
               </button>
 
-              <button
-                type="button"
-                class="btn-sm btn-mentoring position-relative me-3"
-                :class="
-                  menus.submenu == 'confirm' ? 'btn-type-1' : ' btn-type-2'
-                "
-                @click="
-                  this.$router.push({ path: '/admin/transactions/confirm' })
-                "
-              >
+              <button type="button" class="btn-sm btn-mentoring position-relative me-3" 
+              :class="menus.submenu == 'confirm' ? 'btn-type-1' : ' btn-type-2'" @click="this.$router.push({ path: '/admin/transactions/confirm' })">
                 Need Confirmation
-                <span
-                  class="
-                    position-absolute
-                    top-0
-                    start-100
-                    translate-middle
-                    badge
-                    rounded-pill
-                    bg-primary
-                  "
-                >
+                
+                <span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                   99+
                   <span class="visually-hidden">unread messages</span>
                 </span>
