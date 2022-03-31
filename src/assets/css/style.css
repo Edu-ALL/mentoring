@@ -128,6 +128,19 @@ img[lazy="loading"] {
   background: #223872;
 }
 
+.h-card-blue {
+  background: #223872;
+  border-radius: 15px;
+  border: 0;
+  padding: 5px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.h-card-blue:hover {
+  background: #efa859;
+}
+
 .h-ico {
   color: #fff;
   width: 40px;
@@ -141,6 +154,12 @@ img[lazy="loading"] {
 .h-label {
   font-size: 1em;
   color: #fff;
+}
+
+.h-label-semi-bold {
+  font-size: 1em;
+  color: #fff;
+  font-weight: 600;
 }
 
 .card-act {

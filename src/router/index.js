@@ -64,6 +64,20 @@ const routes = [
     component: () => import('../views/mentor/dashboard')
   },
 
+  {
+    path: '/alumni/:menu?/:submenu?/:key?',
+    name: 'alumniDashboard',
+    props: true,
+    component: () => import('../views/alumni/dashboard')
+  },
+
+  {
+    path: '/editor/:menu?/:submenu?/:key?',
+    name: 'editorDashboard',
+    props: true,
+    component: () => import('../views/editor/dashboard')
+  },
+
 ]
 
 const router = createRouter({

@@ -46,7 +46,7 @@
             </td>
             <td>{{ i.email }}</td>
             <td>School Name</td>
-            <td>Grade</td>
+            <td>{{ i.grade }}</td>
           </tr>
         </tbody>
       </table>
