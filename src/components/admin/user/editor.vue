@@ -106,6 +106,7 @@ export default {
   },
   methods: {
     getData() {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "list/user/editor", {
           headers: {
@@ -113,10 +114,12 @@ export default {
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.editors = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },
@@ -138,6 +141,7 @@ export default {
     },
 
     searchData() {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "find/user/editor?keyword=" + this.search.name, {
           headers: {
@@ -145,11 +149,13 @@ export default {
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.editors = response.data.data;
           this.search.bar = true;
           // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },

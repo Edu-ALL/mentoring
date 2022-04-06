@@ -2,30 +2,33 @@
   <div id="mentor">
     <!-- Detail  -->
     <div class="card-white">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-md-3 text-center">
           <img
             v-lazy="'https://picsum.photos/200/300'"
             alt="Profile"
             class="st-pic"
+            v-if="mentors.profile_picture == null"
           />
         </div>
         <div class="col-md-9">
-          <h5>Mentors Name</h5>
+          <h5>{{ mentors.first_name + " " + mentors.last_name }}</h5>
           <hr class="my-0 mb-2" />
           <div class="row">
             <div class="col-md-6">
               <div class="mb-2">
                 <label>Email</label> <br />
-                Lorem@all-inedu.com
+                {{ mentors.email }}
               </div>
               <div class="mb-2">
-                <label>School Name</label> <br />
-                Lorem ipsum
+                <label>Education/Major</label> <br />
+                <ul class="ps-3">
+                  <li v-for="i in 2" :key="i">University (Major)</li>
+                </ul>
               </div>
               <div class="mb-2">
-                <label>Grade</label> <br />
-                Lorem ipsum
+                <label>Phone Number</label> <br />
+                {{ mentors.phone_number }}
               </div>
             </div>
             <div class="col-md-6">
@@ -46,9 +49,7 @@
               </div>
               <div class="mb-2">
                 <label>Address</label> <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellendus nisi reprehenderit placeat est repudiandae saepe,
-                voluptatem.
+                {{ mentors.address }}
               </div>
             </div>
           </div>
@@ -62,14 +63,14 @@
       <button
         class="btn-mentoring me-2"
         :class="activity == '1on1' ? 'btn-type-1' : 'btn-type-2'"
-        @click="activity = '1on1'"
+        @click="getActivity('1on1')"
       >
         1on1 Calls
       </button>
       <button
         class="btn-mentoring me-2"
         :class="activity == 'student' ? 'btn-type-1' : 'btn-type-2'"
-        @click="activity = 'student'"
+        @click="getActivity('student')"
       >
         Student List
       </button>
@@ -90,32 +91,78 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Devi Kasih</td>
-                  <td>Life Skill - Mentor</td>
+                <tr
+                  class="text-center"
+                  v-for="(i, index) in activities.one_on_one.data"
+                  :key="index"
+                >
+                  <td>{{ activities.one_on_one.from + index }}</td>
+                  <td>
+                    {{ i.students.first_name + " " + i.students.last_name }}
+                  </td>
+                  <td>{{ i.module }}</td>
                   <td>
                     <small>
-                      20 Feburary 2022 <br />
-                      14.00 WIB
+                      {{ getDay(i.created_at) }} <br />
+                      {{ getTime(i.created_at) }}
                     </small>
                   </td>
-                  <td>Waiting</td>
-                  <td>-</td>
+                  <td style="text-transform: capitalize">
+                    {{ i.std_act_status }}
+                  </td>
+                  <td>{{ i.location_link }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <hr />
-          <nav class="mt-2">
+          <nav class="mt-2" v-if="activities.one_on_one.from != null">
             <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
+              <li
+                class="page-item"
+                v-if="activities.one_on_one.current_page != 1"
+              >
+                <a
+                  class="page-link"
+                  @click="getPage(activities.one_on_one.links[0].url)"
+                >
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              <div v-for="i in activities.one_on_one.last_page" :key="i">
+                <li
+                  class="page-item"
+                  v-if="
+                    activities.one_on_one.current_page - 2 < i &&
+                    activities.one_on_one.current_page + 2 > i
+                  "
+                >
+                  <a
+                    class="page-link"
+                    :class="
+                      activities.one_on_one.current_page == i
+                        ? 'bg-primary text-white'
+                        : ''
+                    "
+                    href="#"
+                    @click="getPage(activities.one_on_one.path + '?page=' + i)"
+                    >{{ i }}</a
+                  >
+                </li>
+              </div>
+              <li
+                class="page-item"
+                v-if="
+                  activities.one_on_one.current_page !=
+                  activities.one_on_one.last_page
+                "
+              >
+                <a
+                  class="page-link"
+                  @click="getPage(activities.one_on_one.next_page_url)"
+                >
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
@@ -124,6 +171,7 @@
       <!-- Student -->
       <transition name="fade">
         <div class="border p-3 rounded mt-3" v-if="activity == 'student'">
+          <!-- {{ activities.students }} -->
           <div class="table-responsive">
             <table class="table align-middle">
               <thead>
@@ -165,12 +213,91 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "mentorDetail",
   data() {
     return {
+      mentor_id: "",
+      mentors: [],
+      activities: {
+        one_on_one: [],
+        students: [],
+      },
       activity: "1on1",
     };
+  },
+  methods: {
+    getData(id) {
+      this.$axios
+        .get(this.$url + "find/user/mentor/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.mentors = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getData1on1(id) {
+      this.$axios
+        .get(this.$url + "list/activities/1-on-1-call?id=" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.activities.one_on_one = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getStudents(id) {
+      this.$axios
+        .get(this.$url + "select/students/use/user/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.activities.students = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getActivity(i) {
+      this.activity = i;
+      if (i == "1on1") {
+        this.getData1on1(this.mentor_id);
+      } else if (i == "student") {
+        this.getStudents(this.mentor_id);
+      }
+    },
+
+    getDay(date) {
+      return moment(date).format("MMMM Do YYYY");
+    },
+
+    getTime(date) {
+      return moment(date).format("H:mm A");
+    },
+  },
+  created() {
+    this.mentor_id = this.$route.params.key;
+    this.getData(this.mentor_id);
+    this.getData1on1(this.mentor_id);
   },
 };
 </script>

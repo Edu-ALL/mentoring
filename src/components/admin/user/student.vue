@@ -108,6 +108,7 @@ export default {
   },
   methods: {
     getData() {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "list/student", {
           headers: {
@@ -115,10 +116,12 @@ export default {
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.students = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },
@@ -140,6 +143,7 @@ export default {
     },
 
     searchData() {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "find/student?keyword=" + this.search.name, {
           headers: {
@@ -147,11 +151,13 @@ export default {
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.students = response.data.data;
           this.search.bar = true;
           // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },

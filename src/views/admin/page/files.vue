@@ -2,7 +2,18 @@
   <div id="files">
     <div class="row my-4">
       <div class="col-md-6 text-start">
-        <input type="text" class="form-mentoring" placeholder="Search" />
+        <input
+          type="text"
+          class="form-mentoring"
+          v-model="search.name"
+          @change="searchData"
+          placeholder="Search"
+        />
+        <br />
+        <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
+          {{ search.name }}
+          <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
+        </span>
       </div>
       <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
@@ -11,6 +22,7 @@
         <button class="btn-mentoring btn-type-2">Add a New Student</button>
       </div> -->
     </div>
+    <!-- {{ files }} -->
     <div class="card-white">
       <div class="table-responsive">
         <table class="table align-middle table-hover">
@@ -27,15 +39,18 @@
           </thead>
           <tbody>
             <tr
-              class="text-center pointer" v-for="i in 5" :key="i" @click="checkDetail(i)"
+              class="text-center pointer"
+              v-for="(i, index) in files.data"
+              :key="index"
+              @click="checkDetail(i)"
             >
-              <td>{{ i }}</td>
-              <td>Lorem Ipsum</td>
-              <td>Resume</td>
-              <td>No</td>
-              <td>-</td>
-              <td>User Name</td>
-              <td>20 Feburary 2022</td>
+              <td>{{ files.from + index }}</td>
+              <td>{{ i.med_title }}</td>
+              <td>{{ i.med_cat_id }}</td>
+              <td>NA</td>
+              <td>{{ i.status }}</td>
+              <td>NA</td>
+              <td>{{ $customDate.date(i.created_at) }}</td>
             </tr>
           </tbody>
         </table>
@@ -79,15 +94,15 @@
             <div class="col-md-6">
               <div class="mb-2">
                 <label>File Name</label> <br />
-                Lorem Ipsum
+                {{ detailData.med_title }}
               </div>
               <div class="mb-2">
                 <label>Category File</label> <br />
-                Resume
+                {{ detailData.med_cat_id }}
               </div>
               <div class="mb-2">
                 <label>Uploaded by</label> <br />
-                User Name
+                NA
               </div>
             </div>
             <div class="col-md-6">
@@ -126,6 +141,11 @@ export default {
     return {
       files: [],
       detail: false,
+      detailData: [],
+      search: {
+        bar: false,
+        name: "",
+      },
     };
   },
   methods: {
@@ -138,7 +158,7 @@ export default {
         })
         .then((response) => {
           this.files = response.data.data;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -161,8 +181,34 @@ export default {
         });
     },
     checkDetail(i) {
-      console.log(i);
+      this.detailData = i;
       this.detail = true;
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/student/files?keyword=" + this.search.name, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.files = response.data.data;
+          this.search.bar = true;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getData();
     },
   },
   created() {
