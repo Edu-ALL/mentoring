@@ -67,12 +67,22 @@
             </div>
             <div class="col-md-6">
               <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control form-mentoring mb-3"
-                  placeholder="Video Embed"
-                  v-model="webinar.dtl_video_link"
-                />
+                <div class="d-flex">
+                  <input
+                    type="text"
+                    class="form-control form-mentoring"
+                    placeholder="Video Link"
+                    v-model="webinar.dtl_video_link"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm ms-2"
+                    style="border-radius: 15px"
+                    @click="previewLink()"
+                  >
+                    Preview
+                  </button>
+                </div>
                 <span v-if="errorWebinar">
                   <small class="text-danger" v-if="errorWebinar.dtl_video_link">
                     {{ errorWebinar.dtl_video_link[0] }}
@@ -80,7 +90,18 @@
                 </span>
               </div>
 
-              <div class="preview"></div>
+              <div class="preview">
+                <iframe
+                  width="100%"
+                  height="310"
+                  :src="preview.link"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  v-if="preview.frame"
+                ></iframe>
+              </div>
             </div>
             <div class="col-md-12">
               <hr />
@@ -112,10 +133,25 @@ export default {
         dtl_video_link: "",
         status: "active",
       },
+      preview: {
+        frame: false,
+        link: "",
+      },
       errorWebinar: [],
     };
   },
   methods: {
+    previewLink() {
+      if (this.webinar.dtl_video_link) {
+        let video_id = this.webinar.dtl_video_link.substr(17, 11);
+        this.preview.link = "https://www.youtube.com/embed/" + video_id;
+        this.preview.frame = true;
+        this.webinar.dtl_video_link = this.preview.link;
+      } else {
+        this.$alert.toast("warning", "Please fill in the video link first!");
+        this.preview.frame = false;
+      }
+    },
     save() {
       this.$alert.loading();
       this.$axios
@@ -124,11 +160,13 @@ export default {
             Authorization: "Bearer " + this.$adminToken,
           },
         })
-        .then(() => {
+        .then((response) => {
+          this.$router.push({
+            path: "/admin/webinar/detail/" + response.data.data.prog_detail.id,
+          });
           this.$alert.close();
           this.$alert.toast("success", "Webinar has been created");
-          this.$router.push({ path: "/admin/webinar" });
-          //   console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           this.$alert.close();

@@ -15,36 +15,36 @@
           <div class="float-end">
             <button
               class="btn-mentoring btn-type-2 btn-sm"
-              @click="this.$router.push({ path: '/admin/webinar/edit' })"
+              @click="
+                this.$router.push({ path: '/admin/webinar/edit/' + webinar_id })
+              "
             >
               Edit Webinar
             </button>
           </div>
         </div>
         <hr />
+        <!-- {{ webinar }} -->
         <div class="row">
           <div class="col-md-7">
             <div class="mb-3">
               <label>Webinar Name</label> <br />
-              Webinar Name
+              {{ webinar.dtl_name }}
             </div>
             <div class="mb-3">
               <label>Category</label> <br />
-              Category Name
+              {{ webinar.dtl_category }}
             </div>
             <div class="mb-3">
               <label>Descriptions</label> <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-              doloremque, nostrum veritatis totam consectetur consequuntur eaque
-              laboriosam voluptate perspiciatis ratione minima dolorem, tenetur
-              culpa tempore rem! Quibusdam architecto animi temporibus!
+              {{ webinar.dtl_desc }}
             </div>
             <div class="mb-3">
               <label>Video</label> <br />
               <iframe
                 width="100%"
                 height="300"
-                src="https://www.youtube.com/embed/PQTG3xcNW_o"
+                :src="webinar.dtl_video_link"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -104,53 +104,6 @@
         </div>
       </div>
     </transition>
-
-    <!-- Edit  -->
-    <transition name="fade">
-      <div class="card-white" v-if="menus.submenu == 'edit'">
-        <h5>Edit Webinar</h5>
-        <hr />
-        <form action="">
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="text"
-                class="form-control form-mentoring mb-3"
-                placeholder="Webinar Name"
-              />
-
-              <select class="form-control form-mentoring mb-3">
-                <option value="">Webinar 1</option>
-                <option value="">Webinar 2</option>
-              </select>
-
-              <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                class="form-control form-mentoring mb-3"
-              ></textarea>
-            </div>
-            <div class="col-md-6">
-              <input
-                type="text"
-                class="form-control form-mentoring mb-3"
-                placeholder="Video Embed"
-              />
-
-              <div class="preview"></div>
-            </div>
-            <div class="col-md-12">
-              <hr />
-              <div class="float-end">
-                <button class="btn-mentoring btn-type-1">Save Changes</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </transition>
   </div>
 </template>
 
@@ -162,10 +115,34 @@ export default {
   },
   data() {
     return {
-      userList: false,
+      webinar_id: "",
+      webinar: [],
     };
   },
-  created() {},
+  methods: {
+    getData(id) {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "find/programme/detail/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.webinar = response.data.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.webinar_id = this.$route.params.key;
+    this.getData(this.webinar_id);
+  },
 };
 </script>
 

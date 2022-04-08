@@ -23,6 +23,7 @@
       </div>
     </div>
     <div class="card-white">
+      <!-- {{ students }} -->
       <table class="table table-borderless table-hover pointer">
         <thead>
           <tr>
@@ -37,7 +38,9 @@
           <tr
             v-for="(i, index) in students.data"
             :key="index"
-            @click="this.$router.push({ path: '/admin/user/student/' + i })"
+            @click="
+              this.$router.push({ path: '/admin/user/student/' + i.email })
+            "
           >
             <td>{{ students.from + index }}</td>
             <td>
@@ -45,7 +48,7 @@
               {{ i.first_name + " " + i.last_name }}
             </td>
             <td>{{ i.email }}</td>
-            <td>School Name</td>
+            <td>{{ i.school_name }}</td>
             <td>{{ i.grade }}</td>
           </tr>
         </tbody>
@@ -62,7 +65,7 @@
               <i class="fa-solid fa-chevron-left"></i>
             </a>
           </li>
-          <div v-for="i in students.last_page" :key="i">
+          <div v-for="(i, index) in students.last_page" :key="index">
             <li
               class="page-item"
               v-if="

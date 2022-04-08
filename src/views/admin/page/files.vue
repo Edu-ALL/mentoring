@@ -55,7 +55,12 @@
           </tbody>
         </table>
       </div>
-      <nav class="mt-2">
+
+      <div class="text-center" v-if="files.from == null">
+        <hr />
+        <h6>Sorry, data is not found</h6>
+      </div>
+      <nav class="mt-2" v-if="files.from != null">
         <ul class="pagination justify-content-center">
           <li class="page-item" v-if="files.current_page != 1">
             <a class="page-link" @click="getPage(files.links[0].url)">
@@ -150,6 +155,7 @@ export default {
   },
   methods: {
     getData() {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "list/student/files", {
           headers: {
@@ -157,10 +163,12 @@ export default {
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.files = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },

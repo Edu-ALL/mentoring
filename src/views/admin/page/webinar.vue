@@ -55,17 +55,22 @@
                     this.$router.push({ path: '/admin/webinar/detail/' + i.id })
                   "
                 >
-                  <td>{{ webinars.from + index }}</td>
+                  <td>{{ parseInt(index) + 1 }}</td>
                   <td>{{ i.dtl_name }}</td>
                   <td>{{ i.dtl_category }}</td>
-                  <td>NA</td>
+                  <td>{{ i.student_activities_count }}</td>
                   <td style="text-transform: capitalize">{{ i.status }}</td>
                   <td>{{ $customDate.date(i.created_at) }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <nav class="mt-2">
+
+          <div class="text-center" v-if="webinars.from == null">
+            <hr />
+            <h6>Sorry, data is not found</h6>
+          </div>
+          <nav class="mt-2" v-if="webinars.from != null">
             <ul class="pagination justify-content-center">
               <li class="page-item" v-if="webinars.current_page != 1">
                 <a class="page-link" @click="getPage(webinars.links[0].url)">
