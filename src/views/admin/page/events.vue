@@ -4,7 +4,24 @@
       <div class="" v-if="menus.submenu == ''">
         <div class="row my-4">
           <div class="col-md-6 text-start">
-            <input type="text" class="form-mentoring" placeholder="Search" />
+            <input
+              type="text"
+              class="form-mentoring"
+              v-model="search.name"
+              @change="searchData"
+              placeholder="Search"
+            />
+            <br />
+            <span
+              class="badge bg-primary px-3 d-inline-block"
+              v-if="search.bar"
+            >
+              {{ search.name }}
+              <i
+                class="fa-solid fa-close ms-3 pointer"
+                @click="closeSearch"
+              ></i>
+            </span>
           </div>
           <div class="col-md-6 text-md-end text-center">
             <button
@@ -15,12 +32,13 @@
             </button>
           </div>
         </div>
+        <!-- {{ events }} -->
         <div class="card-white">
           <div class="table-responsive">
             <table class="table align-middle table-hover">
               <thead>
                 <tr class="text-center">
-                  <th width="5%">No</th>
+                  <th width="2%">No</th>
                   <th>Event Name</th>
                   <th>Participants</th>
                   <th>Status</th>
@@ -30,22 +48,35 @@
               <tbody>
                 <tr
                   class="text-center pointer"
-                  v-for="i in 5"
-                  :key="i"
+                  v-for="(i, index) in events.data"
+                  :key="index"
                   @click="
-                    this.$router.push({ path: '/admin/events/detail/' + i })
+                    this.$router.push({ path: '/admin/events/detail/' + i.id })
                   "
                 >
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>{{ 123 + i }}</td>
-                  <td>Closed</td>
-                  <td>20 Feburary 2022</td>
+                  <td>{{ events.from + index }}</td>
+                  <td>{{ i.dtl_name }}</td>
+                  <td>{{ i.student_activities_count }}</td>
+                  <td>
+                    <i
+                      class="fa-regular fa-circle-check text-success"
+                      v-if="i.status == 'active'"
+                    ></i>
+                    <i
+                      class="fa-regular fa-circle-xmark text-danger"
+                      v-if="i.status != 'active'"
+                    ></i>
+                  </td>
+                  <td>{{ $customDate.date(i.created_at) }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <nav class="mt-2">
+          <div class="text-center" v-if="events.from == null">
+            <hr />
+            <h6>Sorry, data is not found</h6>
+          </div>
+          <nav class="mt-2" v-if="events.from != null">
             <ul class="pagination justify-content-center">
               <li class="page-item" v-if="events.current_page != 1">
                 <a class="page-link" @click="getPage(events.links[0].url)">
@@ -107,21 +138,28 @@ export default {
   data() {
     return {
       events: [],
+      search: {
+        bar: false,
+        name: "",
+      },
     };
   },
   methods: {
     getData() {
+      this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/event", {
+        .get(this.$url + "list/programme/event", {
           headers: {
             Authorization: "Bearer " + this.$adminToken,
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.events = response.data.data;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },
@@ -140,6 +178,32 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/programme/event?keyword=" + this.search.name, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.events = response.data.data;
+          this.search.bar = true;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getData();
     },
   },
   created() {

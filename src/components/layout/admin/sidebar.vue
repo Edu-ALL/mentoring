@@ -94,14 +94,14 @@
         ></vue-feather
         ><span v-if="sidebar">Events</span>
       </li>
-      <li :class="menus.menu == 'inbox' ? 'active' : ''" @click="goTo('inbox')">
+      <!-- <li :class="menus.menu == 'inbox' ? 'active' : ''" @click="goTo('inbox')">
         <vue-feather
           type="message-square"
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
         ><span v-if="sidebar">Inboxes</span>
-      </li>
+      </li> -->
       <li
         :class="menus.menu == 'transactions' ? 'active' : ''"
         @click="goTo('transactions')"

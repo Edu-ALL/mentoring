@@ -14,6 +14,7 @@
       </div>
     </transition>
 
+    {{ event }}
     <!-- Detail  -->
     <transition name="fade">
       <div class="card-white" v-if="menus.submenu == 'detail'">
@@ -33,32 +34,35 @@
           <div class="col-md-7">
             <div class="mb-3">
               <label>Event Name</label> <br />
-              Event Name
+              {{ event.dtl_name }}
             </div>
             <div class="mb-3">
               <label>Category</label> <br />
-              Category Name
+              {{ event.dtl_category }}
             </div>
             <div class="mb-3">
               <label>Price</label> <br />
-              Rp 123.000
+              Rp {{ event.dtl_price }}
             </div>
             <div class="mb-3">
               <label>Descriptions</label> <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-              doloremque, nostrum veritatis totam consectetur consequuntur eaque
-              laboriosam voluptate perspiciatis ratione minima dolorem, tenetur
-              culpa tempore rem! Quibusdam architecto animi temporibus!
+              {{ event.dtl_desc }}
             </div>
           </div>
           <div class="col-md-5">
             <div class="card shadow border-0">
               <div class="card-body">
                 <h6>Date & Time</h6>
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="i in 5" :key="i">
-                    <div class="float-start">12 April 2022</div>
-                    <div class="float-end">09.30 - 10.30 WIB</div>
+                <ul class="list-group" v-if="event.schedule">
+                  <li
+                    class="list-group-item"
+                    v-for="i in event.schedule"
+                    :key="i"
+                  >
+                    <div class="float-start">{{ i.prog_sch_start_date }}</div>
+                    <div class="float-end">
+                      {{ i.prog_sch_start_time }} -{{ i.prog_sch_end_time }}
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -68,7 +72,7 @@
           <div class="col-md-12 mt-3">
             <h6>Speaker List</h6>
             <div class="row row-cols-3 row-cols-1">
-              <div class="col" v-for="i in 2" :key="i">
+              <div class="col" v-for="i in event.speakers" :key="i">
                 <div
                   class="card border-0 shadow"
                   @click="modal = 'speakerDetail'"
@@ -85,11 +89,10 @@
                         </div>
                       </div>
                       <div class="col-md-9">
-                        <b>Speaker Name</b>
-                        <div class="text-muted">Position Title</div>
+                        <b>{{ i.sp_name }}</b>
+                        <div class="text-muted">{{ i.sp_title }}</div>
                         <p class="mb-0 text-justify">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.
+                          {{ i.sp_desc.substr(0, 20) + "..." }}
                         </p>
                         <small class="pointer text-info"
                           >More info
@@ -133,14 +136,14 @@
             <div class="vue-modal-overlay" @click="modal = ''"></div>
           </div>
 
-          <div class="col-md-12 mt-3">
+          <div class="col-md-12 mt-3" v-if="event.partners">
             <h6>Partner List</h6>
             <div class="row row-cols-6 row-cols-2">
-              <div class="col" v-for="i in 4" :key="i">
+              <div class="col" v-for="i in event.partners" :key="i">
                 <div class="card border-0 shadow">
                   <div class="card-body text-center">
                     <img v-lazy="'https://picsum.photos/100'" alt="" />
-                    <b class="d-block mt-2">Partner Name</b>
+                    <b class="d-block mt-2">{{ i.pt_name }}</b>
                   </div>
                 </div>
               </div>
@@ -180,9 +183,36 @@ export default {
     "v-participants": Participants,
   },
   data() {
-    return {};
+    return {
+      modal: "",
+      event_id: "",
+      event: [],
+    };
   },
-  created() {},
+  methods: {
+    getData(id) {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "find/programme/detail/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.event = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.event_id = this.$route.params.key;
+    this.getData(this.event_id);
+  },
 };
 </script>
 

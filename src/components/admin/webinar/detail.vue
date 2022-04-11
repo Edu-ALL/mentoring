@@ -14,12 +14,18 @@
           <h5 class="d-inline">Webinar</h5>
           <div class="float-end">
             <button
-              class="btn-mentoring btn-type-2 btn-sm"
+              class="btn-mentoring btn-info btn-sm"
               @click="
                 this.$router.push({ path: '/admin/webinar/edit/' + webinar_id })
               "
             >
-              Edit Webinar
+              Edit
+            </button>
+            <button
+              class="btn-mentoring btn-outline-danger btn-sm ms-2"
+              @click="deleteWebinar(webinar_id)"
+            >
+              Delete
             </button>
           </div>
         </div>
@@ -116,6 +122,7 @@ export default {
   data() {
     return {
       webinar_id: "",
+      userList: false,
       webinar: [],
     };
   },
@@ -131,12 +138,17 @@ export default {
         .then((response) => {
           this.$alert.close();
           this.webinar = response.data.data;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           this.$alert.close();
           console.log(error);
         });
+    },
+    deleteWebinar(id) {
+      let link = this.$url + "delete/programme/detail/" + id;
+      let token = "Bearer " + this.$adminToken;
+      this.$alert.confirm(link, token);
     },
   },
   created() {

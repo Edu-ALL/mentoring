@@ -15,9 +15,9 @@
           <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
         </span>
       </div>
-      <div class="col-md-6 text-md-end text-center">
+      <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">Sync Editor Data</button>
-      </div>
+      </div> -->
     </div>
     <div class="card-white">
       <table class="table table-borderless table-hover pointer">

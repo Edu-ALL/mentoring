@@ -89,3 +89,7 @@ textarea:focus {
     color: #223872;
     outline: 1px solid #223872;
 }
+
+.btn-danger, .btn-success, .btn-info, .btn-warning, .btn-outline-success, .btn-outline-danger {
+    box-shadow: none !important;
+}

@@ -1,4 +1,6 @@
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import router from '../../router'
 
 export const alert = {
     loading() {
@@ -7,6 +9,46 @@ export const alert = {
             allowOutsideClick: false
         });
         Swal.showLoading();
+    },
+
+    confirm(link, token) {
+        const customSwal = Swal.mixin({
+            customClass: {
+
+                confirmButton: 'btn-mentoring btn-outline-success mx-1',
+                cancelButton: 'btn-mentoring btn-danger mx-1'
+            },
+            buttonsStyling: false
+        })
+
+        customSwal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            width: '400px',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.loading()
+                axios
+                    .delete(link, {
+                        headers: {
+                            Authorization: token,
+                        },
+                    })
+                    .then(() => {
+                        // console.log(response);
+                        this.close()
+                        this.toast("success", "Your file has been deleted.");
+                        router.push({ path: '/admin/webinar' })
+                    })
+                    .catch((error) => {
+                        this.close()
+                        console.log(error);
+                    });
+            }
+        })
     },
 
     toast(status, title) {

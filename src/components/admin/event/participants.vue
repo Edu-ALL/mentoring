@@ -14,6 +14,7 @@
         <button class="btn-mentoring btn-type-2">Add a New Student</button>
       </div> -->
     </div>
+    {{ list }}
     <div class="table-responsive">
       <table class="table align-middle table-hover">
         <thead>
@@ -38,7 +39,6 @@
         </tbody>
       </table>
     </div>
-    <hr />
     <nav class="mt-2">
       <ul class="pagination justify-content-center">
         <li class="page-item">
@@ -56,6 +56,9 @@
 <script>
 export default {
   name: "participants",
+  props: {
+    list: Object,
+  },
 };
 </script>
 

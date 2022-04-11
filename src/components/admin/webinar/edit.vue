@@ -2,7 +2,9 @@
   <div id="editWebinar">
     <div
       class="mb-2"
-      @click="this.$router.push({ path: '/admin/webinar/detail/2' })"
+      @click="
+        this.$router.push({ path: '/admin/webinar/detail/' + webinar_id })
+      "
     >
       <vue-feather
         type="arrow-left"
@@ -149,7 +151,7 @@ export default {
           this.$alert.close();
           this.webinar = response.data.data;
           this.webinar.dtl_category = this.webinar.dtl_category
-            .replace(" ", "-")
+            .replaceAll(" ", "-")
             .toLowerCase();
           // console.log(response);
         })

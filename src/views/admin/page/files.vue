@@ -23,6 +23,7 @@
       </div> -->
     </div>
     <!-- {{ files }} -->
+
     <div class="card-white">
       <div class="table-responsive">
         <table class="table align-middle table-hover">
@@ -30,9 +31,10 @@
             <tr class="text-center">
               <th>No</th>
               <th>File Name</th>
-              <th>Category File</th>
+              <th>Category</th>
               <th>Need Verification</th>
               <th>Verification Status</th>
+              <th>Download</th>
               <th>Uploaded By</th>
               <th>Uploaded Date</th>
             </tr>
@@ -46,10 +48,37 @@
             >
               <td>{{ files.from + index }}</td>
               <td>{{ i.med_title }}</td>
-              <td>{{ i.med_cat_id }}</td>
-              <td>NA</td>
-              <td>{{ i.status }}</td>
-              <td>NA</td>
+              <td>{{ i.media_categories.name }}</td>
+              <td>
+                {{ i.media_categories.terms == "required" ? "Yes" : "No" }}
+              </td>
+              <td>
+                {{ i.media_categories.terms != "required" ? "-" : "" }}
+                <i
+                  class="fa-solid fa-check text-success"
+                  v-if="
+                    i.media_categories.terms == 'required' &&
+                    i.status == 'verified'
+                  "
+                ></i>
+                <i
+                  class="fa-solid fa-times text-danger"
+                  v-if="
+                    i.media_categories.terms == 'required' &&
+                    i.status == 'not-verified'
+                  "
+                ></i>
+              </td>
+              <td>
+                <a
+                  :href="$base_url + i.med_file_path"
+                  target="_blank"
+                  class="btn btn-sm btn-primary btn-mentoring"
+                >
+                  Download File
+                </a>
+              </td>
+              <td>{{ i.students.first_name + " " + i.students.last_name }}</td>
               <td>{{ $customDate.date(i.created_at) }}</td>
             </tr>
           </tbody>
@@ -103,28 +132,42 @@
               </div>
               <div class="mb-2">
                 <label>Category File</label> <br />
-                {{ detailData.med_cat_id }}
+                {{ detailData.media_categories.name }}
               </div>
               <div class="mb-2">
                 <label>Uploaded by</label> <br />
-                NA
+                {{
+                  detailData.students.first_name +
+                  " " +
+                  detailData.students.last_name
+                }}
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-2">
                 <label>Need Verification</label> <br />
-                No
+                {{
+                  detailData.media_categories.terms == "required" ? "Yes" : "No"
+                }}
               </div>
               <div class="mb-2">
-                <button class="btn btn-sm btn-primary btn-mentoring">
+                <a
+                  :href="$base_url + detailData.med_file_path"
+                  target="_blank"
+                  class="btn btn-sm btn-primary btn-mentoring"
+                >
                   Download File
-                </button>
+                </a>
               </div>
               <div class="mb-2">
                 <label>Verification Status</label> <br />
-                <select name="" id="" class="form-control form-mentoring">
-                  <option value="">Verify</option>
-                  <option value="">Not Verify</option>
+                <select
+                  class="form-control form-mentoring"
+                  v-model="detailData.status"
+                  @change="verify(detailData)"
+                >
+                  <option value="verified">Verify</option>
+                  <option value="not-verified">Not Verify</option>
                 </select>
               </div>
             </div>
@@ -188,9 +231,38 @@ export default {
           console.log(error);
         });
     },
+
     checkDetail(i) {
-      this.detailData = i;
-      this.detail = true;
+      if (i.media_categories.terms == "required") {
+        this.detailData = i;
+        this.detail = true;
+      }
+    },
+
+    verify(data) {
+      this.$alert.loading();
+      let files = {
+        student_id: data.students.id,
+        status: data.status,
+      };
+
+      this.$axios
+        .post(this.$url + "switch/student/files/" + data.id, files, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.$alert.toast("success", response.data.message);
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error.response.data);
+        });
+
+      this.detail = false;
     },
 
     searchData() {

@@ -8,8 +8,10 @@
             v-lazy="'https://picsum.photos/200/300'"
             alt="Profile"
             class="st-pic"
+            v-if="!alumni.profile_picture"
           />
         </div>
+        <!-- {{ alumni }} -->
         <div class="col-md-9">
           <h5>{{ alumni.first_name + " " + alumni.last_name }}</h5>
           <hr class="my-0 mb-2" />
@@ -21,7 +23,12 @@
               </div>
               <div class="mb-2">
                 <label>Education/Major</label> <br />
-                Lorem ipsum
+                <ul class="ps-3">
+                  <li v-for="i in alumni.educations" :key="i">
+                    {{ i.graduated_from }} - {{ i.major }} <br />
+                    {{ i.degree }}
+                  </li>
+                </ul>
               </div>
               <div class="mb-2">
                 <label>Phone Number</label> <br />
@@ -31,18 +38,14 @@
             <div class="col-md-6">
               <div class="mb-2">
                 <label>Social Media</label> <br />
-                <vue-feather
-                  type="instagram"
-                  class="float-start me-2 mt-1"
-                  size="16"
-                ></vue-feather>
-                Lorem Ipsum <br />
-                <vue-feather
-                  type="linkedin"
-                  class="float-start me-2 mt-1"
-                  size="16"
-                ></vue-feather>
-                Lorem Ipsum <br />
+                <div class="mb-2" v-for="i in alumni.social_media" :key="i">
+                  <vue-feather
+                    :type="i.social_media_name"
+                    class="float-start me-2 mt-1"
+                    size="16"
+                  ></vue-feather>
+                  {{ i.hyperlink }}
+                </div>
               </div>
               <div class="mb-2">
                 <label>Address</label> <br />
@@ -55,7 +58,7 @@
     </div>
 
     <!-- Activity  -->
-
+    <!-- {{ activities.one_on_one }} -->
     <div class="card-white">
       <div class="border p-3 rounded mt-3">
         <div class="table-responsive">

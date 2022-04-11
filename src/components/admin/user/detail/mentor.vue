@@ -8,9 +8,10 @@
             v-lazy="'https://picsum.photos/200/300'"
             alt="Profile"
             class="st-pic"
-            v-if="mentors.profile_picture == null"
+            v-if="!mentors.profile_picture"
           />
         </div>
+        <!-- {{ mentors }} -->
         <div class="col-md-9">
           <h5>{{ mentors.first_name + " " + mentors.last_name }}</h5>
           <hr class="my-0 mb-2" />
@@ -23,7 +24,10 @@
               <div class="mb-2">
                 <label>Education/Major</label> <br />
                 <ul class="ps-3">
-                  <li v-for="i in 2" :key="i">University (Major)</li>
+                  <li v-for="i in mentors.educations" :key="i">
+                    {{ i.graduated_from }} - {{ i.major }} <br />
+                    {{ i.degree }}
+                  </li>
                 </ul>
               </div>
               <div class="mb-2">
@@ -34,18 +38,14 @@
             <div class="col-md-6">
               <div class="mb-2">
                 <label>Social Media</label> <br />
-                <vue-feather
-                  type="instagram"
-                  class="float-start me-2 mt-1"
-                  size="16"
-                ></vue-feather>
-                Lorem Ipsum <br />
-                <vue-feather
-                  type="linkedin"
-                  class="float-start me-2 mt-1"
-                  size="16"
-                ></vue-feather>
-                Lorem Ipsum <br />
+                <div class="mb-2" v-for="i in mentors.social_media" :key="i">
+                  <vue-feather
+                    :type="i.social_media_name"
+                    class="float-start me-2 mt-1"
+                    size="16"
+                  ></vue-feather>
+                  {{ i.hyperlink }}
+                </div>
               </div>
               <div class="mb-2">
                 <label>Address</label> <br />
@@ -82,7 +82,7 @@
             <table class="table align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="2%">No</th>
                   <th>Call with</th>
                   <th>Category</th>
                   <th>Date & Time</th>
@@ -176,7 +176,7 @@
             <table class="table align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="2%">No</th>
                   <th>Students Name</th>
                   <th>Email</th>
                   <th>School Name</th>
@@ -184,26 +184,68 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>lorem@all-inedu.com</td>
-                  <td>School Name</td>
-                  <td>11</td>
+                <tr
+                  class="text-center"
+                  v-for="(i, index) in activities.students.data"
+                  :key="index"
+                >
+                  <td>{{ activities.students.from + index }}</td>
+                  <td>{{ i.first_name + " " + i.last_name }}</td>
+                  <td>{{ i.email }}</td>
+                  <td>{{ i.school_name }}</td>
+                  <td>{{ i.grade }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <hr />
-          <nav class="mt-2">
+          <nav class="mt-2" v-if="activities.students.from != null">
             <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
+              <li
+                class="page-item"
+                v-if="activities.students.current_page != 1"
+              >
+                <a
+                  class="page-link"
+                  @click="getPage(activities.students.links[0].url)"
+                >
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              <div v-for="i in activities.students.last_page" :key="i">
+                <li
+                  class="page-item"
+                  v-if="
+                    activities.students.current_page - 2 < i &&
+                    activities.students.current_page + 2 > i
+                  "
+                >
+                  <a
+                    class="page-link"
+                    :class="
+                      activities.students.current_page == i
+                        ? 'bg-primary text-white'
+                        : ''
+                    "
+                    href="#"
+                    @click="getPage(activities.students.path + '?page=' + i)"
+                    >{{ i }}</a
+                  >
+                </li>
+              </div>
+              <li
+                class="page-item"
+                v-if="
+                  activities.students.current_page !=
+                  activities.students.last_page
+                "
+              >
+                <a
+                  class="page-link"
+                  @click="getPage(activities.students.next_page_url)"
+                >
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

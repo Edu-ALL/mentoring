@@ -8,6 +8,7 @@
             v-lazy="'https://picsum.photos/200/300'"
             alt="Profile"
             class="st-pic"
+            v-if="!student.image"
           />
         </div>
         <!-- {{ student }} -->
@@ -87,7 +88,7 @@
         File Libraries
       </button>
 
-      {{ activities.webinars }}
+      <!-- {{ activities.files }} -->
 
       <!-- 1on1 Calls  -->
       <transition name="fade">
@@ -96,7 +97,7 @@
             <table class="table align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="2%">No</th>
                   <th>Call with</th>
                   <th>Category</th>
                   <th>Date & Time</th>
@@ -190,16 +191,25 @@
             <table class="table align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="2%">No</th>
                   <th>Webinar Name</th>
                   <th>Date & Time</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>20 Feburary 2022</td>
+                <tr
+                  class="text-center"
+                  v-for="(i, index) in activities.webinars.data"
+                  :key="index"
+                >
+                  <td>{{ activities.webinars.from + index }}</td>
+                  <td>
+                    {{ i.programme_details.dtl_name }}
+                  </td>
+                  <td>
+                    {{ $customDate.date(i.created_at) }} at
+                    {{ $customDate.time(i.created_at) }}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -267,30 +277,78 @@
             <table class="table align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="2%">No</th>
                   <th>Event Name</th>
+                  <th>Status</th>
                   <th>Date & Time</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>20 Feburary 2022</td>
+                <tr
+                  class="text-center"
+                  v-for="(i, index) in activities.events.data"
+                  :key="index"
+                >
+                  <td>{{ activities.events.from + index }}</td>
+                  <td>{{ i.programme_details.dtl_name }}</td>
+                  <td style="text-transform: capitalize">
+                    {{ i.std_act_status }}
+                  </td>
+                  <td>
+                    {{ $customDate.date(i.created_at) }} at
+                    {{ $customDate.time(i.created_at) }}
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <hr />
-          <nav class="mt-2">
+          <nav class="mt-2" v-if="activities.events.from != null">
             <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
+              <li class="page-item" v-if="activities.events.current_page != 1">
+                <a
+                  class="page-link"
+                  @click="getPage(activities.events.links[0].url)"
+                >
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              <div
+                v-for="(i, index) in activities.events.last_page"
+                :key="index"
+              >
+                <li
+                  class="page-item"
+                  v-if="
+                    activities.events.current_page - 2 < i &&
+                    activities.events.current_page + 2 > i
+                  "
+                >
+                  <a
+                    class="page-link"
+                    :class="
+                      activities.events.current_page == i
+                        ? 'bg-primary text-white'
+                        : ''
+                    "
+                    href="#"
+                    @click="getPage(activities.events.path + '?page=' + i)"
+                    >{{ i }}</a
+                  >
+                </li>
+              </div>
+              <li
+                class="page-item"
+                v-if="
+                  activities.events.current_page != activities.events.last_page
+                "
+              >
+                <a
+                  class="page-link"
+                  @click="getPage(activities.events.next_page_url)"
+                >
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
@@ -303,30 +361,77 @@
             <table class="table align-middle">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
+                  <th width="2%">No</th>
                   <th>File Name</th>
+                  <th>Description</th>
+                  <th>Download</th>
                   <th>Uploaded Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>20 Feburary 2022</td>
+                <tr
+                  class="text-center"
+                  v-for="(i, index) in activities.files.data"
+                  :key="index"
+                >
+                  <td>{{ activities.files.from + index }}</td>
+                  <td>{{ i.med_title }}</td>
+                  <td>{{ i.med_desc.substr(0, 15) + ".." }}</td>
+                  <td>
+                    <a :href="i.med_file_path" download>Download</a>
+                  </td>
+                  <td>{{ $customDate.date(i.created_at) }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <hr />
-          <nav class="mt-2">
+          <nav class="mt-2" v-if="activities.files.from != null">
             <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
+              <li class="page-item" v-if="activities.files.current_page != 1">
+                <a
+                  class="page-link"
+                  @click="getPage(activities.files.links[0].url)"
+                >
+                  <i class="fa-solid fa-chevron-left"></i>
+                </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              <div
+                v-for="(i, index) in activities.files.last_page"
+                :key="index"
+              >
+                <li
+                  class="page-item"
+                  v-if="
+                    activities.files.current_page - 2 < i &&
+                    activities.files.current_page + 2 > i
+                  "
+                >
+                  <a
+                    class="page-link"
+                    :class="
+                      activities.files.current_page == i
+                        ? 'bg-primary text-white'
+                        : ''
+                    "
+                    href="#"
+                    @click="getPage(activities.files.path + '?page=' + i)"
+                    >{{ i }}</a
+                  >
+                </li>
+              </div>
+              <li
+                class="page-item"
+                v-if="
+                  activities.files.current_page != activities.files.last_page
+                "
+              >
+                <a
+                  class="page-link"
+                  @click="getPage(activities.files.next_page_url)"
+                >
+                  <i class="fa-solid fa-chevron-right"></i>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
@@ -431,7 +536,7 @@ export default {
     getFiles(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/event?student_mail=" + email, {
+        .get(this.$url + "list/student/files?mail" + email, {
           headers: {
             Authorization: "Bearer " + this.$adminToken,
           },
@@ -443,7 +548,7 @@ export default {
         })
         .catch((error) => {
           this.$alert.close();
-          console.log(error);
+          console.log(error.response.data);
         });
     },
 
