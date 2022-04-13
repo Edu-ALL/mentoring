@@ -118,7 +118,7 @@
     <transition name="fade">
       <v-event-detail
         :menus="menus"
-        v-if="menus.submenu != ''"
+        v-if="menus.menu == 'events' && menus.submenu != ''"
       ></v-event-detail>
     </transition>
   </div>

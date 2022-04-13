@@ -148,7 +148,7 @@ export default {
     deleteWebinar(id) {
       let link = this.$url + "delete/programme/detail/" + id;
       let token = "Bearer " + this.$adminToken;
-      this.$alert.confirm(link, token);
+      this.$alert.confirm(link, token, "/admin/webinar");
     },
   },
   created() {

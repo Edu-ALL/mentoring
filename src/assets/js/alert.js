@@ -11,7 +11,7 @@ export const alert = {
         Swal.showLoading();
     },
 
-    confirm(link, token) {
+    confirm(link, token, to) {
         const customSwal = Swal.mixin({
             customClass: {
 
@@ -34,6 +34,7 @@ export const alert = {
                 axios
                     .delete(link, {
                         headers: {
+                            "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, DELETE",
                             Authorization: token,
                         },
                     })
@@ -41,7 +42,7 @@ export const alert = {
                         // console.log(response);
                         this.close()
                         this.toast("success", "Your file has been deleted.");
-                        router.push({ path: '/admin/webinar' })
+                        router.push({ path: to })
                     })
                     .catch((error) => {
                         this.close()

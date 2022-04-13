@@ -4,9 +4,9 @@
       <div class="col-md-6">
         <h6>Participants</h6>
       </div>
-      <div class="col-md-6 text-end">
+      <!-- <div class="col-md-6 text-end">
         <input type="text" class="form-mentoring" placeholder="Search" />
-      </div>
+      </div> -->
       <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
           Sync Students Data
@@ -14,13 +14,12 @@
         <button class="btn-mentoring btn-type-2">Add a New Student</button>
       </div> -->
     </div>
-    {{ list }}
     <div class="table-responsive">
       <table class="table align-middle table-hover">
         <thead>
           <tr class="text-center">
             <th>No</th>
-            <th>Full Name</th>
+            <th>Students Name</th>
             <th>Email</th>
             <th>School Name</th>
             <th>Grade</th>
@@ -28,18 +27,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-center" v-for="i in 5" :key="i">
-            <td>{{ i }}</td>
-            <td>Username</td>
-            <td>user@gmail.com</td>
-            <td>School Name</td>
-            <td>9</td>
-            <td>20 Feburary 2022</td>
+          <tr class="text-center" v-for="(i, index) in list" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ i.students.first_name + " " + i.students.last_name }}</td>
+            <td>{{ i.students.email }}</td>
+            <td>{{ i.students.school_name }}</td>
+            <td>{{ i.students.grade }}</td>
+            <td>{{ $customDate.date(i.students.created_at) }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <nav class="mt-2">
+    <!-- <nav class="mt-2">
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="#">Previous</a>
@@ -49,7 +48,7 @@
         <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item"><a class="page-link" href="#">Next</a></li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 </template>
 
@@ -63,6 +62,4 @@ export default {
 </script>
 
 <style scoped>
-#participants {
-}
 </style>

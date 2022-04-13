@@ -14,16 +14,18 @@
       </div>
     </transition>
 
-    {{ event }}
     <!-- Detail  -->
     <transition name="fade">
       <div class="card-white" v-if="menus.submenu == 'detail'">
+        <!-- {{ event }} -->
         <div class="flex">
           <h5 class="d-inline">Event</h5>
           <div class="float-end">
             <button
               class="btn-mentoring btn-type-2 btn-sm"
-              @click="this.$router.push({ path: '/admin/events/edit' })"
+              @click="
+                this.$router.push({ path: '/admin/events/edit/' + event.id })
+              "
             >
               Edit Event
             </button>
@@ -53,13 +55,15 @@
             <div class="card shadow border-0">
               <div class="card-body">
                 <h6>Date & Time</h6>
-                <ul class="list-group" v-if="event.schedule">
+                <ul class="list-group" v-if="event.programme_schedules">
                   <li
                     class="list-group-item"
-                    v-for="i in event.schedule"
+                    v-for="i in event.programme_schedules"
                     :key="i"
                   >
-                    <div class="float-start">{{ i.prog_sch_start_date }}</div>
+                    <div class="float-start">
+                      {{ $customDate.date(i.prog_sch_start_date) }}
+                    </div>
                     <div class="float-end">
                       {{ i.prog_sch_start_time }} -{{ i.prog_sch_end_time }}
                     </div>
@@ -69,14 +73,11 @@
             </div>
           </div>
 
-          <div class="col-md-12 mt-3">
+          <div class="col-md-12 mt-3" v-if="event.speakers">
             <h6>Speaker List</h6>
             <div class="row row-cols-3 row-cols-1">
               <div class="col" v-for="i in event.speakers" :key="i">
-                <div
-                  class="card border-0 shadow"
-                  @click="modal = 'speakerDetail'"
-                >
+                <div class="card border-0 shadow" @click="speakerDetail(i)">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col-md-3">
@@ -92,7 +93,8 @@
                         <b>{{ i.sp_name }}</b>
                         <div class="text-muted">{{ i.sp_title }}</div>
                         <p class="mb-0 text-justify">
-                          {{ i.sp_desc.substr(0, 20) + "..." }}
+                          {{ i.sp_desc }}
+                          <!-- {{ i.sp_desc.substr(0, 20) + "..." }} -->
                         </p>
                         <small class="pointer text-info"
                           >More info
@@ -122,13 +124,10 @@
                   />
                 </div>
                 <div class="col-md-9">
-                  <b>Speaker Name</b>
-                  <div class="text-muted">Position Name</div>
+                  <b>{{ sdetail.sp_name }}</b>
+                  <div class="text-muted">{{ sdetail.sp_title }}</div>
                   <p class="mb-0">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Voluptatem labore rem quaerat odit, sit, dolores aut itaque
-                    dolor voluptas perspiciatis nulla ducimus. Omnis rem quaerat
-                    eveniet molestiae reprehenderit quo rerum!
+                    {{ sdetail.sp_short_desc }}
                   </p>
                 </div>
               </div>
@@ -142,7 +141,11 @@
               <div class="col" v-for="i in event.partners" :key="i">
                 <div class="card border-0 shadow">
                   <div class="card-body text-center">
-                    <img v-lazy="'https://picsum.photos/100'" alt="" />
+                    <img
+                      v-lazy="'https://picsum.photos/100'"
+                      alt=""
+                      class="w-100"
+                    />
                     <b class="d-block mt-2">{{ i.pt_name }}</b>
                   </div>
                 </div>
@@ -152,7 +155,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <v-participants></v-participants>
+            <v-participants :list="event.student_activities"></v-participants>
           </div>
         </div>
       </div>
@@ -161,7 +164,7 @@
     <!-- Edit  -->
     <transition name="fade">
       <div class="card-white" v-if="menus.submenu == 'edit'">
-        <v-edit></v-edit>
+        <v-edit :detail="event"></v-edit>
       </div>
     </transition>
   </div>
@@ -187,13 +190,14 @@ export default {
       modal: "",
       event_id: "",
       event: [],
+      sdetail: [],
     };
   },
   methods: {
-    getData(id) {
+    getData(i) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "find/programme/detail/" + id, {
+        .get(this.$url + "find/programme/detail/" + i, {
           headers: {
             Authorization: "Bearer " + this.$adminToken,
           },
@@ -207,6 +211,10 @@ export default {
           this.$alert.close();
           console.log(error);
         });
+    },
+    speakerDetail(i) {
+      this.modal = "speakerDetail";
+      this.sdetail = i;
     },
   },
   created() {
