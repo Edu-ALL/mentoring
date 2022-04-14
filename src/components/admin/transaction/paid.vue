@@ -6,6 +6,7 @@
       </div>
     </div>
     <div class="row">
+      <!-- {{ paids }} -->
       <div class="col">
         <table class="table table-hover pointer">
           <thead>
@@ -20,12 +21,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="i in 10" :key="i">
-              <td>{{ i }}</td>
-              <td>Full Name</td>
+            <tr v-for="(i, index) in paids.data" :key="index">
+              <td>{{ paids.from + index }}</td>
+              <td>
+                {{
+                  i.student_activities.students.first_name +
+                  " " +
+                  i.student_activities.students.last_name
+                }}
+              </td>
               <td>Events</td>
               <td>
-                <i class="fa-regular fa-calendar fa-fw"></i> 24 March 2022
+                <i class="fa-regular fa-calendar fa-fw"></i>
+                {{ $customDate.date(i.created_at) }}
               </td>
               <td @click="check = true">
                 <vue-feather
@@ -35,7 +43,7 @@
                 ></vue-feather>
                 Check
               </td>
-              <td>Paid</td>
+              <td style="text-transform: capitalize">{{ i.status }}</td>
               <td>
                 <button
                   class="btn btn-sm btn-outline-info me-2"

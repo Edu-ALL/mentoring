@@ -6,6 +6,7 @@
       </div>
     </div>
     <div class="row">
+      <!-- {{ pendings }} -->
       <div class="col">
         <table class="table table-hover pointer">
           <thead>
@@ -19,37 +20,48 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="i in 10" :key="i">
-              <td>{{ i }}</td>
-              <td>Full Name</td>
-              <td>Events</td>
+            <tr v-for="(i, index) in pendings.data" :key="index">
+              <td>{{ pendings.from + index }}</td>
+              <td>
+                {{
+                  i.student_activities.students.first_name +
+                  " " +
+                  i.student_activities.students.last_name
+                }}
+              </td>
+              <td></td>
               <td>
                 <i class="fa-regular fa-calendar fa-fw"></i>
-                24 March 2022
+                {{ $customDate.date(i.created_at) }}
               </td>
               <td class="text-warning">
-                <i class="fa-regular fa-clock fa-fw"></i> Pending
+                <i class="fa-regular fa-clock fa-fw"></i> {{ i.status }}
               </td>
               <td>
-                <button
+                <!-- @click="report = 'invoice'" -->
+                <a
+                  :href="$url + 'transaction/' + i.trx_id + '/invoice'"
                   class="btn btn-sm btn-outline-info me-2"
-                  @click="report = 'invoice'"
                 >
                   <i class="fa-regular fa-file fa-fw"></i>
                   Invoice
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
         </table>
-        <nav class="mt-2">
+        <div class="text-center" v-if="pendings.from == null">
+          <hr />
+          <h6>Sorry, data is not found</h6>
+        </div>
+        <nav class="mt-2" v-if="pendings.from != null">
           <ul class="pagination justify-content-center">
             <li class="page-item" v-if="pendings.current_page != 1">
               <a class="page-link" @click="getPage(pendings.links[0].url)">
                 <i class="fa-solid fa-chevron-left"></i>
               </a>
             </li>
-            <div v-for="i in pendings.last_page" :key="i">
+            <div v-for="(i, index) in pendings.last_page" :key="index">
               <li
                 class="page-item"
                 v-if="

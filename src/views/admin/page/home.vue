@@ -121,7 +121,7 @@ export default {
     getusers() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "overview/total", {
+        .get(this.$url + "overview/admin/total", {
           headers: {
             Authorization: "Bearer " + this.$adminToken,
           },

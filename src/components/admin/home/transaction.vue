@@ -1,14 +1,29 @@
 <template>
   <div id="transaction">
     <h6 class="act-title">Transaction</h6>
-    {{ list }}
+    <!-- {{ list }} -->
     <table class="table table-borderless">
       <tbody>
-        <tr v-for="i in 3" :key="i">
-          <td>Full Name</td>
-          <td class="text-center">Subscription</td>
-          <td class="text-center">23 January 2022</td>
-          <td class="text-end">Successfull</td>
+        <tr v-for="(i, index) in list" :key="index">
+          <td>
+            {{
+              i.student_activities.students.first_name +
+              " " +
+              i.student_activities.students.last_name
+            }}
+          </td>
+          <td class="text-center">
+            <div v-if="!i.student_activities.programme_details">
+              {{ i.student_activities.prog_id == 1 ? "1on1 Call" : "" }}
+            </div>
+            <div v-if="i.student_activities.programme_details">
+              {{ i.student_activities.programme_details.dtl_name }}
+            </div>
+          </td>
+          <td class="text-center">{{ $customDate.date(i.created_at) }}</td>
+          <td class="text-end" style="text-transform: capitalize">
+            {{ i.status }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -27,7 +42,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/transaction/pending/recent", {
+        .get(this.$url + "list/transaction/all/recent", {
           headers: {
             Authorization: "Bearer " + this.$adminToken,
           },

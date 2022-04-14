@@ -2,7 +2,18 @@
   <div id="successMail">
     <div class="row my-4">
       <div class="col-md-6 text-start">
-        <input type="text" class="form-mentoring" placeholder="Search" />
+        <input
+          type="text"
+          class="form-mentoring"
+          v-model="search.name"
+          @change="searchData"
+          placeholder="Search"
+        />
+        <br />
+        <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
+          {{ search.name }}
+          <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
+        </span>
       </div>
       <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
@@ -41,9 +52,19 @@
                 <i class="fa-regular fa-calendar fa-fw"></i>
                 {{ $customDate.date(i.date_sent) }}
               </td>
-              <td class="pointer text-success">
-                <i class="fa-regular fa-circle-check fa-fw"></i>
-                Success
+              <td class="pointer">
+                <div
+                  class="text-primary"
+                  v-if="i.error_status"
+                  @click="checkDetail(i)"
+                >
+                  <i class="fa-solid fa-triangle-exclamation fa-fw"></i>
+                  Solved
+                </div>
+                <div class="text-success" v-if="!i.error_status">
+                  <i class="fa-regular fa-circle-check fa-fw"></i>
+                  Success
+                </div>
               </td>
             </tr>
           </tbody>
@@ -82,6 +103,19 @@
         </ul>
       </nav>
     </div>
+
+    <transition name="fade">
+      <div class="" v-if="detail">
+        <div class="vue-modal vue-modal-md">
+          <h6>Error Description</h6>
+          <hr class="my-0 mb-2" />
+          <p>
+            {{ detailData.error_message }}
+          </p>
+        </div>
+        <div class="vue-modal-overlay" @click="detail = false"></div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -91,9 +125,20 @@ export default {
   data() {
     return {
       mails: [],
+      search: {
+        bar: false,
+        name: "",
+      },
+      detail: false,
+      detalData: [],
     };
   },
   methods: {
+    checkDetail(i) {
+      this.detailData = i;
+      this.detail = true;
+    },
+
     getData() {
       this.$axios
         .get(this.$url + "list/mail/log/success", {
@@ -124,6 +169,32 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/mail/log/success?keyword=" + this.search.name, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.mails = response.data.data;
+          this.search.bar = true;
+          console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getData();
     },
   },
   created() {

@@ -2,7 +2,18 @@
   <div id="errorMail">
     <div class="row my-4">
       <div class="col-md-6 text-start">
-        <input type="text" class="form-mentoring" placeholder="Search" />
+        <input
+          type="text"
+          class="form-mentoring"
+          v-model="search.name"
+          @change="searchData"
+          placeholder="Search"
+        />
+        <br />
+        <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
+          {{ search.name }}
+          <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
+        </span>
       </div>
       <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
@@ -23,6 +34,7 @@
               <th>Subject</th>
               <th>Date</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +56,12 @@
               <td class="pointer text-danger" @click="checkDetail(i)">
                 <i class="fa-solid fa-triangle-exclamation fa-fw"></i>
                 Error
+              </td>
+              <td class="pointer">
+                <i
+                  class="fa-solid fa-circle-check fa-fw"
+                  @click="solveMail(i.id)"
+                ></i>
               </td>
             </tr>
           </tbody>
@@ -106,6 +124,10 @@ export default {
       mails: [],
       detail: false,
       detalData: [],
+      search: {
+        bar: false,
+        name: "",
+      },
     };
   },
   methods: {
@@ -144,6 +166,48 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    solveMail(id) {
+      this.$axios
+        .get(this.$url + "update/mail/log/" + id, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          // this.$router.push({ path: "/admin/mail/success" });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/mail/log/error?keyword=" + this.search.name, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.mails = response.data.data;
+          this.search.bar = true;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getData();
     },
   },
   created() {
