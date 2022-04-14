@@ -59,6 +59,7 @@
     <div class="card border-0 shadow">
       <div class="card-body">
         <div class="row">
+          <!-- Schedule  -->
           <div class="col-md-4 mb-3">
             <div class="text-center">
               <button
@@ -187,7 +188,7 @@
               <div class="vue-modal-overlay" @click="modal = ''"></div>
             </div>
           </div>
-
+          <!-- Speaker  -->
           <div class="col-md-4 mb-3">
             <div class="text-center">
               <button
@@ -210,7 +211,7 @@
                     v-for="i in speakerList"
                     :key="i"
                     class="text-center pointer"
-                    @click="modal = 'editSpeaker'"
+                    @click="showDetail('editSpeaker', i)"
                   >
                     <td>{{ i.sp_name }}</td>
                     <td>{{ i.sp_title }}</td>
@@ -222,45 +223,53 @@
             <div class="" v-if="modal == 'addSpeaker'">
               <div class="vue-modal vue-modal-lg">
                 <div class="container">
-                  <div class="row">
-                    <h6>Add Speaker</h6>
-                    <hr />
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Speaker Name"
-                      />
-                    </div>
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Education/Position"
-                      />
-                    </div>
-                    <div class="col-md-12">
-                      <input
-                        type="file"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Profile Picture"
-                      />
-                    </div>
-                    <div class="col-md-12">
-                      <textarea
-                        name=""
-                        id=""
-                        class="form-control form-mentoring"
-                        rows="5"
-                      ></textarea>
-                    </div>
-                    <div class="col-md-12">
+                  <form @submit.prevent="saveSpeaker()">
+                    <div class="row">
+                      <h6>Add Speaker</h6>
                       <hr />
-                      <div class="float-end">
-                        <button class="btn-mentoring btn-type-1">Save</button>
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Speaker Name"
+                          v-model="speaker.sp_name"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Education/Position"
+                          v-model="speaker.sp_title"
+                        />
+                      </div>
+                      <div class="col-md-12">
+                        <input
+                          type="file"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Profile Picture"
+                        />
+                      </div>
+                      <div class="col-md-12">
+                        <textarea
+                          v-model="speaker.sp_short_desc"
+                          class="form-control form-mentoring"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                      <div class="col-md-12">
+                        <hr />
+                        <div class="float-end">
+                          <button
+                            type="submit"
+                            class="btn-mentoring btn-type-1"
+                          >
+                            Save
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div class="vue-modal-overlay" @click="modal = ''"></div>
@@ -269,56 +278,68 @@
             <div class="" v-if="modal == 'editSpeaker'">
               <div class="vue-modal vue-modal-lg">
                 <div class="container">
-                  <div class="row">
-                    <h6>Edit Speaker</h6>
-                    <hr />
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Speaker Name"
-                      />
-                    </div>
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Education/Position"
-                      />
-                    </div>
-                    <div class="col-md-12">
-                      <input
-                        type="file"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Profile Picture"
-                      />
-                    </div>
-                    <div class="col-md-12">
-                      <textarea
-                        name=""
-                        id=""
-                        class="form-control form-mentoring"
-                        rows="5"
-                      ></textarea>
-                    </div>
-                    <div class="col-md-12">
+                  <form @submit.prevent="updateSpeaker">
+                    <div class="row">
+                      <h6>Edit Speaker</h6>
                       <hr />
-                      <div class="float-start">
-                        <button class="btn-mentoring btn-type-2">Delete</button>
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Speaker Name"
+                          v-model="speaker.sp_name"
+                        />
                       </div>
-                      <div class="float-end">
-                        <button class="btn-mentoring btn-type-1">
-                          Save Changes
-                        </button>
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Education/Position"
+                          v-model="speaker.sp_title"
+                        />
+                      </div>
+                      <div class="col-md-12">
+                        <input
+                          type="file"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Profile Picture"
+                        />
+                      </div>
+                      <div class="col-md-12">
+                        <textarea
+                          v-model="speaker.sp_short_desc"
+                          class="form-control form-mentoring"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                      <div class="col-md-12">
+                        <hr />
+                        <div class="float-start">
+                          <button
+                            @click="delSpeaker(speaker.id)"
+                            type="button"
+                            class="btn-mentoring btn-type-2"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                        <div class="float-end">
+                          <button
+                            type="submit"
+                            class="btn-mentoring btn-type-1"
+                          >
+                            Save Changes
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div class="vue-modal-overlay" @click="modal = ''"></div>
             </div>
           </div>
-
+          <!-- Partner  -->
           <div class="col-md-4 mb-3">
             <div class="text-center">
               <button
@@ -340,7 +361,7 @@
                     v-for="i in partnerList"
                     :key="i"
                     class="text-center pointer"
-                    @click="modal = 'editPartner'"
+                    @click="showDetail('editPartner', i)"
                   >
                     <td>{{ i.pt_name }}</td>
                   </tr>
@@ -351,27 +372,30 @@
             <div class="" v-if="modal == 'addPartner'">
               <div class="vue-modal vue-modal-lg">
                 <div class="container">
-                  <div class="row">
-                    <h6>Add Partner</h6>
-                    <hr />
-                    <div class="col-md-5">
-                      <input
-                        type="text"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Partner Name"
-                      />
-                    </div>
-                    <div class="col-md-5">
-                      <input
-                        type="file"
-                        class="form-control form-mentoring mb-3"
-                      />
-                    </div>
+                  <form @submit.prevent="savePartner">
+                    <div class="row">
+                      <h6>Add Partner</h6>
+                      <hr />
+                      <div class="col-md-5">
+                        <input
+                          type="text"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Partner Name"
+                          v-model="partner.pt_name"
+                        />
+                      </div>
+                      <div class="col-md-5">
+                        <input
+                          type="file"
+                          class="form-control form-mentoring mb-3"
+                        />
+                      </div>
 
-                    <div class="col-md-2 text-end">
-                      <button class="btn-mentoring btn-type-1">Save</button>
+                      <div class="col-md-2 text-end">
+                        <button class="btn-mentoring btn-type-1">Save</button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div class="vue-modal-overlay" @click="modal = ''"></div>
@@ -380,35 +404,47 @@
             <div class="" v-if="modal == 'editPartner'">
               <div class="vue-modal vue-modal-lg">
                 <div class="container">
-                  <div class="row">
-                    <h6>Edit Partner</h6>
-                    <hr />
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        class="form-control form-mentoring mb-3"
-                        placeholder="Partner Name"
-                      />
-                    </div>
-                    <div class="col-md-6">
-                      <input
-                        type="file"
-                        class="form-control form-mentoring mb-3"
-                      />
-                    </div>
-
-                    <div class="col-md-12">
+                  <form @submit.prevent="updatePartner">
+                    <div class="row">
+                      <h6>Edit Partner</h6>
                       <hr />
-                      <div class="float-start">
-                        <button class="btn-mentoring btn-outline-danger">
-                          Delete
-                        </button>
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          class="form-control form-mentoring mb-3"
+                          placeholder="Partner Name"
+                          v-model="partner.pt_name"
+                        />
                       </div>
-                      <div class="float-end">
-                        <button class="btn-mentoring btn-type-1">Save</button>
+                      <div class="col-md-6">
+                        <input
+                          type="file"
+                          class="form-control form-mentoring mb-3"
+                        />
+                      </div>
+
+                      <div class="col-md-12">
+                        <hr />
+                        <div class="float-start">
+                          <button
+                            type="button"
+                            @click="delPartner(partner.id)"
+                            class="btn-mentoring btn-outline-danger"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                        <div class="float-end">
+                          <button
+                            type="submit"
+                            class="btn-mentoring btn-type-1"
+                          >
+                            Save
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div class="vue-modal-overlay" @click="modal = ''"></div>
@@ -421,6 +457,7 @@
 </template>
 
 <script>
+import qs from "qs";
 export default {
   name: "editEvent",
   props: {
@@ -480,31 +517,6 @@ export default {
       this.partnerList = this.event_dtl.partners;
     },
 
-    updateEvent() {
-      this.$alert.loading();
-      this.$axios
-        .put(
-          this.$url + "update/programme/detail/" + this.event.id,
-          this.event,
-          {
-            headers: {
-              Authorization: "Bearer " + this.$adminToken,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then(() => {
-          this.$alert.close();
-          this.$alert.toast("success", "Event has been updated");
-          // console.log(response.data);
-        })
-        .catch((error) => {
-          this.$alert.close();
-          this.errorEvent = error.response.data.error;
-          // console.log(error.response);
-        });
-    },
-
     getData(i) {
       this.$alert.loading();
       this.$axios
@@ -521,6 +533,40 @@ export default {
         .catch((error) => {
           this.$alert.close();
           console.log(error);
+        });
+    },
+
+    updateEvent() {
+      let form = qs.stringify({
+        prog_id: this.event.prog_id,
+        dtl_category: this.event.dtl_category,
+        dtl_name: this.event.dtl_name,
+        dtl_price: this.event.dtl_price,
+        dtl_desc: this.event.dtl_desc,
+        status: "active",
+      });
+
+      this.$alert.loading();
+      this.event.status = "active";
+      this.$axios
+        .put(this.$url + "update/programme/detail/" + this.event.id, form, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then(() => {
+          this.$alert.close();
+          this.$router.go();
+          this.$alert.toast("success", "Event has been updated");
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          // this.errorEvent = error.response.data.error;
+          this.$alert.toast("error", "Please try again!");
+          console.log(error.response.data);
         });
     },
 
@@ -554,13 +600,21 @@ export default {
     },
 
     updateSchedule() {
+      let form = qs.stringify({
+        prog_dtl_id: this.schedule.prog_dtl_id,
+        prog_sch_start_date: this.schedule.prog_sch_start_date,
+        prog_sch_start_time: this.schedule.prog_sch_start_time,
+        prog_sch_end_date: "",
+        prog_sch_end_time: this.schedule.prog_sch_end_time,
+      });
+
       this.modal = "";
       this.schedule.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
         .put(
           this.$url + "update/programme/schedule/" + this.schedule.id,
-          this.schedule,
+          form,
           {
             headers: {
               Authorization: "Bearer " + this.$adminToken,
@@ -583,18 +637,164 @@ export default {
         .catch((error) => {
           this.$alert.close();
           console.log(error.response);
+          this.$alert.toast("warning", "Error, please try again!");
         });
     },
 
     delSchedule(id) {
+      this.modal = "";
       let link = this.$url + "delete/programme/schedule/" + id;
+      let token = "Bearer " + this.$adminToken;
+      this.$alert.confirm(link, token, "");
+    },
+
+    saveSpeaker() {
+      this.modal = "";
+      this.speaker.prog_dtl_id = this.event_id;
+      this.$alert.loading();
+      this.$axios
+        .post(this.$url + "create/speaker", this.speaker, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then(() => {
+          this.$alert.close();
+          this.getData(this.event_id);
+          this.$alert.toast("success", "Speaker has been created");
+          this.speaker = {
+            prog_dtl_id: "",
+            sp_name: "",
+            sp_title: "",
+            sp_short_desc: "",
+            status: "active",
+          };
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          this.$alert.toast("warning", "Error, please try again!");
+          console.log(error);
+        });
+    },
+
+    updateSpeaker() {
+      this.modal = "";
+      this.schedule.prog_dtl_id = this.event_id;
+      let id = this.speaker.id;
+      this.$alert.loading();
+      this.$axios
+        .put(this.$url + "update/speaker/" + id, this.speaker, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then(() => {
+          this.$alert.close();
+          this.getData(this.event_id);
+          this.$alert.toast("success", "Schedule has been updated");
+          this.speaker = {
+            prog_dtl_id: "",
+            sp_name: "",
+            sp_title: "",
+            sp_short_desc: "",
+            status: "active",
+          };
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          this.$alert.toast("warning", "Error, please try again!");
+          console.log(error.response);
+        });
+    },
+
+    delSpeaker(id) {
+      this.modal = "";
+      let link = this.$url + "delete/speaker/" + id;
+      let token = "Bearer " + this.$adminToken;
+      this.$alert.confirm(link, token, "");
+    },
+
+    savePartner() {
+      this.modal = "";
+      this.partner.prog_dtl_id = this.event_id;
+      this.$alert.loading();
+      this.$axios
+        .post(this.$url + "create/partner", this.partner, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then(() => {
+          this.$alert.close();
+          this.getData(this.event_id);
+          this.$alert.toast("success", "Partner has been created");
+          this.partner = {
+            prog_dtl_id: "",
+            pt_name: "",
+            pt_website: "null",
+            pt_image: "null",
+            pt_status: "",
+            status: "active",
+          };
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          this.$alert.toast("warning", "Error, please try again!");
+          console.log(error.response.data);
+        });
+    },
+
+    updatePartner() {
+      this.modal = "";
+      this.partner.prog_dtl_id = this.event_id;
+      let id = this.partner.id;
+      this.$alert.loading();
+      this.$axios
+        .put(this.$url + "update/partner/" + id, this.partner, {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then(() => {
+          this.$alert.close();
+          this.getData(this.event_id);
+          this.$alert.toast("success", "Partner has been updated");
+          this.partner = {
+            prog_dtl_id: "",
+            pt_name: "",
+            pt_website: "null",
+            pt_image: "null",
+            pt_status: "",
+            status: "active",
+          };
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          this.$alert.toast("warning", "Error, please try again!");
+          console.log(error.response);
+        });
+    },
+
+    delPartner(id) {
+      this.modal = "";
+      let link = this.$url + "delete/partner/" + id;
       let token = "Bearer " + this.$adminToken;
       this.$alert.confirm(link, token, "");
     },
 
     showDetail(name, data) {
       this.modal = name;
-      this.schedule = data;
+      if (name == "editDateTime") {
+        this.schedule = data;
+      } else if (name == "editSpeaker") {
+        this.speaker = data;
+      } else if (name == "editPartner") {
+        this.partner = data;
+      }
       // console.log(this.schedule);
     },
   },

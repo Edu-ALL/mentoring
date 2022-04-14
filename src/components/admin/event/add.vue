@@ -553,7 +553,7 @@ export default {
       } else if (i == 4) {
         this.getPartner(this.event_id);
       } else {
-        this.$router.push({ path: "/admin/events" });
+        this.$router.go({ path: "/admin/events" });
       }
     },
 

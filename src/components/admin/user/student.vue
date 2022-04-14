@@ -49,7 +49,13 @@
             </td>
             <td>{{ i.email }}</td>
             <td>{{ i.school_name }}</td>
-            <td>{{ i.grade }}</td>
+            <td>
+              {{
+                parseInt(i.grade) >= 7 || i.grade == "Not High School"
+                  ? i.grade
+                  : "N/A"
+              }}
+            </td>
           </tr>
         </tbody>
       </table>

@@ -12,6 +12,7 @@
       </div> -->
     </div>
     <div class="card-white">
+      <!-- {{ mails }} -->
       <div class="table-responsive">
         <table class="table align-middle table-hover">
           <thead>
@@ -20,20 +21,25 @@
               <th>Receiver</th>
               <th>Sender</th>
               <th>Subject</th>
-              <th>Message</th>
               <th>Date</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center" v-for="i in 5" :key="i">
-              <td>{{ i }}</td>
-              <td><i class="fa-regular fa-user fa-fw"></i> Eric</td>
-              <td><i class="fa-regular fa-user fa-fw"></i> Hafidz</td>
-              <td>Resume</td>
-              <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+            <tr
+              class="text-center"
+              v-for="(i, index) in mails.data"
+              :key="index"
+            >
+              <td>{{ mails.from + index }}</td>
               <td>
-                <i class="fa-regular fa-calendar fa-fw"></i> 20 Feburary 2022
+                <i class="fa-regular fa-user fa-fw"></i> {{ i.recipient }}
+              </td>
+              <td><i class="fa-regular fa-user fa-fw"></i> {{ i.sender }}</td>
+              <td>{{ i.subject }}</td>
+              <td>
+                <i class="fa-regular fa-calendar fa-fw"></i>
+                {{ $customDate.date(i.date_sent) }}
               </td>
               <td class="pointer text-success">
                 <i class="fa-regular fa-circle-check fa-fw"></i>
@@ -43,16 +49,36 @@
           </tbody>
         </table>
       </div>
-      <hr />
-      <nav class="mt-2">
+      <div class="text-center" v-if="mails.from == null">
+        <hr />
+        <h6>Sorry, data is not found</h6>
+      </div>
+      <nav class="mt-2" v-if="mails.from != null">
         <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#">Previous</a>
+          <li class="page-item" v-if="mails.current_page != 1">
+            <a class="page-link" @click="getPage(mails.links[0].url)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <div v-for="(i, index) in mails.last_page" :key="index">
+            <li
+              class="page-item"
+              v-if="mails.current_page - 2 < i && mails.current_page + 2 > i"
+            >
+              <a
+                class="page-link"
+                :class="mails.current_page == i ? 'bg-primary text-white' : ''"
+                href="#"
+                @click="getPage(mails.path + '?page=' + i)"
+                >{{ i }}</a
+              >
+            </li>
+          </div>
+          <li class="page-item" v-if="mails.current_page != mails.last_page">
+            <a class="page-link" @click="getPage(mails.next_page_url)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -70,14 +96,14 @@ export default {
   methods: {
     getData() {
       this.$axios
-        .get(this.$url + "list/mail/log", {
+        .get(this.$url + "list/mail/log/success", {
           headers: {
             Authorization: "Bearer " + this.$adminToken,
           },
         })
         .then((response) => {
           this.mails = response.data.data;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           console.log(error);

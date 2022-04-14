@@ -1,12 +1,29 @@
 <template>
   <div id="eventDetail">
-    <div class="mb-2" @click="this.$router.push({ path: '/admin/events' })">
+    <div
+      class="mb-2"
+      @click="this.$router.push({ path: '/admin/events' })"
+      v-if="menus.submenu != 'edit'"
+    >
       <vue-feather
         type="arrow-left"
         class="float-start mt-0 me-2"
       ></vue-feather>
       Event List
     </div>
+
+    <div
+      class="mb-2"
+      @click="this.$router.push({ path: '/admin/events/detail/' + event_id })"
+      v-if="menus.submenu == 'edit'"
+    >
+      <vue-feather
+        type="arrow-left"
+        class="float-start mt-0 me-2"
+      ></vue-feather>
+      Event Detail
+    </div>
+
     <!-- ADD  -->
     <transition name="fade">
       <div class="card-white" v-if="menus.submenu == 'add'">
@@ -28,6 +45,12 @@
               "
             >
               Edit Event
+            </button>
+            <button
+              class="btn-mentoring btn-outline-danger btn-sm ms-2"
+              @click="delEvent(event_id)"
+            >
+              Delete Event
             </button>
           </div>
         </div>
@@ -215,6 +238,11 @@ export default {
     speakerDetail(i) {
       this.modal = "speakerDetail";
       this.sdetail = i;
+    },
+    delEvent(id) {
+      let link = this.$url + "delete/programme/detail/" + id;
+      let token = "Bearer " + this.$adminToken;
+      this.$alert.confirm(link, token, "/admin/events");
     },
   },
   created() {

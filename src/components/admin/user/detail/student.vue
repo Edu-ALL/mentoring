@@ -33,22 +33,18 @@
             <div class="col-md-6">
               <div class="mb-2">
                 <label>Social Media</label> <br />
-                <vue-feather
-                  type="instagram"
-                  class="float-start me-2 mt-1"
-                  size="16"
-                ></vue-feather>
-                Lorem Ipsum <br />
-                <vue-feather
-                  type="linkedin"
-                  class="float-start me-2 mt-1"
-                  size="16"
-                ></vue-feather>
-                Lorem Ipsum <br />
+                <div class="mb-2" v-for="i in student.social_media" :key="i">
+                  <vue-feather
+                    :type="i.social_media_name"
+                    class="float-start me-2 mt-1"
+                    size="16"
+                  ></vue-feather>
+                  {{ i.hyperlink }}
+                </div>
               </div>
               <div class="mb-2">
                 <label>Address</label> <br />
-                {{ student.address }}
+                <div v-html="student.address"></div>
               </div>
             </div>
           </div>

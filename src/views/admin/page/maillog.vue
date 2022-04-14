@@ -22,7 +22,7 @@
                   bg-primary
                 "
               >
-                99+
+                {{ mails.error > 99 ? "99+" : mails.error }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
@@ -44,7 +44,7 @@
                   bg-primary
                 "
               >
-                99+
+                {{ mails.success > 99 ? "99+" : mails.success }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
@@ -81,9 +81,46 @@ export default {
     "v-success": Success,
   },
   data() {
-    return {};
+    return {
+      mails: [],
+    };
   },
-  methods: {},
+  methods: {
+    getMailError() {
+      this.$axios
+        .get(this.$url + "list/mail/log/error", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.mails.error = response.data.data.data.length;
+          console.log(this.mails.error);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getMailSuccess() {
+      this.$axios
+        .get(this.$url + "list/mail/log/success", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.mails.success = response.data.data.data.length;
+          console.log(this.mails.error);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.getMailError();
+    this.getMailSuccess();
+  },
 };
 </script>
 

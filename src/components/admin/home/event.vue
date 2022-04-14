@@ -3,10 +3,10 @@
     <h6 class="act-title">Join the Event</h6>
     <table class="table table-borderless">
       <tbody>
-        <tr v-for="i in 3" :key="i">
-          <td>Full Name</td>
-          <td class="text-center">Event Name</td>
-          <td class="text-end">23 January 2022</td>
+        <tr v-for="i in list" :key="i">
+          <td>{{ i.students.first_name + " " + i.students.last_name }}</td>
+          <td class="text-center">{{ i.programme_details.dtl_name }}</td>
+          <td class="text-end">{{ $customDate.date(i.created_at) }}</td>
         </tr>
       </tbody>
     </table>
@@ -14,7 +14,37 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "eventHome",
+  data() {
+    return {
+      list: [],
+    };
+  },
+  methods: {
+    getData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/activities/event/recent", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.list = response.data.data;
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error.response.data);
+        });
+    },
+  },
+  created() {
+    this.getData();
+  },
+};
 </script>
 
 <style scoped>
