@@ -44,7 +44,7 @@
             <td><i class="fa-solid fa-at fa-fw"></i> {{ i.email }}</td>
             <td>
               <i class="fa-solid fa-mobile-screen fa-fw"></i>
-              {{ i.phone_number }}
+              {{ i.phone_number == null ? "N/A" : i.phone_number }}
             </td>
           </tr>
         </tbody>

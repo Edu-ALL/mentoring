@@ -111,9 +111,33 @@ export default {
     "v-event": Event,
   },
   data() {
-    return {};
+    return {
+      users: [],
+    };
   },
-  created() {},
+  methods: {
+    getusers() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "overview/admin/total", {
+          headers: {
+            Authorization: "Bearer " + this.$adminToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.users = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error.response.data);
+        });
+    },
+  },
+  created() {
+    this.getusers();
+  },
 };
 </script>
 <style>

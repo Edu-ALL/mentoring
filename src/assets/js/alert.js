@@ -42,12 +42,19 @@ export const alert = {
                         // console.log(response);
                         this.close()
                         this.toast("success", "Your file has been deleted.");
-                        router.push({ path: to })
+
+                        if (to == '') {
+                            router.go()
+                        } else {
+                            router.push({ path: to })
+                        }
                     })
                     .catch((error) => {
                         this.close()
-                        console.log(error);
+                        this.toast("warning", "Error, please try again!");
+                        console.log(error.response);
                     });
+
             }
         })
     },
