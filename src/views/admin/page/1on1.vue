@@ -117,7 +117,7 @@ export default {
       this.$axios
         .get(this.$url + "list/activities/1-on-1-call", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -135,7 +135,7 @@ export default {
       this.$axios
         .get(link, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -154,7 +154,7 @@ export default {
           this.$url + "list/activities/1-on-1-call?keyword=" + this.search.name,
           {
             headers: {
-              Authorization: "Bearer " + this.$adminToken,
+              Authorization: "Bearer " + localStorage.getItem("token"),
             },
           }
         )

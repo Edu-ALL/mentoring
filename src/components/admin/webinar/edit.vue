@@ -144,7 +144,7 @@ export default {
       this.$axios
         .get(this.$url + "find/programme/detail/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -179,7 +179,7 @@ export default {
           this.webinar,
           {
             headers: {
-              Authorization: "Bearer " + this.$adminToken,
+              Authorization: "Bearer " + localStorage.getItem("token"),
             },
           }
         )

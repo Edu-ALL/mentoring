@@ -377,7 +377,7 @@ export default {
       this.$axios
         .post(this.$url + "create/programme/detail", this.event, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -400,7 +400,7 @@ export default {
       this.$axios
         .post(this.$url + "create/programme/schedule", this.schedule, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -429,7 +429,7 @@ export default {
           this.$url + "select/programme-schedule/use/programme-detail/" + id,
           {
             headers: {
-              Authorization: "Bearer " + this.$adminToken,
+              Authorization: "Bearer " + localStorage.getItem('token'),
             },
           }
         )
@@ -446,7 +446,7 @@ export default {
 
     delSchedule(id) {
       let link = this.$url + "delete/programme/schedule/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem('token');
       this.$alert.confirm(link, token, "/admin/events/add");
     },
 
@@ -456,7 +456,7 @@ export default {
       this.$axios
         .post(this.$url + "create/speaker", this.speaker, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -476,7 +476,7 @@ export default {
       this.$axios
         .get(this.$url + "select/speakers/use/programme-detail/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -492,7 +492,7 @@ export default {
 
     delSpeaker(id) {
       let link = this.$url + "delete/speaker/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem('token');
       this.$alert.confirm(link, token, "/admin/events/add");
     },
 
@@ -502,7 +502,7 @@ export default {
       this.$axios
         .post(this.$url + "create/partner", this.partner, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -522,7 +522,7 @@ export default {
       this.$axios
         .get(this.$url + "select/partners/use/programme-detail/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -538,7 +538,7 @@ export default {
 
     delPartner(id) {
       let link = this.$url + "delete/partner/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem('token');
       this.$alert.confirm(link, token, "/admin/events/add");
     },
 

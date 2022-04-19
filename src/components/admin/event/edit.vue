@@ -522,7 +522,7 @@ export default {
       this.$axios
         .get(this.$url + "find/programme/detail/" + i, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -553,7 +553,7 @@ export default {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then(() => {
@@ -577,7 +577,7 @@ export default {
       this.$axios
         .post(this.$url + "create/programme/schedule", this.schedule, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then(() => {
@@ -617,7 +617,7 @@ export default {
           form,
           {
             headers: {
-              Authorization: "Bearer " + this.$adminToken,
+              Authorization: "Bearer " + localStorage.getItem("token"),
             },
           }
         )
@@ -644,7 +644,7 @@ export default {
     delSchedule(id) {
       this.modal = "";
       let link = this.$url + "delete/programme/schedule/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "");
     },
 
@@ -655,7 +655,7 @@ export default {
       this.$axios
         .post(this.$url + "create/speaker", this.speaker, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then(() => {
@@ -686,7 +686,7 @@ export default {
       this.$axios
         .put(this.$url + "update/speaker/" + id, this.speaker, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then(() => {
@@ -712,7 +712,7 @@ export default {
     delSpeaker(id) {
       this.modal = "";
       let link = this.$url + "delete/speaker/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "");
     },
 
@@ -723,7 +723,7 @@ export default {
       this.$axios
         .post(this.$url + "create/partner", this.partner, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then(() => {
@@ -755,7 +755,7 @@ export default {
       this.$axios
         .put(this.$url + "update/partner/" + id, this.partner, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then(() => {
@@ -782,7 +782,7 @@ export default {
     delPartner(id) {
       this.modal = "";
       let link = this.$url + "delete/partner/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "");
     },
 

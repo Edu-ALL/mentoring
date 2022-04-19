@@ -44,7 +44,7 @@ export default {
       this.$axios
         .get(this.$url + "list/transaction/all/recent", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

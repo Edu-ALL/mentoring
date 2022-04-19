@@ -21,9 +21,9 @@
                   rounded-pill
                   bg-primary
                 "
+                v-if="mails.error > 0"
               >
                 {{ mails.error > 99 ? "99+" : mails.error }}
-                <span class="visually-hidden">unread messages</span>
               </span>
             </button>
             <button
@@ -43,9 +43,9 @@
                   rounded-pill
                   bg-primary
                 "
+                v-if="mails.success > 0"
               >
                 {{ mails.success > 99 ? "99+" : mails.success }}
-                <span class="visually-hidden">unread messages</span>
               </span>
             </button>
           </div>
@@ -90,7 +90,7 @@ export default {
       this.$axios
         .get(this.$url + "list/mail/log/error", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -105,7 +105,7 @@ export default {
       this.$axios
         .get(this.$url + "list/mail/log/success", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

@@ -137,17 +137,20 @@ export default {
     },
 
     getData() {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "list/mail/log/error", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
+          this.$alert.close();
           this.mails = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
+          this.$alert.close();
           console.log(error);
         });
     },
@@ -156,7 +159,7 @@ export default {
       this.$axios
         .get(link, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -172,7 +175,7 @@ export default {
       this.$axios
         .get(this.$url + "update/mail/log/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -189,7 +192,7 @@ export default {
       this.$axios
         .get(this.$url + "list/mail/log/error?keyword=" + this.search.name, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

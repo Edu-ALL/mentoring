@@ -123,7 +123,7 @@ export default {
       this.$axios
         .get(this.$url + "overview/admin/total", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

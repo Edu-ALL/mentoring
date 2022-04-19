@@ -103,7 +103,7 @@ export default {
       this.$axios
         .get(this.$url + "list/user/alumni", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -121,7 +121,7 @@ export default {
       this.$axios
         .get(link, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -138,7 +138,7 @@ export default {
       this.$axios
         .get(this.$url + "find/user/alumni?keyword=" + this.search.name, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

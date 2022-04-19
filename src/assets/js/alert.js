@@ -82,6 +82,7 @@ export const alert = {
             title: title,
         });
     },
+
     close() {
         Swal.close();
     }

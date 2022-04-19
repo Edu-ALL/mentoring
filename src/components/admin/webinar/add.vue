@@ -157,7 +157,7 @@ export default {
       this.$axios
         .post(this.$url + "create/programme/detail", this.webinar, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
