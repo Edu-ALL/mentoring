@@ -10,7 +10,7 @@
                 <vue-feather type="user" class="h-ico"></vue-feather>
               </div>
               <div class="col-8">
-                <div class="h-count">700</div>
+                <div class="h-count">{{ users.student }}</div>
                 <div class="h-label">Students Total</div>
               </div>
             </div>
@@ -25,7 +25,7 @@
                 <vue-feather type="phone-call" class="h-ico"></vue-feather>
               </div>
               <div class="col-8">
-                <div class="h-count">700</div>
+                <div class="h-count">{{ users.activities }}</div>
                 <div class="h-label">1on1 Call</div>
               </div>
             </div>
@@ -38,15 +38,12 @@
       <div class="col-md-6">
         <div class="card-white">
           <h6 class="act-title">
-            <div class="float-end">Pending</div>
+            <div class="float-end">Status</div>
             <div class="">1on1 Call</div>
           </h6>
           <table class="table table-borderless">
             <tbody>
-              <tr v-for="i in 3" :key="i">
-                <td>Full Name</td>
-                <td class="text-end">23 January 2022</td>
-              </tr>
+              <v-1on1-waiting></v-1on1-waiting>
             </tbody>
           </table>
         </div>
@@ -59,15 +56,7 @@
           </h6>
           <table class="table table-borderless">
             <tbody>
-              <tr class="align-middle" v-for="i in 3" :key="i">
-                <td>Full Name</td>
-                <td class="text-center">23 January 2022</td>
-                <td class="text-end">
-                  <button class="btn btn-sm btn-mentoring btn-type-1 m-0 py-1">
-                    Result
-                  </button>
-                </td>
-              </tr>
+              <v-1on1-history></v-1on1-history>
             </tbody>
           </table>
         </div>
@@ -77,10 +66,42 @@
 </template>
 
 <script>
+import History from "@/components/mentor/home/1on1-history";
+import Waiting from "@/components/mentor/home/1on1-waiting";
 export default {
   name: "homeMentor",
-
-
+  components: {
+    "v-1on1-history": History,
+    "v-1on1-waiting": Waiting,
+},
+  data() {
+    return {
+      users: [],
+    };
+  },
+  methods: {
+    getusers() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "overview/mentor/total", {
+          headers: {
+            Authorization: "Bearer " + this.$mentorToken,
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.users = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error.response.data);
+        });
+    },
+  },
+  created() {
+    this.getusers();
+  },
 };
 
 </script>
