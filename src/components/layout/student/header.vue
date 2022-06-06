@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="header" class="sticky-top" style="top: 0">
     <div class="v-navbar">
       <div class="container">
         <img
@@ -44,9 +44,22 @@
             </li>
             <li
               @click="this.$router.push({ path: '/user/my-activity' })"
-              :class="params == 'my-activity' ? 'active' : ''"
+              :class="
+                params == 'my-activity' ||
+                params == 'groups' ||
+                params == 'webinar' ||
+                params == 'event'
+                  ? 'active'
+                  : ''
+              "
             >
-              My Activity
+              My Activities
+            </li>
+            <li
+              @click="this.$router.push({ path: '/user/uni-list' })"
+              :class="params == 'uni-list' ? 'active' : ''"
+            >
+              University Shortlisted
             </li>
             <li
               @click="this.$router.push({ path: '/user/my-files' })"
@@ -84,17 +97,16 @@ export default {
   },
   watch: {
     $route(to) {
-      this.params = to.params.page;
+      this.params = to.params.menu;
     },
   },
   created() {
-    if (this.$route.params.page) {
-      this.params = this.$route.params.page;
+    if (this.$route.params.menu) {
+      this.params = this.$route.params.menu;
     }
   },
 };
 </script>
-
 <style scoped>
 .navbar-menu {
   margin-left: 150px;

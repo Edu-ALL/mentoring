@@ -13,6 +13,8 @@ import './assets/css/navbar.css'
 import './assets/css/tabs.css'
 import './assets/css/pagination.css'
 import './assets/css/alert.css'
+import './assets/css/tooltip.css'
+import 'vue-multiselect/dist/vue-multiselect.css'
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import 'vue3-date-time-picker/dist/main.css'
 
@@ -27,6 +29,8 @@ import Datetimepicker from 'vue3-date-time-picker';
 import axios from 'axios'
 import { alert } from './assets/js/alert'
 import { customDate } from './assets/js/customDate'
+import Popper from 'vue3-popper'
+
 
 const VueTelInputOptions = {
     mode: "international",
@@ -45,6 +49,7 @@ app.use(VueTelInput, VueTelInputOptions)
 app.component('datepicker', Datepicker)
 app.component(VueFeather.name, VueFeather)
 app.component('v-datepicker', Datetimepicker)
+app.component('v-tooltip', Popper)
 app.use(VueSplide)
 app.use(VueLazyLoad)
 app.config.globalProperties.$base_url = base_url

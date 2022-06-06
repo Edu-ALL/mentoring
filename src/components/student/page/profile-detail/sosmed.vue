@@ -1,0 +1,119 @@
+<template>
+  <div id="sosmed" style="scroll-margin-top: 120px">
+    <div class="heading">
+      Social Media
+
+      <div class="float-end">
+        <button
+          class="btn-mentoring btn-sm bg-primary py-1"
+          v-if="!edit"
+          @click="edit = true"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button
+          class="btn-mentoring btn-sm btn-outline-danger py-1"
+          v-if="edit"
+          @click="edit = false"
+        >
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>
+    </div>
+    <div class="desc">
+      <div class="row mb-2">
+        <div class="col-12"></div>
+      </div>
+      <form action="">
+        <div class="row g-1 align-items-center">
+          <div class="col-md-3 col-4">
+            <div class="field">
+              <div class="data">
+                <i class="fa-brands fa-facebook me-2"></i>
+                Facebook
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9 col-8">
+            <div class="field">
+              <div class="data">
+                <input
+                  type="text"
+                  name=""
+                  class="form-mentoring form-control-sm w-100"
+                  value="sdfsf"
+                  :readonly="!edit"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-4">
+            <div class="field">
+              <div class="data">
+                <i class="fa-brands fa-instagram me-2"></i>
+                Instagram
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9 col-8">
+            <div class="field">
+              <div class="data">
+                <input
+                  type="text"
+                  name=""
+                  class="form-mentoring form-control-sm w-100"
+                  :readonly="!edit"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-4">
+            <div class="field">
+              <div class="data">
+                <i class="fa-brands fa-linkedin me-2"></i>
+                Linkedin
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9 col-8">
+            <div class="field">
+              <div class="data">
+                <input
+                  type="text"
+                  name=""
+                  class="form-mentoring form-control-sm w-100"
+                  :readonly="!edit"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3" v-if="edit">
+            <div class="text-end">
+              <button class="btn-mentoring btn-sm btn-outline-success py-1">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "sosmed",
+  data() {
+    return {
+      edit: false,
+    };
+  },
+};
+</script>
+
+<style>
+.placeholder {
+  background-color: white !important;
+  color: #000;
+}
+</style>

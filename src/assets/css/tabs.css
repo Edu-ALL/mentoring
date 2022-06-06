@@ -49,3 +49,16 @@
         width: auto;
     }
 }
+
+
+@media only screen and (max-width: 600px) {
+  .menu-tab {
+    display: flex;
+    overflow: auto;
+    border: 0 !important;
+  }
+
+  .menu-tab button {
+    white-space: nowrap;
+  }
+}

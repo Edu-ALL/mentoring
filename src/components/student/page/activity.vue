@@ -1,174 +1,142 @@
 <template>
   <div id="activity">
-    <div class="container my-5">
-      <div class="row g-3">
+    <div class="container mt-4">
+      <div class="row g-1">
         <div class="col-md-3">
           <div class="card shadow-sm border-0">
             <div class="card-body">
-              <h5>Activity</h5>
+              <h5>My Activities</h5>
               <ul class="list-group">
                 <a
                   href="#"
                   class="list-group-item list-group-item-action"
-                  :class="activity == '1on1' ? 'active' : ''"
-                  @click="activityCheck('1on1')"
+                  :class="activity == 'meeting' ? 'active' : ''"
+                  @click="activityCheck('meeting')"
                 >
-                  1 on 1 Call
+                  Meetings
                 </a>
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action"
+                  :class="activity == 'group' ? 'active' : ''"
+                  @click="activityCheck('group')"
+                  >Groups</a
+                >
                 <a
                   href="#"
                   class="list-group-item list-group-item-action"
                   :class="activity == 'webinar' ? 'active' : ''"
                   @click="activityCheck('webinar')"
-                  >Webinar</a
                 >
+                  Webinars
+                </a>
                 <a
                   href="#"
                   class="list-group-item list-group-item-action"
-                  :class="activity == 'transaction' ? 'active' : ''"
-                  @click="activityCheck('transaction')"
+                  :class="activity == 'event' ? 'active' : ''"
+                  @click="activityCheck('event')"
                 >
-                  Transaction
+                  Events
+                </a>
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action"
+                  :class="activity == 'internship' ? 'active' : ''"
+                  @click="activityCheck('internship')"
+                >
+                  Internship Program
+                </a>
+                <a
+                  href="#"
+                  class="list-group-item list-group-item-action"
+                  :class="activity == 'career-module' ? 'active' : ''"
+                  @click="activityCheck('career-module')"
+                >
+                  Career Modules
                 </a>
               </ul>
             </div>
           </div>
         </div>
         <div class="col-md-9">
-          <div class="card shadow-sm border-0">
-            <!-- 1on1 Call  -->
-            <transition name="fade">
-              <div class="card-body" v-if="activity == '1on1'">
-                <b class="text-primary">1 on 1 Call History</b>
-                <hr class="my-1" />
-                <div class="table-responsive">
-                  <table class="table align-middle">
-                    <thead>
-                      <tr class="text-center">
-                        <th>No</th>
-                        <th>Call with</th>
-                        <th>Category</th>
-                        <th>Date & Time</th>
-                        <th>Status</th>
-                        <th>Location</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-center">
-                        <td>1</td>
-                        <td>Devi Kasih</td>
-                        <td>Life Skill - Mentor</td>
-                        <td>
-                          <small>
-                            20 Feburary 2022 <br />
-                            14.00 WIB
-                          </small>
-                        </td>
-                        <td>Waiting</td>
-                        <td>-</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          <!-- 1on1 Call  -->
+          <transition name="fade">
+            <div class="card-body" v-if="activity == '1on1'">
+              <b class="text-primary">1 on 1 Call History</b>
+              <hr class="my-1" />
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr class="text-center">
+                      <th>No</th>
+                      <th>Call with</th>
+                      <th>Category</th>
+                      <th>Date & Time</th>
+                      <th>Status</th>
+                      <th>Location</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="text-center">
+                      <td>1</td>
+                      <td>Devi Kasih</td>
+                      <td>Life Skill - Mentor</td>
+                      <td>
+                        <small>
+                          20 Feburary 2022 <br />
+                          14.00 WIB
+                        </small>
+                      </td>
+                      <td>Waiting</td>
+                      <td>-</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </transition>
+            </div>
+          </transition>
 
-            <!-- Webinar  -->
-            <transition name="fade">
-              <div class="card-body" v-if="activity == 'webinar'">
-                <b class="text-primary">Webinar History</b>
-                <hr class="my-1" />
-                <div class="table-responsive">
-                  <table class="table align-middle">
-                    <thead>
-                      <tr class="text-center">
-                        <th>No</th>
-                        <th>Topic</th>
-                        <th>Category</th>
-                        <th>Date & Time</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-center">
-                        <td>1</td>
-                        <td>Career Meetup 101</td>
-                        <td>Career Exploration</td>
-                        <td>
-                          <small>
-                            20 Feburary 2022 <br />
-                            14.00 WIB
-                          </small>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </transition>
+          <!-- Meetings  -->
+          <transition name="fade">
+            <v-meeting v-if="activity == 'meeting'"></v-meeting>
+          </transition>
 
-            <!-- Transaction  -->
-            <transition name="fade">
-              <div class="card-body" v-if="activity == 'transaction'">
-                <b class="text-primary">Transaction History</b>
-                <hr class="my-1" />
-                <div class="table-responsive">
-                  <table class="table align-middle">
-                    <thead>
-                      <tr class="text-center">
-                        <th>No</th>
-                        <th>Type</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Invoice</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-center">
-                        <td>1</td>
-                        <td>Subscription</td>
-                        <td>1 Month</td>
-                        <td>
-                          <small> 1 Feburary 2022 - 1 March 2022 </small>
-                        </td>
-                        <td>Paid</td>
-                        <td>
-                          <button class="btn btn-allin bg-secondary btn-sm">
-                            View
-                          </button>
-                        </td>
-                      </tr>
-                      <tr class="text-center">
-                        <td>1</td>
-                        <td>Add-Ons</td>
-                        <td>1 on 1 Call</td>
-                        <td>
-                          <small> 20 Feburary 2022 </small>
-                        </td>
-                        <td>Pending</td>
-                        <td>
-                          <button class="btn btn-allin bg-secondary btn-sm">
-                            View
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </transition>
-          </div>
+          <!-- Groups  -->
+          <transition name="fade">
+            <v-group v-if="activity == 'group'"></v-group>
+          </transition>
+
+          <!-- Webinar  -->
+          <transition name="fade">
+            <v-webinar v-if="activity == 'webinar'"></v-webinar>
+          </transition>
+
+          <!-- Events  -->
+          <transition name="fade">
+            <v-event v-if="activity == 'event'"></v-event>
+          </transition>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import Meeting from "@/components/student/page/meeting";
+import Group from "@/components/student/page/groups";
+import Webinar from "@/components/student/page/webinar";
+import Event from "@/components/student/page/event";
+
 export default {
   name: "activity",
+  components: {
+    "v-meeting": Meeting,
+    "v-group": Group,
+    "v-webinar": Webinar,
+    "v-event": Event,
+  },
   data() {
     return {
-      activity: "1on1",
+      activity: "meeting",
     };
   },
   methods: {

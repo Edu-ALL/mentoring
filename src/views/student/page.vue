@@ -7,7 +7,25 @@
     <transition name="fade">
       <div id="content" v-if="!loading">
         <transition name="fade">
+          <v-dashboard v-if="page == ''"></v-dashboard>
+        </transition>
+        <transition name="fade">
           <v-profile v-if="page == 'my-profile'"></v-profile>
+        </transition>
+        <transition name="fade">
+          <v-meeting v-if="page == 'meetings'"></v-meeting>
+        </transition>
+        <transition name="fade">
+          <v-group v-if="page == 'groups'"></v-group>
+        </transition>
+        <transition name="fade">
+          <v-webinar v-if="page == 'webinar'"></v-webinar>
+        </transition>
+        <transition name="fade">
+          <v-event v-if="page == 'event'"></v-event>
+        </transition>
+        <transition name="fade">
+          <v-uni v-if="page == 'uni-list'"></v-uni>
         </transition>
         <transition name="fade">
           <v-activity v-if="page == 'my-activity'"></v-activity>
@@ -20,26 +38,38 @@
   </div>
 </template>
 <script>
-import Header from "@/components/layout/student/header";
 // import Loader from "@/components/library/loader";
+import Header from "@/components/layout/student/header";
 
+import Dashboard from "@/components/student/page/dashboard";
 import Profile from "@/components/student/page/profile";
+import Meeting from "@/components/student/page/meeting";
+import Group from "@/components/student/page/groups";
+import Webinar from "@/components/student/page/webinar";
+import Event from "@/components/student/page/event";
+import Uni from "@/components/student/page/uni-list";
 import Activity from "@/components/student/page/activity";
 import Files from "@/components/student/page/files";
 
 export default {
   name: "page",
   components: {
-    "v-header": Header,
     // "v-loader": Loader,
+    "v-header": Header,
+    "v-dashboard": Dashboard,
     "v-profile": Profile,
+    "v-meeting": Meeting,
+    "v-group": Group,
+    "v-webinar": Webinar,
+    "v-event": Event,
+    "v-uni": Uni,
     "v-activity": Activity,
     "v-files": Files,
   },
   data() {
     return {
       loading: true,
-      page: this.$route.params.page,
+      page: this.$route.params.menu,
     };
   },
   methods: {
@@ -49,7 +79,7 @@ export default {
   },
   watch: {
     $route(to) {
-      this.page = to.params.page;
+      this.page = to.params.menu;
     },
   },
   created() {
@@ -60,3 +90,5 @@ export default {
   },
 };
 </script>
+<style>
+</style>

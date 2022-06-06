@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/home.vue'
-import userDashboard from '../views/student/dashboard'
 
 const routes = [
   {
@@ -16,15 +15,7 @@ const routes = [
   },
 
   {
-    path: '/user',
-    name: 'userDashboard',
-    props: true,
-    component: userDashboard
-    // component: () => import('../views/student/dashboard')
-  },
-
-  {
-    path: '/user/:page',
+    path: '/user/:menu?/:submenu?/:key?',
     name: 'userPage',
     component: () => import('../views/student/page')
   },
@@ -36,12 +27,12 @@ const routes = [
     component: () => import('../views/student/call-detail')
   },
 
-  {
-    path: '/user/webinar/:slug',
-    name: 'webinar',
-    props: true,
-    component: () => import('../views/student/webinar-detail')
-  },
+  // {
+  //   path: '/user/webinar/:slug',
+  //   name: 'webinar',
+  //   props: true,
+  //   component: () => import('../views/student/webinar-detail')
+  // },
 
   {
     path: '/user/event/:slug',
