@@ -67,12 +67,12 @@
             >
               University Requirements
             </li>
-            <li
+            <!-- <li
               @click="this.$router.push({ path: '/user/my-files' })"
               :class="params == 'my-files' ? 'active' : ''"
             >
               My Files
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="navbar-button d-md-block" :class="!menu ? 'd-none' : ''">
