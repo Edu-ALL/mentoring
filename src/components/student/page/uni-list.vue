@@ -2,88 +2,81 @@
   <div id="uniList">
     <!-- LIST  -->
     <div class="container mt-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="ps-3 pointer" style="top: 100px" @click="redirect">
-            <i class="fa-solid fa-arrow-left me-2"></i>
-            <h5 class="d-inline">University List</h5>
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="pointer" style="top: 100px" @click="redirect">
+                <h5 class="d-inline">University List</h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs  -->
+          <div class="row mt-3">
+            <div class="col-12 menu-tab">
+              <button
+                class="btn-mentoring btn-sm mx-1"
+                :class="
+                  tab == '' || tab == 'waitlisted' ? 'btn-type-1' : 'btn-type-2'
+                "
+                @click="tab = 'waitlisted'"
+              >
+                Waitlisted
+              </button>
+              <button
+                class="btn-mentoring btn-sm mx-1"
+                :class="tab == 'applied' ? 'btn-type-1' : 'btn-type-2'"
+                @click="tab = 'applied'"
+              >
+                Applied
+              </button>
+              <button
+                class="btn-mentoring btn-sm mx-1"
+                :class="tab == 'accepted' ? 'btn-type-1' : 'btn-type-2'"
+                @click="tab = 'accepted'"
+              >
+                Accepted
+              </button>
+              <button
+                class="btn-mentoring btn-sm mx-1"
+                :class="tab == 'rejected' ? 'btn-type-1' : 'btn-type-2'"
+                @click="tab = 'rejected'"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
+
+          <!-- Content  -->
+          <div class="row mt-3 row-cols-md-4 row-cols-1">
+            <div class="col mb-3" v-for="i in 5" :key="i">
+              <div class="card border-1 shadow-sm card-uni">
+                <div class="uni-icon">
+                  <i class="fa-solid fa-clock" v-if="tab == 'waitlisted'"></i>
+                  <i
+                    class="fa-solid fa-paper-plane"
+                    v-if="tab == 'applied'"
+                  ></i>
+                  <i
+                    class="fa-solid fa-clipboard-check"
+                    v-if="tab == 'accepted'"
+                  ></i>
+                  <i
+                    class="fa-solid fa-file-circle-xmark"
+                    v-if="tab == 'rejected'"
+                  ></i>
+                </div>
+                <div class="card-body">
+                  <div class="uni-name">
+                    <h5 class="my-0">University Name</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <transition name="fade">
-        <div
-          class="row mt-2 row-cols-md-4 row-cols-1"
-          v-if="menu.submenu == ''"
-        >
-          <div class="col mb-3" v-for="i in 5" :key="i">
-            <div class="card border-0 shadow card-uni" @click="detail(i)">
-              <div class="card-body">
-                <div class="uni-name">
-                  <h5 class="text-muted my-0">University Name</h5>
-                  <div class="badge bg-primary rounded-pill">Applied</div>
-                </div>
-                <div class="uni-progress">
-                  <div class="progress" style="height: 20px">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 50%"
-                      aria-valuenow="50"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                  <div class="float-start">
-                    <small>Progression</small>
-                  </div>
-                  <div class="float-end">5/10</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </transition>
-
-      <transition name="fade">
-        <div class="row mt-2" v-if="menu.submenu != ''">
-          <div class="col-md-3 mb-3 sidebar">
-            <div class="mb-3" v-for="i in 5" :key="i">
-              <div
-                class="card border-0 shadow card-uni"
-                :class="menu.key == i ? 'active' : ''"
-                @click="detail(i)"
-              >
-                <div class="card-body">
-                  <div class="uni-name">
-                    <h5 class="text-muted my-0">University Name</h5>
-                    <div class="badge bg-primary rounded-pill">Applied</div>
-                  </div>
-                  <div class="uni-progress">
-                    <div class="progress" style="height: 20px">
-                      <div
-                        class="progress-bar bg-success"
-                        role="progressbar"
-                        style="width: 50%"
-                        aria-valuenow="50"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
-                    <div class="float-start">
-                      <small>Progression</small>
-                    </div>
-                    <div class="float-end">5/10</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <v-view v-if="menu.submenu == 'applied'"></v-view>
-          </div>
-        </div>
-      </transition>
     </div>
 
     <!-- VIEW  -->
@@ -91,113 +84,57 @@
 </template>
 
 <script>
-import View from "@/components/student/page/unilist-detail/view";
-
 export default {
   name: "uniList",
-  components: {
-    "v-view": View,
-  },
+  components: {},
   data() {
     return {
-      menu: {
-        menu: "",
-        submenu: "",
-        key: "",
-      },
+      tab: "waitlisted",
     };
   },
   methods: {
-    detail(i) {
-      this.$router.push({ path: "/user/uni-list/applied/" + i });
+    changeTab(tab) {
+      this.tab = tab;
     },
   },
-  watch: {
-    $route(to) {
-      this.menu.menu = to.params.menu;
-      this.menu.submenu = to.params.submenu;
-      this.menu.key = to.params.key;
-    },
-  },
-  created() {
-    this.menu.menu = this.$route.params.menu;
-    this.menu.submenu = this.$route.params.submenu;
-    this.menu.key = this.$route.params.key;
-  },
+  created() {},
 };
 </script>
 
 <style scoped>
 .card-uni {
+  position: relative;
   border-radius: 20px;
+  height: 80px !important;
+  transition: all 0.3s ease-in-out;
+  color: #626262;
   cursor: pointer;
+  border: 1px solid #e9e9e9;
+}
+
+.card-uni .card-body {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.uni-icon {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 20px;
+  color: #dddddd;
 }
 
 .uni-name {
-  min-height: 110px;
   display: block;
-  margin-bottom: 15px;
-}
-
-.uni-progress {
-  position: absolute;
-  width: 90%;
-  margin: 5%;
-  left: 0;
-  bottom: 0;
-}
-
-.card-uni {
-  transition: all 0.3s ease-in-out;
+  width: 100%;
 }
 
 .card-uni.active,
 .card-uni:hover {
-  background: #e0dfed;
-}
-
-.sidebar {
-  height: 80vh;
-  overflow: auto;
-}
-
-@media only screen and (max-width: 600px) {
-  .sidebar {
-    width: 90%;
-    height: auto;
-    margin: 0 5%;
-    padding: 0 5%;
-    display: flex;
-    overflow: auto;
-  }
-
-  .sidebar .card-uni {
-    min-width: 280px;
-    margin-right: 15px;
-  }
-}
-
-/* Scrollbar */
-/* width */
-.sidebar::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-/* Track */
-.sidebar::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-.sidebar::-webkit-scrollbar-thumb {
-  background: rgb(140, 147, 210);
-  transition: all 0.3s ease-in-out;
-  border-radius: 20px;
-}
-
-/* Handle on hover */
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgb(49, 89, 145);
+  background: #223872;
+  color: #fff !important;
 }
 </style>

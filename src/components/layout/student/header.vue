@@ -62,6 +62,12 @@
               University Shortlisted
             </li>
             <li
+              @click="this.$router.push({ path: '/user/uni-requirement' })"
+              :class="params == 'uni-requirement' ? 'active' : ''"
+            >
+              University Requirements
+            </li>
+            <li
               @click="this.$router.push({ path: '/user/my-files' })"
               :class="params == 'my-files' ? 'active' : ''"
             >
