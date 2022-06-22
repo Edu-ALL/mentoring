@@ -179,6 +179,31 @@ img[lazy="loading"] {
   border-radius: 10px;
 }
 
+/* width */
+.mentoring-scroll {
+  padding-bottom: 10px;
+}
+
+.mentoring-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+.mentoring-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.mentoring-scroll::-webkit-scrollbar-thumb {
+  background: rgb(145, 163, 188);
+}
+
+/* Handle on hover */
+.mentoring-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(156, 213, 224);
+}
+
 @media only screen and (max-width: 800px) {
   .h-ico {
     width: 25px;

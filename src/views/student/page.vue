@@ -10,7 +10,7 @@
           <v-dashboard v-if="page == ''"></v-dashboard>
         </transition>
         <transition name="fade">
-          <v-profile v-if="page == 'my-profile'"></v-profile>
+          <v-profile :mentee="mentee" v-if="page == 'my-profile'"></v-profile>
         </transition>
         <transition name="fade">
           <v-activity v-if="page == 'my-activity'"></v-activity>
@@ -42,6 +42,7 @@
 </template>
 <script>
 // import Loader from "@/components/library/loader";
+
 import Header from "@/components/layout/student/header";
 
 import Dashboard from "@/components/student/page/dashboard";
@@ -75,6 +76,7 @@ export default {
     return {
       loading: true,
       page: this.$route.params.menu,
+      mentee: null,
     };
   },
   methods: {
@@ -88,6 +90,12 @@ export default {
     },
   },
   created() {
+    if (localStorage.getItem("role") != "mentee") {
+      this.$router.push({ path: "/" });
+    } else {
+      this.mentee = JSON.parse(localStorage.getItem("mentee"));
+    }
+
     document.title = "Your Dashboard";
     setTimeout(() => {
       this.load(false);

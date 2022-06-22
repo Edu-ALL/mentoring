@@ -1,161 +1,122 @@
 <template>
   <div id="sat">
     <div class="req-header p-2 py-1">
-      <i class="fa-solid fa-circle-xmark me-1 text-danger"></i>
-      <i class="fa-solid fa-circle-check me-1 text-success"></i>
+      <i
+        class="fa-solid fa-circle-xmark me-1 text-danger"
+        v-if="data?.length == 0"
+      ></i>
+      <i
+        class="fa-solid fa-circle-check me-1 text-success"
+        v-if="data?.length != 0"
+      ></i>
       SAT
-      <div class="float-end">
-        <i class="fa-solid fa-pencil"></i>
+      <div class="float-end pointer">
+        <i class="fa-solid fa-pencil" @click="edit = !edit" v-if="!edit"></i>
+        <i class="fa-solid fa-close" @click="edit = !edit" v-if="edit"></i>
       </div>
     </div>
-    <div class="req-body p-2">
-      <div class="row">
-        <div class="col">
-          <div class="mb-3 p-2">
-            <table width="100%">
-              <tr valign="middle">
-                <td width="30%">English Score</td>
-                <td>
-                  <input
-                    type="number"
-                    max="800"
-                    min="0"
-                    class="form-mentoring form-control-sm w-100 ms-2"
-                  />
-                </td>
-              </tr>
-              <div class="mb-3"></div>
-              <tr valign="middle">
-                <td width="30%">Math Score</td>
-                <td>
-                  <input
-                    type="number"
-                    max="800"
-                    min="0"
-                    class="form-mentoring form-control-sm w-100 ms-2"
-                  />
-                </td>
-              </tr>
-            </table>
+    <div class="req-body px-md-4 px-2 py-4">
+      <form @submit.prevent="handleUpdate()">
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 p-2">
+              <table width="100%">
+                <tr valign="middle">
+                  <td width="20%">English Score</td>
+                  <td>
+                    <input
+                      v-model="academic.value[0]"
+                      type="number"
+                      max="800"
+                      min="0"
+                      class="form-mentoring form-control-sm w-100 ms-2"
+                      :disabled="!edit"
+                    />
+                  </td>
+                </tr>
+                <div class="mb-3"></div>
+                <tr valign="middle">
+                  <td width="20%">Math Score</td>
+                  <td>
+                    <input
+                      v-model="academic.value[1]"
+                      type="number"
+                      max="800"
+                      min="0"
+                      class="form-mentoring form-control-sm w-100 ms-2"
+                      :disabled="!edit"
+                    />
+                  </td>
+                </tr>
+              </table>
+              <div class="float-end mt-3" v-if="edit">
+                <button type="sumbmit" class="btn-mentoring bg-secondary">
+                  Save Changes
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
-
-  <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
-  <!-- Modal Document  -->
-  <transition name="pop">
-    <div class="vue-modal vue-modal-md" v-if="modal == 'files'">
-      <div class="d-flex">
-        <div class="border py-1 px-2" @click="tabModal = 'new'">New File</div>
-        <div class="border py-1 px-2" @click="tabModal = 'myFiles'">
-          My Files
-        </div>
-      </div>
-      <div class="border p-2" v-if="tabModal == 'new'">
-        <div class="mb-2">
-          <input
-            type="text"
-            class="form-mentoring form-control-sm w-100"
-            placeholder="fill in the file name here .."
-          />
-        </div>
-        <div class="border mb-2">
-          <div
-            @dragenter.prevent="toggleActive"
-            @dragleave.prevent="toggleActive"
-            @dragover.prevent
-            @drop.prevent="drop"
-            :class="{ 'active-dropzone': active }"
-            class="dropzone"
-          >
-            <span>Drag or Drop File</span>
-            <span>OR</span>
-            <label for="dropzoneFile">Select File</label>
-            <input
-              type="file"
-              id="dropzoneFile"
-              class="dropzoneFile"
-              @change="selectedFile"
-            />
-          </div>
-          <div class="my-2">
-            <span class="file-info">
-              File: {{ dropzoneFile.name }}
-              <i
-                class="fa-solid fa-times text-danger ms-2 pointer"
-                v-if="dropzoneFile"
-                @click="deleteFile"
-              ></i>
-            </span>
-          </div>
-        </div>
-        <div class="text-end">
-          <button class="btn-mentoring btn-sm py-1 bg-primary">Submit</button>
-        </div>
-      </div>
-      <div class="border p-2" v-if="tabModal == 'myFiles'">
-        <div class="file-group mb-1" v-for="i in 5" :key="i">
-          <input
-            type="radio"
-            name="radioFiles"
-            value="Value3"
-            :id="'radio' + i"
-          />
-          <label :for="'radio' + i" class="file-group-item"
-            >Caption for CheckBox3</label
-          >
-        </div>
-        <div class="text-end">
-          <button class="btn-mentoring btn-sm py-1 bg-primary">Submit</button>
-        </div>
-      </div>
-    </div>
-  </transition>
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   name: "sat",
+  props: {
+    data: Object,
+  },
   data() {
     return {
-      modal: "",
-      tabModal: "new",
+      edit: false,
+      academic: {
+        category: "sat",
+        subject: ["english", "math"],
+        value: [null, null],
+      },
     };
   },
+  methods: {
+    checkData() {
+      let list = this.data;
+      if (list && list.length == 0) {
+        this.academic.value[0] = 0;
+        this.academic.value[1] = 0;
+      } else if (list) {
+        this.academic.value[0] = list[0].value;
+        this.academic.value[1] = list[1].value;
+      }
+    },
 
-  setup() {
-    const active = ref(false);
-    const toggleActive = () => {
-      active.value = !active.value;
-    };
+    async handleUpdate() {
+      // console.log(this.academic);
+      this.$alert.loading();
 
-    let dropzoneFile = ref("");
-    const drop = (e) => {
-      dropzoneFile.value = e.dataTransfer.files[0];
-    };
-
-    const selectedFile = () => {
-      dropzoneFile.value = document.querySelector(".dropzoneFile").files[0];
-    };
-
-    const deleteFile = () => {
-      dropzoneFile.value = "";
-    };
-
-    return {
-      active,
-      toggleActive,
-      dropzoneFile,
-      drop,
-      selectedFile,
-      deleteFile,
-    };
+      try {
+        const response = await this.$axios.post(
+          "student/academic/requirement",
+          this.academic
+        );
+        this.$emit("check", "academic");
+        this.edit = false;
+        this.$alert.toast("success", response.data.message);
+        // console.log(response);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.close();
+      }
+    },
   },
-  methods: {},
+  updated() {
+    if (this.academic.value[0] == null && this.academic.value[1] == null) {
+      this.checkData();
+    }
+  },
+  created() {
+    this.checkData();
+  },
 };
 </script>
 

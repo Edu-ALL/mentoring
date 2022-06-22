@@ -26,7 +26,8 @@
     "vue3-datepicker": "^0.2.5",
     "vue3-lazyload": "^0.2.5-beta",
     "vue3-popper": "^1.4.2",
-    "vue3-tel-input": "^1.0.4"
+    "vue3-tel-input": "^1.0.4",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

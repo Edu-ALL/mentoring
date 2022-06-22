@@ -20,28 +20,28 @@
                 :class="
                   tab == '' || tab == 'waitlisted' ? 'btn-type-1' : 'btn-type-2'
                 "
-                @click="tab = 'waitlisted'"
+                @click="changeTab('waitlisted')"
               >
                 Waitlisted
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1"
                 :class="tab == 'applied' ? 'btn-type-1' : 'btn-type-2'"
-                @click="tab = 'applied'"
+                @click="changeTab('applied')"
               >
                 Applied
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1"
                 :class="tab == 'accepted' ? 'btn-type-1' : 'btn-type-2'"
-                @click="tab = 'accepted'"
+                @click="changeTab('accepted')"
               >
                 Accepted
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1"
                 :class="tab == 'rejected' ? 'btn-type-1' : 'btn-type-2'"
-                @click="tab = 'rejected'"
+                @click="changeTab('rejected')"
               >
                 Rejected
               </button>
@@ -49,9 +49,12 @@
           </div>
 
           <!-- Content  -->
-          <div class="row mt-3 row-cols-md-4 row-cols-1">
-            <div class="col mb-3" v-for="i in 5" :key="i">
-              <div class="card border-1 shadow-sm card-uni">
+          <div class="row mt-3" v-if="uniList.length == 0">
+            <div class="col-12 pt-3 text-center">No university list yet</div>
+          </div>
+          <div class="row mt-3 row-cols-md-4 row-cols-1 align-items-stretch">
+            <div class="col mb-3" v-for="i in uniList" :key="i">
+              <div class="card border-1 shadow-sm card-uni h-100">
                 <div class="uni-icon">
                   <i class="fa-solid fa-clock" v-if="tab == 'waitlisted'"></i>
                   <i
@@ -67,9 +70,10 @@
                     v-if="tab == 'rejected'"
                   ></i>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex align-items-center">
                   <div class="uni-name">
-                    <h5 class="my-0">University Name</h5>
+                    <h5 class="my-0">{{ i.uni_name }}</h5>
+                    <p class="my-1 mb-0">{{ i.uni_major }}</p>
                   </div>
                 </div>
               </div>
@@ -90,14 +94,32 @@ export default {
   data() {
     return {
       tab: "waitlisted",
+      uniList: [],
     };
   },
   methods: {
     changeTab(tab) {
       this.tab = tab;
+      this.uniList = [];
+      this.getData(tab);
+    },
+
+    async getData(status = "waitlisted") {
+      try {
+        const response = await this.$axios.get(
+          "student/university/shortlisted/" + status
+        );
+
+        this.uniList = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
     },
   },
-  created() {},
+  created() {
+    this.getData();
+  },
 };
 </script>
 
@@ -105,7 +127,6 @@ export default {
 .card-uni {
   position: relative;
   border-radius: 20px;
-  height: 80px !important;
   transition: all 0.3s ease-in-out;
   color: #626262;
   cursor: pointer;
@@ -124,12 +145,15 @@ export default {
   right: 10px;
   top: 5px;
   font-size: 20px;
-  color: #dddddd;
+  color: #dddddd72;
+  z-index: 0;
 }
 
 .uni-name {
   display: block;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .card-uni.active,

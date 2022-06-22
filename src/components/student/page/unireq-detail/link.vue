@@ -26,32 +26,34 @@
   <!-- Modal Document  -->
   <transition name="pop">
     <div class="vue-modal vue-modal-sm" v-if="modal == 'add'">
-      <h6 class="mb-0">Publication Links</h6>
-      <hr class="my-1 mb-3" />
-      <div class="mb-2">
-        <label>Title</label>
-        <input
-          type="text"
-          name=""
-          id=""
-          class="form-mentoring form-control-sm w-100"
-        />
-      </div>
-      <div class="mb-3">
-        <label>URL</label>
-        <input
-          type="text"
-          name=""
-          id=""
-          class="form-mentoring form-control-sm w-100"
-        />
-      </div>
-      <div class="text-end">
-        <button class="btn-mentoring btn-sm py-1 bg-primary">
-          <i class="fa-solid fa-save me-2"></i>
-          Save
-        </button>
-      </div>
+      <form @submit.prevent="handleUpdate()" method="post">
+        <h6 class="mb-0">Publication Links</h6>
+        <hr class="my-1 mb-3" />
+        <div class="mb-2">
+          <label>Title</label>
+          <input
+            type="text"
+            v-model="link.subject[0]"
+            class="form-mentoring form-control-sm w-100"
+            placeholder="fill in the title here .."
+          />
+        </div>
+        <div class="mb-3">
+          <label>URL</label>
+          <input
+            type="text"
+            v-model="link.value[0]"
+            class="form-mentoring form-control-sm w-100"
+            placeholder="fill in the url here .."
+          />
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn-mentoring btn-sm py-1 bg-primary">
+            <i class="fa-solid fa-save me-2"></i>
+            Save
+          </button>
+        </div>
+      </form>
     </div>
   </transition>
 </template>
@@ -62,7 +64,36 @@ export default {
   data() {
     return {
       modal: "",
+      link: {
+        category: "publication_links",
+        subject: [""],
+        value: [""],
+      },
     };
+  },
+  methods: {
+    async handleUpdate() {
+      this.modal = "";
+
+      // console.log(this.link);
+      this.$alert.loading();
+
+      try {
+        const response = await this.$axios.post(
+          "student/academic/requirement",
+          this.link
+        );
+
+        this.link.subject[0] = "";
+        this.link.value[0] = "";
+
+        this.$alert.toast("success", response.data.message);
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.close();
+      }
+    },
   },
 };
 </script>

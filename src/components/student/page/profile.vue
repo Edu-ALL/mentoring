@@ -2,10 +2,9 @@
   <div id="profile">
     <div class="container mt-4">
       <div class="row">
-        <div class="col">
-          <div class="ps-3" style="top: 100px">
-            <i class="fa-solid fa-arrow-left me-2"></i>
-            <h5 class="d-inline">My Profile</h5>
+        <div class="col-12">
+          <div class="ps-3 pointer" style="top: 100px" @click="redirect">
+            <h5 class="">My Profile</h5>
           </div>
         </div>
       </div>
@@ -17,7 +16,7 @@
                 <div class="col-md-4 mb-3">
                   <ul
                     class="list-group sticky-top"
-                    style="top: 135px; z-index: 100"
+                    style="top: 100px; z-index: 100"
                   >
                     <a
                       href="#info"
@@ -70,11 +69,11 @@
                   </ul>
                 </div>
                 <div class="col-md-8">
-                  <v-personal></v-personal>
-                  <v-sosmed></v-sosmed>
-                  <v-interest @check-delete="checkDelete"></v-interest>
-                  <v-competition @check-delete="checkDelete"></v-competition>
-                  <v-academic @check-delete="checkDelete"></v-academic>
+                  <v-personal :mentee="mentee"></v-personal>
+                  <v-sosmed :id="mentee.id"></v-sosmed>
+                  <v-interest></v-interest>
+                  <v-competition></v-competition>
+                  <v-academic></v-academic>
                 </div>
               </div>
             </div>
@@ -118,29 +117,6 @@
         </div>
       </div>
     </transition>
-
-    <!-- delete  -->
-    <transition name="pop">
-      <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'delete'">
-        <div class="text-center">
-          <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-          <h5 class="mt-2">Are you sure to delete?</h5>
-          <div class="mt-3">
-            <button
-              class="btn-mentoring btn-warning btn-sm py-1 mx-1"
-              @click="modal = ''"
-            >
-              Cancel</button
-            ><button
-              class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
-              @click="deleteProcess"
-            >
-              Yes
-            </button>
-          </div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 <script>
@@ -152,6 +128,9 @@ import academic from "@/components/student/page/profile-detail/academic";
 
 export default {
   name: "profile",
+  props: {
+    mentee: Object,
+  },
   components: {
     "v-personal": personal,
     "v-sosmed": sosmed,
@@ -166,21 +145,7 @@ export default {
       deleteUrl: "",
     };
   },
-  methods: {
-    checkDelete(i) {
-      if (i) {
-        this.modal = "delete";
-        this.deleteUrl = i;
-      } else {
-        this.deleteUrl = "";
-      }
-    },
-
-    deleteProcess() {
-      alert(this.deleteUrl);
-      this.modal = "";
-    },
-  },
+  methods: {},
   created() {},
 };
 </script>

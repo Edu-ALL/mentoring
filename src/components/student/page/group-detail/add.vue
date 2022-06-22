@@ -1,85 +1,121 @@
 <template>
   <div id="addGroup">
-    <div class="row">
-      <div class="col-12">
-        <h5>New Group</h5>
-        <hr class="my-1 mb-3" />
-      </div>
-      <div class="col-md-6">
-        <div class="mb-2">
-          <label>Project Name</label>
-          <input
-            type="text"
-            name=""
-            class="form-mentoring form-control-sm w-100"
-          />
+    <form method="post" @submit.prevent="handleSubmit()">
+      <div class="row">
+        <div class="col-12">
+          <h5>New Group</h5>
+          <hr class="my-1 mb-3" />
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="mb-2">
-          <label>Project Type</label>
-          <group-type
-            v-model="groupType"
-            :options="options"
-            placeholder="Select One"
-            @select="interestCheck"
+        <div class="col-md-6">
+          <div class="mb-2">
+            <label>Project Name</label>
+            <input
+              type="text"
+              v-model="group.project_name"
+              class="form-mentoring form-control-sm w-100"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-2">
+            <label>Project Type</label>
+            <group-type
+              v-model="group.project_type"
+              :options="options"
+              placeholder="Select One"
+              required
+              @select="interestCheck"
+            >
+            </group-type>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-2">
+            <label>Invite Member</label>
+            <input
+              type="email"
+              class="form-mentoring w-100"
+              v-model="member"
+              @blur="validateEmail"
+              placeholder="add more member"
+              @keydown.enter.prevent="addMember"
+              @keydown.,.prevent="addMember"
+            />
+            <transition name="fade">
+              <small class="text-danger d-block" v-if="error_member"
+                >Please enter a valid email</small
+              >
+            </transition>
+            <div
+              class="badge bg-white text-muted me-1 rounded"
+              v-for="(i, index) in members"
+              :key="index"
+            >
+              {{ i }}
+              <i
+                class="fa-solid fa-x pointer ms-2"
+                @click="removeMember(index)"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label>Project Description</label>
+            <textarea
+              cols="30"
+              rows="10"
+              class="w-100"
+              v-model="group.project_desc"
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-6">
+          <button
+            class="btn-mentoring btn-outline-danger"
+            @click="$emit('modal', '')"
           >
-          </group-type>
+            Cancel
+          </button>
+        </div>
+        <div class="col-6 text-end">
+          <button type="submit" class="btn-mentoring btn-success">
+            Submit
+          </button>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="mb-2">
-          <label>Invite Member</label>
-          <invite-email
-            v-model="emails"
-            :options="emailOptions"
-            tag-placeholder="Invite"
-            placeholder="Invite new member"
-            label="email"
-            :search="false"
-            track-by="code"
-            :multiple="true"
-            :taggable="true"
-            @tag="addEmail"
-          >
-          </invite-email>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="mb-3">
-          <label>Project Description</label>
-          <textarea name="" id="" cols="30" rows="10" class="w-100"></textarea>
-        </div>
-      </div>
-      <div class="col-6">
-        <button
-          class="btn-mentoring btn-outline-danger"
-          @click="$emit('modal', '')"
-        >
-          Cancel
-        </button>
-      </div>
-      <div class="col-6 text-end">
-        <button class="btn-mentoring btn-success">New Group</button>
-      </div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
 import Multiselect from "vue-multiselect";
+// import inputTag from "vue3-input-tags";
 export default {
   name: "add",
   components: {
     "group-type": Multiselect,
-    "invite-email": Multiselect,
+    // "invite-email": Multiselect,
+    // "input-tags": inputTag,
   },
   data() {
     return {
-      groupType: "",
       emails: [],
       emailOptions: [],
       options: ["Group Mentoring", "Profile Building Mentoring"],
+      group: {
+        project_name: "",
+        project_type: "",
+        project_desc: "",
+        project_status: "",
+        status: "in progress",
+        owner_type: "student",
+      },
+      member: "",
+      members: [],
+      error_member: false,
     };
   },
   methods: {
@@ -87,6 +123,68 @@ export default {
       const emails = { email: newEmail };
       //   this.emailOptions.push(emails);
       this.emails.push(emails);
+    },
+
+    validateEmail(email) {
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+
+    addMember() {
+      if (this.validateEmail(this.member)) {
+        this.members.push(this.member);
+        this.member = "";
+        this.error_member = false;
+      } else {
+        this.member = "";
+        this.error_member = true;
+      }
+    },
+
+    removeMember(i) {
+      this.members.splice(i, 1);
+      this.error_member = false;
+    },
+
+    async handleSubmit() {
+      this.$emit("modal", "");
+
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post(
+          "student/group/project",
+          this.group
+        );
+
+        // console.log(response.data);
+        if (response.data.success) {
+          this.handleMembers(response.data.data.id);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response.error);
+      }
+    },
+
+    async handleMembers(id) {
+      try {
+        const response = await this.$axios.post(
+          "student/group/project/participant",
+          {
+            group_id: id,
+            participant: this.members,
+          }
+        );
+        console.log(response.data);
+        this.$emit("data", response.data);
+      } catch (e) {
+        console.log(e.response);
+        this.$emit("data", e.response.data);
+      }
+      this.$alert.close();
     },
   },
 };

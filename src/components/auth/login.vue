@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="vue-modal vue-modal-sm bg-primary">
-      <form @submit.prevent="loginProcess">
+      <form @submit.prevent="handleSubmit">
         <div class="text-center mb-4">
           <img
             src="@/assets/img/logo-white.webp"
@@ -40,11 +40,7 @@
           </p>
         </div>
         <div class="text-center">
-          <button
-            class="btn btn-allin bg-secondary my-3 px-5"
-            type="button"
-            @click="this.$router.push({ path: '/user' })"
-          >
+          <button class="btn btn-allin bg-secondary my-3 px-5" type="submit">
             <strong> Sign In </strong>
           </button>
           <p class="mb-0">
@@ -73,5 +69,33 @@ export default {
       error_login: [],
     };
   },
+  methods: {
+    async handleSubmit() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post("auth/s/login", {
+          email: this.login.email,
+          password: this.login.password,
+        });
+
+        // Mentee Data
+        localStorage.setItem("role", "mentee");
+        localStorage.setItem("token", response.data.data.access_token);
+        localStorage.setItem(
+          "mentee",
+          JSON.stringify(response.data.data.student)
+        );
+        this.$alert.close();
+        this.$alert.toast("success", "You Successfully Login");
+
+        window.location.href = "/user";
+        // this.$router.push({ path: "/user" });
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.close();
+      }
+    },
+  },
+  created() {},
 };
 </script>

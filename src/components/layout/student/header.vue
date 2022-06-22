@@ -76,10 +76,7 @@
           </ul>
         </div>
         <div class="navbar-button d-md-block" :class="!menu ? 'd-none' : ''">
-          <button
-            class="btn btn-allin bg-secondary px-4"
-            @click="this.$router.push({ path: '/' })"
-          >
+          <button class="btn btn-allin bg-secondary px-4" @click="handleLogout">
             <strong> Sign Out </strong>
           </button>
         </div>
@@ -99,6 +96,14 @@ export default {
   methods: {
     showMenu() {
       this.menu = true;
+    },
+    handleLogout() {
+      // localStorage.removeItem("token");
+      // localStorage.removeItem("role");
+      // localStorage.removeItem("mentee");
+      localStorage.clear();
+      this.$router.push({ path: "/" });
+      this.$alert.toast("success", "You Successfully Logout");
     },
   },
   watch: {

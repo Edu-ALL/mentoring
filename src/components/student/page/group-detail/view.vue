@@ -15,9 +15,15 @@
     <div class="container mt-3">
       <div class="row">
         <div class="col-md-7 mb-3">
-          <div class="card border-0 shadow mb-3">
+          <div
+            class="card border-0 shadow mb-3"
+            v-if="groups.group_info == null"
+          >
             <div class="card-body">
-              <div class="float-end">
+              <div
+                class="float-end"
+                v-if="group_info.student_id == student_info.id"
+              >
                 <i
                   class="fa-solid fa-edit pointer"
                   v-if="!editGroup"
@@ -31,28 +37,23 @@
               </div>
               <!-- Detail  -->
               <div class="" v-if="!editGroup">
-                <h5>Group Name</h5>
+                <h5>
+                  {{ group_info.project_name }}
+                </h5>
                 <span class="badge bg-secondary rounded-pill text-dark">
-                  Project Mentoring
+                  {{ group_info.project_type }}
                 </span>
                 <div class="project-desc mt-2">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi dignissimos iste debitis! Quod officiis sed rem
-                  inventore, quasi, eligendi ex deleniti eveniet aperiam
-                  laboriosam mollitia dolores voluptatem sapiente saepe ipsum.
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Illum nemo odit sapiente, quo provident deserunt quis esse
-                  explicabo fuga iste debitis dolore aut quod eveniet obcaecati
-                  ad, minima quasi ut!
+                  {{ group_info.project_desc }}
                 </div>
                 <div class="row mt-3 align-items-center">
                   <div class="col-6">
                     <small class="text-muted"
-                      ><i class="fa-solid fa-calendar me-2"></i> 24 July
-                      2022</small
-                    >
+                      ><i class="fa-solid fa-calendar me-2"></i>
+                      {{ $customDate.date(group_info.created_at) }}
+                    </small>
                   </div>
-                  <div class="col-6 text-end">
+                  <!-- <div class="col-6 text-end">
                     <i class="fa-solid fa-thumbs-up mx-1 text-success"></i>
                     <i
                       class="fa-solid fa-circle-exclamation mx-1 text-warning"
@@ -60,109 +61,141 @@
                     <i
                       class="fa-solid fa-triangle-exclamation mx-1 text-danger"
                     ></i>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
               <!-- Edit Group  -->
-              <div class="" v-if="editGroup">
-                <h6>Edit Group</h6>
-                <hr />
-                <div class="mb-2">
-                  <label>Group Name</label>
-                  <input
-                    type="text"
-                    class="form-mentoring form-control-sm w-100"
-                  />
+              <form method="post" @submit.prevent="handleUpdateGroup()">
+                <div class="" v-if="editGroup">
+                  <h6>Edit Group</h6>
+                  <hr />
+                  <div class="mb-2">
+                    <label>Group Name</label>
+                    <input
+                      v-model="group_info.project_name"
+                      type="text"
+                      class="form-mentoring form-control-sm w-100"
+                    />
+                  </div>
+                  <div class="mb-2">
+                    <label>Project Type</label>
+                    <group-type
+                      v-model="group_info.project_type"
+                      :options="options"
+                      placeholder="Select One"
+                      @select="interestCheck"
+                    >
+                    </group-type>
+                  </div>
+                  <div class="mb-2">
+                    <label>Group Description</label>
+                    <textarea
+                      v-model="group_info.project_desc"
+                      class="form-mentoring w-100"
+                      rows="5"
+                    ></textarea>
+                  </div>
+                  <hr class="my-0 mb-2" />
+                  <div class="text-end">
+                    <button
+                      type="submit"
+                      class="btn-mentoring btn-sm bg-primary py-1"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
                 </div>
-                <div class="mb-2">
-                  <label>Project Type</label>
-                  <group-type
-                    v-model="groupType"
-                    :options="options"
-                    placeholder="Select One"
-                    @select="interestCheck"
-                  >
-                  </group-type>
-                </div>
-                <div class="mb-2">
-                  <label>Group Description</label>
-                  <textarea
-                    name=""
-                    class="form-mentoring w-100"
-                    rows="5"
-                  ></textarea>
-                </div>
-                <hr class="my-0 mb-2" />
-                <div class="text-end">
-                  <button class="btn-mentoring btn-sm bg-primary py-1">
-                    Save Changes
-                  </button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
 
+          <!-- Meeting  -->
           <div class="card border-0 shadow">
             <div class="card-body">
-              <v-meeting :menu="menu"></v-meeting>
+              <v-meeting
+                :menu="menu"
+                :group="group_info"
+                :student="student_info"
+                :data="group_meeting"
+                @check="checkComponent"
+              ></v-meeting>
             </div>
           </div>
         </div>
         <div class="col-md-5 mb-3">
-          <div class="card border-0 shadow mb-3">
-            <div class="card-body">
-              <div class="float-end">
-                <i
-                  class="fa-solid fa-edit pointer"
-                  v-if="!editMember"
-                  @click="editMember = !editMember"
-                ></i>
-                <i
-                  class="fa-solid fa-x pointer"
-                  v-if="editMember"
-                  @click="editMember = !editMember"
-                ></i>
-              </div>
-              <div class="text-center">
-                <h5>Saeka Minami</h5>
-                <div class="member-role" v-if="!editMember">Mentee's Role</div>
-                <div class="mb-2" v-if="editMember">
-                  <input
-                    type="text"
-                    class="form-mentoring form-control-sm"
-                    placeholder="Fill in your role here .."
-                  />
+          <form method="post" @submit.prevent="handleUpdateRole()">
+            <div class="card border-0 shadow mb-3">
+              <div class="card-body">
+                <div class="float-end">
+                  <i
+                    class="fa-solid fa-edit pointer"
+                    v-if="!editMember"
+                    @click="editMember = !editMember"
+                  ></i>
+                  <i
+                    class="fa-solid fa-x pointer"
+                    v-if="editMember"
+                    @click="editMember = !editMember"
+                  ></i>
                 </div>
-                <div
-                  class="border rounded-3 member-contribution"
-                  v-if="!editMember"
-                >
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Exercitationem, deserunt natus tenetur dolorum voluptatum
-                  provident. Ipsa, id eos quis perferendis maxime magni error et
-                  eveniet veniam cupiditate sapiente quibusdam eaque!
-                </div>
-                <div class="mb-2" v-if="editMember">
-                  <textarea
-                    placeholder="Describe your contribution here .."
-                    name=""
-                    id=""
-                    rows="5"
-                    class="form-mentoring form-control-sm w-100"
-                  ></textarea>
-                </div>
-                <div class="" v-if="editMember">
-                  <button class="btn-mentoring btn-sm py-1 bg-primary">
-                    Save Changes
-                  </button>
+                <div class="text-center">
+                  <h5>
+                    {{ student_info.first_name + " " + student_info.last_name }}
+                  </h5>
+                  <div class="member-role" v-if="!editMember">
+                    {{
+                      student_info.contribution_role == null
+                        ? "Not Available"
+                        : student_info.contribution_role
+                    }}
+                  </div>
+                  <div class="mb-2" v-if="editMember">
+                    <input
+                      v-model="student_info.contribution_role"
+                      type="text"
+                      class="form-mentoring form-control-sm"
+                      placeholder="Fill in your role here .."
+                    />
+                  </div>
+                  <div
+                    class="border rounded-3 member-contribution"
+                    v-if="!editMember"
+                  >
+                    {{
+                      student_info.contribution_description == null
+                        ? "Describe your contribution here .."
+                        : student_info.contribution_description
+                    }}
+                  </div>
+                  <div class="mb-2" v-if="editMember">
+                    <textarea
+                      placeholder="Describe your contribution here .."
+                      v-model="student_info.contribution_description"
+                      rows="5"
+                      class="form-mentoring form-control-sm w-100"
+                    ></textarea>
+                  </div>
+                  <div class="" v-if="editMember">
+                    <button
+                      type="submit"
+                      class="btn-mentoring btn-sm py-1 bg-primary"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
           <div class="card border-0 shadow">
             <div class="card-body">
-              <v-member :menu="menu"></v-member>
+              <v-member
+                :menu="menu"
+                :member="group_member"
+                :group="group_info"
+                @check="checkComponent"
+              ></v-member>
             </div>
           </div>
         </div>
@@ -193,12 +226,91 @@ export default {
       editMember: false,
       groupType: "",
       options: ["Group Mentoring", "Profile Building Mentoring"],
+      groupId: "",
+      groups: [],
+      group_info: [],
+      group_meeting: [],
+      group_member: [],
+      student_info: [],
     };
   },
   methods: {
     redirect() {
       this.$router.push({ path: "/user/my-activity" });
     },
+
+    async getData() {
+      try {
+        const response = await this.$axios.get(
+          "student/group/project/detail/" + this.groupId
+        );
+
+        this.group_info = response.data.data.group_info;
+        this.group_meeting = response.data.data.group_meeting;
+        this.group_member = response.data.data.group_member;
+        this.student_info = response.data.data.student_info;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async handleUpdateGroup() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "student/group/project/" + this.groupId,
+          {
+            project_name: this.group_info.project_name,
+            project_type: this.group_info.project_type,
+            project_desc: this.group_info.project_desc,
+            status: "in progress",
+          }
+        );
+
+        this.group_info = response.data.data;
+        this.editGroup = false;
+        this.$alert.toast("success", response.data.message);
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    async handleUpdateRole() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "student/group/project/participant/" + this.groupId,
+          {
+            role: this.student_info.contribution_role,
+            description: this.student_info.contribution_description,
+          }
+        );
+
+        this.editMember = false;
+        this.$alert.toast("success", response.data.message);
+        this.getData();
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response.data);
+        this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    checkComponent(i) {
+      if (i == "new") {
+        this.getData();
+      }
+    },
+  },
+
+  created() {
+    this.groupId = this.$route.params.key;
+    if (this.groupId) {
+      this.getData();
+    }
   },
 };
 </script>

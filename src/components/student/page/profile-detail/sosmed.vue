@@ -2,7 +2,6 @@
   <div id="sosmed" style="scroll-margin-top: 120px">
     <div class="heading">
       Social Media
-
       <div class="float-end">
         <button
           class="btn-mentoring btn-sm bg-primary py-1"
@@ -21,10 +20,7 @@
       </div>
     </div>
     <div class="desc">
-      <div class="row mb-2">
-        <div class="col-12"></div>
-      </div>
-      <form action="">
+      <form method="post" @submit.prevent="handleSubmit">
         <div class="row g-1 align-items-center">
           <div class="col-md-3 col-4">
             <div class="field">
@@ -37,11 +33,12 @@
           <div class="col-md-9 col-8">
             <div class="field">
               <div class="data">
+                <input type="hidden" v-model="sosmed.id" />
                 <input
                   type="text"
                   name=""
                   class="form-mentoring form-control-sm w-100"
-                  value="sdfsf"
+                  v-model="sosmed.data[0].hyperlink"
                   :readonly="!edit"
                 />
               </div>
@@ -62,6 +59,7 @@
                   type="text"
                   name=""
                   class="form-mentoring form-control-sm w-100"
+                  v-model="sosmed.data[1].hyperlink"
                   :readonly="!edit"
                 />
               </div>
@@ -82,6 +80,7 @@
                   type="text"
                   name=""
                   class="form-mentoring form-control-sm w-100"
+                  v-model="sosmed.data[2].hyperlink"
                   :readonly="!edit"
                 />
               </div>
@@ -89,7 +88,10 @@
           </div>
           <div class="col-md-12 mb-3" v-if="edit">
             <div class="text-end">
-              <button class="btn-mentoring btn-sm btn-outline-success py-1">
+              <button
+                type="submit"
+                class="btn-mentoring btn-sm btn-outline-success py-1"
+              >
                 Save Changes
               </button>
             </div>
@@ -102,11 +104,76 @@
 
 <script>
 export default {
-  name: "sosmed",
+  name: "sosmedComp",
+  props: {
+    id: Number,
+  },
   data() {
     return {
       edit: false,
+      sosmed_list: [],
+      sosmed: {
+        person: "student",
+        data: [
+          {
+            instance: "facebook",
+            hyperlink: "",
+          },
+          {
+            person: "student",
+            instance: "instagram",
+            hyperlink: "",
+          },
+          {
+            person: "student",
+            instance: "linkedin",
+            hyperlink: "",
+          },
+        ],
+      },
     };
+  },
+  methods: {
+    async getData() {
+      try {
+        const response = await this.$axios.get(
+          "social-media/student/" + this.id
+        );
+        this.sosmed_list = response.data.data;
+        const sosmed_new = this.sosmed;
+        this.sosmed_list.map(function (sosmed) {
+          if (sosmed.social_media_name == "facebook") {
+            sosmed_new.data[0].hyperlink = sosmed.hyperlink;
+          } else if (sosmed.social_media_name == "instagram") {
+            sosmed_new.data[1].hyperlink = sosmed.hyperlink;
+          } else if (sosmed.social_media_name == "linkedin") {
+            sosmed_new.data[2].hyperlink = sosmed.hyperlink;
+          }
+        });
+      } catch (e) {
+        console.log(e.response.data);
+      }
+    },
+
+    async handleSubmit() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post(
+          "student/add/social-media",
+          this.sosmed
+        );
+        this.edit = false;
+        console.log(response.data);
+        this.$alert.toast("success", response.data.message);
+        // this.$alert.close();
+      } catch (e) {
+        console.log(e.response.data);
+        this.$alert.close();
+      }
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

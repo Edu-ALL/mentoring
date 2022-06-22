@@ -4,26 +4,40 @@
       <div class="row">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h5>University Requirements</h5>
+            <h5 class="mb-4">University Requirements</h5>
+            <div
+              class="mb-3 overflow-auto d-flex w-100 mentoring-scroll"
+              style="white-space: nowrap"
+            >
+              <button class="btn-mentoring me-1 bg-secondary">ALL</button>
+              <button
+                class="btn-mentoring me-1 bg-secondary"
+                v-for="i in uni_list"
+                :key="i"
+              >
+                Uni {{ i.uni_name }}
+              </button>
+            </div>
+
             <div class="row row-cols-md-1 row-cols-1 g-3">
               <!-- Essay  -->
               <div class="col">
                 <div class="req-card">
-                  <v-essay></v-essay>
+                  <v-essay :data="documents.essay" @check="checkData"></v-essay>
                 </div>
               </div>
 
               <!-- SAT  -->
               <div class="col">
                 <div class="req-card">
-                  <v-sat></v-sat>
+                  <v-sat :data="texts.sat" @check="checkData"></v-sat>
                 </div>
               </div>
 
               <!-- LOR  -->
               <div class="col">
                 <div class="req-card">
-                  <v-lor></v-lor>
+                  <v-lor :data="documents.lor"></v-lor>
                 </div>
               </div>
 
@@ -80,10 +94,66 @@ export default {
     "v-ap": Ap,
   },
   data() {
-    return {};
+    return {
+      documents: [],
+      texts: [],
+      uni_list: [],
+    };
   },
 
-  methods: {},
+  methods: {
+    checkData(i) {
+      if (i == "academic") {
+        this.getDataText();
+      } else if (i == "file") {
+        this.getDataDocument();
+      }
+    },
+
+    async getDataDocument() {
+      try {
+        const response = await this.$axios.get(
+          "student/university/requirement/document/all"
+        );
+
+        this.documents = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getDataText() {
+      try {
+        const response = await this.$axios.get(
+          "student/university/requirement/academic"
+        );
+
+        this.texts = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getUniList() {
+      try {
+        const response = await this.$axios.get(
+          "student/university/shortlisted/all"
+        );
+
+        this.uni_list = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+  },
+  created() {
+    this.getDataDocument();
+    this.getDataText();
+    this.getUniList();
+  },
 };
 </script>
 
@@ -112,13 +182,13 @@ export default {
   transition: all 0.3s ease-in-out;
 }
 
-.req-body .card {
+.req-body .card .docs-detail {
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-.req-body .card:hover {
-  cursor: pointer;
-  background: rgb(234, 241, 255);
+.req-body .card:hover .docs-detail {
+  filter: blur(2px);
 }
 
 .dropzone {
@@ -206,5 +276,46 @@ export default {
 /* Handle on hover */
 .req-card::-webkit-scrollbar-thumb:hover {
   background: #ffba66;
+}
+
+.docs {
+  border: 1px solid rgb(243, 243, 243);
+  font-weight: 500;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.docs-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 5px solid #223872;
+  background: #f0aa54ec;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s;
+}
+
+.docs:hover .docs-content {
+  top: 30%;
+  height: 70%;
+}
+
+.docs-content button i {
+  transition: all 0.8s;
+}
+
+.docs-content button:hover,
+.docs-content a:hover {
+  background: #223872 !important;
+}
+
+.docs-content button:hover i,
+.docs-content a:hover i {
+  color: #fff !important;
 }
 </style>

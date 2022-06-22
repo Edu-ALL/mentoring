@@ -62,7 +62,10 @@
                 <v-request v-if="tab == 'request'"></v-request>
               </transition>
               <transition name="fade">
-                <v-progress v-if="tab == '' || tab == 'progress'"></v-progress>
+                <v-progress
+                  v-if="tab == '' || tab == 'progress'"
+                  :check="modal"
+                ></v-progress>
               </transition>
               <transition name="fade">
                 <v-complete v-if="tab == 'completed'"></v-complete>
@@ -83,7 +86,32 @@
     <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
     <transition name="pop">
       <div class="vue-modal vue-modal-lg bg-secondary" v-if="modal == 'add'">
-        <v-add @modal="checkModal"></v-add>
+        <v-add @modal="checkModal" @data="checkData"></v-add>
+      </div>
+    </transition>
+
+    <transition name="pop">
+      <div class="vue-modal vue-modal-md" v-if="modal == 'new-group'">
+        <div class="text-center">
+          <i class="fa-solid fa-check-circle fa-2xl text-success"></i>
+          <h5 class="mt-2 mb-3">Group successfully created !</h5>
+        </div>
+        <div class="text-center" v-if="group_data.error">
+          <div class="text-danger">* Notes</div>
+          {{ group_data.error.exists }}
+          {{ group_data.error.joined }}
+        </div>
+
+        <div class="row justify-content-center mt-3">
+          <div class="col-3 text-center">
+            <button
+              class="btn btn-mentoring bg-primary w-100"
+              @click="modal = ''"
+            >
+              OK
+            </button>
+          </div>
+        </div>
       </div>
     </transition>
   </div>
@@ -116,11 +144,17 @@ export default {
         submenu: "",
         key: "",
       },
+      group_data: [],
     };
   },
   methods: {
     checkModal(i) {
       this.modal = i;
+    },
+
+    checkData(i) {
+      this.group_data = i;
+      this.modal = "new-group";
     },
 
     redirect() {
