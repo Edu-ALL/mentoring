@@ -1,39 +1,42 @@
 <template>
   <div id="ap">
     <div class="req-header p-2 py-1">
-      <i class="fa-solid fa-circle-xmark me-1 text-danger"></i>
-      <i class="fa-solid fa-circle-check me-1 text-success"></i>
+      <i
+        class="fa-solid fa-circle-xmark me-1 text-danger"
+        v-if="data?.length == 0"
+      ></i>
+      <i
+        class="fa-solid fa-circle-check me-1 text-success"
+        v-if="data?.length != 0"
+      ></i>
       AP Score
       <div class="float-end">
         <i class="fa-solid fa-add pointer" @click="modal = 'add'"></i>
       </div>
     </div>
-    <div class="req-body p-2">
-      <div class="row row-cols-1">
+    <div class="req-body p-2 py-4">
+      <!-- IF EMPTY  -->
+      <div class="row" v-if="data?.length == 0">
+        <div class="col text-center text-muted pb-4" @click="modal = 'add'">
+          Please add your publication links here.
+        </div>
+      </div>
+      <div class="row row-cols-1" v-if="data?.length != 0">
         <div class="col">
-          <table class="table">
-            <tr>
-              <td>Reading</td>
-              <td class="text-end">20</td>
-            </tr>
-            <tr>
-              <td>Listening</td>
-              <td class="text-end">20</td>
-            </tr>
-            <tr>
-              <td>Speaking</td>
-              <td class="text-end">20</td>
-            </tr>
-            <tr>
-              <td>Writing</td>
-              <td class="text-end">20</td>
-            </tr>
-            <tfoot>
-              <tr>
-                <td>Total Score</td>
-                <td class="text-end">80</td>
+          <table class="table table-hover">
+            <tbody>
+              <tr v-for="(i, index) in data" :key="index">
+                <td width="2%">{{ index + 1 }}.</td>
+                <td>
+                  {{ i.subject }}
+                  <i
+                    class="fa-solid fa-close text-danger ms-3 pointer"
+                    @click="deleteData(i.id)"
+                  ></i>
+                </td>
+                <td width="5%" class="text-end">{{ i.value }}</td>
               </tr>
-            </tfoot>
+            </tbody>
           </table>
         </div>
       </div>
@@ -43,37 +46,63 @@
   <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
   <!-- Modal Document  -->
   <transition name="pop">
-    <div class="vue-modal vue-modal-sm" v-if="modal == 'add'">
-      <h6>AP Score</h6>
-      <div class="row">
-        <div class="col">
-          <div class="mb-1">
-            <label>Subject</label>
-            <multiselect
-              v-model="value"
-              :options="options"
-              placeholder="Select One"
-            >
-            </multiselect>
-          </div>
-          <div class="mb-1">
-            <label>Score</label>
-            <input
-              type="number"
-              name=""
-              id=""
-              max="30"
-              class="form-mentoring form-control-sm w-100"
-            />
+    <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
+      <form @submit.prevent="handleSubmit" method="post">
+        <h6>AP Score</h6>
+        <hr class="mt-1 mb-3" />
+        <div class="row">
+          <div class="col">
+            <div class="mb-1">
+              <label>Subject</label>
+              <multiselect
+                v-model="score.subject[0]"
+                :options="options"
+                placeholder="Select One"
+              >
+              </multiselect>
+            </div>
+            <div class="mb-1">
+              <label>Score</label>
+              <input
+                type="number"
+                v-model="score.value[0]"
+                max="30"
+                class="form-mentoring form-control-sm w-100"
+                required
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="text-center mt-3">
-        <button class="btn-mentoring btn-sm py-1 bg-primary">
-          <i class="fa-solid fa-save me-2"></i>
-          Save
-        </button>
+        <div class="text-center mt-3">
+          <button type="submit" class="btn-mentoring btn-sm py-1 bg-primary">
+            <i class="fa-solid fa-save me-2"></i>
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </transition>
+
+  <!-- Delete  -->
+  <transition name="pop">
+    <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'delete'">
+      <div class="text-center">
+        <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
+        <h5 class="mt-2">Are you sure to delete?</h5>
+        <div class="mt-3">
+          <button
+            class="btn-mentoring btn-warning btn-sm py-1 mx-1"
+            @click="modal = ''"
+          >
+            Cancel</button
+          ><button
+            class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
+            @click="handleDelete"
+          >
+            Yes
+          </button>
+        </div>
       </div>
     </div>
   </transition>
@@ -84,6 +113,9 @@ import Multiselect from "vue-multiselect";
 
 export default {
   name: "apScore",
+  props: {
+    data: Object,
+  },
   components: {
     Multiselect,
   },
@@ -91,17 +123,80 @@ export default {
     return {
       modal: "",
       value: "",
-      options: [
-        "AP Art History",
-        "AP Biology",
-        "AP Calculus AB",
-        "AP Calculus BC",
-        "AP Chemistry",
-        "AP Chinese Language & Culture",
-        "AP Comparative Government & Politics",
-        "AP Computer Science A",
-      ],
+      score_id: "",
+      score: {
+        category: "ap_score",
+        subject: [""],
+        value: [""],
+      },
+      options: [],
     };
+  },
+  methods: {
+    async getAPSubject() {
+      try {
+        const response = await this.$axios.get("ap/list");
+
+        let subject = response.data.data;
+
+        subject.forEach((element) => {
+          this.options.push(element.subject);
+        });
+        // console.log(this.options);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async handleSubmit() {
+      // console.log(this.score);
+      this.modal = "";
+
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post(
+          "student/academic/requirement",
+          this.score
+        );
+
+        this.score.subject[0] = "";
+        this.score.value[0] = "";
+        this.$emit("check", "academic");
+
+        this.$alert.toast("success", response.data.message);
+        // console.log(response);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.close();
+      }
+    },
+
+    deleteData(id) {
+      this.modal = "delete";
+      this.score_id = id;
+    },
+
+    async handleDelete() {
+      this.modal = "";
+
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.delete(
+          "student/academic/requirement/" + this.score_id
+        );
+
+        // console.log(response.data);
+        this.$emit("check", "academic");
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+  },
+
+  created() {
+    this.getAPSubject();
   },
 };
 </script>
@@ -109,26 +204,5 @@ export default {
 <style scoped>
 label::after {
   content: "";
-}
-
-.score-card {
-  display: block;
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  background: blue;
-}
-
-.score-cat {
-  display: flex;
-  align-items: middle;
-}
-
-.score-card input {
-  display: none;
-}
-
-input:checked {
-  background: red;
 }
 </style>

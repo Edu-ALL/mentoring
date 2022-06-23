@@ -9,14 +9,37 @@
               class="mb-3 overflow-auto d-flex w-100 mentoring-scroll"
               style="white-space: nowrap"
             >
-              <button class="btn-mentoring me-1 bg-secondary">ALL</button>
               <button
-                class="btn-mentoring me-1 bg-secondary"
-                v-for="i in uni_list"
-                :key="i"
+                class="btn-mentoring me-2 mt-1"
+                :class="tab == 'all' ? 'bg-secondary' : 'btn-type-2'"
+                @click="checkTab('all')"
               >
-                Uni {{ i.uni_name }}
+                ALL
               </button>
+              <div v-for="i in uni_list" :key="i">
+                <button
+                  class="btn-mentoring mt-1 me-2"
+                  :class="tab == i.imported_id ? 'bg-secondary' : 'btn-type-2'"
+                  @click="checkTab(i.imported_id)"
+                >
+                  {{ i.uni_name }}
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="alert alert-info alert-dismissible fade show"
+              role="alert"
+            >
+              Uploaded files must be of the following types:
+              <strong> doc, docx, pdf, png, jpeg, jpg </strong> and not larger
+              than <strong> 2048 kilobytes (2MB). </strong>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
             </div>
 
             <div class="row row-cols-md-1 row-cols-1 g-3">
@@ -30,39 +53,49 @@
               <!-- SAT  -->
               <div class="col">
                 <div class="req-card">
-                  <v-sat :data="texts.sat" @check="checkData"></v-sat>
+                  <v-sat :data="academic.sat" @check="checkData"></v-sat>
                 </div>
               </div>
 
               <!-- LOR  -->
               <div class="col">
                 <div class="req-card">
-                  <v-lor :data="documents.lor"></v-lor>
+                  <v-lor :data="documents.lor" @check="checkData"></v-lor>
                 </div>
               </div>
 
               <!-- Transcript -->
               <div class="col">
                 <div class="req-card">
-                  <v-transcript></v-transcript>
+                  <v-transcript
+                    :data="documents.transcript"
+                    @check="checkData"
+                  ></v-transcript>
                 </div>
               </div>
 
               <div class="col">
                 <div class="req-card">
-                  <v-link></v-link>
+                  <v-link
+                    :data="academic.publication_links"
+                    @check="checkData"
+                  ></v-link>
                 </div>
               </div>
 
               <div class="col">
                 <div class="req-card">
-                  <v-score></v-score>
+                  <v-score
+                    :toefl="academic.toefl"
+                    :ielts="academic.ielts"
+                    @check="checkData"
+                  ></v-score>
                 </div>
               </div>
 
               <div class="col">
                 <div class="req-card">
-                  <v-ap></v-ap>
+                  <v-ap :data="academic.ap_score" @check="checkData"></v-ap>
                 </div>
               </div>
             </div>
@@ -95,13 +128,19 @@ export default {
   },
   data() {
     return {
+      tab: "all",
       documents: [],
-      texts: [],
+      academic: [],
       uni_list: [],
     };
   },
 
   methods: {
+    checkTab(i) {
+      this.tab = i;
+      this.getDataDocument(i);
+    },
+
     checkData(i) {
       if (i == "academic") {
         this.getDataText();
@@ -110,10 +149,10 @@ export default {
       }
     },
 
-    async getDataDocument() {
+    async getDataDocument(i = "all") {
       try {
         const response = await this.$axios.get(
-          "student/university/requirement/document/all"
+          "student/university/requirement/document/" + i
         );
 
         this.documents = response.data.data;
@@ -129,7 +168,7 @@ export default {
           "student/university/requirement/academic"
         );
 
-        this.texts = response.data.data;
+        this.academic = response.data.data;
         // console.log(response.data);
       } catch (e) {
         console.log(e.response);

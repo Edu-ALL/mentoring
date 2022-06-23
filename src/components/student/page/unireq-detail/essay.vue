@@ -17,7 +17,7 @@
     <div class="req-body p-2 py-4">
       <!-- IF EMPTY  -->
       <div class="row" v-if="data?.length == 0">
-        <div class="col text-center text-muted pb-4">
+        <div class="col text-center text-muted pb-4" @click="modal = 'add'">
           Please upload your essay here.
         </div>
       </div>

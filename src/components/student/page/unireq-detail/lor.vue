@@ -14,9 +14,10 @@
         <i class="fa-solid fa-add pointer" @click="modal = 'files'"></i>
       </div>
     </div>
-    <div class="req-body p-2">
+    <div class="req-body p-2 py-4">
+      <!-- IF EMPTY  -->
       <div class="row" v-if="data?.length == 0">
-        <div class="col text-center text-muted pb-4">
+        <div class="col text-center text-muted pb-4" @click="modal = 'add'">
           Please upload your letter of recommendation here.
         </div>
       </div>
@@ -366,6 +367,85 @@ export default {
         } else {
           this.$alert.toast("error", "Please try again.");
         }
+      }
+    },
+
+    editMedia(i) {
+      this.modal = "edit";
+      this.media_id = i.id;
+      this.file.name = i.med_title;
+      if (i.uni_shortlisted && i.uni_shortlisted.length == 0) {
+        this.file.uni_id = {
+          id: "general",
+          uni_name: "General",
+          uni_major: "",
+        };
+      } else {
+        this.file.uni_id = i.uni_shortlisted[0];
+      }
+    },
+
+    async handleUpdate() {
+      let form_data = [];
+      if (this.file.uni_id.id == "general") {
+        form_data = {
+          general: 1,
+          media_id: this.media_id,
+          name: this.file.name,
+          uni_id: "",
+        };
+      } else {
+        form_data = {
+          general: 0,
+          media_id: this.media_id,
+          uni_id: this.file.uni_id.imported_id,
+          name: this.file.name,
+        };
+      }
+
+      this.modal = "";
+
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post(
+          "student/media/pair",
+          form_data
+        );
+
+        console.log(response.data);
+        this.$emit("check", "file");
+        if (response.data.success) {
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("success", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$emit("check", "file");
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+
+    deleteMedia(i) {
+      this.modal = "delete";
+      this.media_id = i;
+    },
+
+    async handleDelete() {
+      this.modal = "";
+
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.delete(
+          "student/media/delete/" + this.media_id
+        );
+
+        // console.log(response.data);
+        this.$emit("check", "file");
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
       }
     },
   },
