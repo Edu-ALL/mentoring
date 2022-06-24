@@ -15,7 +15,7 @@
         <transition name="fade">
           <v-activity v-if="page == 'my-activity'"></v-activity>
         </transition>
-        <transition name="fade">
+        <!-- <transition name="fade">
           <v-meeting v-if="page == 'meetings'"></v-meeting>
         </transition>
         <transition name="fade">
@@ -26,7 +26,7 @@
         </transition>
         <transition name="fade">
           <v-event v-if="page == 'event'"></v-event>
-        </transition>
+        </transition> -->
         <transition name="fade">
           <v-uni v-if="page == 'uni-list'"></v-uni>
         </transition>
@@ -47,13 +47,13 @@ import Header from "@/components/layout/student/header";
 
 import Dashboard from "@/components/student/page/dashboard";
 import Profile from "@/components/student/page/profile";
-import Meeting from "@/components/student/page/meeting";
-import Group from "@/components/student/page/groups";
-import Webinar from "@/components/student/page/webinar";
-import Event from "@/components/student/page/event";
+import Activity from "@/components/student/page/activity";
+// import Meeting from "@/components/student/page/meeting";
+// import Group from "@/components/student/page/groups";
+// import Webinar from "@/components/student/page/webinar";
+// import Event from "@/components/student/page/event";
 import Uni from "@/components/student/page/uni-list";
 import UniReq from "@/components/student/page/uni-req";
-import Activity from "@/components/student/page/activity";
 import Files from "@/components/student/page/files";
 
 export default {
@@ -63,13 +63,13 @@ export default {
     "v-header": Header,
     "v-dashboard": Dashboard,
     "v-profile": Profile,
-    "v-meeting": Meeting,
-    "v-group": Group,
-    "v-webinar": Webinar,
-    "v-event": Event,
+    "v-activity": Activity,
+    // "v-meeting": Meeting,
+    // "v-group": Group,
+    // "v-webinar": Webinar,
+    // "v-event": Event,
     "v-uni": Uni,
     "v-uni-req": UniReq,
-    "v-activity": Activity,
     "v-files": Files,
   },
   data() {

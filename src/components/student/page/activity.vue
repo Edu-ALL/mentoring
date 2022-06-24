@@ -2,7 +2,7 @@
   <div id="activity">
     <div class="container mt-4">
       <div class="row g-1">
-        <div class="col-md-3">
+        <div :class="menu.key ? 'd-none' : 'col-md-3'">
           <div class="card shadow-sm border-0">
             <div class="card-body">
               <h5>My Activities</h5>
@@ -14,14 +14,20 @@
                   @click="activityCheck('meeting')"
                 >
                   Meetings
+                  <div class="float-end">
+                    <i class="fa-solid fa-arrow-circle-right"></i>
+                  </div>
                 </a>
                 <a
                   href="#"
                   class="list-group-item list-group-item-action"
                   :class="activity == 'group' ? 'active' : ''"
                   @click="activityCheck('group')"
-                  >Groups</a
-                >
+                  >Groups
+                  <div class="float-end">
+                    <i class="fa-solid fa-arrow-circle-right"></i>
+                  </div>
+                </a>
                 <a
                   href="#"
                   class="list-group-item list-group-item-action"
@@ -29,15 +35,18 @@
                   @click="activityCheck('webinar')"
                 >
                   Webinars
+                  <div class="float-end">
+                    <i class="fa-solid fa-arrow-circle-right"></i>
+                  </div>
                 </a>
-                <a
+                <!-- <a
                   href="#"
                   class="list-group-item list-group-item-action"
                   :class="activity == 'event' ? 'active' : ''"
                   @click="activityCheck('event')"
                 >
                   Events
-                </a>
+                </a> -->
                 <a
                   href="#"
                   class="list-group-item list-group-item-action"
@@ -45,6 +54,9 @@
                   @click="activityCheck('internship')"
                 >
                   Internship Program
+                  <div class="float-end">
+                    <i class="fa-solid fa-arrow-circle-right"></i>
+                  </div>
                 </a>
                 <a
                   href="#"
@@ -53,12 +65,15 @@
                   @click="activityCheck('career-module')"
                 >
                   Career Modules
+                  <div class="float-end">
+                    <i class="fa-solid fa-arrow-circle-right"></i>
+                  </div>
                 </a>
               </ul>
             </div>
           </div>
         </div>
-        <div class="col-md-9">
+        <div :class="menu.key ? 'col-md-12' : 'col-md-9'">
           <!-- 1on1 Call  -->
           <transition name="fade">
             <div class="card-body" v-if="activity == '1on1'">
@@ -112,19 +127,19 @@
           </transition>
 
           <!-- Events  -->
-          <transition name="fade">
+          <!-- <transition name="fade">
             <v-event v-if="activity == 'event'"></v-event>
-          </transition>
+          </transition> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import Meeting from "@/components/student/page/meeting";
-import Group from "@/components/student/page/groups";
-import Webinar from "@/components/student/page/webinar";
-import Event from "@/components/student/page/event";
+import Meeting from "@/components/student/page/activity/meeting";
+import Group from "@/components/student/page/activity/groups";
+import Webinar from "@/components/student/page/activity/webinar";
+// import Event from "@/components/student/page/activity/event";
 
 export default {
   name: "activity",
@@ -132,18 +147,77 @@ export default {
     "v-meeting": Meeting,
     "v-group": Group,
     "v-webinar": Webinar,
-    "v-event": Event,
+    // "v-event": Event,
   },
   data() {
     return {
       activity: "meeting",
+      menu: {
+        menu: "",
+        submenu: "",
+        key: "",
+        key2: "",
+      },
     };
   },
   methods: {
     activityCheck(data) {
+      this.$router.push({ path: "/user/my-activity/" + data });
       this.activity = data;
     },
   },
-  created() {},
+  watch: {
+    $route(to) {
+      this.menu.menu = to.params.menu;
+      this.menu.submenu = to.params.submenu;
+      this.menu.key = to.params.key;
+      this.menu.key2 = to.params.key2;
+    },
+  },
+  created() {
+    this.menu.menu = this.$route.params.menu;
+    this.menu.submenu = this.$route.params.submenu;
+    this.menu.key = this.$route.params.key;
+    this.menu.key2 = this.$route.params.key2;
+
+    if (this.$route.params.submenu) {
+      this.activity = this.$route.params.submenu;
+    } else {
+      this.activity = "meeting";
+    }
+  },
 };
 </script>
+
+<style scoped>
+.list-group-item {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgb(224, 224, 224);
+  overflow: hidden;
+}
+
+.list-group-item .float-end {
+  position: absolute;
+  top: 10px;
+  right: -100px;
+  transition: all 0.3s;
+}
+
+.list-group-item:hover {
+  background: #223872;
+  border: 1px solid rgb(22, 39, 88);
+  color: #fff;
+}
+
+.list-group-item.active .float-end,
+.list-group-item:hover .float-end {
+  top: 10px;
+  right: 10px;
+}
+
+.list-group-item.active {
+  background: #efa859;
+  border: 1px solid #c5863f;
+}
+</style>

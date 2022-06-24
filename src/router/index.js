@@ -15,30 +15,9 @@ const routes = [
   },
 
   {
-    path: '/user/:menu?/:submenu?/:key?',
-    name: 'userPage',
+    path: '/user/:menu?/:submenu?/:key?/:key2?',
+    name: 'studentPage',
     component: () => import('../views/student/page')
-  },
-
-  {
-    path: '/user/call/:cat',
-    name: '1on1Call',
-    props: true,
-    component: () => import('../views/student/call-detail')
-  },
-
-  // {
-  //   path: '/user/webinar/:slug',
-  //   name: 'webinar',
-  //   props: true,
-  //   component: () => import('../views/student/webinar-detail')
-  // },
-
-  {
-    path: '/user/event/:slug',
-    name: 'upcoming',
-    props: true,
-    component: () => import('../views/student/event-detail')
   },
 
   {
