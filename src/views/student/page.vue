@@ -5,9 +5,9 @@
     </transition> -->
     <v-header></v-header>
     <transition name="fade">
-      <div id="content" v-if="!loading">
+      <div id="content">
         <transition name="fade">
-          <v-dashboard v-if="page == ''"></v-dashboard>
+          <v-dashboard :mentee="mentee" v-if="page == ''"></v-dashboard>
         </transition>
         <transition name="fade">
           <v-profile :mentee="mentee" v-if="page == 'my-profile'"></v-profile>
@@ -104,4 +104,14 @@ export default {
 };
 </script>
 <style>
+#content {
+  padding: 0;
+  min-height: 100vh;
+  background: rgb(197, 225, 242);
+  background: linear-gradient(
+    20deg,
+    rgba(197, 225, 242, 1) 0%,
+    rgba(255, 255, 255, 0.9668242296918768) 57%
+  );
+}
 </style>

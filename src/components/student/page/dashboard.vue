@@ -1,6 +1,6 @@
 <template>
-  <div id="dashboard" v-if="!loading">
-    <div class="container">
+  <div id="dashboard">
+    <div class="container mt-4">
       <div class="row align-items-center">
         <div class="col-md-3 text-md-start text-center">
           <div class="picture">
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-9 py-3 text-md-start text-center">
           <h5>Hello,</h5>
-          <h2 class="user-name">Saeka</h2>
+          <h2 class="user-name mb-0">{{ mentee.first_name }}</h2>
           <div class="user-desc d-md-block d-none">
             <div class="d-md-flex d-block">
               <div class="py-1 me-3">
@@ -31,7 +31,7 @@
                   type="mail"
                   class="float-start mt-md-1 me-2"
                 ></vue-feather>
-                saeka@all-inedu.com
+                {{ mentee.email }}
               </div>
               <div class="py-1">
                 <vue-feather
@@ -39,195 +39,406 @@
                   type="phone"
                   class="float-start mt-md-1 me-2"
                 ></vue-feather>
-                +62 8712492xxx
+                {{ mentee.phone_number }}
               </div>
             </div>
             <div class="d-md-flex d-block">
-              <div class="py-1 me-3">
+              <div class="py-1 me-2" v-for="i in sosmed" :key="i">
                 <vue-feather
                   type="facebook"
                   stroke="blue"
                   class="float-start mt-md-1 me-1"
+                  v-if="i.social_media_name == 'facebook'"
                 ></vue-feather>
-                saeka
-              </div>
-              <div class="py-1 me-3">
                 <vue-feather
                   type="instagram"
                   stroke="#DB554A"
                   class="float-start mt-md-1 me-1"
+                  v-if="i.social_media_name == 'instagram'"
                 ></vue-feather>
-                saeka
-              </div>
-              <div class="py-1">
                 <vue-feather
                   type="linkedin"
                   stroke="#0A66C2"
                   class="float-start mt-md-1 me-1"
+                  v-if="i.social_media_name == 'linkedin'"
                 ></vue-feather>
-                saeka
               </div>
             </div>
           </div>
 
-          <button class="btn btn-allin bg-primary mt-md-4">
+          <button class="btn btn-allin bg-primary mt-md-2">
             <router-link to="/user/my-profile">My Profile </router-link>
           </button>
         </div>
       </div>
     </div>
-    <div class="container mt-4">
-      <!-- Group Project  -->
-      <div class="row row-cols-md-3 row-cols-1 align-items-stretch">
-        <div class="col mb-2">
-          <div class="card shadow h-100">
-            <div class="card-body">
-              <div class="text-center text-uppercase">Group Project</div>
-              <div class="row">
-                <div class="col-6 text-center border-end">
-                  <div class="counts">10</div>
-                  <div class="groups-status">Active</div>
-                </div>
-                <div class="col-6 text-center">
-                  <div class="counts">10</div>
-                  <div class="groups-status">Past</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col mb-2">
-          <div class="card shadow h-100">
-            <div class="card-body text-center" style="padding-top: 8%">
-              <div class="text-uppercase">Upcoming Meeting</div>
-              <div class="counts">10</div>
-            </div>
-          </div>
-        </div>
-        <div class="col mb-2">
-          <div class="card shadow h-100">
-            <div class="card-body text-center" style="padding-top: 8%">
-              <div class="text-uppercase">Meeting Request</div>
-              <div class="counts">10</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="container mt-4">
-      <!-- Uni List  -->
-      <div class="row row-cols-md-4 row-cols-1 align-items-stretch">
-        <!-- Applied  -->
-        <div class="col mb-2">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="float-end">
-                <i class="fas fa-paper-plane"></i>
-              </div>
-              <h5 class="text-uppercase text-muted">Applied</h5>
-              <hr class="mt-0 mb-2" />
-              <div class="uni-list" v-for="i in 5" :key="i">
-                <div class="float-start me-3 text-primary">
-                  <i class="fa-regular fa-circle-right mt-1"></i>
-                </div>
-                Lorem Ipusmu {{ i }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Waitlisted  -->
-        <div class="col mb-2">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="float-end">
-                <i class="fas fa-clock"></i>
-              </div>
-              <h5 class="text-uppercase text-muted">Waitlisted</h5>
-              <hr class="mt-0 mb-2" />
-              <div class="uni-list" v-for="i in 5" :key="i">
-                <div class="float-start me-3 text-warning">
-                  <i class="fa-regular fa-clock mt-1"></i>
-                </div>
-                Lorem Ipusmu {{ i }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Accepted  -->
-        <div class="col mb-2">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="float-end">
-                <i class="fas fa-check"></i>
-              </div>
-              <h5 class="text-uppercase text-muted">Accepted</h5>
-              <hr class="mt-0 mb-2" />
-              <div class="uni-list" v-for="i in 5" :key="i">
-                <div class="float-start me-3 text-success">
-                  <i class="fa-regular fa-circle-check mt-1"></i>
-                </div>
-                Lorem Ipusmu {{ i }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rejected  -->
-        <div class="col mb-2">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="float-end">
-                <i class="fas fa-times"></i>
-              </div>
-              <h5 class="text-uppercase text-muted">Rejected</h5>
-              <hr class="mt-0 mb-2" />
-              <div class="uni-list" v-for="i in 5" :key="i">
-                <div class="float-start me-3 text-danger">
-                  <i class="fa-regular fa-circle-xmark mt-1"></i>
-                </div>
-                Lorem Ipusmu {{ i }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt-4 mb-4">
-      <div class="row">
+      <div class="row row-cols-md-3 row-cols-1">
+        <!-- Meeting  -->
         <div class="col">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="text-uppercase">Todos</div>
-              <hr class="my-2 mt-0" />
-              <div class="todos" v-for="i in 5" :key="i">
-                <div class="row align-items-center">
-                  <div class="col-10">
-                    <div class="d-flex align-items-center">
-                      <div class="me-3">
-                        <i
-                          class="fa-solid fa-clock text-warning"
-                          v-if="i < 5"
-                        ></i>
-                        <i
-                          class="fa-solid fa-circle-check text-success"
-                          v-if="i == 5"
-                        ></i>
+          <div class="border p-4">
+            <h5 class="text-center mb-3">1-ON-1 MEETING</h5>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer
+                "
+                @click="getUniList('waitlisted')"
+              >
+                <div class="mt-title">
+                  REQUEST
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-calendar-plus"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  PENDING
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  UPCOMING
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  HISTORY
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border p-4 mt-3">
+            <h5 class="text-center mb-3">GROUP MEETING</h5>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  REQUEST
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-calendar-plus"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  UPCOMING
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  HISTORY
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Uni shortlisted  -->
+        <div class="col">
+          <div class="border p-4">
+            <h5 class="text-center mb-3">UNIVERSITY SHORTLISTED</h5>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer
+                "
+                @click="getUniList('waitlisted')"
+              >
+                <div class="uni-title">
+                  WAITLISTED
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0" />
+              <transition name="fade">
+                <div class="p-3 pt-2" v-if="uni_status == 'waitlisted'">
+                  <div
+                    class="p-3 text-center text-muted"
+                    v-if="uni_list.waitlisted?.length == 0"
+                  >
+                    No university shortlisted yet.
+                  </div>
+                  <div v-if="uni_list.waitlisted?.length != 0">
+                    <div
+                      class="d-flex align-items-start mb-2"
+                      v-for="i in uni_list.waitlisted"
+                      :key="i"
+                    >
+                      <div class="text-warning" style="width: 8%">
+                        <i class="fa-solid fa-clock mt-1"></i>
                       </div>
-                      <div class="task">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Aperiam magni sit autem odit, a in maiores totam quas
-                        quia Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Necessitatibus veniam explicabo,
+                      <div class="uni-name" style="width: 92%">
+                        {{ i.uni_name }} <br />
+                        <small class="text-muted">{{ i.uni_major }}</small>
                       </div>
                     </div>
                   </div>
-                  <div class="col-2 text-end">24 July 2022</div>
                 </div>
-                <hr class="my-3 bg-info" />
+              </transition>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer
+                "
+                @click="getUniList('applied')"
+              >
+                <div class="uni-title">
+                  APPLIED
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0" />
+              <transition name="fade">
+                <div class="p-3 pt-2" v-if="uni_status == 'applied'">
+                  <div
+                    class="p-3 text-center text-muted"
+                    v-if="uni_list.applied?.length == 0"
+                  >
+                    No university shortlisted yet.
+                  </div>
+                  <div v-if="uni_list.applied?.length != 0">
+                    <div
+                      class="d-flex align-items-start mb-2"
+                      v-for="i in uni_list.applied"
+                      :key="i"
+                    >
+                      <div class="text-info" style="width: 8%">
+                        <i class="fa-solid fa-paper-plane mt-1"></i>
+                      </div>
+                      <div class="uni-name" style="width: 92%">
+                        {{ i.uni_name }} <br />
+                        <small class="text-muted">{{ i.uni_major }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer
+                "
+                @click="getUniList('accepted')"
+              >
+                <div class="uni-title">
+                  ACCEPTED
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-circle-check"></i>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0" />
+              <transition name="fade">
+                <div class="p-3 pt-2" v-if="uni_status == 'accepted'">
+                  <div
+                    class="p-3 text-center text-muted"
+                    v-if="uni_list.accepted?.length == 0"
+                  >
+                    No university shortlisted yet.
+                  </div>
+                  <div v-if="uni_list.accepted?.length != 0">
+                    <div
+                      class="d-flex align-items-start mb-2"
+                      v-for="i in uni_list.accepted"
+                      :key="i"
+                    >
+                      <div class="text-success" style="width: 8%">
+                        <i class="fa-solid fa-circle-check mt-1"></i>
+                      </div>
+                      <div class="uni-name" style="width: 92%">
+                        {{ i.uni_name }} <br />
+                        <small class="text-muted">{{ i.uni_major }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer
+                "
+                @click="getUniList('rejected')"
+              >
+                <div class="uni-title">
+                  REJECTED
+                  <div class="float-end">5</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0" />
+              <transition name="fade">
+                <div class="p-3 pt-2" v-if="uni_status == 'rejected'">
+                  <div
+                    class="p-3 text-center text-muted"
+                    v-if="uni_list.rejected?.length == 0"
+                  >
+                    No university shortlisted yet.
+                  </div>
+                  <div v-if="uni_list.rejected?.length != 0">
+                    <div
+                      class="d-flex align-items-start mb-2"
+                      v-for="i in uni_list.rejected"
+                      :key="i"
+                    >
+                      <div class="text-danger" style="width: 8%">
+                        <i class="fa-solid fa-circle-xmark mt-1"></i>
+                      </div>
+                      <div class="uni-name" style="width: 92%">
+                        {{ i.uni_name }} <br />
+                        <small class="text-muted">{{ i.uni_major }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="border p-4">
+            <h5 class="text-center mb-3">TODOS</h5>
+            <div class="card shadow rounded-2 todos mentoring-scroll">
+              <div class="card-body">
+                <div v-for="i in 5" :key="i">
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center">
+                        <div class="me-3">
+                          <i
+                            class="fa-solid fa-clock text-warning"
+                            v-if="i < 5"
+                          ></i>
+                          <i
+                            class="fa-solid fa-circle-check text-success"
+                            v-if="i == 5"
+                          ></i>
+                        </div>
+                        <div class="task" style="text-align: justify">
+                          <div class="text-end mb-1">
+                            <i class="fa-solid fa-calendar me-2"></i>
+                            24 July 2022
+                          </div>
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Aperiam magni sit autem odit, a in maiores totam
+                          quas quia Lorem ipsum dolor, sit amet consectetur
+                          adipisicing elit. Necessitatibus veniam explicabo,
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-3 bg-info" />
+                </div>
               </div>
             </div>
           </div>
@@ -240,30 +451,61 @@
 export default {
   name: "dashboard",
   props: {
-    newTab: String,
-    newLoading: Boolean,
+    mentee: Object,
   },
   components: {},
   data() {
     return {
-      loading: true,
-      tab: "",
+      user: [],
+      sosmed: [],
+      uni_list: {
+        waitlisted: [],
+        applied: [],
+        accepted: [],
+        rejected: [],
+      },
+      uni_status: "waitlisted",
     };
   },
   methods: {
-    load(status) {
-      this.loading = status;
+    async getSosmed() {
+      try {
+        const response = await this.$axios.get(
+          "social-media/student/" + this.mentee.id
+        );
+
+        this.sosmed = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getUniList(status) {
+      this.uni_status = status;
+      try {
+        const response = await this.$axios.get(
+          "student/university/shortlisted/" + status
+        );
+
+        if (status == "waitlisted") {
+          this.uni_list.waitlisted = response.data.data;
+        } else if (status == "applied") {
+          this.uni_list.applied = response.data.data;
+        } else if (status == "accepted") {
+          this.uni_list.accepted = response.data.data;
+        } else if (status == "rejected") {
+          this.uni_list.rejected = response.data.data;
+        }
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
     },
   },
   created() {
-    document.title = "Your Dashboard";
-    setTimeout(() => {
-      this.load(false);
-    }, 100);
-
-    if (this.newTab) {
-      this.tab = this.newTab;
-    }
+    this.getSosmed();
+    this.getUniList("waitlisted");
   },
 };
 </script>
@@ -271,18 +513,6 @@ export default {
 a {
   color: white !important;
   text-decoration: none !important;
-}
-
-#dashboard {
-  padding-top: 40px;
-  padding-bottom: 10px;
-  min-height: 100vh;
-  background: rgb(197, 225, 242);
-  background: linear-gradient(
-    20deg,
-    rgba(197, 225, 242, 1) 0%,
-    rgba(255, 255, 255, 0.9668242296918768) 57%
-  );
 }
 
 .card {
@@ -391,13 +621,51 @@ a {
   transform: scale(1.2);
 }
 
-.dashboard-corner {
-  width: 50%;
+.mt-title,
+.uni-title {
   position: relative;
-  margin-top: -31%;
-  margin-bottom: -40px;
-  left: 50%;
-  z-index: 98;
+  font-weight: 400;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #575757;
+  z-index: 2;
+}
+
+.card-dashboard {
+  transition: all 0.5s;
+}
+
+.card-dashboard:hover {
+  background: #f0ab54;
+}
+
+.card-dashboard:hover .uni-title,
+.card-dashboard:hover .mt-title {
+  color: #fff;
+}
+
+.card-dashboard:hover .icon {
+  color: #4c4c4c1c;
+  z-index: 1 !important;
+}
+
+.todos {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.task {
+  font-size: 0.8em;
+}
+
+.icon {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 3em;
+  color: #a7a7a730;
+  z-index: 1;
+  transform: rotate(45deg);
 }
 
 @media only screen and (max-width: 800px) {
@@ -408,13 +676,6 @@ a {
   .user-desc {
     width: 100%;
     font-size: 1.2em;
-  }
-
-  .dashboard-corner {
-    width: 100%;
-    left: 0%;
-    margin-top: -400px;
-    margin-bottom: -165px;
   }
 
   .user-picture-overlay {

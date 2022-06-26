@@ -1,6 +1,6 @@
 <template>
   <div id="groupMeeting">
-    <div class="card-overlay" v-if="menu.submenu != 'progress'"></div>
+    <div class="card-overlay" v-if="menu.key != 'progress'"></div>
     <div class="row">
       <div class="col-6">
         <h6>Group Meeting</h6>
@@ -10,7 +10,7 @@
           <i
             class="fa-solid fa-add pointer"
             @click="modal = 'new-meeting'"
-            v-if="menu.submenu == 'progress'"
+            v-if="menu.key == 'progress'"
           ></i>
         </div>
       </div>
@@ -108,6 +108,7 @@
           <div class="row">
             <div class="col-6">
               <button
+                type="button"
                 class="btn-mentoring btn-sm py-1 btn-outline-danger"
                 @click="modal = ''"
               >
