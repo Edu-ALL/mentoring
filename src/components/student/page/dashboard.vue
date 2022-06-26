@@ -646,6 +646,7 @@ a {
 
 .card-dashboard:hover .icon {
   color: #4c4c4c1c;
+  transform: rotate(0deg);
   z-index: 1 !important;
 }
 
@@ -666,6 +667,7 @@ a {
   color: #a7a7a730;
   z-index: 1;
   transform: rotate(45deg);
+  transition: all 0.6s;
 }
 
 @media only screen and (max-width: 800px) {
