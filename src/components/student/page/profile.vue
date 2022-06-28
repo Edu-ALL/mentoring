@@ -1,81 +1,81 @@
 <template>
   <div id="profile">
-    <div class="container mt-4">
+    <div class="container mt-4 pb-5">
       <div class="row">
-        <div class="col-12">
-          <div class="ps-3 pointer" style="top: 100px" @click="redirect">
-            <h5 class="">My Profile</h5>
+        <div class="col-12"></div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-4 mb-3">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <div class="pointer" style="top: 100px" @click="redirect">
+                <h5 class="">My Profile</h5>
+              </div>
+              <ul
+                class="list-group sticky-top"
+                style="top: 100px; z-index: 100"
+              >
+                <a
+                  href="#info"
+                  class="list-group-item list-group-item-action"
+                  :class="section == 'info' ? 'active' : ''"
+                  @click="section = 'info'"
+                >
+                  Personal Information
+                </a>
+                <a
+                  href="#sosmed"
+                  class="list-group-item list-group-item-action"
+                  :class="section == 'sosmed' ? 'active' : ''"
+                  @click="section = 'sosmed'"
+                >
+                  Social Media
+                </a>
+                <a
+                  href="#interest"
+                  class="list-group-item list-group-item-action"
+                  :class="section == 'interest' ? 'active' : ''"
+                  @click="section = 'interest'"
+                >
+                  Interest
+                </a>
+                <a
+                  href="#competition"
+                  class="list-group-item list-group-item-action"
+                  :class="section == 'competition' ? 'active' : ''"
+                  @click="section = 'competition'"
+                >
+                  Competition
+                </a>
+                <a
+                  href="#academic"
+                  class="list-group-item list-group-item-action"
+                  :class="section == 'academic' ? 'active' : ''"
+                  @click="section = 'academic'"
+                >
+                  Academic
+                </a>
+                <a
+                  href="#"
+                  :class="modal == 'change-password' ? 'active' : ''"
+                  @click="modal = 'change-password'"
+                  class="list-group-item list-group-item-action"
+                >
+                  Change Password
+                </a>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="card shadow-sm border-0">
+
+        <div class="col-md-8">
+          <div class="card border-0 shadow-sm">
             <div class="card-body">
-              <div class="row">
-                <div class="col-md-4 mb-3">
-                  <ul
-                    class="list-group sticky-top"
-                    style="top: 100px; z-index: 100"
-                  >
-                    <a
-                      href="#info"
-                      class="list-group-item list-group-item-action"
-                      :class="section == 'info' ? 'active' : ''"
-                      @click="section = 'info'"
-                    >
-                      Personal Information
-                    </a>
-                    <a
-                      href="#sosmed"
-                      class="list-group-item list-group-item-action"
-                      :class="section == 'sosmed' ? 'active' : ''"
-                      @click="section = 'sosmed'"
-                    >
-                      Social Media
-                    </a>
-                    <a
-                      href="#interest"
-                      class="list-group-item list-group-item-action"
-                      :class="section == 'interest' ? 'active' : ''"
-                      @click="section = 'interest'"
-                    >
-                      Interest
-                    </a>
-                    <a
-                      href="#competition"
-                      class="list-group-item list-group-item-action"
-                      :class="section == 'competition' ? 'active' : ''"
-                      @click="section = 'competition'"
-                    >
-                      Competition
-                    </a>
-                    <a
-                      href="#academic"
-                      class="list-group-item list-group-item-action"
-                      :class="section == 'academic' ? 'active' : ''"
-                      @click="section = 'academic'"
-                    >
-                      Academic
-                    </a>
-                    <a
-                      href="#"
-                      :class="modal == 'change-password' ? 'active' : ''"
-                      @click="modal = 'change-password'"
-                      class="list-group-item list-group-item-action"
-                    >
-                      Change Password
-                    </a>
-                  </ul>
-                </div>
-                <div class="col-md-8">
-                  <v-personal :mentee="mentee"></v-personal>
-                  <v-sosmed :id="mentee.id"></v-sosmed>
-                  <v-interest></v-interest>
-                  <v-competition></v-competition>
-                  <v-academic></v-academic>
-                </div>
-              </div>
+              <v-personal :mentee="mentee"></v-personal>
+              <v-sosmed :id="mentee.id"></v-sosmed>
+              <v-interest></v-interest>
+              <v-competition></v-competition>
+              <v-academic></v-academic>
             </div>
           </div>
         </div>

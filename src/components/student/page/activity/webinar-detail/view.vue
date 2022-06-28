@@ -1,72 +1,79 @@
 <template>
   <div id="webinarDetail">
-    <div class="row mb-3">
+    <div class="row mb-3" style="margin-top: -20px">
       <div class="col-12">
-        <div
-          class="sticky-top ps-3 pointer"
-          style="top: 100px"
-          @click="redirect"
-        >
+        <div class="pointer" @click="redirect">
           <i class="fa-solid fa-arrow-left me-2"></i>
           <h5 class="d-inline">Webinars</h5>
         </div>
       </div>
     </div>
-
-    <div class="row g-2">
+    <div class="row g-3">
       <div class="col-md-8 pt-2">
         <div class="frame">
-          <iframe
+          <v-youtube
+            v-if="data_detail?.length != 0"
+            :src="data_detail.dtl_video_link + '?controls=0'"
+            @state-change="checkYoutube"
             lazy="loading"
             width="100%"
-            height="100%"
-            :src="'https://youtube.com/embed/mHA4BxZTXlk?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'"
-            title="YouTube video player"
-            frameborder="1"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            height="420px"
+            :vars="{
+              rel: 0,
+              loop: 1,
+              modestbranding: 0,
+              origin: 1,
+              fs: 1,
+              start:
+                data_detail.watch_info == null
+                  ? 0
+                  : data_detail.watch_info.current_time,
+              controls: 0,
+            }"
+            ref="youtube"
+            class="w-100 h-100"
+            frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
-          ></iframe>
+          />
         </div>
         <h2 class="w-title">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati in
-          nisi laborum temporibus tempore numquam porro sed
+          {{ data_detail.dtl_name }}
         </h2>
         <div class="w-label">
-          <div class="float-start">1.323 x watched</div>
-          <div class="float-end">14 Feb 2022</div>
+          <div class="float-start">
+            {{
+              data_detail.student_activities_count == 0
+                ? "Be the first viewer"
+                : data_detail.student_activities_count + "x watched"
+            }}
+          </div>
+          <div class="float-end">
+            {{ $customDate.date(data_detail.updated_at) }}
+          </div>
         </div>
         <p class="w-desc mt-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit nulla
-          eius dolore fugiat est dolores pariatur aperiam illo numquam voluptas?
-          Ratione cupiditate blanditiis optio officiis, sed dignissimos modi
-          explicabo aliquam. Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Optio aliquid modi in praesentium
+          {{ data_detail.dtl_desc }}
         </p>
       </div>
       <div class="col-md-4">
         <div class="card border-0">
-          <div class="row w-rec-list" v-for="i in 5" :key="i">
+          <div class="row w-rec-list" v-for="i in recommendation" :key="i">
             <div class="col-md-5">
               <div class="rec-frame">
-                <iframe
-                  lazy="loading"
-                  width="100%"
-                  height="100%"
-                  src="https://youtube.com/embed/mHA4BxZTXlk?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0"
-                  title="YouTube video player"
-                  frameborder="1"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
+                <img
+                  :src="getThumbnail(i.dtl_video_link)"
+                  alt="Webinar"
+                  class="w-100"
+                />
               </div>
             </div>
             <div class="col-md-7">
               <div class="rec-title">
-                Lorem ipsum dolor sit amet consectetur, adipisicing ...
+                {{ i.dtl_name }}
               </div>
               <div class="rec-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Exercitationem nesciunt aut nemo fugit adipisci..
+                {{ i.dtl_desc }}
               </div>
             </div>
           </div>
@@ -83,19 +90,102 @@ export default {
   },
   components: {},
   data() {
-    return {};
+    return {
+      data_detail: [],
+      recommendation: [],
+    };
   },
   methods: {
     redirect() {
       this.$router.push({ path: "/user/my-activity/webinar" });
     },
+
+    getThumbnail(i) {
+      const arr = i.split("/");
+
+      return "https://i3.ytimg.com/vi/" + arr[4] + "/maxresdefault.jpg";
+    },
+
+    async getData(i) {
+      try {
+        const response = await this.$axios.get(
+          "student/programme/view/detail/" + i
+        );
+
+        this.data_detail = response.data.data.detail;
+        this.recommendation = response.data.data.other;
+
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async joinWebinar(duration) {
+      try {
+        await this.$axios.post("student/make/webinar", {
+          prog_dtl_id: this.data_detail.id,
+          video_duration: duration,
+        });
+
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async updateProgress(time) {
+      try {
+        const response = await this.$axios.put(
+          "student/update/watch/" + this.data_detail.watch_info.std_act_id,
+          {
+            current_time: time,
+          }
+        );
+
+        this.data_detail.watch_info = response.data.data;
+
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async checkYoutube(e) {
+      const duration = e.target.getDuration();
+      const time = Math.round(e.target.getCurrentTime());
+
+      // when playing
+      if (e.data == 1) {
+        if (this.data_detail.watch_info == null) {
+          this.joinWebinar(duration);
+        }
+        // console.log(this.data_detail.watch_info);
+        // this.data_detail.watch_info.length == 0
+        // alert('test')
+      }
+      // when ended & paused
+      else if (e.data == 0 || e.data == 2) {
+        this.updateProgress(time);
+      }
+    },
   },
-  created() {},
+  created() {
+    if (this.$route.params.key) {
+      this.getData(this.$route.params.key);
+    }
+  },
 };
 </script>
 <style scoped>
+[lazy="loading"] {
+  background-image: url("~@/assets/img/loading.gif");
+  background-size: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .frame {
-  height: 450px;
+  height: auto;
   margin-bottom: 10px;
 }
 .w-title {
@@ -114,7 +204,7 @@ export default {
   text-align: justify;
 }
 .rec-frame {
-  height: 100px;
+  height: auto;
 }
 .rec-title {
   font-size: 0.8em;
@@ -131,7 +221,7 @@ export default {
   transition: all 0.4s ease-in-out;
 }
 .w-rec-list:hover {
-  background: rgb(224, 224, 224);
+  background: rgba(224, 224, 224, 0.29);
   border-radius: 5px;
 }
 .back-btn {

@@ -1,6 +1,6 @@
 <template>
   <div id="meeting">
-    <div class="container mt-4">
+    <div class="container my-4">
       <div class="row">
         <div class="col-12">
           <div class="ps-3 pointer" style="top: 100px">

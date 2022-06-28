@@ -1,6 +1,6 @@
 <template>
   <div id="webinar">
-    <div class="container mt-4">
+    <div class="container my-4">
       <!-- List  -->
       <div
         class=""
@@ -22,25 +22,14 @@
         <div class="row mt-3">
           <div class="col-md-12 col-12 menu-tab">
             <button
+              v-for="i in category"
+              :key="i"
               class="btn-mentoring btn-sm mx-1"
-              :class="tab == 'career' ? 'btn-type-1' : 'btn-type-2'"
-              @click="tab = 'career'"
+              :class="tab == i.dtl_category ? 'btn-type-1' : 'btn-type-2'"
+              @click="checkCategory(i.dtl_category)"
+              style="text-transform: capitalize"
             >
-              Carrer Industry
-            </button>
-            <button
-              class="btn-mentoring btn-sm mx-1"
-              :class="tab == 'uni-prep' ? 'btn-type-1' : 'btn-type-2'"
-              @click="tab = 'uni-prep'"
-            >
-              University Preparation
-            </button>
-            <button
-              class="btn-mentoring btn-sm mx-1"
-              :class="tab == 'all-in' ? 'btn-type-1' : 'btn-type-2'"
-              @click="tab = 'all-in'"
-            >
-              ALL-in Webinar
+              {{ $customText.removeDash(i.dtl_category) }}
             </button>
           </div>
         </div>
@@ -48,86 +37,35 @@
         <!-- Content  -->
         <div class="row mt-2">
           <div class="col">
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <!-- Career Industry  -->
-                <div v-if="tab == 'career'">
+                <div>
                   <Splide :options="options">
-                    <SplideSlide
-                      v-for="(i, index) in career_webinar"
-                      :key="index"
-                    >
-                      <div class="frame">
+                    <SplideSlide v-for="i in webinar_data" :key="i">
+                      <div class="frame m-0 p-0">
                         <iframe
+                          class="p-0 m-0"
                           lazy="loading"
                           width="100%"
                           height="100%"
-                          :src="
-                            i +
-                            '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
-                          "
-                          title="YouTube video player"
+                          :src="i.dtl_video_link"
                           frameborder="1"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowfullscreen
                         ></iframe>
-                        <div class="frame-overlay" @click="webinar(index)">
-                          View More
-                        </div>
-                      </div>
-                    </SplideSlide>
-                  </Splide>
-                </div>
-
-                <!-- Uni Prep  -->
-                <div v-if="tab == 'uni-prep'">
-                  <Splide :options="options">
-                    <SplideSlide
-                      v-for="(i, index) in uniprep_webinar"
-                      :key="index"
-                    >
-                      <div class="frame">
-                        <iframe
-                          lazy="loading"
-                          width="100%"
-                          height="100%"
-                          :src="
-                            i +
-                            '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
-                          "
-                          title="YouTube video player"
-                          frameborder="1"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen
-                        ></iframe>
-                        <div class="frame-overlay" @click="webinar(index)">
-                          View More
-                        </div>
-                      </div>
-                    </SplideSlide>
-                  </Splide>
-                </div>
-
-                <!-- ALL-in  -->
-                <div v-if="tab == 'all-in'">
-                  <Splide :options="options">
-                    <SplideSlide v-for="(i, index) in playlist" :key="index">
-                      <div class="frame">
-                        <iframe
-                          lazy="loading"
-                          width="100%"
-                          height="100%"
-                          :src="
-                            i +
-                            '?&theme=light&autohide=2&modestbranding=1&showinfo=0&rel=0'
-                          "
-                          title="YouTube video player"
-                          frameborder="1"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen
-                        ></iframe>
-                        <div class="frame-overlay" @click="webinar(index)">
-                          View More
+                        <div class="frame-overlay" @click="webinar(i.id)">
+                          <div
+                            class="
+                              d-flex
+                              align-items-center
+                              justify-content-center
+                              w-100
+                              h-100
+                            "
+                          >
+                            {{ i.dtl_name }}
+                          </div>
                         </div>
                       </div>
                     </SplideSlide>
@@ -138,30 +76,97 @@
                 <div class="mt-3">
                   <b class="text-primary">Webinar History</b>
                   <hr class="my-1" />
-                  <div class="table-responsive">
-                    <table class="table align-middle">
-                      <thead>
-                        <tr class="text-center">
-                          <th>No</th>
-                          <th>Topic</th>
-                          <th>Category</th>
-                          <th>Date & Time</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="text-center">
-                          <td>1</td>
-                          <td>Career Meetup 101</td>
-                          <td>Career Exploration</td>
-                          <td>
-                            <small>
-                              20 Feburary 2022 <br />
-                              14.00 WIB
-                            </small>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <!-- Empty  -->
+                  <div class="row" v-if="webinar_history.data?.length == 0">
+                    <div class="col py-4 text-center">
+                      <span class="text-muted">
+                        No history of watching webinars.</span
+                      >
+                    </div>
+                  </div>
+                  <div v-if="webinar_history.data?.length != 0">
+                    <div class="table-responsive">
+                      <table class="table align-middle">
+                        <thead>
+                          <tr class="text-center">
+                            <th>No</th>
+                            <th>Topic</th>
+                            <th>Category</th>
+                            <th>Date & Time</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="text-center">
+                            <td>1</td>
+                            <td>Career Meetup 101</td>
+                            <td>Career Exploration</td>
+                            <td>
+                              <small>
+                                20 Feburary 2022 <br />
+                                14.00 WIB
+                              </small>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- Pagination  -->
+                    <nav class="mt-3" v-if="webinar_history.from != null">
+                      <ul class="pagination justify-content-center">
+                        <li
+                          class="page-item"
+                          v-if="webinar_history.current_page != 1"
+                        >
+                          <a
+                            class="page-link"
+                            @click="getPage(webinar_history.links[0].url)"
+                          >
+                            <i class="fa-solid fa-chevron-left"></i>
+                          </a>
+                        </li>
+                        <div
+                          v-for="(i, index) in webinar_history.last_page"
+                          :key="index"
+                        >
+                          <li
+                            class="page-item"
+                            v-if="
+                              webinar_history.current_page - 2 < i &&
+                              webinar_history.current_page + 2 > i
+                            "
+                          >
+                            <a
+                              class="page-link"
+                              :class="
+                                webinar_history.current_page == i
+                                  ? 'bg-primary text-white'
+                                  : ''
+                              "
+                              href="#"
+                              @click="
+                                getPage(webinar_history.path + '?page=' + i)
+                              "
+                              >{{ i }}</a
+                            >
+                          </li>
+                        </div>
+                        <li
+                          class="page-item"
+                          v-if="
+                            webinar_history.current_page !=
+                            webinar_history.last_page
+                          "
+                        >
+                          <a
+                            class="page-link"
+                            @click="getPage(webinar_history.next_page_url)"
+                          >
+                            <i class="fa-solid fa-chevron-right"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
                 </div>
               </div>
@@ -169,8 +174,9 @@
           </div>
         </div>
       </div>
+
       <!-- Detail  -->
-      <div class="row mt-4">
+      <div class="row">
         <div class="col">
           <v-view
             :menu="menu"
@@ -202,31 +208,12 @@ export default {
         key: "",
         key2: "",
       },
-      uniprep_webinar: [
-        "https://youtube.com/embed/mHA4BxZTXlk",
-        "https://youtube.com/embed/XksK1_YWZhU",
-        "https://youtube.com/embed/gio1Z7rXiAY",
-        "https://youtube.com/embed/j7hGVxciCYg",
-      ],
-      career_webinar: [
-        "https://youtube.com/embed/PQTG3xcNW_o",
-        "https://www.youtube.com/embed/BDNf_pWDKGc",
-        "https://www.youtube.com/embed/KMIvfZWJjn0",
-        "https://www.youtube.com/embed/Em3Rtgb7uNw",
-      ],
-      playlist: [
-        "https://www.youtube.com/embed/Em3Rtgb7uNw",
-        "https://youtube.com/embed/XksK1_YWZhU",
-        "https://www.youtube.com/embed/BDNf_pWDKGc",
-        "https://youtube.com/embed/gio1Z7rXiAY",
-        "https://www.youtube.com/embed/KMIvfZWJjn0",
-        "https://youtube.com/embed/j7hGVxciCYg",
-        "https://www.youtube.com/embed/PQTG3xcNW_o",
-        "https://youtube.com/embed/mHA4BxZTXlk",
-      ],
+      category: [],
+      webinar_data: [],
+      webinar_history: [],
       options: {
-        autoPlay: true,
-        type: "loop",
+        // autoPlay: true,
+        // type: "loop",
         focus: "left",
         arrows: false,
         pagination: true,
@@ -250,6 +237,56 @@ export default {
     webinar(i) {
       this.$router.push({ path: "/user/my-activity/webinar/" + i });
     },
+
+    async getCategory() {
+      try {
+        const response = await this.$axios.get(
+          "student/list/webinar/categories"
+        );
+
+        this.category = response.data.data;
+        // console.log(response.data);
+
+        if (response.data.data && response.data.data.length != 0) {
+          let category = response.data.data[0].dtl_category;
+          this.tab = category;
+          this.getData(category);
+        }
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    checkCategory(i) {
+      this.tab = i;
+      this.getData(i);
+    },
+
+    async getData(i) {
+      try {
+        const response = await this.$axios.get(
+          "student/programme/detail/webinar/" + i
+        );
+
+        this.webinar_data = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getHistory() {
+      try {
+        const response = await this.$axios.get(
+          "student/list/activities/webinar"
+        );
+
+        this.webinar_history = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
   },
   watch: {
     $route(to) {
@@ -264,31 +301,24 @@ export default {
     this.menu.submenu = this.$route.params.submenu;
     this.menu.key = this.$route.params.key;
     this.menu.key2 = this.$route.params.key2;
+
+    this.getCategory();
+    this.getHistory();
   },
 };
 </script>
 <style scoped>
-iframe {
+.frame {
+  position: relative;
+  overflow: hidden;
   width: 100% !important;
-  height: 15em;
+  height: 240px;
   border-radius: 10px;
   border: none;
   box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 17px -10px rgba(0, 0, 0, 0.75);
   transition: all 0.3s ease-in-out;
-}
-
-.label-webinar {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 3px 10px;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 11px;
-  letter-spacing: 1px;
-  border: 1px solid rgb(179, 178, 178);
 }
 
 iframe[lazy="loading"] {
@@ -303,13 +333,12 @@ iframe[lazy="loading"] {
   position: absolute;
   top: 0;
   width: 100%;
-  padding: 25%;
+  height: 100%;
   text-align: center;
   background: #1a2d63d5;
   opacity: 0;
   font-size: 18px;
   font-weight: bold;
-  height: 13.3em;
   color: #fff;
   cursor: pointer;
   transition: all 0.4s ease-in;
@@ -317,11 +346,5 @@ iframe[lazy="loading"] {
 
 .frame:hover .frame-overlay {
   opacity: 1;
-}
-
-@media only screen and (max-width: 800px) {
-  iframe {
-    height: 9em;
-  }
 }
 </style>

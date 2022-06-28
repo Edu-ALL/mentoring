@@ -88,7 +88,7 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('waitlisted')"
+                @mouseover="getUniList('waitlisted')"
               >
                 <div class="mt-title">
                   REQUEST
@@ -227,7 +227,7 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('waitlisted')"
+                @mouseover="getUniList('waitlisted')"
               >
                 <div class="uni-title">
                   WAITLISTED
@@ -273,7 +273,7 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('applied')"
+                @mouseover="getUniList('applied')"
               >
                 <div class="uni-title">
                   APPLIED
@@ -319,7 +319,7 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('accepted')"
+                @mouseover="getUniList('accepted')"
               >
                 <div class="uni-title">
                   ACCEPTED
@@ -365,7 +365,7 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('rejected')"
+                @mouseover="getUniList('rejected')"
               >
                 <div class="uni-title">
                   REJECTED

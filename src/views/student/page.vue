@@ -104,14 +104,21 @@ export default {
 };
 </script>
 <style>
-#content {
-  padding: 0;
-  min-height: 100vh;
+body {
   background: rgb(197, 225, 242);
   background: linear-gradient(
     20deg,
     rgba(197, 225, 242, 1) 0%,
     rgba(255, 255, 255, 0.9668242296918768) 57%
   );
+  background-size: cover;
+  min-height: 100vh;
+}
+</style>
+
+<style scoped>
+#content {
+  padding: 0;
+  margin-bottom: 30px;
 }
 </style>

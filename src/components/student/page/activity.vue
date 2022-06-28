@@ -1,7 +1,7 @@
 <template>
   <div id="activity">
     <div class="container mt-4">
-      <div class="row g-1">
+      <div class="row g-3">
         <div :class="menu.key ? 'd-none' : 'col-md-3'">
           <div class="card shadow-sm border-0">
             <div class="card-body">
@@ -74,62 +74,66 @@
           </div>
         </div>
         <div :class="menu.key ? 'col-md-12' : 'col-md-9'">
-          <!-- 1on1 Call  -->
-          <transition name="fade">
-            <div class="card-body" v-if="activity == '1on1'">
-              <b class="text-primary">1 on 1 Call History</b>
-              <hr class="my-1" />
-              <div class="table-responsive">
-                <table class="table align-middle">
-                  <thead>
-                    <tr class="text-center">
-                      <th>No</th>
-                      <th>Call with</th>
-                      <th>Category</th>
-                      <th>Date & Time</th>
-                      <th>Status</th>
-                      <th>Location</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="text-center">
-                      <td>1</td>
-                      <td>Devi Kasih</td>
-                      <td>Life Skill - Mentor</td>
-                      <td>
-                        <small>
-                          20 Feburary 2022 <br />
-                          14.00 WIB
-                        </small>
-                      </td>
-                      <td>Waiting</td>
-                      <td>-</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </transition>
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-1 pb-2 mt-3">
+              <!-- 1on1 Call  -->
+              <transition name="fade">
+                <div class="card-body" v-if="activity == '1on1'">
+                  <b class="text-primary">1 on 1 Call History</b>
+                  <hr class="my-1" />
+                  <div class="table-responsive">
+                    <table class="table align-middle">
+                      <thead>
+                        <tr class="text-center">
+                          <th>No</th>
+                          <th>Call with</th>
+                          <th>Category</th>
+                          <th>Date & Time</th>
+                          <th>Status</th>
+                          <th>Location</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="text-center">
+                          <td>1</td>
+                          <td>Devi Kasih</td>
+                          <td>Life Skill - Mentor</td>
+                          <td>
+                            <small>
+                              20 Feburary 2022 <br />
+                              14.00 WIB
+                            </small>
+                          </td>
+                          <td>Waiting</td>
+                          <td>-</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </transition>
 
-          <!-- Meetings  -->
-          <transition name="fade">
-            <v-meeting v-if="activity == 'meeting'"></v-meeting>
-          </transition>
+              <!-- Meetings  -->
+              <transition name="fade">
+                <v-meeting v-if="activity == 'meeting'"></v-meeting>
+              </transition>
 
-          <!-- Groups  -->
-          <transition name="fade">
-            <v-group v-if="activity == 'group'"></v-group>
-          </transition>
+              <!-- Groups  -->
+              <transition name="fade">
+                <v-group v-if="activity == 'group'"></v-group>
+              </transition>
 
-          <!-- Webinar  -->
-          <transition name="fade">
-            <v-webinar v-if="activity == 'webinar'"></v-webinar>
-          </transition>
+              <!-- Webinar  -->
+              <transition name="fade">
+                <v-webinar v-if="activity == 'webinar'"></v-webinar>
+              </transition>
 
-          <!-- Events  -->
-          <!-- <transition name="fade">
+              <!-- Events  -->
+              <!-- <transition name="fade">
             <v-event v-if="activity == 'event'"></v-event>
           </transition> -->
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -30,6 +30,7 @@ import axios from 'axios'
 import { alert } from './assets/js/alert'
 import { customDate } from './assets/js/customDate'
 import { customText } from './assets/js/customText'
+import Youtube from 'vue3-youtube'
 import Popper from 'vue3-popper'
 
 import '../src/assets/js/axios'
@@ -55,6 +56,7 @@ app.component('datepicker', Datepicker)
 app.component(VueFeather.name, VueFeather)
 app.component('v-datepicker', Datetimepicker)
 app.component('v-tooltip', Popper)
+app.component('v-youtube', Youtube)
 app.use(VueSplide)
 app.use(VueLazyLoad)
 app.config.globalProperties.$base_url = base_url

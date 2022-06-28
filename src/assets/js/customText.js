@@ -3,4 +3,8 @@ export const customText = {
         var trimmedString = i.substr(0, n);
         return trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")));
     },
+
+    removeDash(str) {
+        return str.replaceAll('-', ' ');
+    }
 }

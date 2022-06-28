@@ -14,21 +14,18 @@
         ></vue-feather>
 
         <transition name="fade">
-          <div class="navbar-overlay" v-if="menu" @click="menu = false"></div>
+          <div class="navbar-overlay" v-if="menu" @click="menu = false">
+            <vue-feather
+              type="x"
+              class="navbar-close d-md-none d-block"
+              @click="menu = false"
+            >
+            </vue-feather>
+          </div>
         </transition>
 
         <transition name="fade">
           <div class="navbar-title d-md-none d-block" v-if="menu">MENU</div>
-        </transition>
-
-        <transition name="fade">
-          <vue-feather
-            type="x"
-            class="navbar-close d-md-none d-block"
-            v-if="menu"
-            @click="menu = false"
-          >
-          </vue-feather>
         </transition>
 
         <div
@@ -36,14 +33,11 @@
           :class="!menu ? 'd-none' : ''"
         >
           <ul>
-            <li
-              @click="this.$router.push({ path: '/user' })"
-              :class="params == '' ? 'active' : ''"
-            >
+            <li @click="goToMenu('')" :class="params == '' ? 'active' : ''">
               Dashboard
             </li>
             <li
-              @click="this.$router.push({ path: '/user/my-activity' })"
+              @click="goToMenu('my-activity')"
               :class="
                 params == 'my-activity' ||
                 params == 'groups' ||
@@ -56,19 +50,19 @@
               My Activities
             </li>
             <li
-              @click="this.$router.push({ path: '/user/uni-list' })"
+              @click="goToMenu('uni-list')"
               :class="params == 'uni-list' ? 'active' : ''"
             >
               University Shortlisted
             </li>
             <li
-              @click="this.$router.push({ path: '/user/uni-requirement' })"
+              @click="goToMenu('uni-requirement')"
               :class="params == 'uni-requirement' ? 'active' : ''"
             >
               University Requirements
             </li>
             <!-- <li
-              @click="this.$router.push({ path: '/user/my-files' })"
+              @click="goToMenu('my-files')"
               :class="params == 'my-files' ? 'active' : ''"
             >
               My Files
@@ -97,6 +91,12 @@ export default {
     showMenu() {
       this.menu = true;
     },
+
+    goToMenu(page) {
+      this.menu = false;
+      this.$router.push({ path: "/user/" + page });
+    },
+
     handleLogout() {
       // localStorage.removeItem("token");
       // localStorage.removeItem("role");

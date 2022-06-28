@@ -1,6 +1,6 @@
 <template>
   <div id="group">
-    <div class="container mt-4">
+    <div class="container my-4">
       <!-- List  -->
       <div
         class=""
