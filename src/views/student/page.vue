@@ -92,7 +92,7 @@ export default {
         this.$router.push({ path: "/" });
         this.$alert.toast("error", "Your token is expired");
       }
-      console.log(response.data);
+      // console.log(response.data);
     },
   },
   watch: {
