@@ -649,9 +649,6 @@ export default {
     this.getMeeting();
     this.getUniList("waitlisted");
   },
-  updated() {
-    this.mentee = JSON.parse(localStorage.getItem("mentee"));
-  },
 };
 </script>
 <style scoped>
