@@ -89,7 +89,7 @@ export default {
 
       if (response.data.success == false) {
         localStorage.clear();
-        this.$router.push({ path: "/" });
+        window.location.href = "/";
         this.$alert.toast("error", "Your token is expired");
       }
       // console.log(response.data);
@@ -101,13 +101,13 @@ export default {
     },
   },
   created() {
-    this.checkToken();
-
     if (localStorage.getItem("role") != "mentee") {
-      this.$router.push({ path: "/" });
+      window.location.href = "/";
     } else {
       this.mentee = JSON.parse(localStorage.getItem("mentee"));
     }
+
+    this.checkToken();
 
     document.title = "Your Dashboard";
     setTimeout(() => {

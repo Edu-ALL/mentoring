@@ -97,6 +97,78 @@
               <!-- <transition name="fade">
             <v-event v-if="activity == 'event'"></v-event>
           </transition> -->
+
+              <!-- Internship  -->
+              <transition name="fade">
+                <v-card
+                  v-if="activity == 'internship'"
+                  class="card content-card bg-primary shadow-sm m-4"
+                  lazy="loading"
+                >
+                  <div class="card-body">
+                    <h3 class="content-title text-white">
+                      Find & Land Internships
+                    </h3>
+                    <div class="content-desc text-white">
+                      Start off your career in the right way! Improve your skill
+                      set, expand connections, and develop your career goal path
+                      through an internship.
+                      <br />
+                      Look for the best-fit internship positions offered by
+                      numerous renowned companies right now!
+                    </div>
+                    <button
+                      class="btn btn-allin bg-secondary mt-3"
+                      @click="redirectUrl('https://internship.all-inedu.com/')"
+                    >
+                      Explore Now!
+                    </button>
+                  </div>
+                  <img
+                    src="@/assets/img/home/card-orange.webp"
+                    alt="ALL-in Mentoring"
+                    class="card-corner"
+                  />
+                </v-card>
+              </transition>
+
+              <!-- Career Module  -->
+              <transition name="fade">
+                <v-card
+                  v-if="activity == 'career-module'"
+                  class="card content-card bg-secondary shadow-sm m-4"
+                  lazy="loading"
+                >
+                  <div class="card-body">
+                    <h3 class="content-title text-white">
+                      Explore More Career Paths with Us!
+                    </h3>
+                    <div class="content-desc text-white">
+                      Still looking to find a career that matches your passion
+                      and goal in the future? Let’s explore various career paths
+                      and job roles in different industries with ALL-in!
+                      <br />
+                      Grasp the key and basic knowledge of each career and
+                      simulate yourself on how to apply it through case studies.
+                      Come start to take a step on your career exploration
+                      journey with the experts!
+                    </div>
+                    <button
+                      class="btn btn-allin bg-primary mt-3"
+                      @click="
+                        redirectUrl('https://career-module.all-inedu.com/')
+                      "
+                    >
+                      Explore Now!
+                    </button>
+                  </div>
+                  <img
+                    src="@/assets/img/home/card-blue.webp"
+                    alt="ALL-in Mentoring"
+                    class="card-corner"
+                  />
+                </v-card>
+              </transition>
             </div>
           </div>
         </div>
@@ -133,6 +205,10 @@ export default {
     activityCheck(data) {
       this.$router.push({ path: "/user/my-activity/" + data });
       this.activity = data;
+    },
+
+    redirectUrl(i) {
+      window.open(i, "_blank");
     },
   },
   watch: {
@@ -192,5 +268,47 @@ export default {
 .list-group-item.active {
   background: #efa859;
   border: 1px solid #c5863f;
+}
+
+.content-card {
+  border-radius: 10px;
+  padding: 10px 20px;
+  box-shadow: 8px 10px 4px -7px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 8px 10px 4px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 8px 10px 4px -7px rgba(0, 0, 0, 0.75);
+}
+
+.content-title {
+  font-weight: 600;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+.content-desc {
+  font-size: 1.2em;
+  width: 80%;
+}
+.card-corner {
+  position: absolute;
+  width: 30% !important;
+  bottom: -1px;
+  right: -1px;
+}
+
+@media only screen and (max-width: 800px) {
+  .content-card {
+    padding: 10px;
+  }
+  .content-title {
+    width: 100%;
+    font-size: 1.3em;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  .content-desc {
+    width: 100%;
+    font-size: 1em;
+    text-align: justify;
+  }
 }
 </style>

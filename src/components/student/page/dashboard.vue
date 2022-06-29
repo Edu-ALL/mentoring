@@ -80,9 +80,9 @@
       <div class="row row-cols-md-3 row-cols-1">
         <!-- Meeting  -->
         <div class="col">
-          <div class="border p-4" v-if="meeting.personal">
+          <div class="border p-4">
             <h5 class="text-center mb-3">1-ON-1 MEETING</h5>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
@@ -104,7 +104,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
@@ -124,7 +124,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
@@ -144,7 +144,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
@@ -166,9 +166,9 @@
             </div>
           </div>
 
-          <div class="border p-4 mt-3" v-if="meeting.group">
+          <div class="border p-4 mt-3">
             <h5 class="text-center mb-3">GROUP MEETING</h5>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="
                   card-body
@@ -188,7 +188,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="
                   card-body
@@ -208,7 +208,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="
                   card-body
@@ -244,11 +244,11 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('waitlisted')"
+                @click="uni_status = 'waitlisted'"
               >
                 <div class="uni-title">
                   WAITLISTED
-                  <div class="float-end">5</div>
+                  <div class="float-end">{{ uni_list.waitlisted.length }}</div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-clock"></i>
@@ -290,11 +290,11 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('applied')"
+                @click="uni_status = 'applied'"
               >
                 <div class="uni-title">
                   APPLIED
-                  <div class="float-end">5</div>
+                  <div class="float-end">{{ uni_list.applied.length }}</div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-paper-plane"></i>
@@ -336,11 +336,11 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('accepted')"
+                @click="uni_status = 'accepted'"
               >
                 <div class="uni-title">
                   ACCEPTED
-                  <div class="float-end">5</div>
+                  <div class="float-end">{{ uni_list.accepted.length }}</div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-circle-check"></i>
@@ -382,11 +382,11 @@
                   overflow-hidden
                   pointer
                 "
-                @click="getUniList('rejected')"
+                @click="uni_status = 'rejected'"
               >
                 <div class="uni-title">
                   REJECTED
-                  <div class="float-end">5</div>
+                  <div class="float-end">{{ uni_list.rejected.length }}</div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-circle-xmark"></i>
@@ -591,7 +591,6 @@ export default {
     },
 
     async getUniList(status) {
-      this.uni_status = status;
       try {
         const response = await this.$axios.get(
           "student/university/shortlisted/" + status
@@ -648,6 +647,9 @@ export default {
     this.getSosmed();
     this.getMeeting();
     this.getUniList("waitlisted");
+    this.getUniList("applied");
+    this.getUniList("accepted");
+    this.getUniList("rejected");
   },
 };
 </script>
