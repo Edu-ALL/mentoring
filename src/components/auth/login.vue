@@ -20,7 +20,7 @@
             class="form-control v-form"
             placeholder="Email"
           />
-          <p class="text-danger small" v-if="error_login.email">
+          <p class="text-warning mt-1 small" v-if="error_login.email">
             {{ error_login.email[0] }}
           </p>
         </div>
@@ -32,7 +32,7 @@
             placeholder="Password"
             class="form-control v-form"
           />
-          <p class="text-danger small" v-if="error_login.password">
+          <p class="text-warning mt-1 small" v-if="error_login.password">
             {{ error_login.password[0] }}
           </p>
           <p class="mt-3 pointer" @click="this.$emit('show', 'forgot')">
@@ -77,6 +77,7 @@ export default {
           email: this.login.email,
           password: this.login.password,
         });
+        this.$emit("show", "");
 
         // Mentee Data
         localStorage.setItem("role", "mentee");
@@ -91,8 +92,14 @@ export default {
         window.location.href = "/user";
         // this.$router.push({ path: "/user" });
       } catch (e) {
-        console.log(e.response);
-        this.$alert.close();
+        this.error_login = e.response.data.error;
+        if (e.response.status == 400) {
+          this.$emit("show", "");
+          this.$alert.toast("error", e.response.data.error);
+        } else {
+          this.$alert.close();
+        }
+        // console.log(e.response);
       }
     },
   },

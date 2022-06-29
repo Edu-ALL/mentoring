@@ -185,6 +185,11 @@ img[lazy="loading"] {
   padding-bottom: 10px;
 }
 
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
 .table-responsive::-webkit-scrollbar,
 .mentoring-scroll::-webkit-scrollbar {
   width: 5px;
@@ -192,18 +197,22 @@ img[lazy="loading"] {
 }
 
 /* Track */
+html::-webkit-scrollbar-track,
 .table-responsive::-webkit-scrollbar-track,
 .mentoring-scroll::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
 /* Handle */
+html::-webkit-scrollbar-thumb,
 .table-responsive::-webkit-scrollbar-thumb,
 .mentoring-scroll::-webkit-scrollbar-thumb {
   background: rgb(145, 163, 188);
+  border-radius:10px ;
 }
 
 /* Handle on hover */
+html::-webkit-scrollbar-thumb:hover,
 .table-responsive::-webkit-scrollbar-thumb:hover,
 .mentoring-scroll::-webkit-scrollbar-thumb:hover {
   background: rgb(156, 213, 224);

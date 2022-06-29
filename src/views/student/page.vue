@@ -83,6 +83,17 @@ export default {
     load(status) {
       this.loading = status;
     },
+
+    async checkToken() {
+      const response = await this.$axios.get("auth/check");
+
+      if (response.data.success == false) {
+        localStorage.clear();
+        this.$router.push({ path: "/" });
+        this.$alert.toast("error", "Your token is expired");
+      }
+      console.log(response.data);
+    },
   },
   watch: {
     $route(to) {
@@ -90,6 +101,8 @@ export default {
     },
   },
   created() {
+    this.checkToken();
+
     if (localStorage.getItem("role") != "mentee") {
       this.$router.push({ path: "/" });
     } else {

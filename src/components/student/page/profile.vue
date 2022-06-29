@@ -81,40 +81,112 @@
         </div>
       </div>
     </div>
+
     <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+    <!-- Change Password  -->
     <transition name="pop">
       <div class="vue-modal vue-modal-sm" v-if="modal == 'change-password'">
         <h5>Change Password</h5>
         <hr class="my-0" />
-        <div class="row">
-          <div class="col-md-12">
-            <div class="mb-2 mt-3">
-              <small>New Password</small>
-              <input type="text" name="" class="form-mentoring w-100" />
+        <form @submit.prevent="handleSubmit">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="mb-2 mt-3 position-relative">
+                <small>Old Password</small>
+                <div
+                  class="position-absolute"
+                  style="right: 10px; margin-top: 7px"
+                  @click="displayPassword(0, d_password[0])"
+                >
+                  <i
+                    class="fa-solid fa-eye-slash pointer"
+                    v-if="!d_password[0]"
+                  ></i>
+                  <i class="fa-solid fa-eye pointer" v-if="d_password[0]"></i>
+                </div>
+                <input
+                  :type="d_password[0] ? 'text' : 'password'"
+                  v-model="password.old_password"
+                  class="form-mentoring w-100"
+                />
+                <small
+                  class="text-danger"
+                  v-if="error_password && error_password.old_password"
+                >
+                  {{ error_password.old_password[0] }}
+                </small>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="mb-2 position-relative">
+                <small>New Password</small>
+                <div
+                  class="position-absolute"
+                  style="right: 10px; margin-top: 7px"
+                  @click="displayPassword(1, d_password[1])"
+                >
+                  <i
+                    class="fa-solid fa-eye-slash pointer"
+                    v-if="!d_password[1]"
+                  ></i>
+                  <i class="fa-solid fa-eye pointer" v-if="d_password[1]"></i>
+                </div>
+                <input
+                  :type="d_password[1] ? 'text' : 'password'"
+                  v-model="password.new_password"
+                  class="form-mentoring w-100"
+                />
+                <small
+                  class="text-danger"
+                  v-if="error_password && error_password.new_password"
+                >
+                  {{ error_password.new_password[0] }}
+                </small>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="mb-4 position-relative">
+                <small>Confirm Password</small>
+                <div
+                  class="position-absolute"
+                  style="right: 10px; margin-top: 7px"
+                  @click="displayPassword(2, d_password[2])"
+                >
+                  <i
+                    class="fa-solid fa-eye-slash pointer"
+                    v-if="!d_password[2]"
+                  ></i>
+                  <i class="fa-solid fa-eye pointer" v-if="d_password[2]"></i>
+                </div>
+                <input
+                  :type="d_password[2] ? 'text' : 'password'"
+                  v-model="password.new_password_confirmation"
+                  class="form-mentoring w-100"
+                />
+              </div>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="mb-4">
-              <small>Confirm Password</small>
-              <input type="text" name="" class="form-mentoring w-100" />
+
+          <div class="row">
+            <div class="col-md-4">
+              <button
+                type="button"
+                class="btn-mentoring btn-warning btn-sm"
+                @click="modal = ''"
+              >
+                Cancel
+              </button>
+            </div>
+            <div class="col-md-8 text-end">
+              <button
+                type="submit"
+                class="btn-mentoring btn-outline-success btn-sm"
+              >
+                Save Changes
+              </button>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <button
-              class="btn-mentoring btn-warning btn-sm"
-              @click="modal = ''"
-            >
-              Cancel
-            </button>
-          </div>
-          <div class="col-md-6 text-end">
-            <button class="btn-mentoring btn-outline-success btn-sm">
-              Save Changes
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </transition>
   </div>
@@ -143,9 +215,45 @@ export default {
       section: "info",
       modal: "",
       deleteUrl: "",
+      password: {
+        old_password: "",
+        new_password: "",
+        new_password_confirmation: "",
+      },
+      d_password: [false, false, false],
+      error_password: [],
     };
   },
-  methods: {},
+  methods: {
+    displayPassword(index, i) {
+      this.d_password[index] = !i;
+    },
+
+    async handleSubmit() {
+      this.modal = "";
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "student/change/password",
+          this.password
+        );
+
+        this.password = {
+          old_password: "",
+          new_password: "",
+          new_password_confirmation: "",
+        };
+
+        this.$alert.toast("success", response.data.message);
+        // console.log(response.data);
+      } catch (e) {
+        this.$alert.close();
+        this.error_password = e.response.data.error;
+        this.modal = "change-password";
+        // console.log(e.response);
+      }
+    },
+  },
   created() {},
 };
 </script>

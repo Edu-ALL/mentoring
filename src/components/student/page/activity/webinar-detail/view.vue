@@ -123,11 +123,12 @@ export default {
 
     async joinWebinar(duration) {
       try {
-        await this.$axios.post("student/make/webinar", {
+        const response = await this.$axios.post("student/make/webinar", {
           prog_dtl_id: this.data_detail.id,
           video_duration: duration,
         });
 
+        this.data_detail = response.data.data.detail;
         // console.log(response.data);
       } catch (e) {
         console.log(e.response);

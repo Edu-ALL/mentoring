@@ -2,11 +2,7 @@
   <div id="view">
     <div class="row mb-3">
       <div class="col-12">
-        <div
-          class="sticky-top ps-3 pointer"
-          style="top: 100px"
-          @click="redirect"
-        >
+        <div class="ps-3 pointer" style="margin-top: -20px" @click="redirect">
           <i class="fa-solid fa-arrow-left me-2"></i>
           <h5 class="d-inline">Groups</h5>
         </div>

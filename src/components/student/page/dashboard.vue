@@ -4,7 +4,7 @@
       <div class="row align-items-center">
         <div class="col-md-3 text-md-start text-center">
           <div class="picture">
-            <div class="user-picture-overlay">
+            <div class="user-picture-overlay" @click="modal = 'change-profile'">
               <div class="row align-items-center h-100">
                 <div class="col text-center user-picture-font">
                   <vue-feather type="camera" size="30"></vue-feather> <br />
@@ -14,7 +14,11 @@
               </div>
             </div>
             <img
-              src="@/assets/img/saeka.webp"
+              :src="
+                mentee.image != null
+                  ? $base_url + '' + mentee.image
+                  : '@/assets/img/saeka.webp'
+              "
               class="user-picture"
               alt="ALL-in Mentoring"
             />
@@ -72,12 +76,11 @@
         </div>
       </div>
     </div>
-
     <div class="container mt-4">
       <div class="row row-cols-md-3 row-cols-1">
         <!-- Meeting  -->
         <div class="col">
-          <div class="border p-4">
+          <div class="border p-4" v-if="meeting.personal">
             <h5 class="text-center mb-3">1-ON-1 MEETING</h5>
             <div class="card shadow rounded-2 mb-2">
               <div
@@ -88,11 +91,13 @@
                   overflow-hidden
                   pointer
                 "
-                @mouseover="getUniList('waitlisted')"
+                @click="getUniList('waitlisted')"
               >
                 <div class="mt-title">
                   REQUEST
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.personal.request }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-calendar-plus"></i>
@@ -110,7 +115,9 @@
               >
                 <div class="mt-title">
                   PENDING
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.personal.pending }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-clock"></i>
@@ -128,7 +135,9 @@
               >
                 <div class="mt-title">
                   UPCOMING
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.personal.upcoming }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-calendar-days"></i>
@@ -146,7 +155,9 @@
               >
                 <div class="mt-title">
                   HISTORY
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.personal.history }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-calendar-check"></i>
@@ -155,7 +166,7 @@
             </div>
           </div>
 
-          <div class="border p-4 mt-3">
+          <div class="border p-4 mt-3" v-if="meeting.group">
             <h5 class="text-center mb-3">GROUP MEETING</h5>
             <div class="card shadow rounded-2 mb-2">
               <div
@@ -168,7 +179,9 @@
               >
                 <div class="mt-title">
                   REQUEST
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.group.request }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-calendar-plus"></i>
@@ -186,7 +199,9 @@
               >
                 <div class="mt-title">
                   UPCOMING
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.group.upcoming }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-clock"></i>
@@ -204,7 +219,9 @@
               >
                 <div class="mt-title">
                   HISTORY
-                  <div class="float-end">5</div>
+                  <div class="float-end">
+                    {{ meeting.group.history }}
+                  </div>
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-calendar-check"></i>
@@ -227,7 +244,7 @@
                   overflow-hidden
                   pointer
                 "
-                @mouseover="getUniList('waitlisted')"
+                @click="getUniList('waitlisted')"
               >
                 <div class="uni-title">
                   WAITLISTED
@@ -273,7 +290,7 @@
                   overflow-hidden
                   pointer
                 "
-                @mouseover="getUniList('applied')"
+                @click="getUniList('applied')"
               >
                 <div class="uni-title">
                   APPLIED
@@ -319,7 +336,7 @@
                   overflow-hidden
                   pointer
                 "
-                @mouseover="getUniList('accepted')"
+                @click="getUniList('accepted')"
               >
                 <div class="uni-title">
                   ACCEPTED
@@ -365,7 +382,7 @@
                   overflow-hidden
                   pointer
                 "
-                @mouseover="getUniList('rejected')"
+                @click="getUniList('rejected')"
               >
                 <div class="uni-title">
                   REJECTED
@@ -445,26 +462,107 @@
         </div>
       </div>
     </div>
+
+    <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+    <!-- Modal Document  -->
+
+    <!-- Upload  -->
+    <transition name="pop">
+      <div class="vue-modal vue-modal-md" v-if="modal == 'change-profile'">
+        <h6>Change Profile Picture</h6>
+        <form @submit.prevent="handleUpload" method="post">
+          <div class="border p-2">
+            <div class="border mb-2">
+              <div
+                @dragenter.prevent="toggleActive"
+                @dragleave.prevent="toggleActive"
+                @dragover.prevent
+                @drop.prevent="drop"
+                :class="{ 'active-dropzone': active }"
+                class="dropzone"
+              >
+                <span>Drag or Drop File</span>
+                <span>OR</span>
+                <label for="dropzoneFile">Select File</label>
+                <input
+                  type="file"
+                  id="dropzoneFile"
+                  class="dropzoneFile"
+                  @change="selectedFile"
+                />
+              </div>
+              <div class="my-2">
+                <span class="file-info">
+                  File: {{ dropzoneFile.name }}
+                  <i
+                    class="fa-solid fa-times text-danger ms-2 pointer"
+                    v-if="dropzoneFile"
+                    @click="deleteFile"
+                  ></i>
+                </span>
+              </div>
+            </div>
+            <div class="text-end">
+              <button
+                type="submit"
+                class="btn-mentoring btn-sm py-1 bg-primary"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
+import { ref } from "vue";
 export default {
   name: "dashboard",
-  props: {
-    mentee: Object,
-  },
   components: {},
   data() {
     return {
-      user: [],
+      modal: "",
       sosmed: [],
+      mentee: [],
       uni_list: {
         waitlisted: [],
         applied: [],
         accepted: [],
         rejected: [],
       },
+      meeting: [],
       uni_status: "waitlisted",
+      uploaded_file: [],
+    };
+  },
+  setup() {
+    const active = ref(false);
+    const toggleActive = () => {
+      active.value = !active.value;
+    };
+
+    let dropzoneFile = ref("");
+    const drop = (e) => {
+      dropzoneFile.value = e.dataTransfer.files[0];
+    };
+
+    const selectedFile = () => {
+      dropzoneFile.value = document.querySelector(".dropzoneFile").files[0];
+    };
+
+    const deleteFile = () => {
+      dropzoneFile.value = "";
+    };
+
+    return {
+      active,
+      toggleActive,
+      dropzoneFile,
+      drop,
+      selectedFile,
+      deleteFile,
     };
   },
   methods: {
@@ -475,6 +573,17 @@ export default {
         );
 
         this.sosmed = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getMeeting() {
+      try {
+        const response = await this.$axios.get("student/dashboard/summarize");
+
+        this.meeting = response.data.data;
         // console.log(response.data);
       } catch (e) {
         console.log(e);
@@ -502,10 +611,46 @@ export default {
         console.log(e.response);
       }
     },
+
+    async handleUpload() {
+      this.modal = "";
+      if (this.dropzoneFile) {
+        this.uploaded_file = this.dropzoneFile;
+
+        let form = new FormData();
+        form.append("uploaded_file", this.uploaded_file);
+
+        this.$alert.loading();
+        try {
+          const response = await this.$axios.post(
+            "student/change/profile-picture",
+            form
+          );
+
+          this.$emit("check", "update");
+
+          this.mentee = response.data.data;
+          localStorage.setItem("mentee", JSON.stringify(response.data.data));
+          this.$alert.toast("success", response.data.message);
+        } catch (e) {
+          if (e.response.data.error.uploaded_file) {
+            this.$alert.toast("error", e.response.data.error.uploaded_file[0]);
+          } else {
+            this.$alert.close();
+          }
+          // console.log(e.response.data);
+        }
+      }
+    },
   },
   created() {
+    this.mentee = JSON.parse(localStorage.getItem("mentee"));
     this.getSosmed();
+    this.getMeeting();
     this.getUniList("waitlisted");
+  },
+  updated() {
+    this.mentee = JSON.parse(localStorage.getItem("mentee"));
   },
 };
 </script>

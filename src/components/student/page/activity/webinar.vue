@@ -88,23 +88,74 @@
                     <div class="table-responsive">
                       <table class="table align-middle">
                         <thead>
-                          <tr class="text-center">
+                          <tr
+                            class="text-center"
+                            style="vertical-align: middle"
+                          >
                             <th>No</th>
                             <th>Topic</th>
                             <th>Category</th>
-                            <th>Date & Time</th>
+                            <th nowrap>Date & Time</th>
+                            <th>Duration</th>
+                            <th>Long Time Watching</th>
+                            <th>Status</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="text-center">
-                            <td>1</td>
-                            <td>Career Meetup 101</td>
-                            <td>Career Exploration</td>
+                          <tr
+                            class="text-center"
+                            v-for="(i, index) in webinar_history.data"
+                            :key="index"
+                          >
+                            <td>{{ index + 1 }}</td>
+                            <td nowrap>{{ i.programme_details.dtl_name }}</td>
+                            <td nowrap style="text-transform: capitalize">
+                              {{
+                                $customText.removeDash(
+                                  i.programme_details.dtl_category
+                                )
+                              }}
+                            </td>
                             <td>
                               <small>
-                                20 Feburary 2022 <br />
-                                14.00 WIB
+                                {{ $customDate.date(i.created_at) }} <br />
+                                {{ $customDate.time(i.created_at) }}
                               </small>
+                            </td>
+                            <td>
+                              {{ convertTime(i.watch_detail.video_duration) }}
+                            </td>
+                            <td>
+                              {{ convertTime(i.watch_detail.current_time) }}
+                            </td>
+                            <td nowrap>
+                              <button
+                                class="btn-mentoring btn-sm py-1 px-3"
+                                :class="
+                                  percentage(
+                                    i.watch_detail.current_time,
+                                    i.watch_detail.video_duration
+                                  ) > 95
+                                    ? 'bg-primary'
+                                    : 'bg-secondary'
+                                "
+                                :disabled="
+                                  percentage(
+                                    i.watch_detail.current_time,
+                                    i.watch_detail.video_duration
+                                  ) > 95
+                                "
+                                @click="webinar(i.programme_details.id)"
+                              >
+                                {{
+                                  percentage(
+                                    i.watch_detail.current_time,
+                                    i.watch_detail.video_duration
+                                  ) > 95
+                                    ? "Completed"
+                                    : "In Progress"
+                                }}
+                              </button>
                             </td>
                           </tr>
                         </tbody>
@@ -262,6 +313,30 @@ export default {
       this.getData(i);
     },
 
+    convertTime(i) {
+      var secs = Math.round(i);
+      var hours = Math.floor(secs / (60 * 60));
+
+      var divisor_for_minutes = secs % (60 * 60);
+      var minutes = Math.floor(divisor_for_minutes / 60);
+
+      var divisor_for_seconds = divisor_for_minutes % 60;
+      var seconds = Math.ceil(divisor_for_seconds);
+
+      var time =
+        (hours > 9 ? hours : "0" + hours) +
+        ":" +
+        (minutes > 9 ? minutes : "0" + minutes) +
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds);
+      return time;
+    },
+
+    percentage(time, duration) {
+      var percent = (time / duration) * 100;
+      return percent;
+    },
+
     async getData(i) {
       try {
         const response = await this.$axios.get(
@@ -271,7 +346,7 @@ export default {
         this.webinar_data = response.data.data;
         // console.log(response.data);
       } catch (e) {
-        console.log(e.response);
+        console.log(e);
       }
     },
 
@@ -284,7 +359,7 @@ export default {
         this.webinar_history = response.data.data;
         // console.log(response.data);
       } catch (e) {
-        console.log(e.response);
+        console.log(e);
       }
     },
   },
@@ -303,6 +378,9 @@ export default {
     this.menu.key2 = this.$route.params.key2;
 
     this.getCategory();
+    this.getHistory();
+  },
+  updated() {
     this.getHistory();
   },
 };

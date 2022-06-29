@@ -76,46 +76,11 @@
         <div :class="menu.key ? 'col-md-12' : 'col-md-9'">
           <div class="card border-0 shadow-sm">
             <div class="card-body p-1 pb-2 mt-3">
-              <!-- 1on1 Call  -->
-              <transition name="fade">
-                <div class="card-body" v-if="activity == '1on1'">
-                  <b class="text-primary">1 on 1 Call History</b>
-                  <hr class="my-1" />
-                  <div class="table-responsive">
-                    <table class="table align-middle">
-                      <thead>
-                        <tr class="text-center">
-                          <th>No</th>
-                          <th>Call with</th>
-                          <th>Category</th>
-                          <th>Date & Time</th>
-                          <th>Status</th>
-                          <th>Location</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="text-center">
-                          <td>1</td>
-                          <td>Devi Kasih</td>
-                          <td>Life Skill - Mentor</td>
-                          <td>
-                            <small>
-                              20 Feburary 2022 <br />
-                              14.00 WIB
-                            </small>
-                          </td>
-                          <td>Waiting</td>
-                          <td>-</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </transition>
-
               <!-- Meetings  -->
               <transition name="fade">
-                <v-meeting v-if="activity == 'meeting'"></v-meeting>
+                <v-meeting
+                  v-if="activity == 'meeting' || activity == ''"
+                ></v-meeting>
               </transition>
 
               <!-- Groups  -->
@@ -176,6 +141,12 @@ export default {
       this.menu.submenu = to.params.submenu;
       this.menu.key = to.params.key;
       this.menu.key2 = to.params.key2;
+
+      if (to.params.submenu) {
+        this.activity = to.params.submenu;
+      } else {
+        this.activity = "meeting";
+      }
     },
   },
   created() {
@@ -186,8 +157,6 @@ export default {
 
     if (this.$route.params.submenu) {
       this.activity = this.$route.params.submenu;
-    } else {
-      this.activity = "meeting";
     }
   },
 };
