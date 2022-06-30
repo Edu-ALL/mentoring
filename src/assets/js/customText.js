@@ -6,5 +6,11 @@ export const customText = {
 
     removeDash(str) {
         return str.replaceAll('-', ' ');
+    },
+
+    excerpt(text, number) {
+        let arr = text.split(' ')
+        let string = arr.length + ' - ' + number;
+        return string;
     }
 }

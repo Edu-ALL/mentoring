@@ -1,6 +1,5 @@
 <template>
   <div id="groupMeeting">
-    <div class="card-overlay" v-if="menu.key != 'progress'"></div>
     <div class="row">
       <div class="col-6">
         <h6>Group Meeting</h6>

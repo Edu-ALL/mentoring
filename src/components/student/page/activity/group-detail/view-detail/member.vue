@@ -4,7 +4,7 @@
       <div class="col-6">
         <h6>Group Members</h6>
       </div>
-      <div class="col-6" v-if="menu.submenu == 'progress'">
+      <div class="col-6" v-if="menu.key == 'progress'">
         <div class="text-end">
           <i class="fa-solid fa-add pointer" @click="modal = 'new-meeting'"></i>
         </div>
