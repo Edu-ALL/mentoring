@@ -15,9 +15,9 @@
             </div>
             <img
               :src="
-                mentee.image != null
+                mentee.image != ''
                   ? $base_url + '' + mentee.image
-                  : '@/assets/img/saeka.webp'
+                  : 'https://picsum.photos/id/130/200/300'
               "
               class="user-picture"
               alt="ALL-in Mentoring"
@@ -51,20 +51,29 @@
                 <vue-feather
                   type="facebook"
                   stroke="blue"
-                  class="float-start mt-md-1 me-1"
-                  v-if="i.social_media_name == 'facebook'"
+                  class="float-start mt-md-1 me-1 pointer"
+                  @click="goSosmed(i.hyperlink)"
+                  v-if="
+                    i.social_media_name == 'facebook' && i.hyperlink != null
+                  "
                 ></vue-feather>
                 <vue-feather
                   type="instagram"
                   stroke="#DB554A"
-                  class="float-start mt-md-1 me-1"
-                  v-if="i.social_media_name == 'instagram'"
+                  class="float-start mt-md-1 me-1 pointer"
+                  @click="goSosmed(i.hyperlink)"
+                  v-if="
+                    i.social_media_name == 'instagram' && i.hyperlink != null
+                  "
                 ></vue-feather>
                 <vue-feather
                   type="linkedin"
                   stroke="#0A66C2"
-                  class="float-start mt-md-1 me-1"
-                  v-if="i.social_media_name == 'linkedin'"
+                  class="float-start mt-md-1 me-1 pointer"
+                  @click="goSosmed(i.hyperlink)"
+                  v-if="
+                    i.social_media_name == 'linkedin' && i.hyperlink != null
+                  "
                 ></vue-feather>
               </div>
             </div>
@@ -577,6 +586,10 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+
+    goSosmed(i) {
+      window.open(i, "_blank");
     },
 
     async getMeeting() {

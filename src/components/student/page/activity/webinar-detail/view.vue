@@ -13,12 +13,13 @@
         <div class="frame">
           <v-youtube
             v-if="data_detail?.length != 0"
-            :src="data_detail.dtl_video_link + '?controls=0'"
+            :src="data_detail.dtl_video_link"
             @state-change="checkYoutube"
             lazy="loading"
             width="100%"
             height="420px"
             :vars="{
+              autoplay: 0,
               rel: 0,
               loop: 1,
               modestbranding: 0,
@@ -56,9 +57,16 @@
           {{ data_detail.dtl_desc }}
         </p>
       </div>
-      <div class="col-md-4">
+
+      <!-- Related  -->
+      <div class="col-md-4 related mentoring-scroll">
         <div class="card border-0">
-          <div class="row w-rec-list" v-for="i in recommendation" :key="i">
+          <div
+            class="row w-rec-list"
+            v-for="i in recommendation"
+            :key="i"
+            @click="webinar(i.id)"
+          >
             <div class="col-md-5">
               <div class="rec-frame">
                 <img
@@ -73,7 +81,7 @@
                 {{ i.dtl_name }}
               </div>
               <div class="rec-desc">
-                {{ i.dtl_desc }}
+                {{ $customText.text(i.dtl_desc, 100) }}
               </div>
             </div>
           </div>
@@ -98,6 +106,11 @@ export default {
   methods: {
     redirect() {
       this.$router.push({ path: "/user/my-activity/webinar" });
+    },
+
+    webinar(i) {
+      window.location.href = "/user/my-activity/webinar/" + i;
+      // this.$router.push({ path: "/user/my-activity/webinar/" + i });
     },
 
     getThumbnail(i) {
@@ -171,10 +184,18 @@ export default {
       }
     },
   },
+
   created() {
     if (this.$route.params.key) {
       this.getData(this.$route.params.key);
     }
+  },
+  watch: {
+    $route(to) {
+      if (to.params.key) {
+        this.getData(to.params.key);
+      }
+    },
   },
 };
 </script>
@@ -227,5 +248,11 @@ export default {
 }
 .back-btn {
   cursor: pointer;
+}
+
+.related {
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>
