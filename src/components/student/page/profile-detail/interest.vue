@@ -39,14 +39,21 @@
                   </multiselect>
 
                   <!-- new -->
-                  <input
-                    type="text"
-                    name=""
-                    class="form-mentoring w-100 form-control-sm mt-2"
-                    placeholder="New Interest"
-                    v-model="interest.other"
-                    v-if="newField"
-                  />
+                  <input-group v-if="newField">
+                    <input
+                      type="text"
+                      name=""
+                      class="form-mentoring w-100 form-control-s"
+                      required
+                      v-model="interest.other"
+                    />
+                    <label>Interest</label>
+                  </input-group>
+                  <small
+                    class="text-danger"
+                    v-if="error_form && error_form.career_major_other"
+                    >{{ error_form.career_major_other[0] }}</small
+                  >
 
                   <div class="text-end mt-3">
                     <button
@@ -144,6 +151,7 @@ export default {
         name: null,
         other: null,
       },
+      error_form: [],
     };
   },
   methods: {
@@ -156,6 +164,7 @@ export default {
         this.newField = true;
       } else {
         this.newField = false;
+        this.error_form = [];
       }
     },
 
@@ -178,7 +187,7 @@ export default {
         this.interest.exist = true;
       }
 
-      console.log(this.interest);
+      // console.log(this.interest);
 
       this.$alert.loading();
       try {
@@ -193,14 +202,22 @@ export default {
 
         // Reset
         this.add = false;
+        this.newField = false;
         this.interest.name = "";
         this.interest.other = "";
+        this.error_form = [];
 
         this.$alert.toast("success", response.data.message);
         this.getData();
       } catch (e) {
-        console.log(e.response.data);
-        this.$alert.close();
+        console.log(e.response);
+
+        if (e.response.status == 400) {
+          console.log(e.response.data.error);
+          this.error_form = e.response.data.error;
+          this.interest.name = "Others";
+        }
+
         this.$alert.toast("error", "Please try again");
       }
     },

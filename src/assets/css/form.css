@@ -36,6 +36,10 @@
     /* color: #fff; */
 }
 
+.multiselect__placeholder {
+    color: #000 !important;
+}
+
 .multiselect__tags  {
     border:2px solid #dedede !important;
     border-radius: 15px !important;
@@ -43,11 +47,17 @@
     min-height: 10px !important;
     display: block;
     padding: 5px 40px 0 8px !important;
+    background: transparent !important;
+}
+
+.multiselect__input {
+    background: transparent !important;
 }
 
 .multiselect__single {
     font-size: .875rem !important;
     padding-top: 3px !important;
+    background: transparent !important;
 }
 
 .form-mentoring,
@@ -119,4 +129,47 @@ textarea:focus {
 
 .btn-danger, .btn-success, .btn-info, .btn-warning, .btn-outline-success, .btn-outline-danger {
     box-shadow: none !important;
+}
+
+
+input-group {
+  position: relative;
+}
+
+input-group input,
+input-group textarea
+ {
+  position: relative;
+  background: transparent !important;
+  margin-top: 15px;
+  z-index: 2;
+}
+
+input-group label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgb(47, 47, 47);
+  transform: translate(15px, 2px);
+  font-size: 0.7em;
+  transition: all 0.4s;
+  z-index: 1;
+}
+
+input-group span {
+    position: absolute;
+    z-index: 3;
+    font-size: 0.7em;
+    left: 15px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+input-group input:focus + label,
+input-group input:valid + label {
+  color: #000;
+  transform: translate(10px, -16px);
+  background: #fff;
+  padding: 0 4px;
+  z-index: 3;
 }

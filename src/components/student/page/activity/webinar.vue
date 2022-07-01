@@ -41,7 +41,7 @@
               <div class="card-body">
                 <!-- Career Industry  -->
                 <div>
-                  <Splide :options="options">
+                  <Splide :options="options" class="pb-2">
                     <SplideSlide v-for="i in webinar_data" :key="i">
                       <div class="frame m-0 p-0">
                         <iframe

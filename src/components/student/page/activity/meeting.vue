@@ -91,17 +91,17 @@
           <div class="row">
             <div class="col-md-6">
               <div class="mb-2">
-                <label>Call with</label>
                 <multiselect
                   v-model="user_select"
                   :options="user_list"
-                  placeholder="Select One"
+                  placeholder="Select one mentor"
                   deselect-label="Can't remove this value"
                   track-by="id"
                   :custom-label="customLabel"
                   :searchable="true"
                   :allow-empty="false"
                   @select="checkUser"
+                  style="margin-top: 13px"
                 >
                 </multiselect>
               </div>
@@ -110,58 +110,81 @@
               <div class="row">
                 <div class="col-7">
                   <div class="mb-2">
-                    <label>Meeting Date</label>
-                    <input
-                      v-model="meeting_date.date"
-                      :min="this.$customDate.tomorrowDateOnly()"
-                      type="date"
-                      class="form-mentoring w-100"
-                    />
+                    <input-group>
+                      <input
+                        v-model="meeting_date.date"
+                        :min="this.$customDate.tomorrowDateOnly()"
+                        :type="input.meeting"
+                        class="form-mentoring w-100"
+                        required
+                        @focus="input.meeting = 'date'"
+                        @blur="input.meeting = 'text'"
+                      />
+                      <label class="bg-secondary text-white"
+                        >Meeting Date</label
+                      >
+                    </input-group>
                   </div>
                 </div>
                 <div class="col-5">
                   <div class="mb-2">
-                    <label>Time</label>
-                    <input
-                      v-model="meeting_date.time"
-                      type="time"
-                      class="form-mentoring w-100"
-                    />
+                    <input-group>
+                      <input
+                        v-model="meeting_date.time"
+                        :type="input.time"
+                        class="form-mentoring w-100"
+                        @focus="input.time = 'time'"
+                        @blur="input.time = 'text'"
+                        required
+                      />
+                      <label class="bg-secondary text-white">Time</label>
+                    </input-group>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-8">
               <div class="mb-2">
-                <label>Location Link</label>
-                <input
-                  v-model="call_data.location_link"
-                  type="text"
-                  class="form-mentoring w-100"
-                />
+                <input-group>
+                  <input
+                    v-model="call_data.location_link"
+                    type="text"
+                    class="form-mentoring w-100"
+                    required
+                  />
+                  <label class="bg-secondary text-white">Location Link</label>
+                </input-group>
               </div>
             </div>
             <div class="col-md-4">
               <div class="mb-2">
-                <label>Password</label>
-                <input
-                  v-model="call_data.location_pw"
-                  type="text"
-                  class="form-mentoring w-100"
-                />
+                <input-group>
+                  <input
+                    v-model="call_data.location_pw"
+                    type="text"
+                    class="form-mentoring w-100"
+                  />
+                  <label class="bg-secondary text-white">Password</label>
+                </input-group>
               </div>
             </div>
             <div class="col-md-12">
               <div class="mb-2">
-                <label> Subject </label>
+                <label
+                  class="mt-2 mb-1 text-white w-100"
+                  style="font-size: 0.8em"
+                >
+                  Subject
+                </label>
                 <div
-                  class="row row-cols-md-4 row-cols-2 align-items-stretch mt-1"
+                  class="row row-cols-md-4 row-cols-2 align-items-stretch g-2"
                 >
                   <div class="col mb-2">
-                    <label>
+                    <label class="w-100">
                       <input
                         v-model="call_data.module"
                         type="radio"
+                        required
                         name="product"
                         class="card-input-element"
                         value="life skill"
@@ -172,10 +195,11 @@
                     </label>
                   </div>
                   <div class="col mb-2">
-                    <label>
+                    <label class="w-100">
                       <input
                         v-model="call_data.module"
                         type="radio"
+                        required
                         name="product"
                         class="card-input-element"
                         value="career exploration"
@@ -186,10 +210,11 @@
                     </label>
                   </div>
                   <div class="col mb-2">
-                    <label>
+                    <label class="w-100">
                       <input
                         v-model="call_data.module"
                         type="radio"
+                        required
                         name="product"
                         class="card-input-element"
                         value="university admission"
@@ -200,10 +225,11 @@
                     </label>
                   </div>
                   <div class="col mb-2">
-                    <label>
+                    <label class="w-100">
                       <input
                         v-model="call_data.module"
                         type="radio"
+                        required
                         name="product"
                         class="card-input-element"
                         value="life at university"
@@ -276,6 +302,10 @@ export default {
         call_date: "",
       },
       status: "",
+      input: {
+        meeting: "text",
+        time: "text",
+      },
     };
   },
   methods: {
@@ -358,12 +388,8 @@ export default {
 };
 </script>
 <style scoped>
-label {
-  width: 100%;
-}
-
-label::after {
-  content: "";
+input-group input:focus {
+  border: 2px solid #fff;
 }
 
 .card-input-element {
@@ -372,21 +398,22 @@ label::after {
 
 .card-input {
   width: 100%;
-  background: #fff;
-  border: 3px solid #fff;
-  color: #223872;
+  background: transparent;
+  border: 2px solid #dedede;
+  color: #1f1f21;
   text-align: center;
-  border-radius: 20px;
-  padding: 5px;
+  border-radius: 10px;
+  padding: 5px 10px;
   height: 65px;
   display: flex;
   align-items: center;
+  transition: all 0.4s;
 }
 
 .panel-heading {
   width: 100%;
   display: block;
-  font-size: 1.2em;
+  font-size: 0.8em;
   line-height: 1em;
   text-align: center;
 }
@@ -396,7 +423,6 @@ label::after {
 }
 
 .card-input-element:checked + .card-input {
-  border: 3px solid #fff;
   color: #fff;
   background: #223872;
 }

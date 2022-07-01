@@ -81,9 +81,7 @@
                 {{ i.dtl_name }}
               </div>
               <div class="rec-desc">
-                {{ $customText.text(i.dtl_desc, 100) }}
-
-                {{ $customText.excerpt(i.dtl_desc, 100) }}
+                {{ $customText.text(i.dtl_desc, 15) }}
               </div>
             </div>
           </div>

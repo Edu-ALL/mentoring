@@ -9,33 +9,40 @@
             class="vue-modal-logo"
           />
         </div>
-        <h3 class="text-secondary mb-4 text-center">
+        <h4 class="text-secondary mb-4 text-center">
           <strong> Login to Your Account </strong>
-        </h3>
+        </h4>
         <div class="mb-3">
-          <input
-            v-model="login.email"
-            type="text"
-            name="email"
-            class="form-control v-form"
-            placeholder="Email"
-          />
+          <div class="input-group">
+            <input
+              v-model="login.email"
+              type="email"
+              autocomplete="off"
+              class="form-control v-form"
+            />
+            <label>Email</label>
+          </div>
           <p class="text-warning mt-1 small" v-if="error_login.email">
             {{ error_login.email[0] }}
           </p>
         </div>
         <div class="mb-3">
-          <input
-            v-model="login.password"
-            type="password"
-            name="password"
-            placeholder="Password"
-            class="form-control v-form"
-          />
+          <div class="input-group">
+            <input
+              v-model="login.password"
+              type="password"
+              autocomplete="off"
+              class="form-control v-form"
+            />
+            <label>Password</label>
+          </div>
           <p class="text-warning mt-1 small" v-if="error_login.password">
             {{ error_login.password[0] }}
           </p>
-          <p class="mt-3 pointer" @click="this.$emit('show', 'forgot')">
+          <p
+            class="mt-3 pointer text-center"
+            @click="this.$emit('show', 'forgot')"
+          >
             Forgot Password
           </p>
         </div>
@@ -43,7 +50,7 @@
           <button class="btn btn-allin bg-secondary my-3 px-5" type="submit">
             <strong> Sign In </strong>
           </button>
-          <p class="mb-0">
+          <!-- <p class="mb-0">
             Don't have an account? <br />
             <u
               class="text-secondary pointer"
@@ -51,7 +58,7 @@
               >Take our profile quiz</u
             >
             to create one!
-          </p>
+          </p> -->
         </div>
       </form>
     </div>
@@ -106,3 +113,42 @@ export default {
   created() {},
 };
 </script>
+<style scoped>
+.form-control {
+  position: relative;
+  border: 2px solid #fff !important;
+  background: transparent !important;
+  color: #fff !important;
+  z-index: 1 !important;
+}
+
+input:focus,
+input:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.input-group {
+  position: relative;
+  z-index: 1;
+}
+
+.input-group label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  transform: translate(20px, 5px);
+  transition: all 0.4s;
+}
+
+input:focus + label,
+input:valid + label {
+  position: absolute;
+  color: #fff;
+  transform: translate(10px, -12px) scale(0.7);
+  background: #223872;
+  padding: 0 4px;
+  z-index: 2;
+}
+</style>

@@ -31,33 +31,42 @@
               <div class="field">
                 <div class="data">
                   <div class="mb-1">
-                    <small class="text-muted">School Subject</small>
-                    <input
-                      type="text"
-                      v-model="academic.subject"
-                      class="form-mentoring form-control-sm w-100"
-                    />
+                    <input-group>
+                      <input
+                        type="text"
+                        v-model="academic.subject"
+                        class="form-mentoring form-control-sm w-100"
+                        required
+                      />
+                      <label>School Subject</label>
+                    </input-group>
                   </div>
 
                   <div class="row">
                     <div class="col">
                       <div class="mb-1">
-                        <small class="text-muted">Score</small>
-                        <input
-                          type="number"
-                          v-model="academic.score"
-                          class="form-mentoring form-control-sm w-100"
-                        />
+                        <input-group>
+                          <input
+                            type="number"
+                            v-model="academic.score"
+                            required
+                            class="form-mentoring form-control-sm w-100"
+                          />
+                          <label>Score</label>
+                        </input-group>
                       </div>
                     </div>
                     <div class="col">
                       <div class="mb-1">
-                        <small class="text-muted">Max Score</small>
-                        <input
-                          type="number"
-                          v-model="academic.max_score"
-                          class="form-mentoring form-control-sm w-100"
-                        />
+                        <input-group>
+                          <input
+                            type="number"
+                            v-model="academic.max_score"
+                            required
+                            class="form-mentoring form-control-sm w-100"
+                          />
+                          <label>Max Score</label>
+                        </input-group>
                       </div>
                     </div>
                   </div>
@@ -83,12 +92,12 @@
               >
                 <td width="5%" align="center">{{ index + 1 }}</td>
                 <td>
-                  <div class="d-flex">
-                    <div class="text" style="width: 95%">
+                  <div class="d-flex align-items-center">
+                    <div class="text" style="width: 80%">
                       {{ i.school_subject }}
                     </div>
-                    <div class="score text-end" style="width: 10%">
-                      {{ i.score }} / {{ i.max_score }}
+                    <div class="score text-end" style="width: 20%">
+                      {{ i.score }}/{{ i.max_score }}
                     </div>
                   </div>
                 </td>

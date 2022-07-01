@@ -63,22 +63,26 @@
         <h6 class="mb-0">Publication Links</h6>
         <hr class="my-1 mb-3" />
         <div class="mb-2">
-          <label>Title</label>
-          <input
-            type="text"
-            v-model="link.subject[0]"
-            class="form-mentoring form-control-sm w-100"
-            placeholder="fill in the title here .."
-          />
+          <input-group>
+            <input
+              type="text"
+              v-model="link.subject[0]"
+              class="form-mentoring form-control-sm w-100"
+              required
+            />
+            <label>Title</label>
+          </input-group>
         </div>
         <div class="mb-3">
-          <label>URL</label>
-          <input
-            type="text"
-            v-model="link.value[0]"
-            class="form-mentoring form-control-sm w-100"
-            placeholder="fill in the url here .."
-          />
+          <input-group>
+            <input
+              type="text"
+              v-model="link.value[0]"
+              class="form-mentoring form-control-sm w-100"
+              required
+            />
+            <label>Hyperlink</label>
+          </input-group>
         </div>
         <div class="text-end">
           <button type="submit" class="btn-mentoring btn-sm py-1 bg-primary">

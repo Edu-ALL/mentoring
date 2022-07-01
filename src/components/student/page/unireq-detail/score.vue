@@ -74,80 +74,96 @@
             <h6>TOEFL Score</h6>
             <hr class="mt-1 mb-3" />
             <div class="mb-1">
-              <label>Reading</label>
-              <input
-                type="number"
-                v-model="scores.toefl_data.value[0]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.toefl_data.value[0]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Reading</label>
+              </input-group>
             </div>
             <div class="mb-1">
-              <label>Listening</label>
-              <input
-                type="number"
-                v-model="scores.toefl_data.value[1]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.toefl_data.value[1]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Listening</label>
+              </input-group>
             </div>
             <div class="mb-1">
-              <label>Speaking</label>
-              <input
-                type="number"
-                v-model="scores.toefl_data.value[2]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.toefl_data.value[2]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Speaking</label>
+              </input-group>
             </div>
             <div class="mb-1">
-              <label>Writing</label>
-              <input
-                type="number"
-                v-model="scores.toefl_data.value[3]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.toefl_data.value[3]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Writing</label>
+              </input-group>
             </div>
           </div>
           <div class="col-md-6">
             <h6>IELTS Score</h6>
             <hr class="mt-1 mb-3" />
             <div class="mb-1">
-              <label>Reading</label>
-              <input
-                type="number"
-                v-model="scores.ielts_data.value[0]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.ielts_data.value[0]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Reading</label>
+              </input-group>
             </div>
             <div class="mb-1">
-              <label>Listening</label>
-              <input
-                type="number"
-                v-model="scores.ielts_data.value[1]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.ielts_data.value[1]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Listening</label>
+              </input-group>
             </div>
             <div class="mb-1">
-              <label>Speaking</label>
-              <input
-                type="number"
-                v-model="scores.ielts_data.value[2]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.ielts_data.value[2]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Speaking</label>
+              </input-group>
             </div>
             <div class="mb-1">
-              <label>Writing</label>
-              <input
-                type="number"
-                v-model="scores.ielts_data.value[3]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="scores.ielts_data.value[3]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                />
+                <label>Writing</label>
+              </input-group>
             </div>
           </div>
         </div>
@@ -178,11 +194,13 @@ export default {
           category: "toefl",
           subject: ["reading", "listening", "speaking", "writing"],
           value: ["", "", "", ""],
+          input: ["text", "text", "text", "text"],
         },
         ielts_data: {
           category: "ielts",
           subject: ["reading", "listening", "speaking", "writing"],
           value: ["", "", "", ""],
+          input: ["text", "text", "text", "text"],
         },
       },
     };

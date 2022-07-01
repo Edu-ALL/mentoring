@@ -98,7 +98,7 @@
           <div class="col-md-4">
             <div class="field">
               <div class="label">Grade</div>
-              <div class="data">{{ mentee.grade }}</div>
+              <div class="data">{{ mentee.grade == 0 ? "-" : "" }}</div>
             </div>
           </div>
         </div>

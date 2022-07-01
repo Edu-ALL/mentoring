@@ -1,7 +1,7 @@
 <template>
   <div id="forgot">
     <div class="vue-modal vue-modal-sm bg-primary">
-      <form @submit.prevent="forgotProcess">
+      <form @submit.prevent="handleSubmit">
         <div class="text-center mb-4">
           <img
             src="@/assets/img/logo-white.webp"
@@ -19,14 +19,17 @@
                 Please enter your email and we'll send an email to reset your
                 password
               </div>
-              <input
-                v-model="forgot.email"
-                type="text"
-                name="email"
-                class="form-control v-form"
-                placeholder="Email"
-              />
-              <p class="text-danger small" v-if="error_forgot.email">
+              <input-group>
+                <input
+                  v-model="forgot.email"
+                  type="email"
+                  name="email"
+                  class="form-control v-form"
+                  required
+                />
+                <label class="bg-primary text-white mt-2">Email</label>
+              </input-group>
+              <p class="text-white small" v-if="error_forgot.email">
                 {{ error_forgot.email[0] }}
               </p>
               <div class="text-center">
@@ -47,6 +50,7 @@
               </div>
             </div>
           </transition>
+
           <transition name="fade">
             <div v-if="sent">
               <p class="text-center text-white">
@@ -84,6 +88,31 @@ export default {
     forgotProcess() {
       this.sent = true;
     },
+
+    async handleSubmit() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post("reset-password", this.forgot);
+
+        this.$alert.toast("success", response.data.message);
+        this.sent = true;
+        // console.log(response.data);
+      } catch (e) {
+        this.error_forgot = e.response.data.error;
+        if (e.response.status == 400) {
+          this.$alert.toast("error", e.response.data.error);
+        }
+        // console.log(e.response.data);
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+.form-control {
+  box-shadow: none !important;
+  outline: none !important;
+  color: #fff !important;
+}
+</style>> 

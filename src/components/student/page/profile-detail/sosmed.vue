@@ -41,6 +41,13 @@
                   v-model="sosmed.data[0].hyperlink"
                   :readonly="!edit"
                 />
+                <small
+                  class="text-danger"
+                  v-if="error_submit && error_submit['data.0.hyperlink']"
+                >
+                  <!-- {{ error_submit["data.0.hyperlink"][0] }} -->
+                  The field must be a valid url.
+                </small>
               </div>
             </div>
           </div>
@@ -62,6 +69,13 @@
                   v-model="sosmed.data[1].hyperlink"
                   :readonly="!edit"
                 />
+                <small
+                  class="text-danger"
+                  v-if="error_submit && error_submit['data.1.hyperlink']"
+                >
+                  <!-- {{ error_submit["data.1.hyperlink"][0] }} -->
+                  The field must be a valid url.
+                </small>
               </div>
             </div>
           </div>
@@ -83,9 +97,17 @@
                   v-model="sosmed.data[2].hyperlink"
                   :readonly="!edit"
                 />
+                <small
+                  class="text-danger"
+                  v-if="error_submit && error_submit['data.2.hyperlink']"
+                >
+                  <!-- {{ error_submit["data.2.hyperlink"][0] }} -->
+                  The field must be a valid url.
+                </small>
               </div>
             </div>
           </div>
+
           <div class="col-md-12 mb-3" v-if="edit">
             <div class="text-end">
               <button
@@ -131,6 +153,7 @@ export default {
           },
         ],
       },
+      error_submit: [],
     };
   },
   methods: {
@@ -163,11 +186,13 @@ export default {
           this.sosmed
         );
         this.edit = false;
-        console.log(response.data);
+        this.error_submit = [];
+        // console.log(response.data);
         this.$alert.toast("success", response.data.message);
         // this.$alert.close();
       } catch (e) {
-        console.log(e.response.data);
+        this.error_submit = e.response.data.error;
+        // console.log(e.response.data);
         this.$alert.close();
       }
     },

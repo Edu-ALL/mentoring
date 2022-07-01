@@ -53,23 +53,24 @@
         <div class="row">
           <div class="col">
             <div class="mb-1">
-              <label>Subject</label>
               <multiselect
                 v-model="score.subject[0]"
                 :options="options"
-                placeholder="Select One"
+                placeholder="Select AP subject"
               >
               </multiselect>
             </div>
             <div class="mb-1">
-              <label>Score</label>
-              <input
-                type="number"
-                v-model="score.value[0]"
-                max="30"
-                class="form-mentoring form-control-sm w-100"
-                required
-              />
+              <input-group>
+                <input
+                  type="number"
+                  v-model="score.value[0]"
+                  max="30"
+                  class="form-mentoring form-control-sm w-100"
+                  required
+                />
+                <label>Score</label>
+              </input-group>
             </div>
           </div>
         </div>

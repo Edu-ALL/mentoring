@@ -8,40 +8,45 @@
         </div>
         <div class="col-md-6">
           <div class="mb-2">
-            <label>Project Name</label>
-            <input
-              type="text"
-              v-model="group.project_name"
-              class="form-mentoring form-control-sm w-100"
-              required
-            />
+            <input-group>
+              <input
+                type="text"
+                v-model="group.project_name"
+                class="form-mentoring form-control-sm w-100"
+                required
+              />
+              <label class="bg-secondary text-white">Project Name</label>
+            </input-group>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-2">
-            <label>Project Type</label>
             <group-type
               v-model="group.project_type"
               :options="options"
-              placeholder="Select One"
+              placeholder="Select project type"
               required
               @select="interestCheck"
+              style="margin-top: 13px"
             >
             </group-type>
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-2">
-            <label>Invite Member</label>
-            <input
-              type="email"
-              class="form-mentoring w-100"
-              v-model="member"
-              @blur="validateEmail"
-              placeholder="add more member"
-              @keydown.enter.prevent="addMember"
-              @keydown.,.prevent="addMember"
-            />
+            <input-group>
+              <input
+                type="email"
+                class="form-mentoring w-100"
+                v-model="member"
+                placeholder="add members email here."
+                @blur="validateEmail"
+                @keydown.enter.prevent="addMember"
+                @keydown.tab.prevent="addMember"
+                @keydown.,.prevent="addMember"
+              />
+              <label class="bg-secondary text-white">Invite Member</label>
+            </input-group>
             <transition name="fade">
               <small class="text-danger d-block" v-if="error_member"
                 >Please enter a valid email</small
@@ -62,14 +67,16 @@
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label>Project Description</label>
-            <textarea
-              cols="30"
-              rows="10"
-              class="w-100"
-              v-model="group.project_desc"
-              required
-            ></textarea>
+            <input-group>
+              <span class="bg-secondary text-white">Project Description</span>
+              <textarea
+                cols="30"
+                rows="10"
+                class="w-100"
+                v-model="group.project_desc"
+                required
+              ></textarea>
+            </input-group>
           </div>
         </div>
         <div class="col-6">
@@ -119,11 +126,11 @@ export default {
     };
   },
   methods: {
-    addEmail(newEmail) {
-      const emails = { email: newEmail };
-      //   this.emailOptions.push(emails);
-      this.emails.push(emails);
-    },
+    // addEmail(newEmail) {
+    //   const emails = { email: newEmail };
+    //   //   this.emailOptions.push(emails);
+    //   this.emails.push(emails);
+    // },
 
     validateEmail(email) {
       var re =
@@ -178,7 +185,8 @@ export default {
             participant: this.members,
           }
         );
-        console.log(response.data);
+
+        // console.log(this.member);
         this.$emit("data", response.data);
       } catch (e) {
         console.log(e.response);
@@ -190,5 +198,14 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style scoped>
+input-group input:focus,
+input-group textarea:focus {
+  border: 2px solid #fff;
+}
+
+input::placeholder {
+  color: rgb(237, 237, 237) !important;
+  font-size: 0.8em;
+}
+</style>>

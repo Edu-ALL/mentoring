@@ -77,31 +77,42 @@
           <h5>New Group Meeting</h5>
           <hr class="my-0 mb-3" />
           <div class="mb-2">
-            <label>Meeting Subject</label>
-            <input
-              type="text"
-              class="form-mentoring w-100"
-              v-model="meeting.meeting_subject"
-            />
+            <input-group>
+              <input
+                type="text"
+                class="form-mentoring w-100"
+                required
+                v-model="meeting.meeting_subject"
+              />
+              <label class="bg-secondary text-white">Meeting Subject</label>
+            </input-group>
           </div>
 
           <div class="mb-2">
-            <label>Meeting Date</label>
-            <input
-              type="datetime-local"
-              :min="this.$customDate.tomorrow()"
-              class="form-mentoring w-100"
-              v-model="meeting.meeting_date"
-            />
+            <input-group>
+              <input
+                :type="input.meeting"
+                :min="this.$customDate.tomorrow()"
+                class="form-mentoring w-100"
+                v-model="meeting.meeting_date"
+                required
+                @focus="input.meeting = 'datetime-local'"
+                @blur="input.meeting = 'text'"
+              />
+              <label class="bg-secondary text-white">Meeting Date</label>
+            </input-group>
           </div>
 
           <div class="mb-3">
-            <label>Location Link</label>
-            <input
-              type="text"
-              class="form-mentoring w-100"
-              v-model="meeting.meeting_link"
-            />
+            <input-group>
+              <input
+                type="text"
+                class="form-mentoring w-100"
+                v-model="meeting.meeting_link"
+                required
+              />
+              <label class="bg-secondary text-white">Location Link</label>
+            </input-group>
           </div>
           <hr />
           <div class="row">
@@ -174,6 +185,7 @@ export default {
         meeting_link: "",
         status: "0",
       },
+      input: { meeting: "text" },
     };
   },
   methods: {
@@ -239,6 +251,16 @@ export default {
 </script>
 
 <style scoped>
+input-group input:focus,
+input-group textarea:focus {
+  border: 2px solid #fff;
+}
+
+input::placeholder {
+  color: rgb(237, 237, 237) !important;
+  font-size: 0.8em;
+}
+
 .list-group {
   font-size: 0.8em;
 }

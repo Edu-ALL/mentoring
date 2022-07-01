@@ -19,7 +19,7 @@
                 {{ i.project_type }}
               </span>
               <div class="project-desc mt-2">
-                {{ $customText.text(i.project_desc, 100) }}..
+                {{ $customText.text(i.project_desc, 20) }}
               </div>
               <hr class="my-2" />
               <div class="row align-items-center">

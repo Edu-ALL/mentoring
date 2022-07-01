@@ -1,16 +1,21 @@
 export const customText = {
-    text(i, n) {
-        var trimmedString = i.substr(0, n);
-        return trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")));
-    },
-
     removeDash(str) {
         return str.replaceAll('-', ' ');
     },
 
-    excerpt(text, number) {
-        let arr = text.split(' ')
-        let string = arr.length + ' - ' + number;
-        return string;
+    text(textToLimit, wordLimit) {
+        let finalText = '';
+        let text2 = textToLimit.replace(/\s+/g, ' ');
+        let text3 = text2.split(' ');
+        let numberOfWords = text3.length;
+        let i = 0;
+
+        if (numberOfWords > wordLimit) {
+            for (i = 0; i < wordLimit; i++) {
+                finalText = finalText + ' ' + text3[i] + ' ';
+            }
+            return finalText + '...';
+        }
+        else return textToLimit;
     }
 }

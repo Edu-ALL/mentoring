@@ -1,7 +1,7 @@
 <template>
   <div id="reset">
     <div class="vue-modal vue-modal-sm bg-primary">
-      <form @submit.prevent="resetProcess">
+      <form @submit.prevent="handleReset">
         <div class="text-center mb-4">
           <img
             src="@/assets/img/logo-white.webp"
@@ -22,7 +22,7 @@
                 class="form-control v-form"
                 placeholder="Email"
               />
-              <p class="text-danger small" v-if="error_reset.email">
+              <p class="text-white small" v-if="error_reset?.email">
                 {{ error_reset.email[0] }}
               </p>
             </div>
@@ -34,21 +34,18 @@
                 placeholder="New Password"
                 class="form-control v-form"
               />
-              <p class="text-danger small" v-if="error_reset.password">
+              <p class="text-white small" v-if="error_reset?.password">
                 {{ error_reset.password[0] }}
               </p>
             </div>
             <div class="mb-3">
               <input
-                v-model="reset.password_confirm"
+                v-model="reset.password_confirmation"
                 type="password"
                 name="password"
                 placeholder="Password Confirmation"
                 class="form-control v-form"
               />
-              <p class="text-danger small" v-if="error_reset.password">
-                {{ error_reset.password_confirm[0] }}
-              </p>
             </div>
             <div class="text-center">
               <button
@@ -86,14 +83,35 @@ export default {
       reset: {
         email: "",
         password: "",
-        password_confirm: "",
+        password_confirmation: "",
       },
       error_reset: [],
     };
   },
   methods: {
-    resetProcess() {
-      this.changed = true;
+    resetProcess() {},
+
+    async handleReset() {
+      let token = this.$route.params.token;
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.post(
+          "reset-password/" + token,
+          this.reset
+        );
+
+        this.$alert.toast("success", response.data.message);
+        this.changed = true;
+        console.log(response.data);
+      } catch (e) {
+        if (e.response.status == 400) {
+          this.$alert.toast("error", e.response.data.error);
+        } else {
+          this.error_reset = e.response.data.error;
+          this.$alert.close();
+          console.log(e.response.data);
+        }
+      }
     },
   },
 };

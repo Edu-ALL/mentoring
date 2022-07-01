@@ -67,30 +67,35 @@
                   <h6>Edit Group</h6>
                   <hr />
                   <div class="mb-2">
-                    <label>Group Name</label>
-                    <input
-                      v-model="group_info.project_name"
-                      type="text"
-                      class="form-mentoring form-control-sm w-100"
-                    />
+                    <input-group>
+                      <input
+                        v-model="group_info.project_name"
+                        type="text"
+                        required
+                        class="form-mentoring form-control-sm w-100"
+                      />
+                      <label>Group Name</label>
+                    </input-group>
                   </div>
                   <div class="mb-2">
-                    <label>Project Type</label>
                     <group-type
                       v-model="group_info.project_type"
                       :options="options"
-                      placeholder="Select One"
+                      placeholder="Select project type"
                       @select="interestCheck"
+                      class="mt-3"
                     >
                     </group-type>
                   </div>
                   <div class="mb-2">
-                    <label>Group Description</label>
-                    <textarea
-                      v-model="group_info.project_desc"
-                      class="form-mentoring w-100"
-                      rows="5"
-                    ></textarea>
+                    <input-group>
+                      <span class="bg-white">Group Description</span>
+                      <textarea
+                        v-model="group_info.project_desc"
+                        class="form-mentoring w-100"
+                        rows="5"
+                      ></textarea>
+                    </input-group>
                   </div>
                   <hr class="my-0 mb-2" />
                   <div class="text-end">
@@ -315,7 +320,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .member-role {
   font-size: 0.9em;

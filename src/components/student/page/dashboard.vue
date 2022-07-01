@@ -176,7 +176,7 @@
           </div>
 
           <div class="border p-4 mt-3">
-            <h5 class="text-center mb-3">GROUP MEETING</h5>
+            <h5 class="text-center mb-3">GROUP PROJECT</h5>
             <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="

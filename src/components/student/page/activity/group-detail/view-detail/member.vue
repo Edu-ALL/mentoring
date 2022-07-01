@@ -76,12 +76,15 @@
           <h5>Invite New Member</h5>
           <hr class="my-0 mb-3" />
           <div class="mb-3">
-            <label>Email</label>
-            <input
-              type="email"
-              class="form-mentoring w-100"
-              v-model="participant"
-            />
+            <input-group>
+              <input
+                type="email"
+                class="form-mentoring w-100"
+                v-model="participant"
+                required
+              />
+              <label class="bg-secondary text-white">Email</label>
+            </input-group>
           </div>
           <hr />
           <div class="row">
@@ -170,6 +173,16 @@ export default {
 </script>
 
 <style scoped>
+input-group input:focus,
+input-group textarea:focus {
+  border: 2px solid #fff;
+}
+
+input::placeholder {
+  color: rgb(237, 237, 237) !important;
+  font-size: 0.8em;
+}
+
 .members {
   font-size: 0.9em;
 }

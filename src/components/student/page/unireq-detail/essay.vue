@@ -93,13 +93,15 @@
       <form @submit.prevent="handleUpload" method="post">
         <div class="border p-2" v-if="tabModal == 'new'">
           <div class="mb-2">
-            <input
-              type="text"
-              class="form-mentoring form-control-sm w-100"
-              placeholder="fill in the file name here .."
-              v-model="file.name"
-              required
-            />
+            <input-group>
+              <input
+                type="text"
+                class="form-mentoring form-control-sm w-100"
+                v-model="file.name"
+                required
+              />
+              <label>File Name</label>
+            </input-group>
           </div>
           <div class="mb-2">
             <v-uni
@@ -165,12 +167,15 @@
         <hr class="mt-1 mb-3" />
         <div class="mb-2">
           <input v-model="media_id" hidden />
-          <input
-            type="text"
-            class="form-mentoring form-control-sm w-100"
-            placeholder="fill in the file name here .."
-            v-model="file.name"
-          />
+          <input-group>
+            <input
+              type="text"
+              class="form-mentoring form-control-sm w-100"
+              v-model="file.name"
+              required
+            />
+            <label>File Name</label>
+          </input-group>
         </div>
         <div class="mb-2">
           <v-uni

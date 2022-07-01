@@ -32,28 +32,39 @@
                 <div class="data">
                   <!-- new -->
                   <div class="mb-1">
-                    <small class="text-muted">Competition Name</small>
-                    <input
-                      type="text"
-                      v-model="competition.name"
-                      class="form-mentoring form-control-sm w-100"
-                    />
+                    <input-group>
+                      <input
+                        type="text"
+                        v-model="competition.name"
+                        required
+                        class="form-mentoring form-control-sm w-100"
+                      />
+                      <label>Competition Name</label>
+                    </input-group>
+                    <small></small>
+                  </div>
+
+                  <div class="mb-1">
+                    <input-group>
+                      <input
+                        type="text"
+                        v-model="competition.level"
+                        required
+                        class="form-mentoring form-control-sm w-100"
+                      />
+                      <label>Participation Level</label>
+                    </input-group>
                   </div>
                   <div class="mb-1">
-                    <small class="text-muted">Participation Level</small>
-                    <input
-                      type="text"
-                      v-model="competition.level"
-                      class="form-mentoring form-control-sm w-100"
-                    />
-                  </div>
-                  <div class="mb-1">
-                    <small class="text-muted">Accomplishment</small>
-                    <input
-                      type="text"
-                      v-model="competition.accomplishment"
-                      class="form-mentoring form-control-sm w-100"
-                    />
+                    <input-group>
+                      <input
+                        type="text"
+                        v-model="competition.accomplishment"
+                        class="form-mentoring form-control-sm w-100"
+                        required
+                      />
+                      <label>Accomplishment</label>
+                    </input-group>
                   </div>
 
                   <div class="text-end mt-3">
