@@ -243,6 +243,50 @@
         <!-- Uni shortlisted  -->
         <div class="col">
           <div class="border p-4">
+            <h5 class="text-center mb-3">GROUP MEETING</h5>
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.group_m">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  UPCOMING
+                  <div class="float-end">
+                    {{ meeting.group_m.upcoming }}
+                  </div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow rounded-2 mb-2" v-if="meeting.group_m">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                "
+              >
+                <div class="mt-title">
+                  HISTORY
+                  <div class="float-end">
+                    {{ meeting.group_m.history }}
+                  </div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border p-4 mt-3">
             <h5 class="text-center mb-3">UNIVERSITY SHORTLISTED</h5>
             <div class="card shadow rounded-2 mb-2">
               <div
