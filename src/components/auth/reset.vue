@@ -102,14 +102,14 @@ export default {
 
         this.$alert.toast("success", response.data.message);
         this.changed = true;
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         if (e.response.status == 400) {
           this.$alert.toast("error", e.response.data.error);
         } else {
           this.error_reset = e.response.data.error;
           this.$alert.close();
-          console.log(e.response.data);
+          // console.log(e.response.data);
         }
       }
     },

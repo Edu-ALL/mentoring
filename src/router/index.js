@@ -15,12 +15,6 @@ const routes = [
   },
 
   {
-    path: '/user/:menu?/:submenu?/:key?/:key2?',
-    name: 'studentPage',
-    component: () => import('../views/student/page')
-  },
-
-  {
     path: '/admin/:menu?/:submenu?/:key?',
     name: 'adminDashboard',
     props: true,
@@ -28,10 +22,16 @@ const routes = [
   },
 
   {
-    path: '/mentor/:menu?/:submenu?/:key?',
+    path: '/user/:menu?/:submenu?/:key?/:key2?',
+    name: 'studentPage',
+    component: () => import('../views/student/page')
+  },
+
+  {
+    path: '/mentor/:menu?/:submenu?/:key?/:key2?',
     name: 'mentorDashboard',
     props: true,
-    component: () => import('../views/mentor/dashboard')
+    component: () => import('../views/mentor/page')
   },
 
   {

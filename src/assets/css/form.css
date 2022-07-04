@@ -173,3 +173,8 @@ input-group input:valid + label {
   padding: 0 4px;
   z-index: 3;
 }
+
+.form-control {
+    box-shadow: none !important;
+    outline: none !important;
+}

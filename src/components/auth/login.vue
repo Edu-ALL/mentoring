@@ -1,6 +1,9 @@
 <template>
   <div id="login">
-    <div class="vue-modal vue-modal-sm bg-primary">
+    <div
+      class="vue-modal vue-modal-sm"
+      :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
+    >
       <form @submit.prevent="handleSubmit">
         <div class="text-center mb-4">
           <img
@@ -9,7 +12,10 @@
             class="vue-modal-logo"
           />
         </div>
-        <h4 class="text-secondary mb-4 text-center">
+        <h4
+          class="mb-4 text-center"
+          :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+        >
           <strong> Login to Your Account </strong>
         </h4>
         <div class="mb-3">
@@ -20,7 +26,10 @@
               autocomplete="off"
               class="form-control v-form"
             />
-            <label>Email</label>
+            <label
+              :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
+              >Email</label
+            >
           </div>
           <p class="text-warning mt-1 small" v-if="error_login.email">
             {{ error_login.email[0] }}
@@ -34,7 +43,10 @@
               autocomplete="off"
               class="form-control v-form"
             />
-            <label>Password</label>
+            <label
+              :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
+              >Password</label
+            >
           </div>
           <p class="text-warning mt-1 small" v-if="error_login.password">
             {{ error_login.password[0] }}
@@ -47,7 +59,11 @@
           </p>
         </div>
         <div class="text-center">
-          <button class="btn btn-allin bg-secondary my-3 px-5" type="submit">
+          <button
+            class="btn btn-allin my-3 px-5"
+            :class="login_as == 'student' ? 'bg-secondary' : 'bg-primary'"
+            type="submit"
+          >
             <strong> Sign In </strong>
           </button>
           <!-- <p class="mb-0">
@@ -59,6 +75,23 @@
             >
             to create one!
           </p> -->
+          <p>
+            Sign in as
+            <span
+              :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+              @click="login_as = 'mentor'"
+              v-if="login_as == 'student'"
+            >
+              Mentor</span
+            >
+            <span
+              :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+              @click="login_as = 'student'"
+              v-if="login_as == 'mentor'"
+            >
+              Student</span
+            >
+          </p>
         </div>
       </form>
     </div>
@@ -73,6 +106,7 @@ export default {
         email: "",
         password: "",
       },
+      login_as: "student",
       error_login: [],
     };
   },

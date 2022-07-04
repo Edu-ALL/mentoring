@@ -60,11 +60,11 @@
                       <div class="d-inline text-primary">#TakeOnYourFuture</div>
                       with us!
                     </h2>
-                    <div class="home-button">
+                    <!-- <div class="home-button">
                       <button class="btn btn-allin bg-secondary py-1">
                         Take Profile Quiz Now
                       </button>
-                    </div>
+                    </div> -->
                   </div>
                   <img
                     src="@/assets/img/home/homepage-1.webp"
@@ -94,11 +94,11 @@
                       with various academic backgrounds and work experiences to
                       provide tailored needs for our mentees.
                     </h2>
-                    <div class="home-button">
+                    <!-- <div class="home-button">
                       <button class="btn btn-allin bg-secondary py-1">
                         Take Profile Quiz Now
                       </button>
-                    </div>
+                    </div> -->
                   </div>
                   <img
                     src="@/assets/img/home/homepage-2.webp"
@@ -132,11 +132,11 @@
                         here!
                       </div>
                     </h2>
-                    <div class="home-button">
+                    <!-- <div class="home-button">
                       <button class="btn btn-allin bg-secondary py-1">
                         Take Profile Quiz Now
                       </button>
-                    </div>
+                    </div> -->
                   </div>
                   <img
                     src="@/assets/img/home/homepage-3.webp"
