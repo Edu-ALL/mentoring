@@ -9,7 +9,7 @@
 
       <div class="row row-cols-md-2 row-cols-1 g-2">
         <div class="col" v-for="i in groups.data" :key="i">
-          <div class="card card-group shadow" @click="detail(1)">
+          <div class="card card-group border shadow-sm" @click="detail(1)">
             <!-- <div class="card-status bg-success">
               <i class="fa-solid fa-thumbs-up mx-1"></i>
             </div> -->

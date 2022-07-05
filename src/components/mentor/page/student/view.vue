@@ -59,116 +59,39 @@
     <!-- Activity  -->
 
     <div class="card-white">
-      <button
-        class="btn-mentoring me-2"
-        :class="activity == '1on1' ? 'btn-type-1' : 'btn-type-2'"
-        @click="activity = '1on1'"
+      <div
+        class="overflow-auto d-flex w-100 mentoring-scroll w-100 py-2"
+        style="white-space: nowrap"
       >
-        1on1 Calls
-      </button>
-      <button
-        class="btn-mentoring me-2"
-        :class="activity == 'webinar' ? 'btn-type-1' : 'btn-type-2'"
-        @click="activity = 'webinar'"
-      >
-        Webinars
-      </button>
-      <button
-        class="btn-mentoring me-2"
-        :class="activity == 'event' ? 'btn-type-1' : 'btn-type-2'"
-        @click="activity = 'event'"
-      >
-        Join the Event
-      </button>
-      <button
-        class="btn-mentoring me-2"
-        :class="activity == 'files' ? 'btn-type-1' : 'btn-type-2'"
-        @click="activity = 'files'"
-      >
-        File Libraries
-      </button>
+        <button
+          class="btn-mentoring me-2 py-1 px-3"
+          :class="activity == i.slug ? 'btn-type-3' : 'btn-type-1'"
+          @click="activity = i.slug"
+          v-for="(i, index) in tab"
+          :key="index"
+        >
+          {{ i.name }}
+        </button>
+      </div>
 
-      <!-- 1on1 Calls  -->
+      <!-- Meetings -->
       <transition name="fade">
-        <div class="border p-3 rounded mt-3" v-if="activity == '1on1'">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr class="text-center">
-                  <th>No</th>
-                  <th>Call with</th>
-                  <th>Category</th>
-                  <th>Date & Time</th>
-                  <th>Status</th>
-                  <th>Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Devi Kasih</td>
-                  <td>Life Skill - Mentor</td>
-                  <td>
-                    <small>
-                      20 Feburary 2022 <br />
-                      14.00 WIB
-                    </small>
-                  </td>
-                  <td>Waiting</td>
-                  <td>-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <hr />
-          <nav class="mt-2">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
+        <v-meeting v-if="activity == 'meeting'" />
+      </transition>
+
+      <!-- Todos  -->
+      <transition name="fade">
+        <v-todos v-if="activity == 'todos'" />
+      </transition>
+
+      <!-- Group  -->
+      <transition name="fade">
+        <v-group v-if="activity == 'group'" />
       </transition>
 
       <!-- Webinar -->
       <transition name="fade">
-        <div class="border p-3 rounded mt-3" v-if="activity == 'webinar'">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr class="text-center">
-                  <th>No</th>
-                  <th>Webinar Name</th>
-                  <th>Date & Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>20 Feburary 2022</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <hr />
-          <nav class="mt-2">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
+        <v-webinar v-if="activity == 'webinar'" />
       </transition>
 
       <!-- Event -->
@@ -247,11 +170,30 @@
 </template>
 
 <script>
+import Meeting from "@/components/mentor/page/student/activity/meeting";
+import Todos from "@/components/mentor/page/student/activity/todos";
+import Group from "@/components/mentor/page/student/activity/group";
+import Webinar from "@/components/mentor/page/student/activity/webinar";
+
 export default {
   name: "studentDetail",
+  components: {
+    "v-meeting": Meeting,
+    "v-todos": Todos,
+    "v-group": Group,
+    "v-webinar": Webinar,
+  },
   data() {
     return {
-      activity: "1on1",
+      activity: "meeting",
+      tab: [
+        { slug: "meeting", name: "Meeting" },
+        { slug: "todos", name: "Todos" },
+        { slug: "group", name: "Group Project" },
+        { slug: "webinar", name: "Webinar" },
+        { slug: "uni_shortlisted", name: "University Shortlisted" },
+        { slug: "uni_requirement", name: "University Requirementes" },
+      ],
     };
   },
 };

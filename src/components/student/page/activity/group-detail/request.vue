@@ -9,7 +9,7 @@
 
       <div class="row row-cols-md-2 row-cols-1 g-2">
         <div class="col" v-for="i in groups.data" :key="i">
-          <div class="card card-group shadow">
+          <div class="card card-group border shadow-sm">
             <div class="card-body">
               <h5 class="mb-1">{{ i.project_name }}</h5>
               <span class="badge bg-secondary rounded-pill text-dark">

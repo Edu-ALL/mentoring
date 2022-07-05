@@ -22,9 +22,10 @@
                     <td nowrap>Full Name</td>
                     <td nowrap>Email</td>
                     <td nowrap>School Name</td>
-                    <td nowrap>Grade</td>
-                    <td nowrap class="text-center">Progress Status</td>
-                    <td nowrap class="text-end">Tags</td>
+                    <td nowrap>Current Grade</td>
+                    <td nowrap>Phone Number</td>
+                    <td nowrap>Progress Status</td>
+                    <td nowrap>Tags</td>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,7 +42,13 @@
                     <td nowrap>Email</td>
                     <td nowrap>School Name</td>
                     <td>Grade</td>
-                    <td nowrap class="text-center">
+                    <td nowrap>+62 812 2323 2312</td>
+                    <td nowrap>
+                      <button
+                        class="btn-mentoring py-0 px-3 btn-sm btn-type-2 mx-1"
+                      >
+                        Ahead
+                      </button>
                       <button
                         class="btn-mentoring py-0 px-3 btn-sm btn-type-2 mx-1"
                       >
@@ -52,24 +59,21 @@
                       >
                         Behind
                       </button>
-                      <button
-                        class="btn-mentoring py-0 px-3 btn-sm btn-type-2 mx-1"
-                      >
-                        Ahead
-                      </button>
                     </td>
-                    <td class="text-end" width="20%">
-                      <div class="d-flex align-items-center" v-if="add_tags">
-                        <select class="form-mentoring w-100 form-control-sm">
-                          <option value="val1">Value 1</option>
-                          <option value="val2">Value 2</option>
-                          <option value="val3">Value 3</option>
-                        </select>
-                        <i
-                          class="fa-solid fa-close ms-2 text-danger pointer"
-                          @click="add_tags = !add_tags"
-                        ></i>
-                      </div>
+                    <td width="20%">
+                      <transition name="fade">
+                        <div class="d-flex align-items-center" v-if="add_tags">
+                          <select class="form-mentoring w-100 form-control-sm">
+                            <option value="val1">Value 1</option>
+                            <option value="val2">Value 2</option>
+                            <option value="val3">Value 3</option>
+                          </select>
+                          <i
+                            class="fa-solid fa-close ms-2 text-danger pointer"
+                            @click="add_tags = !add_tags"
+                          ></i>
+                        </div>
+                      </transition>
                       <div class="d-flex flex-wrap align-items-center">
                         <div v-for="i in 3" :key="i">
                           <div class="badge bg-primary me-1">
