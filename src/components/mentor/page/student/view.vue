@@ -94,6 +94,11 @@
         <v-webinar v-if="activity == 'webinar'" />
       </transition>
 
+      <!-- Webinar -->
+      <transition name="fade">
+        <v-uni-shortlisted v-if="activity == 'uni_shortlisted'" />
+      </transition>
+
       <!-- Event -->
       <transition name="fade">
         <div class="border p-3 rounded mt-3" v-if="activity == 'event'">
@@ -174,6 +179,7 @@ import Meeting from "@/components/mentor/page/student/activity/meeting";
 import Todos from "@/components/mentor/page/student/activity/todos";
 import Group from "@/components/mentor/page/student/activity/group";
 import Webinar from "@/components/mentor/page/student/activity/webinar";
+import UniShortlisted from "@/components/mentor/page/student/activity/uni_shortlisted";
 
 export default {
   name: "studentDetail",
@@ -182,6 +188,7 @@ export default {
     "v-todos": Todos,
     "v-group": Group,
     "v-webinar": Webinar,
+    "v-uni-shortlisted": UniShortlisted,
   },
   data() {
     return {
