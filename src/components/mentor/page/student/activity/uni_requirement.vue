@@ -1,0 +1,154 @@
+<template>
+  <div id="uni_req">
+    <div class="border p-3 rounded mt-3">
+      <div
+        class="mb-3 overflow-auto d-flex w-100 mentoring-scroll"
+        style="white-space: nowrap"
+      >
+        <button
+          class="btn-mentoring btn-sm me-2 py-0 mt-2 mx-1"
+          :class="tab == 'all' ? 'bg-secondary' : 'btn-type-2'"
+          @click="checkTab('all')"
+        >
+          ALL
+        </button>
+        <!-- <div v-for="i in uni_list" :key="i">
+          <button
+            class="btn-mentoring btn-sm mt-1 me-2"
+            :class="tab == i.imported_id ? 'bg-secondary' : 'btn-type-2'"
+            @click="checkTab(i.imported_id)"
+          >
+            {{ i.uni_name }}
+          </button>
+        </div> -->
+      </div>
+      <v-essay />
+      <v-sat />
+      <v-lor />
+      <v-transcript />
+      <v-link />
+      <v-score />
+      <v-ap />
+    </div>
+  </div>
+</template>
+
+<script>
+import Essay from "@/components/mentor/page/student/activity/requirement/essay";
+import SAT from "@/components/mentor/page/student/activity/requirement/sat";
+import LOR from "@/components/mentor/page/student/activity/requirement/lor";
+import Transcript from "@/components/mentor/page/student/activity/requirement/transcript";
+import Link from "@/components/mentor/page/student/activity/requirement/link";
+import Score from "@/components/mentor/page/student/activity/requirement/score";
+import AP from "@/components/mentor/page/student/activity/requirement/ap";
+
+export default {
+  name: "UniReq",
+  components: {
+    "v-essay": Essay,
+    "v-sat": SAT,
+    "v-lor": LOR,
+    "v-transcript": Transcript,
+    "v-link": Link,
+    "v-score": Score,
+    "v-ap": AP,
+  },
+};
+</script>
+
+<style>
+.req-card {
+  position: relative;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  /* height: 200px; */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.req-card:hover .req-header {
+  background: #223872;
+  color: #fff;
+}
+
+.req-header {
+  background: #f3f3f3;
+  color: #f0ab54;
+  position: sticky;
+  font-size: 1.1em;
+  font-weight: 600;
+  top: 0;
+  z-index: 5;
+  transition: all 0.3s ease-in-out;
+}
+
+.req-body .card .docs-detail {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.req-body .card:hover .docs-detail {
+  filter: blur(2px);
+}
+
+/* Scroll  */
+/* width */
+.req-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.req-card::-webkit-scrollbar-track {
+  background: #223872;
+}
+
+/* Handle */
+.req-card::-webkit-scrollbar-thumb {
+  background: #ffc783;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.req-card::-webkit-scrollbar-thumb:hover {
+  background: #ffba66;
+}
+
+.docs {
+  border: 1px solid rgb(243, 243, 243);
+  font-weight: 500;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.docs-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 5px solid #223872;
+  background: #dedede;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s;
+}
+
+.docs:hover .docs-content {
+  top: 30%;
+  height: 70%;
+}
+
+.docs-content button i {
+  transition: all 0.8s;
+}
+
+.docs-content button:hover,
+.docs-content a:hover {
+  background: #223872 !important;
+}
+
+.docs-content button:hover i,
+.docs-content a:hover i {
+  color: #fff !important;
+}
+</style>

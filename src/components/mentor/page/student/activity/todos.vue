@@ -3,8 +3,8 @@
     <div class="border p-3 rounded mt-3">
       <div class="row row-cols-md-3 row-cols-1 g-3">
         <div class="col">
-          <div class="card border-1 shadow-sm my-2">
-            <div class="card-body py-3 text-center">
+          <div class="card border-1 shadow-sm my-2 btn-outline-primary">
+            <div class="card-body py-1 text-center">
               <i class="fa-solid fa-plus me-2"></i>
               New Todos
             </div>

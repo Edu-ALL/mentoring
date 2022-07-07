@@ -94,13 +94,18 @@
         <v-webinar v-if="activity == 'webinar'" />
       </transition>
 
-      <!-- Webinar -->
+      <!-- Unversity Shorlisted -->
       <transition name="fade">
         <v-uni-shortlisted v-if="activity == 'uni_shortlisted'" />
       </transition>
 
-      <!-- Event -->
+      <!-- University Requirements -->
       <transition name="fade">
+        <v-uni-requirement v-if="activity == 'uni_requirement'" />
+      </transition>
+
+      <!-- Event -->
+      <!-- <transition name="fade">
         <div class="border p-3 rounded mt-3" v-if="activity == 'event'">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -133,10 +138,10 @@
             </ul>
           </nav>
         </div>
-      </transition>
+      </transition> -->
 
       <!-- Files -->
-      <transition name="fade">
+      <!-- <transition name="fade">
         <div class="border p-3 rounded mt-3" v-if="activity == 'files'">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -169,7 +174,7 @@
             </ul>
           </nav>
         </div>
-      </transition>
+      </transition> -->
     </div>
   </div>
 </template>
@@ -180,6 +185,7 @@ import Todos from "@/components/mentor/page/student/activity/todos";
 import Group from "@/components/mentor/page/student/activity/group";
 import Webinar from "@/components/mentor/page/student/activity/webinar";
 import UniShortlisted from "@/components/mentor/page/student/activity/uni_shortlisted";
+import UniRequirement from "@/components/mentor/page/student/activity/uni_requirement";
 
 export default {
   name: "studentDetail",
@@ -189,6 +195,7 @@ export default {
     "v-group": Group,
     "v-webinar": Webinar,
     "v-uni-shortlisted": UniShortlisted,
+    "v-uni-requirement": UniRequirement,
   },
   data() {
     return {
