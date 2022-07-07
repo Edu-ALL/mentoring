@@ -156,6 +156,28 @@
       <div class="col-md-6">
         <div class="card-white">
           <h6 class="act-title text-secondary">
+            <div class="float-end">Attendance</div>
+            <div class="">Group Meetings</div>
+          </h6>
+          <table class="table">
+            <tbody>
+              <tr v-for="i in 3" :key="i" class="py-0">
+                <td>Group Name</td>
+                <td class="text-center">23 January 2022</td>
+                <td class="text-end">
+                  <button
+                    class="btn-mentoring btn-outline-success btn-sm py-1 px-3"
+                  >
+                    Yes
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-white mt-2">
+          <h6 class="act-title text-secondary">
             <div class="float-end">Upcoming</div>
             <div class="">Group Meetings</div>
           </h6>

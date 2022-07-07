@@ -4,7 +4,10 @@
       <div class="row row-cols-md-4 row-cols-1">
         <!-- Waitlisted  -->
         <div class="col">
-          <div class="card border-1 shadow-sm my-2 btn-outline-primary">
+          <div
+            class="card border-1 shadow-sm my-2 btn-outline-primary pointer"
+            @click="modal = 'add'"
+          >
             <div class="card-body py-1 text-center">
               <i class="fa-solid fa-plus me-2"></i>
               Add a New University
@@ -122,19 +125,76 @@
         </div>
       </div>
     </div>
+
+    <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+    <transition name="pop">
+      <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
+        <h6 class="my-0">New University</h6>
+        <hr class="mb-1" />
+        <form action="">
+          <div class="mt-2">
+            <v-uni
+              v-model="uni_select"
+              :options="uni_list"
+              placeholder="Select One"
+              deselect-label="Can't remove this value"
+              track-by="uni_name"
+              :custom-label="customUnilabel"
+              label="uni_name"
+              :searchable="true"
+              :allow-empty="false"
+              required
+              @select="uniListCheck"
+            >
+            </v-uni>
+          </div>
+          <div class="mb-3">
+            <input-group>
+              <input type="text" class="form-mentoring w-100" required />
+              <label>Major</label>
+            </input-group>
+          </div>
+          <hr class="my-1 mb-3" />
+          <div class="d-flex justify-content-between">
+            <button
+              class="btn-mentoring btn-outline-danger py-1 px-3"
+              type="button"
+              @click="modal = ''"
+            >
+              Cancel
+            </button>
+            <button class="btn-mentoring btn-success py-1 px-3" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import draggable from "vuedraggable";
+import Multiselect from "vue-multiselect";
+
 export default {
   name: "uniShortlisted",
   components: {
     draggable,
+    "v-uni": Multiselect,
   },
   data() {
     return {
       drag: false,
+      modal: "",
+      uni_select: [],
+      uni_list: [
+        {
+          id: "general",
+          uni_name: "General",
+          uni_major: "",
+        },
+      ],
       list: {
         item_1: [
           {

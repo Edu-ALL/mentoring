@@ -3,7 +3,10 @@
     <div class="border p-3 rounded mt-3">
       <div class="row row-cols-md-3 row-cols-1 g-3">
         <div class="col">
-          <div class="card border-1 shadow-sm my-2 btn-outline-primary">
+          <div
+            class="card border-1 shadow-sm my-2 btn-outline-primary pointer"
+            @click="modal = 'add'"
+          >
             <div class="card-body py-1 text-center">
               <i class="fa-solid fa-plus me-2"></i>
               New Todos
@@ -167,6 +170,47 @@
         </div>
       </div>
     </div>
+
+    <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+    <transition name="pop">
+      <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
+        <h6 class="my-0">New Todos</h6>
+        <hr class="mb-1" />
+        <form action="">
+          <div class="mt-0">
+            <input-group>
+              <input type="text" class="form-mentoring w-100" required />
+              <label>Subject</label>
+            </input-group>
+          </div>
+          <div class="mt-2">
+            <input-group>
+              <input type="date" class="form-mentoring w-100" />
+              <label>Deadline</label>
+            </input-group>
+          </div>
+          <div class="mt-2">
+            <input-group>
+              <span class="bg-white">Project Description</span>
+              <textarea cols="30" rows="5" class="w-100" required></textarea>
+            </input-group>
+          </div>
+          <hr class="my-1 mb-3" />
+          <div class="d-flex justify-content-between">
+            <button
+              class="btn-mentoring btn-outline-danger py-1 px-3"
+              type="button"
+              @click="modal = ''"
+            >
+              Cancel
+            </button>
+            <button class="btn-mentoring btn-success py-1 px-3" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -175,6 +219,7 @@ export default {
   name: "studentTodos",
   data() {
     return {
+      modal: "",
       todos_id: "",
     };
   },

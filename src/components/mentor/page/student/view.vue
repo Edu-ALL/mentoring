@@ -65,8 +65,8 @@
       >
         <button
           class="btn-mentoring me-2 py-1 px-3"
-          :class="activity == i.slug ? 'btn-type-3' : 'btn-type-1'"
-          @click="activity = i.slug"
+          :class="menus.key == i.slug ? 'btn-type-3' : 'btn-type-1'"
+          @click="goTab(i.slug)"
           v-for="(i, index) in tab"
           :key="index"
         >
@@ -76,32 +76,32 @@
 
       <!-- Meetings -->
       <transition name="fade">
-        <v-meeting v-if="activity == 'meeting'" />
+        <v-meeting v-if="menus.key == '' || menus.key == 'meeting'" />
       </transition>
 
       <!-- Todos  -->
       <transition name="fade">
-        <v-todos v-if="activity == 'todos'" />
+        <v-todos v-if="menus.key == 'todos'" />
       </transition>
 
       <!-- Group  -->
       <transition name="fade">
-        <v-group v-if="activity == 'group'" />
+        <v-group v-if="menus.key == 'group'" />
       </transition>
 
       <!-- Webinar -->
       <transition name="fade">
-        <v-webinar v-if="activity == 'webinar'" />
+        <v-webinar v-if="menus.key == 'webinar'" />
       </transition>
 
       <!-- Unversity Shorlisted -->
       <transition name="fade">
-        <v-uni-shortlisted v-if="activity == 'uni_shortlisted'" />
+        <v-uni-shortlisted v-if="menus.key == 'uni_shortlisted'" />
       </transition>
 
       <!-- University Requirements -->
       <transition name="fade">
-        <v-uni-requirement v-if="activity == 'uni_requirement'" />
+        <v-uni-requirement v-if="menus.key == 'uni_requirement'" />
       </transition>
 
       <!-- Event -->
@@ -208,7 +208,23 @@ export default {
         { slug: "uni_shortlisted", name: "University Shortlisted" },
         { slug: "uni_requirement", name: "University Requirementes" },
       ],
+      menus: [],
     };
+  },
+  methods: {
+    goTab(i) {
+      this.$router.push({
+        path: "/mentor/student/" + this.menus.submenu + "/" + i,
+      });
+    },
+  },
+  watch: {
+    $route(to) {
+      this.menus = to.params;
+    },
+  },
+  created() {
+    this.menus = this.$route.params;
   },
 };
 </script>
