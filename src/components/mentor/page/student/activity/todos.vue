@@ -18,31 +18,58 @@
             v-for="i in 5"
             :key="i"
           >
-            <div class="card-body py-3">
-              <div class="d-flex justify-content-between">
-                <div style="width: 10%">
-                  <i class="fa-regular fa-check-circle me-2 text-muted"></i>
+            <div class="card-body p-0">
+              <div
+                class="
+                  d-flex
+                  justify-content-between
+                  position-relative
+                  overflow-hidden
+                "
+              >
+                <div
+                  class="p-3 d-flex justify-content-between"
+                  style="width: 90%"
+                >
+                  <div style="width: 10%">
+                    <i class="fa-regular fa-check-circle me-2 text-muted"></i>
+                  </div>
+                  <div class="pointer" style="width: 90%" @click="todos_id = i">
+                    <div class="text-start p-0 m-0">
+                      <transition name="fade">
+                        <div class="short-desc" v-if="todos_id != i">
+                          Lorem ipsum dolor sit amet ...
+                        </div>
+                      </transition>
+                      <transition name="fade">
+                        <div class="long-desc" v-if="todos_id == i">
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Aut repellendus cum recusandae vel ipsum
+                          praesentium eligendi, officia quod fugit iste eaque,
+                          error aliquam debitis dolores itaque. Minima officia
+                          suscipit provident.
+                        </div>
+                      </transition>
+                      <small class="d-block mt-3 text-muted">
+                        <i class="fa-solid fa-calendar me-2"></i> September, 04
+                        2022
+                      </small>
+                    </div>
+                  </div>
                 </div>
-                <div class="pointer" style="width: 90%" @click="todos_id = i">
-                  <div class="text-start p-0 m-0">
-                    <transition name="fade">
-                      <div class="short-desc" v-if="todos_id != i">
-                        Lorem ipsum dolor sit amet ...
-                      </div>
-                    </transition>
-                    <transition name="fade">
-                      <div class="long-desc" v-if="todos_id == i">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Aut repellendus cum recusandae vel ipsum
-                        praesentium eligendi, officia quod fugit iste eaque,
-                        error aliquam debitis dolores itaque. Minima officia
-                        suscipit provident.
-                      </div>
-                    </transition>
-                    <small class="d-block mt-3 text-muted">
-                      <i class="fa-solid fa-calendar me-2"></i> September, 04
-                      2022
-                    </small>
+                <div class="todos_action m-0 p-0" style="width: 10%">
+                  <div
+                    class="
+                      bg-danger
+                      text-center
+                      h-100
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                    "
+                    style="border-radius: 0 5px 5px 0"
+                  >
+                    <i class="fa-solid fa-trash text-white"></i>
                   </div>
                 </div>
               </div>
@@ -69,57 +96,48 @@
                 "
               >
                 <div
-                  class="p-3 pointer"
+                  class="p-3 d-flex justify-content-between"
                   style="width: 90%"
-                  @click="todos_id = i"
                 >
-                  <div class="text-start p-0 m-0">
-                    <transition name="fade">
-                      <div class="short-desc" v-if="todos_id != i">
-                        Lorem ipsum dolor sit amet ...
-                      </div>
-                    </transition>
-                    <transition name="fade">
-                      <div class="long-desc" v-if="todos_id == i">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Aut repellendus cum recusandae vel ipsum
-                        praesentium eligendi, officia quod fugit iste eaque,
-                        error aliquam debitis dolores itaque. Minima officia
-                        suscipit provident.
-                      </div>
-                    </transition>
-                    <small class="d-block mt-3 text-muted">
-                      <i class="fa-solid fa-calendar me-2"></i> September, 04
-                      2022
-                    </small>
+                  <div style="width: 10%">
+                    <i class="fa-regular fa-check-circle me-2 text-muted"></i>
+                  </div>
+                  <div class="pointer" style="width: 90%" @click="todos_id = i">
+                    <div class="text-start p-0 m-0">
+                      <transition name="fade">
+                        <div class="short-desc" v-if="todos_id != i">
+                          Lorem ipsum dolor sit amet ...
+                        </div>
+                      </transition>
+                      <transition name="fade">
+                        <div class="long-desc" v-if="todos_id == i">
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Aut repellendus cum recusandae vel ipsum
+                          praesentium eligendi, officia quod fugit iste eaque,
+                          error aliquam debitis dolores itaque. Minima officia
+                          suscipit provident.
+                        </div>
+                      </transition>
+                      <small class="d-block mt-3 text-muted">
+                        <i class="fa-solid fa-calendar me-2"></i> September, 04
+                        2022
+                      </small>
+                    </div>
                   </div>
                 </div>
-                <div class="todos_action" style="width: 10%">
-                  <div
-                    class="
-                      bg-success
-                      text-center
-                      h-50
-                      d-flex
-                      align-items-center
-                      justify-content-center
-                    "
-                    style="border-radius: 0 5px 0 0"
-                  >
-                    <i class="fa-regular fa-check-circle text-white"></i>
-                  </div>
+                <div class="todos_action m-0 p-0" style="width: 10%">
                   <div
                     class="
                       bg-danger
                       text-center
-                      h-50
+                      h-100
                       d-flex
                       align-items-center
                       justify-content-center
                     "
-                    style="border-radius: 0 0 5px 0"
+                    style="border-radius: 0 5px 5px 0"
                   >
-                    <i class="fa-solid fa-close text-white"></i>
+                    <i class="fa-solid fa-trash text-white"></i>
                   </div>
                 </div>
               </div>
@@ -131,37 +149,65 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Completed</h6>
           </div>
+
           <div
             class="card border-1 shadow-sm my-2 card-todos text-muted"
             style="background: #f2efef; opacity: 0.7"
             v-for="i in 5"
             :key="i"
           >
-            <div class="card-body py-3">
-              <div class="d-flex justify-content-between">
-                <div style="width: 10%">
-                  <i class="fa-solid fa-check-circle me-2 text-success"></i>
+            <div class="card-body p-0">
+              <div
+                class="
+                  d-flex
+                  justify-content-between
+                  position-relative
+                  overflow-hidden
+                "
+              >
+                <div
+                  class="p-3 d-flex justify-content-between"
+                  style="width: 90%"
+                >
+                  <div style="width: 10%">
+                    <i class="fa-regular fa-check-circle me-2 text-muted"></i>
+                  </div>
+                  <div class="pointer" style="width: 90%" @click="todos_id = i">
+                    <div class="text-start p-0 m-0">
+                      <transition name="fade">
+                        <div class="short-desc" v-if="todos_id != i">
+                          Lorem ipsum dolor sit amet ...
+                        </div>
+                      </transition>
+                      <transition name="fade">
+                        <div class="long-desc" v-if="todos_id == i">
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Aut repellendus cum recusandae vel ipsum
+                          praesentium eligendi, officia quod fugit iste eaque,
+                          error aliquam debitis dolores itaque. Minima officia
+                          suscipit provident.
+                        </div>
+                      </transition>
+                      <small class="d-block mt-3 text-muted">
+                        <i class="fa-solid fa-calendar me-2"></i> September, 04
+                        2022
+                      </small>
+                    </div>
+                  </div>
                 </div>
-                <div class="pointer" style="width: 90%" @click="todos_id = i">
-                  <div class="text-start p-0 m-0">
-                    <transition name="fade">
-                      <div class="short-desc" v-if="todos_id != i">
-                        Lorem ipsum dolor sit amet ...
-                      </div>
-                    </transition>
-                    <transition name="fade">
-                      <div class="long-desc" v-if="todos_id == i">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Aut repellendus cum recusandae vel ipsum
-                        praesentium eligendi, officia quod fugit iste eaque,
-                        error aliquam debitis dolores itaque. Minima officia
-                        suscipit provident.
-                      </div>
-                    </transition>
-                    <small class="d-block mt-3 text-muted">
-                      <i class="fa-solid fa-calendar me-2"></i> September, 04
-                      2022
-                    </small>
+                <div class="todos_action m-0 p-0" style="width: 10%">
+                  <div
+                    class="
+                      bg-danger
+                      text-center
+                      h-100
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                    "
+                    style="border-radius: 0 5px 5px 0"
+                  >
+                    <i class="fa-solid fa-trash text-white"></i>
                   </div>
                 </div>
               </div>
@@ -237,10 +283,11 @@ export default {
 
 .todos_action {
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   right: -40px;
   height: 100%;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .card-todos:hover .todos_action {

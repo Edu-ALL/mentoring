@@ -117,7 +117,10 @@
         </div>
       </div>
     </div>
-    <v-detail v-if="menus.menu == 'student' && menus.submenu != ''" />
+    <v-detail
+      v-if="menus.menu == 'student' && menus.submenu != ''"
+      :menus="menus"
+    />
   </div>
 </template>
 

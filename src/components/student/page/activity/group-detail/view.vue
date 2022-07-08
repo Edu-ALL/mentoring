@@ -243,7 +243,7 @@ export default {
     async getData() {
       try {
         const response = await this.$axios.get(
-          "student/group/project/detail/" + this.groupId
+          "student/detail/group/project/" + this.groupId
         );
 
         this.group_info = response.data.data.group_info;

@@ -86,7 +86,7 @@
 
       <!-- Group  -->
       <transition name="fade">
-        <v-group v-if="menus.key == 'group'" />
+        <v-group v-if="menus.key == 'group'" :menus="menus" />
       </transition>
 
       <!-- Webinar -->
@@ -189,6 +189,9 @@ import UniRequirement from "@/components/mentor/page/student/activity/uni_requir
 
 export default {
   name: "studentDetail",
+  props: {
+    menus: Object,
+  },
   components: {
     "v-meeting": Meeting,
     "v-todos": Todos,
@@ -208,7 +211,6 @@ export default {
         { slug: "uni_shortlisted", name: "University Shortlisted" },
         { slug: "uni_requirement", name: "University Requirementes" },
       ],
-      menus: [],
     };
   },
   methods: {
@@ -218,14 +220,8 @@ export default {
       });
     },
   },
-  watch: {
-    $route(to) {
-      this.menus = to.params;
-    },
-  },
-  created() {
-    this.menus = this.$route.params;
-  },
+  watch: {},
+  created() {},
 };
 </script>
 

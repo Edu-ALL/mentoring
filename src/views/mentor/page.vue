@@ -36,19 +36,24 @@ export default {
         menu: "",
         submenu: "",
         key: "",
+        key2: "",
       },
     };
   },
-  updated() {
-    this.menus.menu = this.$route.params.menu;
-    this.menus.submenu = this.$route.params.submenu;
-    this.menus.key = this.$route.params.key;
+  watch: {
+    $route(to) {
+      this.menus.menu = to.params.menu;
+      this.menus.submenu = to.params.submenu;
+      this.menus.key = to.params.key;
+      this.menus.key2 = to.params.key2;
+    },
   },
   created() {
     document.title = "Mentor Dashboard";
     this.menus.menu = this.$route.params.menu;
     this.menus.submenu = this.$route.params.submenu;
     this.menus.key = this.$route.params.key;
+    this.menus.key2 = this.$route.params.key2;
   },
 };
 </script>

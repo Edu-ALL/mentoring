@@ -1,8 +1,8 @@
 <template>
   <div id="uniShortlisted">
     <div class="border p-3 rounded mt-3">
-      <div class="row row-cols-md-4 row-cols-1">
-        <!-- Waitlisted  -->
+      <div class="row row-cols-md-5 row-cols-1">
+        <!-- Shortlisted  -->
         <div class="col">
           <div
             class="card border-1 shadow-sm my-2 btn-outline-primary pointer"
@@ -15,15 +15,15 @@
           </div>
 
           <div class="card border-1 my-2 py-2 text-center bg-primary">
-            <h6 class="my-0">Waitlisted</h6>
+            <h6 class="my-0">Shortlisted</h6>
           </div>
 
           <draggable
             v-model="list.item_1"
             group="uniList"
             class="dragArea list-group"
-            tag="waitlisted"
-            :component-data="{ status: 'waitlisted' }"
+            tag="shortlisted"
+            :component-data="{ status: 'shortlisted' }"
             @start="drag = true"
             @end="drag = false"
             :move="newLog"
@@ -31,10 +31,23 @@
           >
             <template #item="{ element }">
               <div
-                class="card-uni border-1 shadow-sm px-3 py-2 mb-2 text-center"
+                class="
+                  card-uni
+                  border-1
+                  shadow-sm
+                  px-3
+                  py-2
+                  mb-2
+                  text-center
+                  position-relative
+                  overflow-hidden
+                "
               >
                 <h6 class="my-0">{{ element.name }}</h6>
                 <small>{{ element.major }}</small>
+                <div class="trash">
+                  <i class="fa-solid fa-trash text-white"></i>
+                </div>
               </div>
             </template>
           </draggable>
@@ -59,10 +72,23 @@
           >
             <template #item="{ element }">
               <div
-                class="card-uni border-1 shadow-sm px-3 py-2 mb-2 text-center"
+                class="
+                  card-uni
+                  border-1
+                  shadow-sm
+                  px-3
+                  py-2
+                  mb-2
+                  text-center
+                  position-relative
+                  overflow-hidden
+                "
               >
                 <h6 class="my-0">{{ element.name }}</h6>
                 <small>{{ element.major }}</small>
+                <div class="trash">
+                  <i class="fa-solid fa-trash text-white"></i>
+                </div>
               </div>
             </template>
           </draggable>
@@ -87,10 +113,23 @@
           >
             <template #item="{ element }">
               <div
-                class="card-uni border-1 shadow-sm px-3 py-2 mb-2 text-center"
+                class="
+                  card-uni
+                  border-1
+                  shadow-sm
+                  px-3
+                  py-2
+                  mb-2
+                  text-center
+                  position-relative
+                  overflow-hidden
+                "
               >
                 <h6 class="my-0">{{ element.name }}</h6>
                 <small>{{ element.major }}</small>
+                <div class="trash">
+                  <i class="fa-solid fa-trash text-white"></i>
+                </div>
               </div>
             </template>
           </draggable>
@@ -115,10 +154,64 @@
           >
             <template #item="{ element }">
               <div
-                class="card-uni border-1 shadow-sm px-3 py-2 mb-2 text-center"
+                class="
+                  card-uni
+                  border-1
+                  shadow-sm
+                  px-3
+                  py-2
+                  mb-2
+                  text-center
+                  position-relative
+                  overflow-hidden
+                "
               >
                 <h6 class="my-0">{{ element.name }}</h6>
                 <small>{{ element.major }}</small>
+                <div class="trash">
+                  <i class="fa-solid fa-trash text-white"></i>
+                </div>
+              </div>
+            </template>
+          </draggable>
+        </div>
+
+        <!-- Waitlisted  -->
+        <div class="col">
+          <div class="card border-1 my-2 py-2 text-center bg-primary">
+            <h6 class="my-0">Waitlisted</h6>
+          </div>
+
+          <draggable
+            v-model="list.item_5"
+            group="uniList"
+            class="dragArea list-group"
+            tag="waitlisted"
+            :component-data="{ status: 'waitlisted' }"
+            @start="drag = true"
+            @end="drag = false"
+            :move="newLog"
+            item-key="name"
+          >
+            <template #item="{ element }">
+              <div
+                class="
+                  card-uni
+                  border-1
+                  shadow-sm
+                  px-3
+                  py-2
+                  mb-2
+                  text-center
+                  position-relative
+                  overflow-hidden
+                "
+              >
+                <h6 class="my-0">{{ element.name }}</h6>
+                <small>{{ element.major }}</small>
+                <div class="trash">
+                  <i class="fa-solid fa-trash text-white"></i>
+                </div>
               </div>
             </template>
           </draggable>
@@ -274,6 +367,13 @@ export default {
             major: "Major Name",
           },
         ],
+        item_5: [
+          {
+            id: 1,
+            name: "University 15",
+            major: "Major Name",
+          },
+        ],
       },
     };
   },
@@ -293,5 +393,22 @@ export default {
 .card-uni {
   cursor: pointer;
   border: 1px solid #ededed;
+}
+
+.trash {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  border-radius: 40%;
+  padding: 9px 11px 5px 9px;
+  background: rgb(48, 78, 135);
+  font-size: 0.7em;
+  transition: all 0.3s;
+}
+
+.card-uni:hover .trash {
+  top: -5px;
+  right: -5px;
+  background: red;
 }
 </style>
