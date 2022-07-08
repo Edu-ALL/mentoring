@@ -60,7 +60,7 @@
 
     <div class="card-white">
       <div
-        class="overflow-auto d-flex w-100 mentoring-scroll w-100 py-2"
+        class="overflow-auto d-flex w-100 mentoring-scroll py-2"
         style="white-space: nowrap"
       >
         <button

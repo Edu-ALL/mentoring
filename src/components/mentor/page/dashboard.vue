@@ -95,9 +95,29 @@
     <div class="row mt-2 border py-3 px-2">
       <h5>Recent Activities</h5>
       <div class="col-md-6">
+        <div class="card-white mt-2">
+          <h6 class="act-title text-secondary">
+            <div class="float-end">Upcoming</div>
+            <div class="">Meetings</div>
+          </h6>
+          <table class="table">
+            <tbody>
+              <tr v-for="i in 3" :key="i" class="py-0">
+                <td>Full Name</td>
+                <td class="text-center">23 January 2022</td>
+                <td class="text-end">
+                  <button class="btn-mentoring btn-primary btn-sm py-1 px-3">
+                    Join
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div class="card-white">
           <h6 class="act-title text-secondary">
-            <div class="float-end">Request</div>
+            <div class="float-end">Latest</div>
             <div class="">Meetings</div>
           </h6>
           <table class="table">
@@ -114,37 +134,7 @@
                       mx-1
                     "
                   >
-                    Accept
-                  </button>
-                  <button
-                    class="
-                      btn-mentoring btn-outline-danger btn-sm
-                      py-1
-                      px-3
-                      mx-1
-                    "
-                  >
-                    Reject
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="card-white mt-2">
-          <h6 class="act-title text-secondary">
-            <div class="float-end">Upcoming</div>
-            <div class="">Meetings</div>
-          </h6>
-          <table class="table">
-            <tbody>
-              <tr v-for="i in 3" :key="i" class="py-0">
-                <td>Full Name</td>
-                <td class="text-center">23 January 2022</td>
-                <td class="text-end">
-                  <button class="btn-mentoring btn-primary btn-sm py-1 px-3">
-                    Join
+                    Add Result
                   </button>
                 </td>
               </tr>
