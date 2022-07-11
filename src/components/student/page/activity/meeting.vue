@@ -10,7 +10,7 @@
       </div>
       <!-- Tabs  -->
       <div class="row mt-3">
-        <div class="col-md-9 col-8 menu-tab">
+        <div class="col-md-12 col-12 menu-tab">
           <button
             class="btn-mentoring btn-sm mx-1"
             :class="tab == '' || tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
@@ -40,14 +40,14 @@
             History
           </button>
         </div>
-        <div class="col-md-3 col-4 text-end">
+        <!-- <div class="col-md-3 col-4 text-end">
           <button
             class="btn-mentoring btn-sm btn-type-3 mx-1"
             @click="modal = 'new'"
           >
             <i class="fa-solid fa-add"></i>
           </button>
-        </div>
+        </div> -->
       </div>
 
       <!-- Content  -->
