@@ -1,7 +1,7 @@
 <template>
   <div id="progress">
     <!-- LIST -->
-    {{ check }}
+    <!-- {{ check }} -->
     <div class="container mt-3">
       <div class="row p-4" v-if="groups.data && groups.data.length == 0">
         <div class="col text-center">

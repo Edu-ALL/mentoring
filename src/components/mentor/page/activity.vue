@@ -8,6 +8,7 @@
             <div class="list-group">
               <div
                 class="list-group-item list-group-item-action"
+                @click="goTo('')"
                 :class="!sidebar ? 'text-center' : ''"
               >
                 <i class="fa-solid fa-phone fa-fw me-2"></i>
@@ -15,6 +16,7 @@
               </div>
               <div
                 class="list-group-item list-group-item-action"
+                @click="goTo('group')"
                 :class="!sidebar ? 'text-center' : ''"
               >
                 <i class="fa-solid fa-users fa-fw me-2"></i>
@@ -39,7 +41,8 @@
         <div :class="sidebar ? 'col-md-9' : 'col-md-11'">
           <div class="card shadow-sm border-0">
             <div class="card-body">
-              <v-meeting />
+              <v-meeting v-if="menus.submenu == ''" />
+              <v-group v-if="menus.submenu == 'group'" />
             </div>
           </div>
         </div>
@@ -50,6 +53,7 @@
 
 <script>
 import Meeting from "@/components/mentor/page/activity/meeting";
+import Group from "@/components/mentor/page/activity/group";
 
 export default {
   name: "activity",
@@ -58,12 +62,18 @@ export default {
   },
   components: {
     "v-meeting": Meeting,
+    "v-group": Group,
   },
   data() {
     return {
       sidebar: true,
       view_pw: [],
     };
+  },
+  methods: {
+    goTo(to) {
+      this.$router.push({ path: "/mentor/activity/" + to });
+    },
   },
 };
 </script>
