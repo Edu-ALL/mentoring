@@ -202,7 +202,7 @@ export default {
       this.$axios
         .get(this.$url + "list/student/files", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -220,7 +220,7 @@ export default {
       this.$axios
         .get(link, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -249,7 +249,7 @@ export default {
       this.$axios
         .post(this.$url + "switch/student/files/" + data.id, files, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -270,7 +270,7 @@ export default {
       this.$axios
         .get(this.$url + "list/student/files?keyword=" + this.search.name, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

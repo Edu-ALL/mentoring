@@ -22,9 +22,9 @@
                     rounded-pill
                     bg-primary
                   "
+                  v-if="count.pending > 0"
                 >
-                  99+
-                  <span class="visually-hidden">unread messages</span>
+                  {{ count.pending > 99 ? "99+" : count.pending }}
                 </span>
               </button>
 
@@ -50,15 +50,19 @@
                     rounded-pill
                     bg-primary
                   "
+                  v-if="count.need_confirmation > 0"
                 >
-                  99+
-                  <span class="visually-hidden">unread messages</span>
+                  {{
+                    count.need_confirmation > 99
+                      ? "99+"
+                      : count.need_confirmation
+                  }}
                 </span>
               </button>
 
               <button
                 type="button"
-                class="btn-sm btn-mentoring position-relative"
+                class="btn-sm btn-mentoring position-relative me-3"
                 :class="menus.submenu == 'paid' ? 'btn-type-1' : ' btn-type-2'"
                 @click="this.$router.push({ path: '/admin/transactions/paid' })"
               >
@@ -73,9 +77,36 @@
                     rounded-pill
                     bg-primary
                   "
+                  v-if="count.paid > 0"
                 >
-                  99+
-                  <span class="visually-hidden">unread messages</span>
+                  {{ count.paid > 99 ? "99+" : count.paid }}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                class="btn-sm btn-mentoring position-relative"
+                :class="
+                  menus.submenu == 'expired' ? 'btn-type-1' : ' btn-type-2'
+                "
+                @click="
+                  this.$router.push({ path: '/admin/transactions/expired' })
+                "
+              >
+                Expired
+                <span
+                  class="
+                    position-absolute
+                    top-0
+                    start-100
+                    translate-middle
+                    badge
+                    rounded-pill
+                    bg-primary
+                  "
+                  v-if="count.expired > 0"
+                >
+                  {{ count.expired > 99 ? "99+" : count.expired }}
                 </span>
               </button>
             </div>
@@ -91,6 +122,9 @@
                 <transition name="fade">
                   <v-paid v-if="menus.submenu == 'paid'" />
                 </transition>
+                <transition name="fade">
+                  <v-expired v-if="menus.submenu == 'expired'" />
+                </transition>
               </div>
             </div>
           </div>
@@ -104,6 +138,7 @@
 import Pending from "@/components/admin/transaction/pending";
 import Confirm from "@/components/admin/transaction/confirm";
 import Paid from "@/components/admin/transaction/paid";
+import Expired from "@/components/admin/transaction/expired";
 
 export default {
   name: "transaction",
@@ -115,6 +150,35 @@ export default {
     "v-pending": Pending,
     "v-confirm": Confirm,
     "v-paid": Paid,
+    "v-expired": Expired,
+  },
+
+  data() {
+    return {
+      count: [],
+    };
+  },
+
+  methods: {
+    getCount() {
+      this.$axios
+        .get(this.$url + "overview/transaction", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.count = response.data.data;
+          // console.log(this.count);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+
+  created() {
+    this.getCount();
   },
 };
 </script>

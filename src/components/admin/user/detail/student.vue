@@ -210,6 +210,10 @@
               </tbody>
             </table>
           </div>
+          <div class="text-center" v-if="activities.webinars.from == null">
+            <hr />
+            <h6>Sorry, data is not found</h6>
+          </div>
           <nav class="mt-2" v-if="activities.webinars.from != null">
             <ul class="pagination justify-content-center">
               <li
@@ -298,6 +302,10 @@
               </tbody>
             </table>
           </div>
+          <div class="text-center" v-if="activities.events.from == null">
+            <hr />
+            <h6>Sorry, data is not found</h6>
+          </div>
           <nav class="mt-2" v-if="activities.events.from != null">
             <ul class="pagination justify-content-center">
               <li class="page-item" v-if="activities.events.current_page != 1">
@@ -381,6 +389,10 @@
               </tbody>
             </table>
           </div>
+          <div class="text-center" v-if="activities.files.from == null">
+            <hr />
+            <h6>Sorry, data is not found</h6>
+          </div>
           <nav class="mt-2" v-if="activities.files.from != null">
             <ul class="pagination justify-content-center">
               <li class="page-item" v-if="activities.files.current_page != 1">
@@ -458,7 +470,7 @@ export default {
       this.$axios
         .get(this.$url + "list/student?mail=" + email, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -475,9 +487,9 @@ export default {
     get1on1(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call?student_mail=" + email, {
+        .get(this.$url + "list/activities/1-on-1-call?mail=" + email, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -494,9 +506,9 @@ export default {
     getWebinar(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/webinar?student_mail=" + email, {
+        .get(this.$url + "list/activities/webinar?mail=" + email, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -513,9 +525,9 @@ export default {
     getEvent(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/event?student_mail=" + email, {
+        .get(this.$url + "list/activities/event?mail=" + email, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -532,9 +544,9 @@ export default {
     getFiles(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/student/files?mail" + email, {
+        .get(this.$url + "list/student/files?mail=" + email, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

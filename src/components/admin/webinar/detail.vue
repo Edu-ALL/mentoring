@@ -132,7 +132,7 @@ export default {
       this.$axios
         .get(this.$url + "find/programme/detail/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -147,7 +147,7 @@ export default {
     },
     deleteWebinar(id) {
       let link = this.$url + "delete/programme/detail/" + id;
-      let token = "Bearer " + this.$adminToken;
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "/admin/webinar");
     },
   },

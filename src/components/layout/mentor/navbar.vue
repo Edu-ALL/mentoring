@@ -17,6 +17,11 @@
                 alt=""
                 data-bs-toggle="dropdown"
               />
+              <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">My Profile</a></li>
+              <li><a class="dropdown-item" href="/mentor/myschedule">My Schedule</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
             </div>
             <div class="navbar-mentor-title float-end mt-2 me-2">
               Hello, Mentor Name

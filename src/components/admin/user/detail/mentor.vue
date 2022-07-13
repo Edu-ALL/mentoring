@@ -275,7 +275,7 @@ export default {
       this.$axios
         .get(this.$url + "find/user/mentor/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -291,7 +291,7 @@ export default {
       this.$axios
         .get(this.$url + "list/activities/1-on-1-call?id=" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -307,7 +307,7 @@ export default {
       this.$axios
         .get(this.$url + "select/students/use/user/" + id, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

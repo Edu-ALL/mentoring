@@ -24,9 +24,9 @@ methods: {
     getData() {
     this.$alert.loading();
     this.$axios
-        .get(this.$url + "list/activities/1-on-1-call/recent?status=confirmed", {
+        .get(this.$url + "activities/1-on-1-call/recent?status=confirmed", {
         headers: {
-            Authorization: "Bearer " + this.$mentorToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
         },
         })
         .then((response) => {

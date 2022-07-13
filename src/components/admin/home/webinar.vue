@@ -27,7 +27,7 @@ export default {
       this.$axios
         .get(this.$url + "list/activities/webinar/recent", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {

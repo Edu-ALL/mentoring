@@ -11,6 +11,9 @@
       <transition name="fade">
         <v-activity v-if="menus.menu == 'activity'" :menus="menus" />
       </transition>
+      <transition name="fade">
+        <v-schedule v-if="menus.menu == 'myschedule'" :menus="menus" />
+      </transition>
     </div>
   </div>
 </template>
@@ -21,6 +24,7 @@ import Navbar from "@/components/layout/mentor/navbar";
 import Home from "@/views/mentor/page/home";
 import Student from "@/views/mentor/page/student";
 import Activity from "@/views/mentor/page/activity";
+import Schedule from "@/views/mentor/page/myschedule";
 
 export default {
   name: "mentorDashboard",
@@ -29,6 +33,7 @@ export default {
     "v-home": Home,
     "v-student": Student,
     "v-activity": Activity,
+    "v-schedule": Schedule,
   },
   data() {
     return {

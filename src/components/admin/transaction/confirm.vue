@@ -1,8 +1,19 @@
 <template>
-  <div id="pending">
+  <div id="confirm">
     <div class="row mb-4">
       <div class="col-md-6 text-start">
-        <input type="text" class="form-mentoring" placeholder="Search" />
+        <input
+          type="text"
+          class="form-mentoring"
+          v-model="search.name"
+          @change="searchData"
+          placeholder="Search"
+        />
+        <br />
+        <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
+          {{ search.name }}
+          <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
+        </span>
       </div>
     </div>
     <div class="row">
@@ -30,7 +41,14 @@
                   i.student_activities.students.last_name
                 }}
               </td>
-              <td>Events</td>
+              <td>
+                <div v-if="!i.student_activities.programme_details">
+                  {{ i.student_activities.prog_id == 1 ? "1on1 Call" : "" }}
+                </div>
+                <div v-if="i.student_activities.programme_details">
+                  {{ i.student_activities.programme_details.dtl_name }}
+                </div>
+              </td>
               <td>
                 <i class="fa-regular fa-calendar fa-fw"></i>
                 {{ $customDate.date(i.created_at) }}
@@ -44,18 +62,22 @@
                 Check
               </td>
               <td>
-                <select name="" class="form-control form-mentoring" id="">
+                <select
+                  class="form-control form-mentoring"
+                  @change="confirmPayment(i.id)"
+                >
                   <option value="">Confirmation Need</option>
                   <option value="Confirmerd">Confirmed</option>
                 </select>
               </td>
               <td>
-                <button
+                <a
+                  :href="$base_url + 'transaction/' + i.trx_id + '/invoice'"
+                  target="_blank"
                   class="btn btn-sm btn-outline-info me-2"
-                  @click="report = 'invoice'"
                 >
                   <i class="fa-regular fa-file fa-fw"></i>Invoice
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
@@ -133,6 +155,10 @@ export default {
   },
   data() {
     return {
+      search: {
+        bar: false,
+        name: "",
+      },
       confirms: [],
       check: false,
       report: "",
@@ -143,12 +169,12 @@ export default {
       this.$axios
         .get(this.$url + "list/transaction/need-confirmation", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
           this.confirms = response.data.data;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -159,7 +185,7 @@ export default {
       this.$axios
         .get(link, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -169,6 +195,54 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    confirmPayment(i) {
+      this.$axios
+        .post(
+          this.$url + "switch/transaction/paid",
+          {
+            transaction_id: i,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then(() => {
+          this.$alert.toast("success", "Payment has been confirmed");
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/transaction/paid?keyword=" + this.search.name, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.paids = response.data.data;
+          this.search.bar = true;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getData();
     },
   },
   created() {

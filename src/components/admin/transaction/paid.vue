@@ -2,7 +2,18 @@
   <div id="paid">
     <div class="row mb-4">
       <div class="col-md-6 text-start">
-        <input type="text" class="form-mentoring" placeholder="Search" />
+        <input
+          type="text"
+          class="form-mentoring"
+          v-model="search.name"
+          @change="searchData"
+          placeholder="Search"
+        />
+        <br />
+        <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
+          {{ search.name }}
+          <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
+        </span>
       </div>
     </div>
     <div class="row">
@@ -30,7 +41,14 @@
                   i.student_activities.students.last_name
                 }}
               </td>
-              <td>Events</td>
+              <td>
+                <div v-if="!i.student_activities.programme_details">
+                  {{ i.student_activities.prog_id == 1 ? "1on1 Call" : "" }}
+                </div>
+                <div v-if="i.student_activities.programme_details">
+                  {{ i.student_activities.programme_details.dtl_name }}
+                </div>
+              </td>
               <td>
                 <i class="fa-regular fa-calendar fa-fw"></i>
                 {{ $customDate.date(i.created_at) }}
@@ -45,25 +63,31 @@
               </td>
               <td style="text-transform: capitalize">{{ i.status }}</td>
               <td>
-                <button
+                <!-- <a
+                  :href="$base_url + 'transaction/' + i.trx_id + '/invoice'"
+                  target="_blank"
                   class="btn btn-sm btn-outline-info me-2"
-                  @click="report = 'invoice'"
                 >
                   <i class="fa-regular fa-file fa-fw"></i>
                   Invoice
-                </button>
-                <button
+                </a> -->
+                <a
+                  :href="$base_url + 'transaction/' + i.trx_id + '/receipt'"
+                  target="_blank"
                   class="btn btn-sm btn-outline-success"
-                  @click="report = 'receipt'"
                 >
                   <i class="fa-regular fa-file fa-fw"></i>
                   Receipt
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
         </table>
-        <nav class="mt-2">
+        <div class="text-center" v-if="paids.from == null">
+          <hr />
+          <h6>Sorry, data is not found</h6>
+        </div>
+        <nav class="mt-2" v-if="paids.from != null">
           <ul class="pagination justify-content-center">
             <li class="page-item" v-if="paids.current_page != 1">
               <a class="page-link" @click="getPage(paids.links[0].url)">
@@ -131,6 +155,10 @@ export default {
   },
   data() {
     return {
+      search: {
+        bar: false,
+        name: "",
+      },
       paids: [],
       check: false,
       report: "",
@@ -141,12 +169,12 @@ export default {
       this.$axios
         .get(this.$url + "list/transaction/paid", {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
           this.paids = response.data.data;
-          console.log(response);
+          console.log(response.data.data);
         })
         .catch((error) => {
           console.log(error);
@@ -157,7 +185,7 @@ export default {
       this.$axios
         .get(link, {
           headers: {
-            Authorization: "Bearer " + this.$adminToken,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
@@ -167,6 +195,32 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "list/transaction/paid?keyword=" + this.search.name, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.$alert.close();
+          this.paids = response.data.data;
+          this.search.bar = true;
+          // console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getData();
     },
   },
   created() {
