@@ -9,7 +9,7 @@
 
       <div class="row row-cols-md-2 row-cols-1 g-2 pb-4">
         <div class="col" v-for="i in 3" :key="i">
-          <div class="card card-group border shadow-sm" @click="detail(i.id)">
+          <div class="card card-group border shadow-sm" @click="detail(i)">
             <!-- <div class="card-status bg-success">
               <i class="fa-solid fa-thumbs-up mx-1"></i>
             </div> -->
@@ -69,8 +69,39 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "completed",
+  data() {
+    return {};
+  },
+  methods: {
+    detail(i) {
+      this.$router.push({ path: "/mentor/activity/group/completed/" + i });
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
+.card-group {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-group:hover {
+  background: #223872;
+  color: #fff;
+}
+
+.card-status {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  padding: 10px 10px 4px 4px;
+  border-radius: 50%;
+  color: #fff;
+}
 </style>

@@ -3,10 +3,10 @@
     <div class="d-flex justify-content-between align-items-center">
       <h6>Meeting</h6>
       <button
-        class="btn-mentoring py-1 px-3 btn-sm btn-outline-primary"
+        class="btn-mentoring btn-sm py-1 btn-type-3 mx-1"
         @click="modal = 'new'"
       >
-        Set a Meeting
+        <i class="fa-solid fa-add"></i>
       </button>
     </div>
     <hr class="mt-2 mb-0" />

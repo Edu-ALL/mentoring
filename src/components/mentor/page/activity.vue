@@ -7,17 +7,17 @@
           <div class="sidebar">
             <div class="list-group">
               <div
-                class="list-group-item list-group-item-action"
+                class="list-group-item list-group-item-action pointer"
                 @click="goTo('')"
-                :class="!sidebar ? 'text-center' : ''"
+                :class="menus.submenu == '' ? 'bg-primary' : ''"
               >
                 <i class="fa-solid fa-phone fa-fw me-2"></i>
                 M<span v-if="sidebar">eetings </span>
               </div>
               <div
-                class="list-group-item list-group-item-action"
+                class="list-group-item list-group-item-action pointer"
                 @click="goTo('group')"
-                :class="!sidebar ? 'text-center' : ''"
+                :class="menus.submenu == 'group' ? 'bg-primary' : ''"
               >
                 <i class="fa-solid fa-users fa-fw me-2"></i>
                 G<span v-if="sidebar">roup Project</span>
@@ -42,7 +42,7 @@
           <div class="card shadow-sm border-0">
             <div class="card-body">
               <v-meeting v-if="menus.submenu == ''" />
-              <v-group v-if="menus.submenu == 'group'" />
+              <v-group v-if="menus.submenu == 'group'" :menus="menus" />
             </div>
           </div>
         </div>
