@@ -375,11 +375,7 @@ export default {
     saveEvent() {
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/programme/detail", this.event, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-          },
-        })
+        .post(this.$url + "create/programme/detail", this.event)
         .then((response) => {
           this.$alert.close();
           this.$alert.toast("success", "Event has been created");
@@ -398,11 +394,7 @@ export default {
       this.schedule.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/programme/schedule", this.schedule, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-          },
-        })
+        .post(this.$url + "create/programme/schedule", this.schedule)
         .then((response) => {
           this.$alert.close();
           this.$alert.toast("success", "Schedule has been created");
@@ -429,7 +421,7 @@ export default {
           this.$url + "select/programme-schedule/use/programme-detail/" + id,
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem('token'),
+              Authorization: "Bearer " + localStorage.getItem("token"),
             },
           }
         )
@@ -446,7 +438,7 @@ export default {
 
     delSchedule(id) {
       let link = this.$url + "delete/programme/schedule/" + id;
-      let token = "Bearer " + localStorage.getItem('token');
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "/admin/events/add");
     },
 
@@ -454,11 +446,7 @@ export default {
       this.speaker.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/speaker", this.speaker, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-          },
-        })
+        .post(this.$url + "create/speaker", this.speaker)
         .then((response) => {
           this.$alert.close();
           this.$alert.toast("success", "Speaker has been created");
@@ -474,11 +462,7 @@ export default {
     getSpeaker(id) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "select/speakers/use/programme-detail/" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-          },
-        })
+        .get(this.$url + "select/speakers/use/programme-detail/" + id)
         .then((response) => {
           this.$alert.close();
           this.speakerList = response.data;
@@ -492,7 +476,7 @@ export default {
 
     delSpeaker(id) {
       let link = this.$url + "delete/speaker/" + id;
-      let token = "Bearer " + localStorage.getItem('token');
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "/admin/events/add");
     },
 
@@ -500,11 +484,7 @@ export default {
       this.partner.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/partner", this.partner, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-          },
-        })
+        .post(this.$url + "create/partner", this.partner)
         .then((response) => {
           this.$alert.close();
           this.$alert.toast("success", "Speaker has been created");
@@ -520,11 +500,7 @@ export default {
     getPartner(id) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "select/partners/use/programme-detail/" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-          },
-        })
+        .get(this.$url + "select/partners/use/programme-detail/" + id)
         .then((response) => {
           this.$alert.close();
           this.partnerList = response.data;
@@ -538,7 +514,7 @@ export default {
 
     delPartner(id) {
       let link = this.$url + "delete/partner/" + id;
-      let token = "Bearer " + localStorage.getItem('token');
+      let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "/admin/events/add");
     },
 

@@ -88,11 +88,7 @@ export default {
   methods: {
     getMailError() {
       this.$axios
-        .get(this.$url + "list/mail/log/error", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/mail/log/error")
         .then((response) => {
           this.mails.error = response.data.data.data.length;
           console.log(this.mails.error);
@@ -103,11 +99,7 @@ export default {
     },
     getMailSuccess() {
       this.$axios
-        .get(this.$url + "list/mail/log/success", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/mail/log/success")
         .then((response) => {
           this.mails.success = response.data.data.data.length;
           console.log(this.mails.error);

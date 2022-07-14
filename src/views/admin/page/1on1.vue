@@ -115,11 +115,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/activities/1-on-1-call")
         .then((response) => {
           this.$alert.close();
           this.calls = response.data.data;
@@ -133,11 +129,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.calls = response.data.data;
           // console.log(response);

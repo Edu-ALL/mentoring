@@ -25,11 +25,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/event/recent", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/activities/event/recent")
         .then((response) => {
           this.$alert.close();
           this.list = response.data.data;

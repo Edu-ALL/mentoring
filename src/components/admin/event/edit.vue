@@ -520,11 +520,7 @@ export default {
     getData(i) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "find/programme/detail/" + i, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "find/programme/detail/" + i)
         .then((response) => {
           this.$alert.close();
           this.event_dtl = response.data.data;
@@ -575,11 +571,7 @@ export default {
       this.schedule.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/programme/schedule", this.schedule, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(this.$url + "create/programme/schedule", this.schedule)
         .then(() => {
           this.$alert.close();
           this.getData(this.event_id);
@@ -653,11 +645,7 @@ export default {
       this.speaker.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/speaker", this.speaker, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(this.$url + "create/speaker", this.speaker)
         .then(() => {
           this.$alert.close();
           this.getData(this.event_id);
@@ -684,11 +672,7 @@ export default {
       let id = this.speaker.id;
       this.$alert.loading();
       this.$axios
-        .put(this.$url + "update/speaker/" + id, this.speaker, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .put(this.$url + "update/speaker/" + id, this.speaker)
         .then(() => {
           this.$alert.close();
           this.getData(this.event_id);
@@ -721,11 +705,7 @@ export default {
       this.partner.prog_dtl_id = this.event_id;
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/partner", this.partner, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(this.$url + "create/partner", this.partner)
         .then(() => {
           this.$alert.close();
           this.getData(this.event_id);
@@ -753,11 +733,7 @@ export default {
       let id = this.partner.id;
       this.$alert.loading();
       this.$axios
-        .put(this.$url + "update/partner/" + id, this.partner, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .put(this.$url + "update/partner/" + id, this.partner)
         .then(() => {
           this.$alert.close();
           this.getData(this.event_id);

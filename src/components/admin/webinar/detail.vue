@@ -130,11 +130,7 @@ export default {
     getData(id) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "find/programme/detail/" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "find/programme/detail/" + id)
         .then((response) => {
           this.$alert.close();
           this.webinar = response.data.data;

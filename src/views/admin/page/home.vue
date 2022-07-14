@@ -121,11 +121,7 @@ export default {
     getusers() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "overview/admin/total", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "overview/admin/total")
         .then((response) => {
           this.$alert.close();
           this.users = response.data.data;

@@ -164,11 +164,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/programme/webinar", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/programme/webinar")
         .then((response) => {
           this.$alert.close();
           this.webinars = response.data.data;
@@ -182,11 +178,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.webinars = response.data.data;
           // console.log(response);
@@ -199,11 +191,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/programme/webinar?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/programme/webinar?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.webinars = response.data.data;

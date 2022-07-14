@@ -220,11 +220,7 @@ export default {
     getData(i) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "find/programme/detail/" + i, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "find/programme/detail/" + i)
         .then((response) => {
           this.$alert.close();
           this.event = response.data.data;

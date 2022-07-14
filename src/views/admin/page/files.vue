@@ -200,11 +200,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/student/files", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/student/files")
         .then((response) => {
           this.$alert.close();
           this.files = response.data.data;
@@ -218,11 +214,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.files = response.data.data;
           // console.log(response);
@@ -247,11 +239,7 @@ export default {
       };
 
       this.$axios
-        .post(this.$url + "switch/student/files/" + data.id, files, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(this.$url + "switch/student/files/" + data.id, files)
         .then((response) => {
           this.$alert.close();
           this.$alert.toast("success", response.data.message);
@@ -268,11 +256,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/student/files?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/student/files?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.files = response.data.data;

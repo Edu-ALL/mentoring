@@ -139,11 +139,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/mail/log/error", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/mail/log/error")
         .then((response) => {
           this.$alert.close();
           this.mails = response.data.data;
@@ -157,11 +153,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.mails = response.data.data;
           // console.log(response);
@@ -173,11 +165,7 @@ export default {
 
     solveMail(id) {
       this.$axios
-        .get(this.$url + "update/mail/log/" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "update/mail/log/" + id)
         .then((response) => {
           console.log(response.data);
           // this.$router.push({ path: "/admin/mail/success" });
@@ -190,11 +178,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/mail/log/error?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/mail/log/error?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.mails = response.data.data;

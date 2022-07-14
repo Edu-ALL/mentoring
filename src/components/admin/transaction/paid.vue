@@ -167,11 +167,7 @@ export default {
   methods: {
     getData() {
       this.$axios
-        .get(this.$url + "list/transaction/paid", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/transaction/paid")
         .then((response) => {
           this.paids = response.data.data;
           console.log(response.data.data);
@@ -183,11 +179,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.paids = response.data.data;
           // console.log(response);
@@ -200,11 +192,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/transaction/paid?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/transaction/paid?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.paids = response.data.data;

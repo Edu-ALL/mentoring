@@ -168,11 +168,7 @@ export default {
   methods: {
     getData(id) {
       this.$axios
-        .get(this.$url + "find/user/editor/" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "find/user/editor/" + id)
         .then((response) => {
           this.alumni = response.data.data;
           // console.log(response);
@@ -184,11 +180,7 @@ export default {
 
     getData1on1(id) {
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call?id=" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/activities/1-on-1-call?id=" + id)
         .then((response) => {
           this.activities.one_on_one = response.data.data;
           // console.log(response);
@@ -200,11 +192,7 @@ export default {
 
     getStudents(id) {
       this.$axios
-        .get(this.$url + "select/students/use/user/" + id, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "select/students/use/user/" + id)
         .then((response) => {
           this.activities.students = response.data.data;
           // console.log(response);

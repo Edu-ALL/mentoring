@@ -42,15 +42,11 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/transaction/all/recent", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/transaction/all/recent")
         .then((response) => {
           this.$alert.close();
           this.list = response.data.data;
-          console.log(response.data);
+          // console.log(response.data);
         })
         .catch((error) => {
           this.$alert.close();

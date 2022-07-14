@@ -109,11 +109,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/user/mentor", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/user/mentor")
         .then((response) => {
           this.$alert.close();
           this.mentors = response.data.data;
@@ -127,11 +123,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.mentors = response.data.data;
           // console.log(response);
@@ -144,11 +136,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "find/user/mentor?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "find/user/mentor?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.mentors = response.data.data;

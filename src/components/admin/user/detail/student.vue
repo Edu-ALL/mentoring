@@ -468,11 +468,7 @@ export default {
     getData(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/student?mail=" + email, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/student?mail=" + email)
         .then((response) => {
           this.$alert.close();
           this.student = response.data.data;
@@ -487,11 +483,7 @@ export default {
     get1on1(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call?mail=" + email, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/activities/1-on-1-call?mail=" + email)
         .then((response) => {
           this.$alert.close();
           this.activities.calls = response.data.data;
@@ -506,11 +498,7 @@ export default {
     getWebinar(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/webinar?mail=" + email, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/activities/webinar?mail=" + email)
         .then((response) => {
           this.$alert.close();
           this.activities.webinars = response.data.data;
@@ -525,11 +513,7 @@ export default {
     getEvent(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/event?mail=" + email, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/activities/event?mail=" + email)
         .then((response) => {
           this.$alert.close();
           this.activities.events = response.data.data;
@@ -544,11 +528,7 @@ export default {
     getFiles(email) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/student/files?mail=" + email, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/student/files?mail=" + email)
         .then((response) => {
           this.$alert.close();
           this.activities.files = response.data.data;

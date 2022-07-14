@@ -155,11 +155,7 @@ export default {
     save() {
       this.$alert.loading();
       this.$axios
-        .post(this.$url + "create/programme/detail", this.webinar, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(this.$url + "create/programme/detail", this.webinar)
         .then((response) => {
           this.$router.push({
             path: "/admin/webinar/detail/" + response.data.data.prog_detail.id,

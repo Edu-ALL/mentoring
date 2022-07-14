@@ -141,11 +141,7 @@ export default {
 
     getData() {
       this.$axios
-        .get(this.$url + "list/mail/log/success", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/mail/log/success")
         .then((response) => {
           this.mails = response.data.data;
           // console.log(response);
@@ -157,11 +153,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.mails = response.data.data;
           // console.log(response);
@@ -174,11 +166,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/mail/log/success?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/mail/log/success?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.mails = response.data.data;

@@ -143,11 +143,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/transaction/pending", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/transaction/pending")
         .then((response) => {
           this.$alert.close();
           this.pendings = response.data.data;
@@ -161,11 +157,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.pendings = response.data.data;
           // console.log(response);

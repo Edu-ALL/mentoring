@@ -162,11 +162,7 @@ export default {
   methods: {
     getCount() {
       this.$axios
-        .get(this.$url + "overview/transaction", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "overview/transaction")
         .then((response) => {
           this.count = response.data.data;
           // console.log(this.count);

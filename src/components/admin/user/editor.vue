@@ -108,11 +108,7 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/user/editor", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/user/editor")
         .then((response) => {
           this.$alert.close();
           this.editors = response.data.data;
@@ -126,11 +122,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.editors = response.data.data;
           // console.log(response);
@@ -143,11 +135,7 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "find/user/editor?keyword=" + this.search.name, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "find/user/editor?keyword=" + this.search.name)
         .then((response) => {
           this.$alert.close();
           this.editors = response.data.data;

@@ -15,6 +15,13 @@ const routes = [
   },
 
   {
+    path: '/admin/',
+    name: 'loginAdmin',
+    props: true,
+    component: () => import('../views/admin/login')
+  },
+
+  {
     path: '/admin/:menu?/:submenu?/:key?',
     name: 'adminDashboard',
     props: true,

@@ -46,12 +46,12 @@
               data-bs-toggle="dropdown"
             />
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li>
+                <a class="dropdown-item" @click="handleLogout">Sign Out</a>
+              </li>
             </ul>
           </div>
-          <div class="s-header-username">Hello, Username</div>
+          <div class="s-header-username">Hello, {{ admin.first_name }}</div>
         </div>
       </div>
       <div class="content-detail">
@@ -125,9 +125,27 @@ export default {
         submenu: "",
         id: "",
       },
+      admin: [],
     };
   },
   methods: {
+    async checkToken() {
+      const response = await this.$axios.get("auth/check");
+
+      if (response.data.success == false) {
+        localStorage.clear();
+        window.location.href = "/admin";
+        this.$alert.toast("error", "Your token is expired");
+      }
+      // console.log(response.data);
+    },
+
+    handleLogout() {
+      localStorage.clear();
+      this.$router.push({ path: "/" });
+      this.$alert.toast("success", "You Successfully Logout");
+    },
+
     sidebarProcess() {
       if (this.sidebar == false) {
         this.sidebar = true;
@@ -157,12 +175,22 @@ export default {
       return title;
     },
   },
-  updated() {
-    this.menus.menu = this.$route.params.menu;
-    this.menus.submenu = this.$route.params.submenu;
-    this.menus.id = this.$route.params.key;
+  watch: {
+    $route(to) {
+      this.menus.menu = to.params.menu;
+      this.menus.submenu = to.params.submenu;
+      this.menus.id = to.params.key;
+    },
   },
   created() {
+    if (localStorage.getItem("role") != "admin") {
+      window.location.href = "/";
+    } else {
+      this.admin = JSON.parse(localStorage.getItem("admin"));
+    }
+
+    this.checkToken();
+
     document.title = "Admin Dashboard";
     this.menus.menu = this.$route.params.menu;
     this.menus.submenu = this.$route.params.submenu;

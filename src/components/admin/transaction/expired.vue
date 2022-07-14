@@ -148,11 +148,7 @@ export default {
   methods: {
     getData() {
       this.$axios
-        .get(this.$url + "list/transaction/expired", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(this.$url + "list/transaction/expired")
         .then((response) => {
           this.expireds = response.data.data;
           // console.log(response);
@@ -164,11 +160,7 @@ export default {
 
     getPage(link) {
       this.$axios
-        .get(link, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .get(link)
         .then((response) => {
           this.expireds = response.data.data;
           // console.log(response);
