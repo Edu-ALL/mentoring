@@ -145,7 +145,36 @@ export default {
           // console.log(e.response);
         }
       } else if (this.login_as == "mentor") {
-        alert("login mentor");
+        // alert("login mentor");
+        try {
+          const response = await this.$axios.post("auth/u/login", {
+            email: this.login.email,
+            password: this.login.password,
+          });
+          this.$emit("show", "");
+
+          // Mentee Data
+          localStorage.setItem("role", "mentor");
+          localStorage.setItem("token", response.data.data.access_token);
+          localStorage.setItem(
+            "mentor",
+            JSON.stringify(response.data.data.mentor)
+          );
+          this.$alert.close();
+          this.$alert.toast("success", "You Successfully Login");
+
+          window.location.href = "/mentor";
+          // this.$router.push({ path: "/user" });
+        } catch (e) {
+          this.error_login = e.response.data.error;
+          if (e.response.status == 400) {
+            this.$emit("show", "");
+            this.$alert.toast("error", e.response.data.error);
+          } else {
+            this.$alert.close();
+          }
+          // console.log(e.response);
+        }
       }
     },
   },
