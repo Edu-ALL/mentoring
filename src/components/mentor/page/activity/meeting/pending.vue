@@ -115,6 +115,10 @@ export default {
     };
   },
   methods: {
+    async getData() {
+      // const response = await this.$axios.get('')
+    },
+
     cancelMeeting(id) {
       console.log(id);
       this.modal = "cancel";

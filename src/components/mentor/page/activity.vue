@@ -41,7 +41,7 @@
         <div :class="sidebar ? 'col-md-9' : 'col-md-11'">
           <div class="card shadow-sm border-0">
             <div class="card-body">
-              <v-meeting v-if="menus.submenu == ''" />
+              <v-meeting v-if="menus.submenu == ''" :menus="menus" />
               <v-group v-if="menus.submenu == 'group'" :menus="menus" />
             </div>
           </div>

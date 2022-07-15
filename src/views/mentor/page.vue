@@ -40,6 +40,18 @@ export default {
       },
     };
   },
+  methods: {
+    async checkToken() {
+      const response = await this.$axios.get("auth/check");
+
+      if (response.data.success == false) {
+        localStorage.clear();
+        window.location.href = "/";
+        this.$alert.toast("error", "Your token is expired");
+      }
+      // console.log(response.data);
+    },
+  },
   watch: {
     $route(to) {
       this.menus.menu = to.params.menu;
@@ -49,6 +61,14 @@ export default {
     },
   },
   created() {
+    if (localStorage.getItem("role") != "mentor") {
+      window.location.href = "/";
+    } else {
+      this.mentee = JSON.parse(localStorage.getItem("mentee"));
+    }
+
+    this.checkToken();
+
     document.title = "Mentor Dashboard";
     this.menus.menu = this.$route.params.menu;
     this.menus.submenu = this.$route.params.submenu;
