@@ -18,7 +18,7 @@
       <!-- IF EMPTY  -->
       <div class="row" v-if="toefl?.length == 0 && ielts?.length == 0">
         <div class="col text-center text-muted pb-4" @click="addScore">
-          Please add your publication links here.
+          No scores yet.
         </div>
       </div>
       <div class="row row-cols-md-2 row-cols-1">

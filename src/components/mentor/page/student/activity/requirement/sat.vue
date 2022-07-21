@@ -5,11 +5,18 @@
         <div class="d-flex justify-content-between p-2 py-1">
           <div class="text-start">SAT</div>
           <div class="text-end">
-            <i class="fa-solid fa-circle-xmark me-1 text-danger"></i>
-            <i class="fa-solid fa-circle-check me-1 text-success"></i>
+            <i
+              class="fa-solid fa-circle-xmark me-1 text-danger"
+              v-if="data?.length == 0"
+            ></i>
+            <i
+              class="fa-solid fa-circle-check me-1 text-success"
+              v-if="data?.length != 0"
+            ></i>
           </div>
         </div>
       </div>
+      <!-- {{ data }} -->
       <div class="req-body px-md-4 px-2 py-4">
         <div class="row">
           <div class="col">
@@ -72,7 +79,26 @@ export default {
       },
     };
   },
-  methods: {},
+  methods: {
+    checkData() {
+      let list = this.data;
+      if (list && list.length == 0) {
+        this.academic.value[0] = 0;
+        this.academic.value[1] = 0;
+      } else if (list) {
+        this.academic.value[0] = list[0].value;
+        this.academic.value[1] = list[1].value;
+      }
+    },
+  },
+  updated() {
+    if (this.academic.value[0] == null && this.academic.value[1] == null) {
+      this.checkData();
+    }
+  },
+  created() {
+    this.checkData();
+  },
 };
 </script>
 

@@ -29,65 +29,89 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(i, index) in 10" :key="index">
+                  <tr v-for="(i, index) in students_data.data" :key="index">
                     <td>{{ index + 1 }}</td>
-                    <td
-                      class="pointer"
-                      @click="
-                        this.$router.push({ path: '/mentor/student/' + i })
-                      "
-                    >
-                      Full Name
+                    <td nowrap class="pointer" @click="checkDetail(i.id)">
+                      {{ i.first_name + " " + i.last_name }}
                     </td>
-                    <td nowrap>Email</td>
-                    <td nowrap>School Name</td>
-                    <td>Grade</td>
-                    <td nowrap>+62 812 2323 2312</td>
+                    <td nowrap>{{ i.email }}</td>
+                    <td nowrap>{{ i.school_name }}</td>
+                    <td nowrap>{{ i.grade }}</td>
+                    <td nowrap>{{ i.phone_number }}</td>
                     <td nowrap>
                       <button
-                        class="btn-mentoring py-0 px-3 btn-sm btn-type-2 mx-1"
+                        @click="changeProgresStatus(i.id, 'ahead')"
+                        class="btn-mentoring py-0 px-3 btn-sm mx-1"
+                        :class="
+                          i.progress_status == 'ahead'
+                            ? 'btn-primary'
+                            : 'btn-type-2'
+                        "
                       >
                         Ahead
                       </button>
                       <button
-                        class="btn-mentoring py-0 px-3 btn-sm btn-type-2 mx-1"
+                        @click="changeProgresStatus(i.id, 'ontrack')"
+                        class="btn-mentoring py-0 px-3 btn-sm mx-1"
+                        :class="
+                          i.progress_status == 'ontrack'
+                            ? 'btn-primary'
+                            : 'btn-type-2'
+                        "
                       >
                         On-track
                       </button>
                       <button
-                        class="btn-mentoring py-0 px-3 btn-sm btn-type-2 mx-1"
+                        @click="changeProgresStatus(i.id, 'behind')"
+                        class="btn-mentoring py-0 px-3 btn-sm mx-1"
+                        :class="
+                          i.progress_status == 'behind'
+                            ? 'btn-primary'
+                            : 'btn-type-2'
+                        "
                       >
                         Behind
                       </button>
                     </td>
                     <td width="20%">
                       <transition name="fade">
-                        <div class="d-flex align-items-center" v-if="add_tags">
-                          <select class="form-mentoring w-100 form-control-sm">
+                        <div
+                          class="d-flex align-items-center"
+                          v-if="add_tags[index]"
+                        >
+                          <select
+                            v-model="tags_name"
+                            class="form-mentoring w-100 form-control-sm"
+                            @change="addTags(i.id, index)"
+                          >
                             <option value="val1">Value 1</option>
                             <option value="val2">Value 2</option>
                             <option value="val3">Value 3</option>
                           </select>
                           <i
                             class="fa-solid fa-close ms-2 text-danger pointer"
-                            @click="add_tags = !add_tags"
+                            @click="add_tags[index] = !add_tags[index]"
                           ></i>
                         </div>
                       </transition>
+                      <!-- {{i.tag}} -->
                       <div class="d-flex flex-wrap align-items-center">
-                        <div v-for="i in 3" :key="i">
+                        <div v-for="j in i.tag" :key="j">
                           <div class="badge bg-primary me-1">
-                            Tags {{ i }}
+                            {{ j }}
 
-                            <div class="badge bg-white ms-2 pointer">
+                            <div
+                              class="badge bg-white ms-2 pointer"
+                              @click="removeTags(i.id, j)"
+                            >
                               <i class="fa-solid fa-close text-danger"></i>
                             </div>
                           </div>
                         </div>
                         <div
                           class="pointer mt-1"
-                          v-if="!add_tags"
-                          @click="add_tags = !add_tags"
+                          v-if="!add_tags[index]"
+                          @click="add_tags[index] = !add_tags[index]"
                         >
                           <i
                             class="fa-solid fa-plus-square text-success"
@@ -100,16 +124,47 @@
                 </tbody>
               </table>
             </div>
-            <nav class="mt-2">
+            <nav class="mt-3" v-if="students_data.from != null">
               <ul class="pagination justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#">Previous</a>
+                <li class="page-item" v-if="students_data.current_page != 1">
+                  <a
+                    class="page-link"
+                    @click="getPage(students_data.links[0].url)"
+                  >
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
+                <div v-for="(i, index) in students_data.last_page" :key="index">
+                  <li
+                    class="page-item"
+                    v-if="
+                      students_data.current_page - 2 < i &&
+                      students_data.current_page + 2 > i
+                    "
+                  >
+                    <a
+                      class="page-link"
+                      :class="
+                        students_data.current_page == i
+                          ? 'bg-primary text-white'
+                          : ''
+                      "
+                      href="#"
+                      @click="getPage(students_data.path + '?page=' + i)"
+                      >{{ i }}</a
+                    >
+                  </li>
+                </div>
+                <li
+                  class="page-item"
+                  v-if="students_data.current_page != students_data.last_page"
+                >
+                  <a
+                    class="page-link"
+                    @click="getPage(students_data.next_page_url)"
+                  >
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -120,6 +175,7 @@
     <v-detail
       v-if="menus.menu == 'student' && menus.submenu != ''"
       :menus="menus"
+      :detail="students_detail"
     />
   </div>
 </template>
@@ -131,13 +187,101 @@ export default {
   props: {
     menus: Object,
   },
-  data() {
-    return {
-      add_tags: false,
-    };
-  },
+  // data() {
+  //   return {
+  //     add_tags: false,
+  //   };
+  // },
   components: {
     "v-detail": Detail,
+  },
+
+  data() {
+    return {
+      add_tags: [],
+      // category: [],
+      // webinar_data: [],
+      students_data: [],
+      tags_name: "",
+      students_detail: [],
+    };
+  },
+  methods: {
+    async changeProgresStatus(id, s) {
+      // alert(s)
+      try {
+        const response = await this.$axios.put(
+          "update/student/" + id + "/progress-status",
+          { progress: s }
+        );
+        this.getHistory();
+
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    async addTags(id, index) {
+      // alert(id + this.tags_name)
+      try {
+        const response = await this.$axios.put(
+          "update/student/" + id + "/tag",
+          { tag: this.tags_name }
+        );
+        // console.log(response)
+        if (response.data.success) {
+          this.getHistory();
+          this.tags_name = "";
+          this.add_tags[index] = false;
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    async removeTags(id, j) {
+      // alert(id + j)
+      try {
+        const response = await this.$axios.put(
+          "update/student/" + id + "/tag",
+          { remove_tag: j }
+        );
+        // console.log(response)
+        if (response.data.success) {
+          this.getHistory();
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+
+    async checkDetail(id) {
+      this.$router.push({ path: "/mentor/student/" + id });
+    },
+
+    async getHistory() {
+      try {
+        const response = await this.$axios.get("student/list");
+
+        this.students_data = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+  },
+  created() {
+    this.getHistory();
   },
 };
 </script>

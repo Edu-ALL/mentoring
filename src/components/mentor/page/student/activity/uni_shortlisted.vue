@@ -1,4 +1,5 @@
 <template>
+  <!-- {{ list.uni_rejected }} -->
   <div id="uniShortlisted">
     <div class="border p-3 rounded mt-3">
       <div class="row row-cols-md-5 row-cols-1">
@@ -8,7 +9,7 @@
             class="card border-1 shadow-sm my-2 btn-outline-primary pointer"
             @click="modal = 'add'"
           >
-            <div class="card-body py-1 text-center">
+            <div class="card-body py-1 text-center" nowrap>
               <i class="fa-solid fa-plus me-2"></i>
               Add a New University
             </div>
@@ -19,7 +20,7 @@
           </div>
 
           <draggable
-            v-model="list.item_1"
+            v-model="list.uni_shortlisted"
             group="uniList"
             class="dragArea list-group"
             tag="shortlisted"
@@ -43,8 +44,8 @@
                   overflow-hidden
                 "
               >
-                <h6 class="my-0">{{ element.name }}</h6>
-                <small>{{ element.major }}</small>
+                <h6 class="my-0">{{ element.uni_name }}</h6>
+                <small>{{ element.uni_major }}</small>
                 <div class="trash">
                   <i class="fa-solid fa-trash text-white"></i>
                 </div>
@@ -60,7 +61,7 @@
           </div>
 
           <draggable
-            v-model="list.item_2"
+            v-model="list.uni_applied"
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
@@ -84,8 +85,8 @@
                   overflow-hidden
                 "
               >
-                <h6 class="my-0">{{ element.name }}</h6>
-                <small>{{ element.major }}</small>
+                <h6 class="my-0">{{ element.uni_name }}</h6>
+                <small>{{ element.uni_major }}</small>
                 <div class="trash">
                   <i class="fa-solid fa-trash text-white"></i>
                 </div>
@@ -101,7 +102,7 @@
           </div>
 
           <draggable
-            v-model="list.item_3"
+            v-model="list.uni_accepted"
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
@@ -125,8 +126,8 @@
                   overflow-hidden
                 "
               >
-                <h6 class="my-0">{{ element.name }}</h6>
-                <small>{{ element.major }}</small>
+                <h6 class="my-0">{{ element.uni_name }}</h6>
+                <small>{{ element.uni_major }}</small>
                 <div class="trash">
                   <i class="fa-solid fa-trash text-white"></i>
                 </div>
@@ -142,7 +143,7 @@
           </div>
 
           <draggable
-            v-model="list.item_4"
+            v-model="list.uni_rejected"
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
@@ -166,8 +167,8 @@
                   overflow-hidden
                 "
               >
-                <h6 class="my-0">{{ element.name }}</h6>
-                <small>{{ element.major }}</small>
+                <h6 class="my-0">{{ element.uni_name }}</h6>
+                <small>{{ element.uni_major }}</small>
                 <div class="trash">
                   <i class="fa-solid fa-trash text-white"></i>
                 </div>
@@ -183,7 +184,7 @@
           </div>
 
           <draggable
-            v-model="list.item_5"
+            v-model="list.uni_waitlisted"
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
@@ -207,8 +208,8 @@
                   overflow-hidden
                 "
               >
-                <h6 class="my-0">{{ element.name }}</h6>
-                <small>{{ element.major }}</small>
+                <h6 class="my-0">{{ element.uni_name }}</h6>
+                <small>{{ element.uni_major }}</small>
                 <div class="trash">
                   <i class="fa-solid fa-trash text-white"></i>
                 </div>
@@ -276,10 +277,18 @@ export default {
     draggable,
     "v-uni": Multiselect,
   },
+  props: {
+    menus: Object,
+  },
   data() {
     return {
       drag: false,
       modal: "",
+      // uni_shortlisted: [],
+      // uni_waitlisted: [],
+      // uni_accepted: [],
+      // uni_applied: [],
+      // uni_rejected: [],
       uni_select: [],
       uni_list: [
         {
@@ -289,99 +298,37 @@ export default {
         },
       ],
       list: {
-        item_1: [
-          {
-            id: 1,
-            name: "University 13",
-            major: "Major Name",
-          },
-          {
-            id: 2,
-            name: "University 2",
-            major: "Major Name",
-          },
-          {
-            id: 3,
-            name: "University 1",
-            major: "Major Name",
-          },
-          {
-            id: 4,
-            name: "University 3",
-            major: "Major Name",
-          },
-        ],
-        item_2: [
-          {
-            id: 5,
-            name: "University 4",
-            major: "Major Name",
-          },
-          {
-            id: 6,
-            name: "University 5",
-            major: "Major Name",
-          },
-        ],
-        item_3: [
-          {
-            id: 1,
-            name: "University 7",
-            major: "Major Name",
-          },
-          {
-            id: 2,
-            name: "University 6",
-            major: "Major Name",
-          },
-          {
-            id: 3,
-            name: "University 8",
-            major: "Major Name",
-          },
-          {
-            id: 4,
-            name: "University 9",
-            major: "Major Name",
-          },
-        ],
-        item_4: [
-          {
-            id: 1,
-            name: "University 10",
-            major: "Major Name",
-          },
-          {
-            id: 2,
-            name: "University 11",
-            major: "Major Name",
-          },
-          {
-            id: 3,
-            name: "University 12",
-            major: "Major Name",
-          },
-          {
-            id: 4,
-            name: "University 14",
-            major: "Major Name",
-          },
-        ],
-        item_5: [
-          {
-            id: 1,
-            name: "University 15",
-            major: "Major Name",
-          },
-        ],
+        uni_shortlisted: [],
+        uni_waitlisted: [],
+        uni_accepted: [],
+        uni_applied: [],
+        uni_rejected: [],
       },
     };
   },
   methods: {
+    async getData() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get("select/shortlisted/" + id);
+        this.list.uni_shortlisted = response.data.data.shortlisted;
+        this.list.uni_waitlisted = response.data.data.waitlisted;
+        this.list.uni_accepted = response.data.data.accepted;
+        this.list.uni_applied = response.data.data.applied;
+        this.list.uni_rejected = response.data.data.rejected;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
     newLog(e) {
       console.log(e.relatedContext.component.componentData.status);
       console.log(e.draggedContext.element.id);
     },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

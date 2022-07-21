@@ -7,27 +7,33 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">New Request</h6>
           </div>
-          <div class="row row-cols-md-3 row-cols-1 g-2">
-            <div class="col" v-for="i in 2" :key="i">
+          <div
+            class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
+          >
+            <div
+              class="col"
+              v-for="(i, index) in new_request.data"
+              :key="index"
+            >
               <div class="card card-project shadow-sm" @click="detail(i)">
                 <div class="card-body">
-                  <h6 class="my-0">Group Project Name</h6>
+                  <h6 class="my-0">{{ i.project_name }}</h6>
                   <div
                     class="badge bg-secondary text-white"
                     style="border-radius: 10px"
                   >
-                    Group Project Type
+                    {{ i.project_type }}
                   </div>
                   <div class="group-desc mt-3">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Totam quidem, doloribus explicabo ...
+                    {{ $customText.text(i.project_desc, 20) }}
                   </div>
                   <hr class="my-1" />
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
                     <div class="">
-                      <i class="fa-solid fa-users me-2"></i> 3 Members
+                      <i class="fa-solid fa-users me-2"></i>
+                      {{ i.group_participant_count }} Members
                     </div>
                     <div class="">
                       <i class="fa-solid fa-arrow-right"></i>
@@ -45,27 +51,33 @@
             <h6 class="my-0">In Progress</h6>
           </div>
 
-          <div class="row row-cols-md-3 row-cols-1 g-2">
-            <div class="col" v-for="i in 3" :key="i">
+          <div
+            class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
+          >
+            <div
+              class="col"
+              v-for="(i, index) in in_progress.data"
+              :key="index"
+            >
               <div class="card card-project shadow-sm" @click="detail(i)">
                 <div class="card-body">
-                  <h6 class="my-0">Group Project Name</h6>
+                  <h6 class="my-0">{{ i.project_name }}</h6>
                   <div
                     class="badge bg-secondary text-white"
                     style="border-radius: 10px"
                   >
-                    Group Project Type
+                    {{ i.project_type }}
                   </div>
                   <div class="group-desc mt-3">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Totam quidem, doloribus explicabo ...
+                    {{ $customText.text(i.project_desc, 20) }}
                   </div>
                   <hr class="my-1" />
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
                     <div class="">
-                      <i class="fa-solid fa-users me-2"></i> 3 Members
+                      <i class="fa-solid fa-users me-2"></i>
+                      {{ i.group_participant_count }} Members
                     </div>
                     <div class="">
                       <i class="fa-solid fa-arrow-right"></i>
@@ -83,27 +95,33 @@
             <h6 class="my-0">History</h6>
           </div>
 
-          <div class="row row-cols-md-3 row-cols-1 g-2">
-            <div class="col" v-for="i in 1" :key="i">
+          <div
+            class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
+          >
+            <div
+              class="col"
+              v-for="(i, index) in history_project.data"
+              :key="index"
+            >
               <div class="card card-project shadow-sm" @click="detail(i)">
                 <div class="card-body">
-                  <h6 class="my-0">Group Project Name</h6>
+                  <h6 class="my-0">{{ i.project_name }}</h6>
                   <div
                     class="badge bg-secondary text-white"
                     style="border-radius: 10px"
                   >
-                    Group Project Type
+                    {{ i.project_type }}
                   </div>
                   <div class="group-desc mt-3">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Totam quidem, doloribus explicabo ...
+                    {{ $customText.text(i.project_desc, 20) }}
                   </div>
                   <hr class="my-1" />
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
                     <div class="">
-                      <i class="fa-solid fa-users me-2"></i> 3 Members
+                      <i class="fa-solid fa-users me-2"></i>
+                      {{ i.group_participant_count }} Members
                     </div>
                     <div class="">
                       <i class="fa-solid fa-arrow-right"></i>
@@ -135,17 +153,74 @@ export default {
   components: {
     "v-detail": Detail,
   },
+
+  data() {
+    return {
+      new_request: [],
+      in_progress: [],
+      history_project: [],
+    };
+  },
+
   methods: {
+    async newRequest() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "student/group/project/new/" + id
+        );
+        this.new_request = response.data.data;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async inProgress() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "student/group/project/in-progress/" + id
+        );
+        this.in_progress = response.data.data;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async historyProject() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "student/group/project/completed/" + id
+        );
+        this.history_project = response.data.data;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
     detail(i) {
       this.$router.push({
         path: "/mentor/student/" + this.menus.submenu + "/group/" + i,
       });
     },
   },
-  created() {},
+  created() {
+    this.newRequest();
+    this.inProgress();
+    this.historyProject();
+  },
 };
 </script>
 <style scoped>
+.max-height {
+  max-height: 200px;
+  overflow: auto;
+}
+
 .card-project {
   border: 1px solid #f1f1f1;
   cursor: pointer;

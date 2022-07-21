@@ -1,4 +1,5 @@
 <template>
+  <!-- {{ todos_waiting }} -->
   <div id="todos">
     <div class="border p-3 rounded mt-3">
       <div class="row row-cols-md-3 row-cols-1 g-3">
@@ -15,8 +16,8 @@
 
           <div
             class="card border-1 shadow-sm my-2 card-todos"
-            v-for="i in 5"
-            :key="i"
+            v-for="(i, index) in todos_waiting.waiting"
+            :key="index"
           >
             <div class="card-body p-0">
               <div
@@ -38,21 +39,17 @@
                     <div class="text-start p-0 m-0">
                       <transition name="fade">
                         <div class="short-desc" v-if="todos_id != i">
-                          Lorem ipsum dolor sit amet ...
+                          {{ i.task_name }}
                         </div>
                       </transition>
                       <transition name="fade">
                         <div class="long-desc" v-if="todos_id == i">
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Aut repellendus cum recusandae vel ipsum
-                          praesentium eligendi, officia quod fugit iste eaque,
-                          error aliquam debitis dolores itaque. Minima officia
-                          suscipit provident.
+                          {{ i.description }}
                         </div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
-                        <i class="fa-solid fa-calendar me-2"></i> September, 04
-                        2022
+                        <i class="fa-solid fa-calendar me-2"></i>
+                        {{ i.due_date }}
                       </small>
                     </div>
                   </div>
@@ -83,8 +80,8 @@
           </div>
           <div
             class="card border-1 shadow-sm my-2 card-todos"
-            v-for="i in 5"
-            :key="i"
+            v-for="(i, index) in todos_conf_need.confirmation_need"
+            :key="index"
           >
             <div class="card-body p-0">
               <div
@@ -106,21 +103,17 @@
                     <div class="text-start p-0 m-0">
                       <transition name="fade">
                         <div class="short-desc" v-if="todos_id != i">
-                          Lorem ipsum dolor sit amet ...
+                          {{ i.task_name }}
                         </div>
                       </transition>
                       <transition name="fade">
                         <div class="long-desc" v-if="todos_id == i">
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Aut repellendus cum recusandae vel ipsum
-                          praesentium eligendi, officia quod fugit iste eaque,
-                          error aliquam debitis dolores itaque. Minima officia
-                          suscipit provident.
+                          {{ i.description }}
                         </div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
-                        <i class="fa-solid fa-calendar me-2"></i> September, 04
-                        2022
+                        <i class="fa-solid fa-calendar me-2"></i
+                        >{{ i.due_date }}
                       </small>
                     </div>
                   </div>
@@ -153,8 +146,8 @@
           <div
             class="card border-1 shadow-sm my-2 card-todos text-muted"
             style="background: #f2efef; opacity: 0.7"
-            v-for="i in 5"
-            :key="i"
+            v-for="(i, index) in todos_confirmed.confirmed"
+            :key="index"
           >
             <div class="card-body p-0">
               <div
@@ -176,21 +169,17 @@
                     <div class="text-start p-0 m-0">
                       <transition name="fade">
                         <div class="short-desc" v-if="todos_id != i">
-                          Lorem ipsum dolor sit amet ...
+                          {{ i.task_name }}
                         </div>
                       </transition>
                       <transition name="fade">
                         <div class="long-desc" v-if="todos_id == i">
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Aut repellendus cum recusandae vel ipsum
-                          praesentium eligendi, officia quod fugit iste eaque,
-                          error aliquam debitis dolores itaque. Minima officia
-                          suscipit provident.
+                          {{ i.description }}
                         </div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
-                        <i class="fa-solid fa-calendar me-2"></i> September, 04
-                        2022
+                        <i class="fa-solid fa-calendar me-2"></i>
+                        {{ i.due_date }}
                       </small>
                     </div>
                   </div>
@@ -263,11 +252,35 @@
 <script>
 export default {
   name: "studentTodos",
+  props: {
+    menus: Object,
+  },
   data() {
     return {
       modal: "",
       todos_id: "",
+      todos_waiting: [],
+      todos_conf_need: [],
+      todos_confirmed: [],
     };
+  },
+
+  methods: {
+    async getData() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get("select/todos/" + id);
+        this.todos_waiting = response.data.data;
+        this.todos_conf_need = response.data.data;
+        this.todos_confirmed = response.data.data;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

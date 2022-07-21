@@ -1,4 +1,5 @@
 <template>
+  <!-- {{ student_meeting }} -->
   <div id="meetings">
     <div class="border p-3 rounded mt-3">
       <div class="table-responsive">
@@ -10,35 +11,94 @@
               <th>Subject</th>
               <th>Date & Time</th>
               <th>Status</th>
-              <th>Location</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center" v-for="i in 5" :key="i">
-              <td>{{ i }}</td>
-              <td>Devi Kasih</td>
-              <td>Life Skill</td>
+            <tr
+              class="text-center"
+              v-for="(i, index) in student_meeting.data"
+              :key="index"
+            >
+              <td>{{ index + 1 }}</td>
+
+              <td>
+                {{
+                  i.users.first_name +
+                  " " +
+                  i.users.last_name +
+                  " - " +
+                  i.call_with
+                }}
+              </td>
+              <td style="text-transform: capitalize">{{ i.module }}</td>
               <td>
                 <small>
-                  20 Feburary 2022 <br />
-                  14.00 WIB
+                  {{ $customDate.date(i.call_date) }} <br />
+                  {{ $customDate.time(i.call_date) }}
                 </small>
               </td>
-              <td>Waiting</td>
-              <td>-</td>
+              <td style="text-transform: capitalize">
+                <i
+                  class="fa-solid fa-ban text-danger"
+                  v-if="i.call_status == 'rejected'"
+                ></i>
+                <i
+                  class="fa-solid fa-clock text-info"
+                  v-if="i.call_status == 'waiting'"
+                ></i>
+                <i
+                  class="fa-solid fa-times-circle text-danger"
+                  v-if="i.call_status == 'canceled'"
+                ></i>
+                <i
+                  class="fa-solid fa-check-circle text-success"
+                  v-if="i.call_status == 'finished'"
+                ></i>
+                {{ i.call_status }}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <nav class="mt-2">
+      <nav class="mt-3" v-if="student_meeting.from != null">
         <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#">Previous</a>
+          <li class="page-item" v-if="student_meeting.current_page != 1">
+            <a class="page-link" @click="getPage(student_meeting.links[0].url)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <div v-for="(i, index) in student_meeting.last_page" :key="index">
+            <li
+              class="page-item"
+              v-if="
+                student_meeting.current_page - 2 < i &&
+                student_meeting.current_page + 2 > i
+              "
+            >
+              <a
+                class="page-link"
+                :class="
+                  student_meeting.current_page == i
+                    ? 'bg-primary text-white'
+                    : ''
+                "
+                href="#"
+                @click="getPage(student_meeting.path + '?page=' + i)"
+                >{{ i }}</a
+              >
+            </li>
+          </div>
+          <li
+            class="page-item"
+            v-if="student_meeting.current_page != student_meeting.last_page"
+          >
+            <a
+              class="page-link"
+              @click="getPage(student_meeting.next_page_url)"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -48,5 +108,31 @@
 <script>
 export default {
   name: "studentMeeting",
+  props: {
+    menus: Object,
+  },
+  data() {
+    return {
+      student_meeting: [],
+    };
+  },
+
+  methods: {
+    async getData() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "mentor/list/activities/1-on-1-call?student=" + id
+        );
+        this.student_meeting = response.data.data;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+  },
+  created() {
+    this.getData();
+  },
 };
 </script>
