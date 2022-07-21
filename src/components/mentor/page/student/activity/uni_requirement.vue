@@ -22,13 +22,17 @@
           </button>
         </div> -->
       </div>
-      <v-essay />
-      <v-sat />
-      <v-lor />
-      <v-transcript />
-      <v-link />
-      <v-score />
-      <v-ap />
+      <v-essay :data="documents.essay" @check="checkData" />
+      <v-sat :data="academic.sat" @check="checkData" />
+      <v-lor :data="documents.lor" @check="checkData" />
+      <v-transcript :data="documents.transcript" @check="checkData" />
+      <v-link :data="academic.publication_links" @check="checkData" />
+      <v-score
+        :toefl="academic.toefl"
+        :ielts="academic.ielts"
+        @check="checkData"
+      />
+      <v-ap :data="academic.ap_score" @check="checkData" />
     </div>
   </div>
 </template>
@@ -44,6 +48,9 @@ import AP from "@/components/mentor/page/student/activity/requirement/ap";
 
 export default {
   name: "UniReq",
+  props: {
+    menus: Object,
+  },
   components: {
     "v-essay": Essay,
     "v-sat": SAT,
@@ -52,6 +59,71 @@ export default {
     "v-link": Link,
     "v-score": Score,
     "v-ap": AP,
+  },
+
+  data() {
+    return {
+      tab: "all",
+      documents: [],
+      academic: [],
+      uni_list: [],
+    };
+  },
+  methods: {
+    checkData(i) {
+      if (i == "academic") {
+        this.getDataText();
+      } else if (i == "file") {
+        this.getDataDocument();
+      }
+    },
+
+    async getDataDocument() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "list/requirement/document/" + id
+        );
+
+        this.documents = response.data.data;
+        // console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getDataText() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "list/requirement/academic/" + id
+        );
+
+        this.academic = response.data.data;
+        console.log(response.data.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getUniList() {
+      const id = this.menus.submenu;
+      try {
+        const response = await this.$axios.get(
+          "student/university/shortlisted/" + id + "/all"
+        );
+
+        this.uni_list = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+  },
+  created() {
+    this.getDataDocument();
+    this.getDataText();
+    this.getUniList();
   },
 };
 </script>
