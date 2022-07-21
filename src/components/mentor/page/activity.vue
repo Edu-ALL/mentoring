@@ -22,6 +22,14 @@
                 <i class="fa-solid fa-users fa-fw me-2"></i>
                 G<span v-if="sidebar">roup Project</span>
               </div>
+              <div
+                class="list-group-item list-group-item-action pointer"
+                @click="goTo('last-meeting')"
+                :class="menus.submenu == 'last-meeting' ? 'bg-primary' : ''"
+              >
+                <i class="fa-solid fa-file fa-fw me-2"></i>
+                L<span v-if="sidebar">ast Meeting Minutes</span>
+              </div>
             </div>
             <div class="text-center mt-2 d-md-block d-none">
               <i
