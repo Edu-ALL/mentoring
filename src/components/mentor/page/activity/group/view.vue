@@ -9,18 +9,40 @@
         </div>
       </div>
       <div class="col-6 text-end">
-        <button class="btn-mentoring py-1 px-3 btn-sm btn-outline-success">
-          <i class="fa-solid fa-check me-2"></i>
+        <select
+          v-model="group_info.progress_status"
+          class="form-mentoring py-1 me-1"
+          :disabled="group_info.status != 'in progress'"
+          @change="changeProgress"
+        >
+          <option value="ahead">Ahead</option>
+          <option value="on-track">On-track</option>
+          <option value="behind">Behind</option>
+        </select>
+        <button
+          class="btn-mentoring py-1 px-3 btn-sm btn-outline-success"
+          @click="confirmStatus('completed')"
+          v-if="group_info.status == 'in progress'"
+        >
+          <i class="fa-solid fa-check me-1"></i>
           Complete
+        </button>
+        <button
+          class="btn-mentoring py-1 px-3 btn-sm btn-danger"
+          @click="confirmStatus('in progress')"
+          v-if="group_info.status != 'in progress'"
+        >
+          <i class="fa-solid fa-times me-1"></i>
+          Cancel
         </button>
       </div>
     </div>
     <hr class="my-1 mb-3" />
     <div class="row">
       <div class="col-md-7 mb-3">
-        <div class="card border-0 shadow mb-3" v-if="groups.group_info == null">
+        <div class="card border-0 shadow mb-3">
           <div class="card-body">
-            <div class="float-end">
+            <div class="float-end" v-if="mentor.id == group_info.user_id">
               <i
                 class="fa-solid fa-edit pointer"
                 v-if="!editGroup"
@@ -34,21 +56,18 @@
             </div>
             <!-- Detail  -->
             <div class="" v-if="!editGroup">
-              <h5>Project Name</h5>
+              <h5>{{ group_info.project_name }}</h5>
               <span class="badge bg-secondary rounded-pill text-dark">
-                Project Type
+                {{ group_info.project_type }}
               </span>
               <div class="project-desc mt-2">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint
-                sequi illum quibusdam porro. Amet inventore odit, aliquam, quas
-                sunt harum non tempore, ducimus natus placeat minima labore
-                illum tenetur. Aliquam.
+                {{ group_info.project_desc }}
               </div>
               <div class="row mt-3 align-items-center">
                 <div class="col-6">
                   <small class="text-muted"
                     ><i class="fa-solid fa-calendar me-2"></i>
-                    24 July 2022
+                    {{ $customDate.date(group_info_updated_at) }}
                   </small>
                 </div>
                 <!-- <div class="col-6 text-end">
@@ -140,6 +159,35 @@
       </div>
     </div>
   </div>
+
+  <div class="vue-modal-overlay" v-if="modal != ''"></div>
+  <!-- Completed Group  -->
+  <transition name="pop">
+    <div
+      class="vue-modal vue-modal-sm bg-primary text-center"
+      v-if="modal == 'confirm'"
+    >
+      <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
+      <h5 class="mt-3 mb-3" v-if="confirm_status == 'completed'">
+        Are you sure to completing this group?
+      </h5>
+      <h5 class="mt-3 mb-3" v-if="confirm_status == 'in progress'">
+        Are you sure this group back to in progress?
+      </h5>
+      <button
+        class="btn-mentoring btn-sm py-1 btn-danger mx-1"
+        @click="modal = ''"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn-mentoring btn-sm py-1 btn-outline-success mx-1"
+        @click="changeStatus()"
+      >
+        Yes
+      </button>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -160,25 +208,146 @@ export default {
   },
   data() {
     return {
+      modal: "",
       editGroup: false,
       editMember: false,
       groupType: "",
       options: ["Group Mentoring", "Profile Building Mentoring"],
       groupId: "",
+      mentor: [],
       groups: [],
       group_info: [],
       group_meeting: [],
       group_member: [],
       student_info: [],
+      confirm_status: "",
     };
   },
   methods: {
     redirect() {
-      this.$router.push({ path: "/mentor/activity/group" });
+      this.$router.push({ path: "/mentor/activity/group/" + this.menus.key });
+    },
+
+    checkComponent(i) {
+      if (i == "new") {
+        this.getData();
+      }
+    },
+
+    async getData() {
+      this.groupId = this.menus.key2;
+      try {
+        const response = await this.$axios.get(
+          "mentor/detail/group/project/" + this.menus.key2
+        );
+
+        this.group_info = response.data.data.group_info;
+        this.group_meeting = response.data.data.group_meeting;
+        this.group_member = response.data.data.group_member;
+        this.student_info = response.data.data.student_info;
+        // console.log(response.data);
+      } catch (e) {
+        this.$alert.toast("error", "Group project is not found");
+        this.$router.push({ path: "/mentor/activity/group" });
+        console.log(e.response);
+      }
+    },
+
+    async handleUpdateGroup() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "update/group/project/" + this.groupId,
+          {
+            project_name: this.group_info.project_name,
+            project_type: this.group_info.project_type,
+            project_desc: this.group_info.project_desc,
+            status: "in progress",
+          }
+        );
+
+        this.group_info = response.data.data;
+        this.editGroup = false;
+        if (response.data.success) {
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+        console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    confirmStatus(status) {
+      this.modal = "confirm";
+      this.confirm_status = status;
+    },
+
+    async changeStatus() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "update/status/group/project/" + this.groupId,
+          {
+            value: this.confirm_status,
+          }
+        );
+
+        // console.log(response.data);
+        if (response.data.success) {
+          this.$alert.toast("success", response.data.message);
+          if (this.confirm_status == "completed") {
+            this.$router.push({
+              path: "/mentor/activity/group/completed/" + this.groupId,
+            });
+          } else {
+            this.$router.push({
+              path: "/mentor/activity/group/in-progress/" + this.groupId,
+            });
+          }
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+
+        this.modal = "";
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+        this.modal = "";
+      }
+    },
+
+    async changeProgress() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "update/progress-status/group/project/" + this.groupId,
+          {
+            value: this.group_info.progress_status,
+          }
+        );
+
+        if (response.data.success) {
+          this.$emit("check", this.$route.params.key);
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+
+        this.modal = "";
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
     },
   },
 
-  created() {},
+  created() {
+    this.mentor = JSON.parse(localStorage.getItem("mentor"));
+    this.getData();
+  },
 };
 </script>
 <style>

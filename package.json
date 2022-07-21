@@ -22,6 +22,7 @@
     "vue-feather": "^2.0.0-rc.1",
     "vue-multiselect": "^3.0.0-alpha.2",
     "vue-router": "^4.0.0-0",
+    "vue-tippy": "^6.0.0-alpha.62",
     "vue3-date-time-picker": "^2.5.0",
     "vue3-datepicker": "^0.2.5",
     "vue3-lazyload": "^0.2.5-beta",

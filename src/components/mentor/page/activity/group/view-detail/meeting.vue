@@ -4,7 +4,7 @@
       <div class="col-6">
         <h6>Group Meeting</h6>
       </div>
-      <div class="col-6" v-if="group.student_id == student.id">
+      <div class="col-6" v-if="group.status == 'in progress'">
         <div class="text-end">
           <i class="fa-solid fa-add pointer" @click="modal = 'new-meeting'"></i>
         </div>
@@ -22,16 +22,12 @@
             <div class="row align-items-center">
               <div class="col-1">{{ index + 1 }}</div>
               <div class="col-md-3 col-12 p-0">
-                <div
-                  :class="
-                    group.student_id == student.id ? 'meeting-subject' : ''
-                  "
-                >
+                <div :class="i.status == 0 ? 'meeting-subject' : ''">
                   {{ i.meeting_subject }}
                   <div
                     class="cancel justify-content-center"
-                    v-if="group.student_id == student.id"
                     @click="cancelModal(i.id)"
+                    v-if="i.status == 0"
                   >
                     <div class="text-center">Cancel</div>
                   </div>
@@ -189,23 +185,21 @@ export default {
         "YYYY-MM-DD HH:mm"
       );
 
-      // console.log(this.meeting);
-
       this.$alert.loading();
       try {
         const response = await this.$axios.post(
-          "student/group/project/meeting",
+          "create/group/meeting",
           this.meeting
         );
 
         this.meeting.meeting_subject = "";
         this.meeting.meeting_link = "";
 
-        console.log(response.data);
+        // console.log(response.data);
         this.$emit("check", "new");
         this.$alert.toast("success", response.data.message);
       } catch (e) {
-        console.log(e.response);
+        console.log(e.response.data);
         this.$alert.toast("error", "Please try again");
       }
     },
@@ -226,7 +220,11 @@ export default {
 
         console.log(response.data);
         this.$emit("check", "new");
-        this.$alert.toast("success", response.data.message);
+        if (response.data.success) {
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");

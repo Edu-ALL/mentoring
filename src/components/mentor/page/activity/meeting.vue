@@ -10,7 +10,7 @@
       </button>
     </div>
     <hr class="mt-2 mb-0" />
-    <div class="row mt-3">
+    <div class="row mt-1">
       <div
         class="col-12 d-flex w-100 mentoring-scroll overflow-auto py-2"
         style="white-space: nowrap"
@@ -42,13 +42,63 @@
       <!-- Data  -->
 
       <!-- Pending  -->
-      <v-pending v-if="tab == 'pending'" />
+      <v-pending
+        v-if="tab == 'pending'"
+        :meeting="meeting_data"
+        @check="checkData"
+      />
 
       <!-- Upcoming  -->
-      <v-upcoming v-if="tab == 'upcoming'" />
+      <v-upcoming
+        v-if="tab == 'upcoming'"
+        :meeting="meeting_data"
+        @check="checkData"
+      />
 
       <!-- History  -->
-      <v-history v-if="tab == 'history'" />
+      <v-history
+        v-if="tab == 'history'"
+        :meeting="meeting_data"
+        @check="checkData"
+      />
+
+      <!-- Pagination  -->
+      <nav class="my-0 mt-2" v-if="meeting_data?.data?.length != 0">
+        <ul class="pagination justify-content-center pb-0 mb-0">
+          <li class="page-item" v-if="meeting_data.current_page != 1">
+            <a class="page-link" @click="getPage(meeting_data.links[0].url)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
+          </li>
+          <div v-for="(i, index) in meeting_data.last_page" :key="index">
+            <li
+              class="page-item"
+              v-if="
+                meeting_data.current_page - 2 < i &&
+                meeting_data.current_page + 2 > i
+              "
+            >
+              <a
+                class="page-link"
+                :class="
+                  meeting_data.current_page == i ? 'bg-primary text-white' : ''
+                "
+                href="#"
+                @click="getPage(meeting_data.path + '?page=' + i)"
+                >{{ i }}</a
+              >
+            </li>
+          </div>
+          <li
+            class="page-item"
+            v-if="meeting_data.current_page != meeting_data.last_page"
+          >
+            <a class="page-link" @click="getPage(meeting_data.next_page_url)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 
@@ -75,6 +125,7 @@
                 placeholder="Select one mentee"
                 deselect-label="Can't remove this value"
                 track-by="id"
+                :custom-label="customLabel"
                 :searchable="true"
                 :allow-empty="false"
                 @select="checkUser"
@@ -128,6 +179,9 @@
                   required
                 />
                 <label>Location Link</label>
+                <small class="text-danger" v-if="error_form?.location_link">
+                  {{ error_form.location_link[0] }}
+                </small>
               </input-group>
             </div>
           </div>
@@ -145,10 +199,7 @@
           </div>
           <div class="col-md-12">
             <div class="mb-2">
-              <label
-                class="mt-2 mb-1 text-white w-100"
-                style="font-size: 0.8em"
-              >
+              <label class="mt-2 mb-1 w-100" style="font-size: 0.8em">
                 Subject
               </label>
               <div class="row row-cols-md-4 row-cols-2 align-items-stretch g-2">
@@ -160,7 +211,7 @@
                       required
                       name="product"
                       class="card-input-element"
-                      value="life skill"
+                      value="life skills"
                     />
                     <div class="panel panel-default card-input">
                       <div class="panel-heading">Life Skill</div>
@@ -219,14 +270,17 @@
           <div class="col-6">
             <button
               type="button"
-              class="btn-mentoring btn-outline-danger"
+              class="btn-mentoring btn-sm py-1 px-3 btn-outline-danger"
               @click="modal = ''"
             >
               Cancel
             </button>
           </div>
           <div class="col-6 text-end">
-            <button type="submit" class="btn-mentoring btn-success">
+            <button
+              type="submit"
+              class="btn-mentoring btn-sm py-1 px-3 btn-success"
+            >
               Save Meeting
             </button>
           </div>
@@ -257,15 +311,17 @@ export default {
       tab: "pending",
       user_select: "",
       modal: "",
+      meeting_data: [],
       user_list: [],
       call_data: {
-        user_id: "",
+        student_id: "",
         std_act_status: "waiting",
         location_link: "",
         location_pw: "",
         call_with: "mentor",
         module: "",
         call_date: "",
+        created_by: "mentor",
       },
       meeting_date: {
         date: "",
@@ -275,21 +331,119 @@ export default {
         meeting: "text",
         time: "text",
       },
+      error_form: [],
     };
   },
   methods: {
     goTab(tab) {
       this.tab = tab;
+      this.getData(tab);
     },
+
+    customLabel({ first_name, last_name }) {
+      return `${first_name} ${last_name}`;
+    },
+
     checkUser(i) {
       this.user_select = i;
 
       if (this.user_select) {
-        this.call_data.user_id = this.user_select.id;
+        this.call_data.student_id = this.user_select.id;
+      }
+    },
+
+    checkData(e) {
+      this.tab = e;
+      this.getData(e);
+    },
+
+    async getData(tab) {
+      this.meeting_data = [];
+      try {
+        const response = await this.$axios.get(
+          "../v2/list/activities/1-on-1-call/" + tab
+        );
+        this.meeting_data = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getPage(link) {
+      this.meeting_data = [];
+      try {
+        const response = await this.$axios.get(link);
+        this.meeting_data = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async getMentee() {
+      try {
+        const response = await this.$axios.get("student/list?paginate=no");
+        this.user_list = response.data.data;
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async handleSubmit() {
+      // Meeting Date
+
+      let date = this.meeting_date.date;
+      let time = this.meeting_date.time;
+      let datetime = date + "T" + time;
+
+      this.call_data.call_date = datetime;
+      this.$alert.loading();
+
+      try {
+        const response = await this.$axios.post(
+          "../v2/create/activities/1-on-1-call",
+          this.call_data
+        );
+
+        // console.log(response.data);
+        if (response.data.success) {
+          this.user_select = "";
+          this.call_data = {
+            student_id: "",
+            std_act_status: "waiting",
+            location_link: "",
+            location_pw: "",
+            call_with: "mentor",
+            module: "",
+            call_date: "",
+            created_by: "mentor",
+          };
+          this.meeting_date = {
+            date: "",
+            time: "",
+          };
+
+          this.modal = "";
+          this.tab = "pending";
+          this.getData(this.tab);
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response.data);
+        if (e.response.data) {
+          this.error_form = e.response.data.error;
+        }
+        this.$alert.toast("error", "Please try again.");
       }
     },
   },
-  created() {},
+  created() {
+    this.getMentee();
+    this.getData(this.tab);
+  },
 };
 </script>
 

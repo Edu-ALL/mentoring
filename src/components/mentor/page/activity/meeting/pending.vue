@@ -1,6 +1,11 @@
 <template>
   <div id="pending">
-    <div class="table-responsive">
+    <div class="row p-4" v-if="meeting?.data?.length == 0">
+      <div class="col text-center">
+        <p class="my-0">No meeting yet.</p>
+      </div>
+    </div>
+    <div class="table-responsive" v-if="meeting?.data?.length != 0">
       <table class="table">
         <thead>
           <tr class="text-center">
@@ -14,23 +19,33 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in 5" :key="i" class="text-center align-middle">
-            <td>{{ i }}</td>
+          <tr
+            v-for="(i, index) in meeting.data"
+            :key="index"
+            class="text-center align-middle"
+          >
+            <td>{{ meeting.from + index }}</td>
             <td class="text-start" nowrap style="text-transform: capitalize">
-              Username
+              {{ i.students.first_name + " " + i.students.last_name }}
             </td>
-            <td nowrap style="text-transform: capitalize">Life Skill</td>
-            <td nowrap>24 July 2022</td>
-            <td nowrap>09:00 WIB</td>
+            <td nowrap style="text-transform: capitalize">
+              {{ i.module }}
+            </td>
+            <td nowrap>
+              {{ $customDate.date(i.call_date) }}
+            </td>
+            <td nowrap>
+              {{ $customDate.time(i.call_date) }}
+            </td>
             <td style="text-transform: capitalize">
               <small class="text-info">
                 <i class="fa-solid fa-clock"></i>
-                Waiting
+                {{ i.call_status }}
               </small>
             </td>
             <td>
               <button
-                class="btn-mentoring btn-sm btn-type-1 mx-1 mt-1 py-1"
+                class="btn-mentoring btn-sm btn-outline-danger mx-1 mt-1 py-1"
                 @click="cancelMeeting(i.id)"
               >
                 Cancel
@@ -40,45 +55,6 @@
         </tbody>
       </table>
     </div>
-
-    <!-- Pagination  -->
-    <!-- <nav class="mt-3">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item" v-if="data.current_page != 1">
-                      <a class="page-link" @click="getPage(data.links[0].url)">
-                        <i class="fa-solid fa-chevron-left"></i>
-                      </a>
-                    </li>
-                    <div v-for="(i, index) in data.last_page" :key="index">
-                      <li
-                        class="page-item"
-                        v-if="
-                          data.current_page - 2 < i && data.current_page + 2 > i
-                        "
-                      >
-                        <a
-                          class="page-link"
-                          :class="
-                            data.current_page == i
-                              ? 'bg-primary text-white'
-                              : ''
-                          "
-                          href="#"
-                          @click="getPage(data.path + '?page=' + i)"
-                          >{{ i }}</a
-                        >
-                      </li>
-                    </div>
-                    <li
-                      class="page-item"
-                      v-if="data.current_page != data.last_page"
-                    >
-                      <a class="page-link" @click="getPage(data.next_page_url)">
-                        <i class="fa-solid fa-chevron-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </nav> -->
   </div>
 
   <!-- Cancel Meeting  -->
@@ -109,9 +85,13 @@
 <script>
 export default {
   name: "pending",
+  props: {
+    meeting: Object,
+  },
   data() {
     return {
       modal: "",
+      meeting_id: "",
     };
   },
   methods: {
@@ -120,11 +100,30 @@ export default {
     },
 
     cancelMeeting(id) {
-      console.log(id);
+      this.meeting_id = id;
       this.modal = "cancel";
     },
 
-    async handleCancel() {},
+    async handleCancel() {
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.put(
+          "mentor/cancel/activities/" + this.meeting_id,
+          { staus: "cancel" }
+        );
+
+        this.modal = "";
+        this.$emit("check", "pending");
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        // console.log(e.response);
+        this.$alert.toast("error", "Please try again.");
+      }
+    },
+  },
+  created() {
+    // this.modal = "cancel";
+    // this.$alert.loading();
   },
 };
 </script>

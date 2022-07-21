@@ -38,6 +38,7 @@ export default {
         key: "",
         key2: "",
       },
+      mentor: [],
     };
   },
   methods: {
@@ -64,11 +65,10 @@ export default {
     if (localStorage.getItem("role") != "mentor") {
       window.location.href = "/";
     } else {
-      this.mentee = JSON.parse(localStorage.getItem("mentee"));
+      this.mentor = JSON.parse(localStorage.getItem("mentor"));
     }
 
     this.checkToken();
-
     document.title = "Mentor Dashboard";
     this.menus.menu = this.$route.params.menu;
     this.menus.submenu = this.$route.params.submenu;

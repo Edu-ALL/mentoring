@@ -1,6 +1,11 @@
 <template>
   <div id="upcoming">
-    <div class="table-responsive">
+    <div class="row p-4" v-if="meeting?.data?.length == 0">
+      <div class="col text-center">
+        <p class="my-0">No meeting yet.</p>
+      </div>
+    </div>
+    <div class="table-responsive" v-if="meeting?.data?.length != 0">
       <table class="table">
         <thead>
           <tr class="text-center">
@@ -14,29 +19,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in 5" :key="i" class="text-center align-middle">
-            <td>{{ i }}</td>
+          <tr
+            v-for="(i, index) in meeting.data"
+            :key="index"
+            class="text-center align-middle"
+          >
+            <td>{{ meeting.from + index }}</td>
             <td class="text-start" nowrap style="text-transform: capitalize">
-              Username
+              {{ i.students.first_name + " " + i.students.last_name }}
             </td>
-            <td nowrap style="text-transform: capitalize">Life Skill</td>
-            <td nowrap>24 July 2022</td>
-            <td nowrap>09:00 WIB</td>
+            <td nowrap style="text-transform: capitalize">{{ i.module }}</td>
+            <td nowrap>{{ $customDate.date(i.call_date) }}</td>
+            <td nowrap>{{ $customDate.time(i.call_date) }}</td>
             <td nowrap>
-              <div class="" v-if="view_pw[index]">
-                Test
-                <!-- <i
-                              class="fa-solid fa-eye ms-2 pointer"
-                              @click="view_pw[index] = !view_pw[index]"
-                            ></i> -->
-              </div>
+              <div class="" v-if="i.location_link == ' '">-</div>
+              <div class="" v-if="i.location_link != ''">
+                <div class="" v-if="view_pw[index]">
+                  {{ i.location_pw }}
+                  <i
+                    class="fa-solid fa-eye ms-2 pointer"
+                    @click="view_pw[index] = !view_pw[index]"
+                  ></i>
+                </div>
 
-              <div class="" v-if="!view_pw[index]">
-                ***
-                <!-- <i
-                              class="fa-solid fa-eye-slash ms-2 pointer"
-                              @click="view_pw[index] = !view_pw[index]"
-                            ></i> -->
+                <div class="" v-if="!view_pw[index]">
+                  ***
+                  <i
+                    class="fa-solid fa-eye-slash ms-2 pointer"
+                    @click="view_pw[index] = !view_pw[index]"
+                  ></i>
+                </div>
               </div>
             </td>
             <td nowrap>
@@ -51,56 +63,26 @@
         </tbody>
       </table>
     </div>
-
-    <!-- Pagination  -->
-    <!-- <nav class="mt-3">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item" v-if="data.current_page != 1">
-                      <a class="page-link" @click="getPage(data.links[0].url)">
-                        <i class="fa-solid fa-chevron-left"></i>
-                      </a>
-                    </li>
-                    <div v-for="(i, index) in data.last_page" :key="index">
-                      <li
-                        class="page-item"
-                        v-if="
-                          data.current_page - 2 < i && data.current_page + 2 > i
-                        "
-                      >
-                        <a
-                          class="page-link"
-                          :class="
-                            data.current_page == i
-                              ? 'bg-primary text-white'
-                              : ''
-                          "
-                          href="#"
-                          @click="getPage(data.path + '?page=' + i)"
-                          >{{ i }}</a
-                        >
-                      </li>
-                    </div>
-                    <li
-                      class="page-item"
-                      v-if="data.current_page != data.last_page"
-                    >
-                      <a class="page-link" @click="getPage(data.next_page_url)">
-                        <i class="fa-solid fa-chevron-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </nav> -->
   </div>
 </template>
 
 <script>
 export default {
   name: "upcoming",
+  props: {
+    meeting: Object,
+  },
   data() {
     return {
       view_pw: [],
     };
   },
+  methods: {
+    goto(link) {
+      window.open(link, "_balnk");
+    },
+  },
+  created() {},
 };
 </script>
 
