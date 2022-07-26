@@ -28,28 +28,37 @@
                   overflow-hidden
                 "
               >
+                <!-- {{ i.id }} -->
                 <div
                   class="p-3 d-flex justify-content-between"
                   style="width: 90%"
                 >
                   <div style="width: 10%">
-                    <i class="fa-regular fa-check-circle me-2 text-muted"></i>
+                    <i
+                      class="fa-solid fa-check-circle me-2 checklist pointer"
+                      @click="switchTodos(i.id, 3)"
+                    ></i>
                   </div>
-                  <div class="pointer" style="width: 90%" @click="todos_id = i">
+                  <!-- </div> -->
+                  <div
+                    class="pointer"
+                    style="width: 90%"
+                    @click="todos_id = i.id"
+                  >
                     <div class="text-start p-0 m-0">
                       <transition name="fade">
-                        <div class="short-desc" v-if="todos_id != i">
+                        <div class="short-desc">
                           {{ i.task_name }}
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div class="long-desc" v-if="todos_id == i">
+                        <div class="long-desc" v-if="todos_id == i.id">
                           {{ i.description }}
                         </div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i>
-                        {{ i.due_date }}
+                        {{ $customDate.date(i.due_date) }}
                       </small>
                     </div>
                   </div>
@@ -65,6 +74,7 @@
                       justify-content-center
                     "
                     style="border-radius: 0 5px 5px 0"
+                    @click="removeTodos(i.id)"
                   >
                     <i class="fa-solid fa-trash text-white"></i>
                   </div>
@@ -96,25 +106,36 @@
                   class="p-3 d-flex justify-content-between"
                   style="width: 90%"
                 >
-                  <div style="width: 10%">
-                    <i class="fa-regular fa-check-circle me-2 text-muted"></i>
-                  </div>
-                  <div class="pointer" style="width: 90%" @click="todos_id = i">
+                  <div
+                    class="pointer"
+                    style="width: 90%"
+                    @click="todos_id = i.id"
+                  >
                     <div class="text-start p-0 m-0">
                       <transition name="fade">
-                        <div class="short-desc" v-if="todos_id != i">
+                        <div class="short-desc">
                           {{ i.task_name }}
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div class="long-desc" v-if="todos_id == i">
+                        <div class="long-desc" v-if="todos_id == i.id">
                           {{ i.description }}
                         </div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i
-                        >{{ i.due_date }}
+                        >{{ $customDate.date(i.due_date) }}
                       </small>
+                    </div>
+                    <div class="d-flex mt-2">
+                      <div class="checklist" @click="switchTodos(i.id, 3)">
+                        <i class="fa-solid fa-check-circle me-2"> </i
+                        ><label>Confirm</label>
+                      </div>
+                      <div class="reject" @click="switchTodos(i.id, 2)">
+                        <i class="fa-solid fa-times-circle mx-2"></i
+                        ><span>Reject</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -129,6 +150,7 @@
                       justify-content-center
                     "
                     style="border-radius: 0 5px 5px 0"
+                    @click="removeTodos(i.id)"
                   >
                     <i class="fa-solid fa-trash text-white"></i>
                   </div>
@@ -146,7 +168,7 @@
           <div
             class="card border-1 shadow-sm my-2 card-todos text-muted"
             style="background: #f2efef; opacity: 0.7"
-            v-for="(i, index) in todos_confirmed.confirmed"
+            v-for="(i, index) in todos_confirmed.completed"
             :key="index"
           >
             <div class="card-body p-0">
@@ -163,23 +185,30 @@
                   style="width: 90%"
                 >
                   <div style="width: 10%">
-                    <i class="fa-regular fa-check-circle me-2 text-muted"></i>
+                    <i
+                      class="fa-solid fa-check-circle me-2 text-success"
+                      @click="switchTodos(i.id, 2)"
+                    ></i>
                   </div>
-                  <div class="pointer" style="width: 90%" @click="todos_id = i">
+                  <div
+                    class="pointer"
+                    style="width: 90%"
+                    @click="todos_id = i.id"
+                  >
                     <div class="text-start p-0 m-0">
                       <transition name="fade">
-                        <div class="short-desc" v-if="todos_id != i">
+                        <div class="short-desc">
                           {{ i.task_name }}
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div class="long-desc" v-if="todos_id == i">
+                        <div class="long-desc" v-if="todos_id == i.id">
                           {{ i.description }}
                         </div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i>
-                        {{ i.due_date }}
+                        {{ $customDate.date(i.due_date) }}
                       </small>
                     </div>
                   </div>
@@ -195,6 +224,7 @@
                       justify-content-center
                     "
                     style="border-radius: 0 5px 5px 0"
+                    @click="removeTodos(i.id)"
                   >
                     <i class="fa-solid fa-trash text-white"></i>
                   </div>
@@ -209,25 +239,42 @@
     <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
     <transition name="pop">
       <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
+        <!-- {{ todos }} -->
         <h6 class="my-0">New Todos</h6>
         <hr class="mb-1" />
-        <form action="">
+        <form method="post" @submit.prevent="handleSubmit">
           <div class="mt-0">
             <input-group>
-              <input type="text" class="form-mentoring w-100" required />
+              <input
+                type="text"
+                class="form-mentoring w-100"
+                v-model="todos.task_name"
+                required
+              />
               <label>Subject</label>
             </input-group>
           </div>
           <div class="mt-2">
             <input-group>
-              <input type="date" class="form-mentoring w-100" />
+              <input
+                type="date"
+                class="form-mentoring w-100"
+                v-model="todos.due_date"
+                required
+              />
               <label>Deadline</label>
             </input-group>
           </div>
           <div class="mt-2">
             <input-group>
               <span class="bg-white">Project Description</span>
-              <textarea cols="30" rows="5" class="w-100" required></textarea>
+              <textarea
+                cols="30"
+                rows="5"
+                class="w-100"
+                v-model="todos.description"
+                required
+              ></textarea>
             </input-group>
           </div>
           <hr class="my-1 mb-3" />
@@ -247,6 +294,33 @@
       </div>
     </transition>
   </div>
+
+  <div class="vue-modal-overlay" v-if="modal != ''"></div>
+  <!-- Completed Group  -->
+  <transition name="pop">
+    <div
+      class="vue-modal vue-modal-sm bg-primary text-center"
+      v-if="modal == 'confirm'"
+    >
+      <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
+      <h5 class="mt-3 mb-3">Are you sure to delete?</h5>
+      <!-- <h5 class="mt-3 mb-3" v-if="confirm_status == 'in progress'">
+        Are you sure this group back to in progress?
+      </h5> -->
+      <button
+        class="btn-mentoring btn-sm py-1 btn-danger mx-1"
+        @click="modal = ''"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn-mentoring btn-sm py-1 btn-outline-success mx-1"
+        @click="confirmDelete()"
+      >
+        Yes
+      </button>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -259,6 +333,13 @@ export default {
     return {
       modal: "",
       todos_id: "",
+      todos: {
+        student_id: "",
+        task_name: "",
+        description: "",
+        due_date: "",
+      },
+      input: { todos: "text" },
       todos_waiting: [],
       todos_conf_need: [],
       todos_confirmed: [],
@@ -278,6 +359,78 @@ export default {
         console.log(e.response);
       }
     },
+
+    async handleSubmit() {
+      // const id = this.menus.submenu;
+      this.modal = "";
+      this.todos.student_id = this.menus.submenu;
+
+      // console.log(this.todos);
+
+      this.$alert.loading();
+
+      try {
+        const response = await this.$axios.post("create/todos", this.todos);
+
+        this.todos.task_name = "";
+        this.todos.description = "";
+        this.todos.due_date = "";
+
+        // console.log(response.data);
+        this.getData();
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        console.log(e.response.data);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+
+    async switchTodos(j, s) {
+      // alert(id);
+      try {
+        const response = await this.$axios.post("switch/todos", {
+          todos_id: j,
+          new_status: s,
+        });
+        console.log(response);
+        if (response.data.success) {
+          this.getData();
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+
+    async removeTodos(id) {
+      this.modal = "confirm";
+      this.todos_id = id;
+      // alert(id);
+    },
+
+    async confirmDelete() {
+      this.$alert.loading();
+      this.modal = "";
+      try {
+        const response = await this.$axios.delete(
+          "delete/todos/" + this.todos_id
+          // { remove_tag: j }
+        );
+        // console.log(response);
+        if (response.data.success) {
+          this.getData();
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
   },
   created() {
     this.getData();
@@ -285,7 +438,11 @@ export default {
 };
 </script>
 <style scoped>
-.short-desc,
+.short-desc {
+  font-size: 1em !important;
+  font-weight: 600;
+}
+
 .long-desc {
   font-size: 0.9em !important;
 }
@@ -301,6 +458,21 @@ export default {
   height: 100%;
   transition: all 0.3s;
   cursor: pointer;
+}
+
+.checklist,
+.reject {
+  color: #223872;
+}
+
+.checklist:hover,
+.checklist:hover i {
+  color: green;
+}
+
+.reject:hover,
+.reject:hover i {
+  color: red;
 }
 
 .card-todos:hover .todos_action {

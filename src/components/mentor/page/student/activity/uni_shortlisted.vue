@@ -24,7 +24,7 @@
             group="uniList"
             class="dragArea list-group"
             tag="shortlisted"
-            :component-data="{ status: 'shortlisted' }"
+            :component-data="{ status: 'shortlist' }"
             @start="drag = true"
             @end="drag = false"
             :move="newLog"
@@ -47,7 +47,10 @@
                 <h6 class="my-0">{{ element.uni_name }}</h6>
                 <small>{{ element.uni_major }}</small>
                 <div class="trash">
-                  <i class="fa-solid fa-trash text-white"></i>
+                  <i
+                    class="fa-solid fa-trash text-white"
+                    @click="removeList(element.id)"
+                  ></i>
                 </div>
               </div>
             </template>
@@ -65,7 +68,7 @@
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
-            :component-data="{ status: 'applied' }"
+            :component-data="{ status: 'apply' }"
             @start="drag = true"
             @end="drag = false"
             :move="newLog"
@@ -88,7 +91,10 @@
                 <h6 class="my-0">{{ element.uni_name }}</h6>
                 <small>{{ element.uni_major }}</small>
                 <div class="trash">
-                  <i class="fa-solid fa-trash text-white"></i>
+                  <i
+                    class="fa-solid fa-trash text-white"
+                    @click="removeList(element.id)"
+                  ></i>
                 </div>
               </div>
             </template>
@@ -106,7 +112,7 @@
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
-            :component-data="{ status: 'accepted' }"
+            :component-data="{ status: 'accept' }"
             @start="drag = true"
             @end="drag = false"
             :move="newLog"
@@ -129,7 +135,10 @@
                 <h6 class="my-0">{{ element.uni_name }}</h6>
                 <small>{{ element.uni_major }}</small>
                 <div class="trash">
-                  <i class="fa-solid fa-trash text-white"></i>
+                  <i
+                    class="fa-solid fa-trash text-white"
+                    @click="removeList(element.id)"
+                  ></i>
                 </div>
               </div>
             </template>
@@ -147,7 +156,7 @@
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
-            :component-data="{ status: 'rejected' }"
+            :component-data="{ status: 'reject' }"
             @start="drag = true"
             @end="drag = false"
             :move="newLog"
@@ -170,7 +179,10 @@
                 <h6 class="my-0">{{ element.uni_name }}</h6>
                 <small>{{ element.uni_major }}</small>
                 <div class="trash">
-                  <i class="fa-solid fa-trash text-white"></i>
+                  <i
+                    class="fa-solid fa-trash text-white"
+                    @click="removeList(element.id)"
+                  ></i>
                 </div>
               </div>
             </template>
@@ -188,7 +200,7 @@
             group="uniList"
             class="dragArea list-group"
             tag="waitlisted"
-            :component-data="{ status: 'waitlisted' }"
+            :component-data="{ status: 'waitlist' }"
             @start="drag = true"
             @end="drag = false"
             :move="newLog"
@@ -211,7 +223,10 @@
                 <h6 class="my-0">{{ element.uni_name }}</h6>
                 <small>{{ element.uni_major }}</small>
                 <div class="trash">
-                  <i class="fa-solid fa-trash text-white"></i>
+                  <i
+                    class="fa-solid fa-trash text-white"
+                    @click="removeList(element.id)"
+                  ></i>
                 </div>
               </div>
             </template>
@@ -225,18 +240,17 @@
       <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
         <h6 class="my-0">New University</h6>
         <hr class="mb-1" />
-        <form action="">
+        <form method="post" @submit.prevent="handleSubmit">
           <div class="mt-2">
+            {{ uni_select }}
             <v-uni
               v-model="uni_select"
               :options="uni_list"
               placeholder="Select One"
-              deselect-label="Can't remove this value"
               track-by="uni_name"
               :custom-label="customUnilabel"
               label="uni_name"
               :searchable="true"
-              :allow-empty="false"
               required
               @select="uniListCheck"
             >
@@ -244,7 +258,12 @@
           </div>
           <div class="mb-3">
             <input-group>
-              <input type="text" class="form-mentoring w-100" required />
+              <input
+                type="text"
+                class="form-mentoring w-100"
+                required
+                v-model="uni.major"
+              />
               <label>Major</label>
             </input-group>
           </div>
@@ -265,6 +284,33 @@
       </div>
     </transition>
   </div>
+
+  <div class="vue-modal-overlay" v-if="modal != ''"></div>
+  <!-- Completed Group  -->
+  <transition name="pop">
+    <div
+      class="vue-modal vue-modal-sm bg-primary text-center"
+      v-if="modal == 'confirm'"
+    >
+      <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
+      <h5 class="mt-3 mb-3">Are you sure to delete?</h5>
+      <!-- <h5 class="mt-3 mb-3" v-if="confirm_status == 'in progress'">
+        Are you sure this group back to in progress?
+      </h5> -->
+      <button
+        class="btn-mentoring btn-sm py-1 btn-danger mx-1"
+        @click="modal = ''"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn-mentoring btn-sm py-1 btn-outline-success mx-1"
+        @click="confirmDelete()"
+      >
+        Yes
+      </button>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -297,6 +343,11 @@ export default {
           uni_major: "",
         },
       ],
+      uni: {
+        student_id: "",
+        univ_id: [""],
+        major: [""],
+      },
       list: {
         uni_shortlisted: [],
         uni_waitlisted: [],
@@ -304,9 +355,14 @@ export default {
         uni_applied: [],
         uni_rejected: [],
       },
+      uni_id: "",
     };
   },
   methods: {
+    customUnilabel({ univ_name }) {
+      return `${univ_name}`;
+    },
+
     async getData() {
       const id = this.menus.submenu;
       try {
@@ -316,19 +372,95 @@ export default {
         this.list.uni_accepted = response.data.data.accepted;
         this.list.uni_applied = response.data.data.applied;
         this.list.uni_rejected = response.data.data.rejected;
-        console.log(response);
+        // console.log(response);
       } catch (e) {
         console.log(e.response);
       }
     },
 
-    newLog(e) {
-      console.log(e.relatedContext.component.componentData.status);
-      console.log(e.draggedContext.element.id);
+    async getUni() {
+      try {
+        const response = await this.$axios.get("list/university");
+        this.uni_list = response.data.data;
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
+
+    async handleSubmit() {
+      // const id = this.menus.submenu;
+      this.modal = "";
+      this.uni.student_id = this.menus.submenu;
+      this.uni.univ_id = this.uni_select.univ_id;
+
+      console.log(this.uni);
+
+      this.$alert.loading();
+
+      try {
+        const response = await this.$axios.post("create/shortlisted", this.uni);
+
+        this.uni.univ_id = "";
+        this.uni.major = "";
+
+        console.log(response.data);
+        this.getData();
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        console.log(e.response.data);
+        // if (e.response.data.error) {
+        //   this.$alert.toast("error", e.response.data.error.univ_id[0]);
+        // } else {
+        this.$alert.toast("error", "Please try again");
+        // }
+      }
+    },
+
+    async removeList(id) {
+      this.modal = "confirm";
+      this.uni_id = id;
+      // alert(id);
+    },
+
+    async confirmDelete() {
+      this.$alert.loading();
+      this.modal = "";
+      try {
+        const response = await this.$axios.delete(
+          "delete/shortlisted/" + this.uni_id
+        );
+        console.log(response);
+        if (response.data.success) {
+          this.getData();
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+
+    async newLog(e) {
+      const id = e.draggedContext.element.id;
+      const status = e.relatedContext.component.componentData.status;
+      try {
+        const response = await this.$axios.post(
+          "switch/shortlisted/" + status,
+          {
+            uni_sh_id: id,
+          }
+        );
+        console.log(response.data);
+      } catch (e) {
+        console.log(e.response);
+      }
     },
   },
   created() {
     this.getData();
+    this.getUni();
   },
 };
 </script>
