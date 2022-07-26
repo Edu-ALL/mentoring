@@ -98,9 +98,6 @@ export default {
     },
 
     handleLogout() {
-      // localStorage.removeItem("token");
-      // localStorage.removeItem("role");
-      // localStorage.removeItem("mentee");
       localStorage.clear();
       this.$router.push({ path: "/" });
       this.$alert.toast("success", "You Successfully Logout");

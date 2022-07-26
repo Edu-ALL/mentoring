@@ -96,6 +96,7 @@ export default {
     },
 
     async getData() {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(
           "student/list/activities/1-on-1-call/history"
@@ -106,9 +107,11 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     async getPage(link) {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(link);
 
@@ -117,6 +120,7 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     cancelMeeting(id) {

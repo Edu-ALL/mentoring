@@ -338,6 +338,7 @@ export default {
     },
 
     async getData(i) {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(
           "student/programme/detail/webinar/" + i
@@ -348,9 +349,11 @@ export default {
       } catch (e) {
         console.log(e);
       }
+      this.$alert.close();
     },
 
     async getHistory() {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(
           "student/list/activities/webinar"
@@ -361,6 +364,7 @@ export default {
       } catch (e) {
         console.log(e);
       }
+      this.$alert.close();
     },
   },
   watch: {
@@ -380,9 +384,9 @@ export default {
     this.getCategory();
     this.getHistory();
   },
-  updated() {
-    this.getHistory();
-  },
+  // updated() {
+  //   this.getHistory();
+  // },
 };
 </script>
 <style scoped>

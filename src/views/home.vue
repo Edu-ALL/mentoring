@@ -244,6 +244,14 @@ export default {
     checkReset() {
       this.showModal = "reset";
     },
+    checkRole() {
+      let role = localStorage.getItem("role");
+      if (role == "mentee") {
+        this.$router.push({ path: "/user" });
+      } else if (role == "mentor") {
+        this.$router.push({ path: "/mentor" });
+      }
+    },
   },
   created() {
     if (this.$route.params.token) {
@@ -253,6 +261,8 @@ export default {
     setTimeout(() => {
       this.load(false);
     }, 1000);
+
+    this.checkRole();
   },
 };
 </script>

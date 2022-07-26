@@ -232,7 +232,6 @@ export default {
     checkTab(tab) {
       this.tab = tab;
       this.$router.push({ path: "/mentor/activity/group/" + tab });
-      this.getData(tab);
     },
 
     customLabel({ first_name, last_name }) {
@@ -259,6 +258,7 @@ export default {
     },
 
     async getData(tab = "in-progress") {
+      this.$alert.loading();
       this.group_data = [];
       try {
         const response = await this.$axios.get(
@@ -268,11 +268,13 @@ export default {
         // console.log(response.data);
       } catch (e) {
         console.log(e.response);
-        this.$router.push({ path: "/mentor/activity/" });
+        // this.$router.push({ path: "/mentor/activity/" });
       }
+      this.$alert.close();
     },
 
     async getPage(link) {
+      this.$alert.loading();
       this.group_data = [];
       try {
         const response = await this.$axios.get(link);
@@ -281,6 +283,7 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     async handleSubmit() {
@@ -312,10 +315,10 @@ export default {
   },
   created() {
     if (this.$route.params.key) {
-      this.checkTab(this.$route.params.key);
+      this.tab = this.$route.params.key;
+      this.getData(this.$route.params.key);
     } else {
-      this.getData();
-      this.$router.push({ path: "/mentor/activity/group/in-progress" });
+      this.getData("in-progress");
     }
 
     this.getMentee();

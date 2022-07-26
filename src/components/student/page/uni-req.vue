@@ -5,26 +5,17 @@
         <div class="card border-0 shadow-sm">
           <div class="card-body">
             <h5 class="mb-4">University Requirements</h5>
-            <div
-              class="mb-3 overflow-auto d-flex w-100 mentoring-scroll"
-              style="white-space: nowrap"
-            >
-              <button
-                class="btn-mentoring me-2 mt-1"
-                :class="tab == 'all' ? 'bg-secondary' : 'btn-type-2'"
-                @click="checkTab('all')"
+            <div class="mb-2 text-end" style="white-space: nowrap">
+              <select
+                class="form-mentoring"
+                v-model="uni_select"
+                @change="checkTab()"
               >
-                ALL
-              </button>
-              <div v-for="i in uni_list" :key="i">
-                <button
-                  class="btn-mentoring mt-1 me-2"
-                  :class="tab == i.imported_id ? 'bg-secondary' : 'btn-type-2'"
-                  @click="checkTab(i.imported_id)"
-                >
+                <option value="all">General</option>
+                <option :value="i.imported_id" v-for="i in uni_list" :key="i">
                   {{ i.uni_name }}
-                </button>
-              </div>
+                </option>
+              </select>
             </div>
 
             <div
@@ -131,25 +122,26 @@ export default {
       tab: "all",
       documents: [],
       academic: [],
+      uni_select: "all",
       uni_list: [],
     };
   },
 
   methods: {
-    checkTab(i) {
-      this.tab = i;
-      this.getDataDocument(i);
+    checkTab() {
+      this.getDataDocument(this.uni_select);
     },
 
     checkData(i) {
       if (i == "academic") {
         this.getDataText();
       } else if (i == "file") {
-        this.getDataDocument();
+        this.getDataDocument(this.uni_select);
       }
     },
 
     async getDataDocument(i = "all") {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(
           "student/university/requirement/document/" + i
@@ -160,6 +152,7 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     async getDataText() {

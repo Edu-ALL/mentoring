@@ -78,6 +78,7 @@
           <p>
             Sign in as
             <span
+              class="pointer"
               :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
               @click="login_as = 'mentor'"
               v-if="login_as == 'student'"
@@ -85,6 +86,7 @@
               Mentor</span
             >
             <span
+              class="pointer"
               :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
               @click="login_as = 'student'"
               v-if="login_as == 'mentor'"

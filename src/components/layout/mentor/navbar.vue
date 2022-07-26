@@ -15,11 +15,19 @@
               <img
                 src="~@/assets/img/editor/alysha.webp"
                 alt=""
+                class="dropdown-toggle"
                 data-bs-toggle="dropdown"
               />
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#" @click="handleLogout"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
             </div>
             <div class="navbar-mentor-title float-end mt-2 me-2">
-              Hello, Mentor Name
+              Hello, {{ mentor.first_name }}
             </div>
           </div>
         </div>
@@ -85,6 +93,7 @@ export default {
     return {
       sidebar: false,
       sidebarClass: "d-md-block d-none",
+      mentor: [],
     };
   },
   methods: {
@@ -98,6 +107,15 @@ export default {
         this.sidebarClass = "d-md-block d-none";
       }
     },
+
+    handleLogout() {
+      localStorage.clear();
+      this.$router.push({ path: "/" });
+      this.$alert.toast("success", "You Successfully Logout");
+    },
+  },
+  created() {
+    this.mentor = JSON.parse(localStorage.getItem("mentor"));
   },
 };
 </script>

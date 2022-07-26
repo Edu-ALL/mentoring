@@ -1,7 +1,6 @@
 <template>
   <div id="activity">
     <div class="container">
-      <h5>My Activities</h5>
       <div class="row g-2">
         <div :class="sidebar ? 'col-md-3' : 'col-md-1'">
           <div class="sidebar">
@@ -51,6 +50,7 @@
             <div class="card-body">
               <v-meeting v-if="menus.submenu == ''" :menus="menus" />
               <v-group v-if="menus.submenu == 'group'" :menus="menus" />
+              <v-lm v-if="menus.submenu == 'last-meeting'" :menus="menus" />
             </div>
           </div>
         </div>
@@ -62,6 +62,7 @@
 <script>
 import Meeting from "@/components/mentor/page/activity/meeting";
 import Group from "@/components/mentor/page/activity/group";
+import LastMeeting from "@/components/mentor/page/activity/last_meeting";
 
 export default {
   name: "activity",
@@ -71,6 +72,7 @@ export default {
   components: {
     "v-meeting": Meeting,
     "v-group": Group,
+    "v-lm": LastMeeting,
   },
   data() {
     return {

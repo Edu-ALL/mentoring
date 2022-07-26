@@ -82,5 +82,6 @@ export default {
 #mentorPage {
   background: #f6f9ff;
   min-height: 100vh;
+  padding-bottom: 30px;
 }
 </style>

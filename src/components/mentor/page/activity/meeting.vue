@@ -1,7 +1,7 @@
 <template>
   <div id="meeting">
-    <div class="d-flex justify-content-between align-items-center">
-      <h6>Meeting</h6>
+    <div class="d-flex align-items-center justify-content-between">
+      <h6 class="my-0 py-0">Meeting</h6>
       <button
         class="btn-mentoring btn-sm py-1 btn-type-3 mx-1"
         @click="modal = 'new'"
@@ -9,7 +9,9 @@
         <i class="fa-solid fa-add"></i>
       </button>
     </div>
-    <hr class="mt-2 mb-0" />
+    <hr class="my-2" />
+
+    <!-- Tabs  -->
     <div class="row mt-1">
       <div
         class="col-12 d-flex w-100 mentoring-scroll overflow-auto py-2"
@@ -358,6 +360,7 @@ export default {
     },
 
     async getData(tab) {
+      this.$alert.loading();
       this.meeting_data = [];
       try {
         const response = await this.$axios.get(
@@ -368,9 +371,11 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     async getPage(link) {
+      this.$alert.loading();
       this.meeting_data = [];
       try {
         const response = await this.$axios.get(link);
@@ -379,6 +384,7 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     async getMentee() {

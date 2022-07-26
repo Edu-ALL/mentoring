@@ -18,11 +18,13 @@
               <button
                 class="btn-mentoring btn-sm mx-1"
                 :class="
-                  tab == '' || tab == 'waitlisted' ? 'btn-type-1' : 'btn-type-2'
+                  tab == '' || tab == 'shortlisted'
+                    ? 'btn-type-1'
+                    : 'btn-type-2'
                 "
-                @click="changeTab('waitlisted')"
+                @click="changeTab('shortlisted')"
               >
-                Waitlisted
+                Shortlisted
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1"
@@ -44,6 +46,15 @@
                 @click="changeTab('rejected')"
               >
                 Rejected
+              </button>
+              <button
+                class="btn-mentoring btn-sm mx-1"
+                :class="
+                  tab == '' || tab == 'waitlisted' ? 'btn-type-1' : 'btn-type-2'
+                "
+                @click="changeTab('waitlisted')"
+              >
+                Waitlisted
               </button>
             </div>
           </div>
@@ -93,7 +104,7 @@ export default {
   components: {},
   data() {
     return {
-      tab: "waitlisted",
+      tab: "shortlisted",
       uniList: [],
     };
   },
@@ -104,7 +115,8 @@ export default {
       this.getData(tab);
     },
 
-    async getData(status = "waitlisted") {
+    async getData(status = "shortlisted") {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(
           "student/university/shortlisted/" + status
@@ -115,6 +127,7 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+      this.$alert.close();
     },
   },
   created() {
