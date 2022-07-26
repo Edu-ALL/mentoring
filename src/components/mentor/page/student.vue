@@ -73,7 +73,7 @@
                         Behind
                       </button>
                     </td>
-                    <td width="20%">
+                    <td width="50%" nowrap>
                       <transition name="fade">
                         <div
                           class="d-flex align-items-center"

@@ -40,6 +40,7 @@
                       <strong class="me-3">{{ index + 1 }}</strong>
                       <strong class="w-100">{{ i.subject }}</strong>
                     </div>
+                    <!-- {{ i }} -->
                     <div class="action">
                       <div class="goto" @click="goto(i.value)">
                         <i class="fa-solid fa-paper-plane"></i>
@@ -65,7 +66,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    goto(link) {
+      window.open(link, "_blank");
+    },
+  },
 };
 </script>
 

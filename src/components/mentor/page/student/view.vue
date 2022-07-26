@@ -5,6 +5,14 @@
       <div class="row">
         <div class="col-md-3 text-center">
           <img
+            v-if="students_detail.image != null"
+            v-lazy="this.$base_url + students_detail.image"
+            alt="Profile"
+            class="st-pic"
+          />
+
+          <img
+            v-if="students_detail.image == null"
             v-lazy="'https://picsum.photos/200/300'"
             alt="Profile"
             class="st-pic"
