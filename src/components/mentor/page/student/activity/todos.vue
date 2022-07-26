@@ -243,38 +243,44 @@
         <h6 class="my-0">New Todos</h6>
         <hr class="mb-1" />
         <form method="post" @submit.prevent="handleSubmit">
-          <div class="mt-0">
+          <div class="my-3">
             <input-group>
               <input
                 type="text"
-                class="form-mentoring w-100"
+                class="form-control form-mentoring w-100"
+                id="subject"
                 v-model="todos.task_name"
+                placeholder="Subject Name"
                 required
               />
-              <label>Subject</label>
+              <label for="subject">Subject Name</label>
             </input-group>
           </div>
-          <div class="mt-2">
+          <div class="my-3">
             <input-group>
               <input
                 type="date"
-                class="form-mentoring w-100"
+                class="form-control form-mentoring w-100"
                 v-model="todos.due_date"
+                placeholder="Date"
+                id="deadline"
                 required
               />
-              <label>Deadline</label>
+              <label for="deadline">Deadline</label>
             </input-group>
           </div>
-          <div class="mt-2">
+          <div class="my-3">
             <input-group>
-              <span class="bg-white">Project Description</span>
               <textarea
                 cols="30"
                 rows="5"
-                class="w-100"
+                class="form-control form-mentoring w-100"
                 v-model="todos.description"
+                placeholder="project"
+                id="desc"
                 required
               ></textarea>
+              <label class="bg-white" for="desc">Project Description</label>
             </input-group>
           </div>
           <hr class="my-1 mb-3" />

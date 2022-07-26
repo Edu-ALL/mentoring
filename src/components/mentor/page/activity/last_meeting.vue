@@ -130,71 +130,83 @@
     <!-- ADD  -->
     <form @submit.prevent="handleSubmit" v-if="view_status == 'add'">
       <div class="row row-cols-md-2 row-cols-1">
-        <div class="col mb-1">
+        <div class="col mb-3">
           <input-group>
-            <span class="bg-white">Academic Performance</span>
             <textarea
-              class="form-mentoring w-100"
+              class="form-control form-mentoring w-100"
+              placeholder="fill in here ..."
               v-model="meeting_minutes.academic_performance"
               rows="5"
               required
+              id="acad"
             ></textarea>
+            <label class="bg-white" for="acad">Academic Performance</label>
           </input-group>
         </div>
-        <div class="col mb-1">
+        <div class="col mb-3">
           <input-group>
-            <span class="bg-white">Exploration</span>
             <textarea
-              class="form-mentoring w-100"
+              class="form-control form-mentoring w-100"
+              placeholder="fill in here ..."
               v-model="meeting_minutes.exploration"
               rows="5"
               required
+              id="exploration"
             ></textarea>
+            <label class="bg-white" for="exploration">Exploration</label>
           </input-group>
         </div>
-        <div class="col mb-1">
+        <div class="col mb-3">
           <input-group>
-            <span class="bg-white">Writing Skills</span>
             <textarea
-              class="form-mentoring w-100"
+              class="form-control form-mentoring w-100"
+              placeholder="fill in here ..."
               v-model="meeting_minutes.writing_skills"
               rows="5"
               required
+              id="writing"
             ></textarea>
+            <label class="bg-white" for="writing">Writing Skills</label>
           </input-group>
         </div>
-        <div class="col mb-1">
+        <div class="col mb-3">
           <input-group>
-            <span class="bg-white">Personal Brand</span>
             <textarea
-              class="form-mentoring w-100"
+              class="form-control form-mentoring w-100"
+              placeholder="fill in here ..."
               v-model="meeting_minutes.personal_brand"
               rows="5"
               required
+              id="personal"
             ></textarea>
+            <label class="bg-white" for="personal">Personal Brand</label>
           </input-group>
         </div>
       </div>
-      <div class="mb-1">
+      <div class="mb-3">
         <input-group>
-          <span class="bg-white">Mentor Todos</span>
           <textarea
-            class="form-mentoring w-100"
+            class="form-control form-mentoring w-100"
+            placeholder="fill in here ..."
             v-model="meeting_minutes.mt_todos_note"
             rows="5"
             required
+            id="mentorTodos"
           ></textarea>
+          <label class="bg-white" for="mentorTodos">Mentor Todos</label>
         </input-group>
       </div>
-      <div class="mb-1">
+      <div class="mb-3">
         <input-group>
-          <span class="bg-white">Mentee Todos</span>
           <textarea
-            class="form-mentoring w-100"
+            class="form-control form-mentoring w-100"
+            placeholder="fill in here ..."
             v-model="meeting_minutes.st_todos_note"
             rows="5"
             required
+            id="menteeTodos"
           ></textarea>
+          <label class="bg-white" for="menteeTodos">Mentee Todos</label>
         </input-group>
       </div>
       <hr />
@@ -210,37 +222,37 @@
     <div class="row row-cols-1" v-if="view_status == 'view'">
       <div class="col">
         <div class="mb-2">
-          <label class="mb-1 text-primary">Academic Performance :</label>
+          <label class="mb-3 text-primary">Academic Performance :</label>
           <div class="py-1 px-3" style="border-left: 2px solid #dedede">
             <p class="py-0" v-html="meeting_minutes.academic_performance"></p>
           </div>
         </div>
         <div class="mb-2">
-          <label class="mb-1 text-primary">Exploration :</label>
+          <label class="mb-3 text-primary">Exploration :</label>
           <div class="py-1 px-3" style="border-left: 2px solid #dedede">
             <p class="py-0" v-html="meeting_minutes.exploration"></p>
           </div>
         </div>
         <div class="mb-2">
-          <label class="mb-1 text-primary">Writing Skills :</label>
+          <label class="mb-3 text-primary">Writing Skills :</label>
           <div class="py-1 px-3" style="border-left: 2px solid #dedede">
             <p class="py-0" v-html="meeting_minutes.writing_skills"></p>
           </div>
         </div>
         <div class="mb-2">
-          <label class="mb-1 text-primary">Personal Brand :</label>
+          <label class="mb-3 text-primary">Personal Brand :</label>
           <div class="py-1 px-3" style="border-left: 2px solid #dedede">
             <p class="py-0" v-html="meeting_minutes.personal_brand"></p>
           </div>
         </div>
         <div class="mb-2">
-          <label class="mb-1 text-primary">My Todos :</label>
+          <label class="mb-3 text-primary">My Todos :</label>
           <div class="py-1 px-3" style="border-left: 2px solid #dedede">
             <p class="py-0" v-html="meeting_minutes.mt_todos_note"></p>
           </div>
         </div>
         <div class="mb-2">
-          <label class="mb-1 text-primary">Mentee Todos :</label>
+          <label class="mb-3 text-primary">Mentee Todos :</label>
           <div class="py-1 px-3" style="border-left: 2px solid #dedede">
             <p class="py-0" v-html="meeting_minutes.st_todos_note"></p>
           </div>

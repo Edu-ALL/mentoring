@@ -107,26 +107,27 @@
   <transition name="pop">
     <div class="vue-modal vue-modal-lg" v-if="modal == 'add'">
       <form method="post" @submit.prevent="handleSubmit()">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-12">
             <h5>New Group</h5>
             <hr class="my-1 mb-3" />
           </div>
           <div class="col-md-6">
-            <div class="mb-2">
+            <div class="my-2">
               <input-group>
                 <input
                   type="text"
                   v-model="group.project_name"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
                   required
+                  placeholder="fill in here .."
                 />
                 <label>Project Name</label>
               </input-group>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="mb-2">
+            <div class="my-2">
               <group-type
                 v-model="group.project_type"
                 :options="options"
@@ -139,7 +140,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <div class="mb-2">
+            <div class="my-1">
               <mentee
                 v-model="members"
                 :options="menteeList"
@@ -157,16 +158,18 @@
             </div>
           </div>
           <div class="col-md-12">
-            <div class="mb-3">
+            <div class="my-3">
               <input-group>
-                <span class="bg-white">Project Description</span>
                 <textarea
                   cols="30"
                   rows="10"
-                  class="w-100"
+                  class="form-control form-mentoring w-100"
                   v-model="group.project_desc"
                   required
+                  placeholder="fill in here .."
+                  id="desc"
                 ></textarea>
+                <label class="bg-white" for="desc">Project Description</label>
               </input-group>
             </div>
           </div>

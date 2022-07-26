@@ -87,18 +87,20 @@
               <div class="" v-if="editGroup">
                 <h6>Edit Group</h6>
                 <hr />
-                <div class="mb-2">
+                <div class="mb-3">
                   <input-group>
                     <input
                       v-model="group_info.project_name"
                       type="text"
                       required
-                      class="form-mentoring form-control-sm w-100"
+                      class="form-mentoring form-control w-100"
+                      placeholder="fill in here.."
+                      id="groupName"
                     />
-                    <label>Group Name</label>
+                    <label for="groupName">Group Name</label>
                   </input-group>
                 </div>
-                <div class="mb-2">
+                <div class="mb-3">
                   <group-type
                     v-model="group_info.project_type"
                     :options="options"
@@ -110,12 +112,14 @@
                 </div>
                 <div class="mb-2">
                   <input-group>
-                    <span class="bg-white">Group Description</span>
                     <textarea
                       v-model="group_info.project_desc"
-                      class="form-mentoring w-100"
+                      class="form-mentoring form-control w-100"
                       rows="5"
+                      placeholder="fill in here..."
+                      id="desc"
                     ></textarea>
+                    <label class="bg-white" for="desc">Group Description</label>
                   </input-group>
                 </div>
                 <hr class="my-0 mb-2" />

@@ -120,7 +120,7 @@
       <form method="post" @submit.prevent="handleSubmit">
         <div class="row">
           <div class="col-md-6">
-            <div class="mb-2">
+            <div class="mt-1 mb-3">
               <multiselect
                 v-model="user_select"
                 :options="user_list"
@@ -139,48 +139,54 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-7">
-                <div class="mb-2">
+                <div class="mt-1 mb-3">
                   <input-group>
                     <input
                       v-model="meeting_date.date"
                       :min="this.$customDate.tomorrowDateOnly()"
                       :type="input.meeting"
-                      class="form-mentoring w-100"
+                      class="form-control form-mentoring w-100"
                       required
+                      placeholder="fill in here.."
                       @focus="input.meeting = 'date'"
                       @blur="input.meeting = 'text'"
+                      id="meetingDate"
                     />
-                    <label>Meeting Date</label>
+                    <label for="meetingDate">Meeting Date</label>
                   </input-group>
                 </div>
               </div>
               <div class="col-5">
-                <div class="mb-2">
+                <div class="mt-1 mb-3">
                   <input-group>
                     <input
                       v-model="meeting_date.time"
                       :type="input.time"
-                      class="form-mentoring w-100"
+                      class="form-control form-mentoring w-100"
                       @focus="input.time = 'time'"
                       @blur="input.time = 'text'"
                       required
+                      placeholder="fill in here.."
+                      id="meetingTime"
                     />
-                    <label>Time</label>
+                    <label for="meetingTime">Time</label>
                   </input-group>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-8">
-            <div class="mb-2">
+            <div class="mt-1 mb-3">
               <input-group>
                 <input
                   v-model="call_data.location_link"
                   type="text"
-                  class="form-mentoring w-100"
+                  class="form-control form-mentoring w-100"
                   required
+                  placeholder="fill in here.."
+                  id="meetingLocation"
                 />
-                <label>Location Link</label>
+                <label for="meetingLocation">Location Link</label>
                 <small class="text-danger" v-if="error_form?.location_link">
                   {{ error_form.location_link[0] }}
                 </small>
@@ -188,14 +194,16 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="mb-2">
+            <div class="mt-1 mb-3">
               <input-group>
                 <input
                   v-model="call_data.location_pw"
                   type="text"
-                  class="form-mentoring w-100"
+                  placeholder="fill in here.."
+                  class="form-control form-mentoring w-100"
+                  id="meetingPassword"
                 />
-                <label>Password</label>
+                <label for="meetingPassword">Password</label>
               </input-group>
             </div>
           </div>
@@ -211,6 +219,7 @@
                       v-model="call_data.module"
                       type="radio"
                       required
+                      placeholder="fill in here.."
                       name="product"
                       class="card-input-element"
                       value="life skills"
@@ -226,6 +235,7 @@
                       v-model="call_data.module"
                       type="radio"
                       required
+                      placeholder="fill in here.."
                       name="product"
                       class="card-input-element"
                       value="career exploration"
@@ -241,6 +251,7 @@
                       v-model="call_data.module"
                       type="radio"
                       required
+                      placeholder="fill in here.."
                       name="product"
                       class="card-input-element"
                       value="university admission"
@@ -256,6 +267,7 @@
                       v-model="call_data.module"
                       type="radio"
                       required
+                      placeholder="fill in here.."
                       name="product"
                       class="card-input-element"
                       value="life at university"

@@ -65,30 +65,34 @@
         <form method="post" @submit.prevent="handleSubmit">
           <h5>New Group Meeting</h5>
           <hr class="my-0 mb-3" />
-          <div class="mb-1">
+          <div class="mb-3">
             <input-group>
               <input
                 type="text"
-                class="form-mentoring w-100"
+                class="form-control form-mentoring w-100"
                 required
                 v-model="meeting.meeting_subject"
+                placeholder="fill in here.."
+                id="meetingSubject"
               />
-              <label>Meeting Subject</label>
+              <label for="meetingSubject">Meeting Subject</label>
             </input-group>
           </div>
 
-          <div class="mb-1">
+          <div class="mb-3">
             <input-group>
               <input
                 :type="input.meeting"
                 :min="this.$customDate.tomorrow()"
-                class="form-mentoring w-100"
+                class="form-control form-mentoring w-100"
                 v-model="meeting.meeting_date"
+                placeholder="fill in here.."
                 required
                 @focus="input.meeting = 'datetime-local'"
                 @blur="input.meeting = 'text'"
+                id="meetingDate"
               />
-              <label>Meeting Date</label>
+              <label for="meetingDate">Meeting Date</label>
             </input-group>
           </div>
 
@@ -96,11 +100,13 @@
             <input-group>
               <input
                 type="text"
-                class="form-mentoring w-100"
+                class="form-control form-mentoring w-100"
                 v-model="meeting.meeting_link"
+                placeholder="fill in here.."
                 required
+                id="meetingLocation"
               />
-              <label>Location Link</label>
+              <label for="meetingLocation">Location Link</label>
             </input-group>
           </div>
           <hr />

@@ -36,14 +36,22 @@
     /* color: #fff; */
 }
 
-.multiselect__placeholder {
-    color: #000 !important;
+.multiselect {
+    margin-top: 1px !important;
 }
 
-.multiselect__tags  {
-    border:2px solid #dedede !important;
+.multiselect__placeholder {
+    color: #000 !important;
+    margin-top:-1px !important;
+    padding-left: 5px !important;
+    margin-bottom: 8px !important;
+    font-size: 1em;
+}
+
+.multiselect__tags {
+    border: 2px solid #dedede !important;
     border-radius: 15px !important;
-    font-size: .875rem !important;
+    font-size: .9.5em !important;
     min-height: 10px !important;
     display: block;
     padding: 5px 40px 0 8px !important;
@@ -55,34 +63,35 @@
 }
 
 .multiselect__single {
-    font-size: .875rem !important;
+    font-size: .9.5em !important;
     padding-top: 3px !important;
+    font-size: 1em !important;
     background: transparent !important;
 }
 
 .form-mentoring,
 textarea {
-    padding:7px 15px;
-    border:2px solid #dedede;
+    padding: 7px 15px;
+    border: 2px solid #dedede;
     border-radius: 15px;
     font-size: .875rem;
     transition: all 0.3s ease-in-out;
 }
 
-.form-mentoring:disabled, .form-mentoring[readonly]{
+.form-mentoring:disabled, .form-mentoring[readonly] {
     background: rgb(238, 238, 238);
     color: #374875;
 }
 
 .form-mentoring::placeholder,
 textarea::placeholder {
-    color:rgb(206, 206, 206)
+    color: rgb(206, 206, 206)
 }
 
 .form-mentoring:focus,
 textarea:focus {
     outline: none;
-    border:2px solid #EFA859;
+    border: 2px solid #EFA859;
     box-shadow: 0;
 }
 
@@ -131,29 +140,24 @@ textarea:focus {
     box-shadow: none !important;
 }
 
-
-input-group {
-  position: relative;
+input::placeholder,
+textarea::placeholder {
+    color: transparent !important;
 }
 
-input-group input,
-input-group textarea
- {
-  position: relative;
-  background: transparent !important;
-  margin-top: 15px;
-  z-index: 2;
+
+input-group {
+    position: relative;
 }
 
 input-group label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: rgb(47, 47, 47);
-  transform: translate(15px, 2px);
-  font-size: 0.7em;
-  transition: all 0.4s;
-  z-index: 1;
+    position: absolute;
+    top: 10px;
+    left: 17px;
+    color: rgb(47, 47, 47);
+    font-size: 0.8em;
+    transition: all 0.4s;
+    z-index: 1;
 }
 
 input-group span {
@@ -165,13 +169,15 @@ input-group span {
     padding: 0 5px;
 }
 
-input-group input:focus + label,
-input-group input:valid + label {
-  color: #000;
-  transform: translate(10px, -16px);
-  background: #fff;
-  padding: 0 4px;
-  z-index: 3;
+
+input-group input:not(:placeholder-shown)+label,
+input-group textarea:not(:placeholder-shown)+label {
+    color: #000;
+    top: -10px;
+    left:12px;
+    background: #fff;
+    padding: 0 4px;
+    z-index: 3;
 }
 
 .form-control {
