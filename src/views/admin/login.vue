@@ -75,10 +75,7 @@ export default {
         // Admin Data
         localStorage.setItem("role", "admin");
         localStorage.setItem("token", response.data.data.access_token);
-        localStorage.setItem(
-          "admin",
-          JSON.stringify(response.data.data.student)
-        );
+        localStorage.setItem("admin", JSON.stringify(response.data.data.user));
         this.$alert.close();
         this.$alert.toast("success", "You Successfully Login");
 

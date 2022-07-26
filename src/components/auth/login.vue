@@ -160,7 +160,7 @@ export default {
           localStorage.setItem("token", response.data.data.access_token);
           localStorage.setItem(
             "mentor",
-            JSON.stringify(response.data.data.student)
+            JSON.stringify(response.data.data.user)
           );
           this.$alert.close();
           this.$alert.toast("success", "You Successfully Login");
