@@ -122,6 +122,7 @@ export default {
         password: "",
       },
       login_as: "student",
+
       error_login: [],
     };
   },
@@ -168,17 +169,23 @@ export default {
           });
           this.$emit("show", "");
 
-          // Mentee Data
-          localStorage.setItem("role", "mentor");
-          localStorage.setItem("token", response.data.data.access_token);
-          localStorage.setItem(
-            "mentor",
-            JSON.stringify(response.data.data.user)
-          );
-          this.$alert.close();
-          this.$alert.toast("success", "You Successfully Login");
-
-          window.location.href = "/mentor";
+          // Mentor Data
+          // if not set a password yet
+          if (response.data.code) {
+            localStorage.setItem("token_user", response.data.token);
+            this.$alert.toast("success", response.data.message);
+            this.$emit("show", "set_password");
+          } else {
+            localStorage.setItem("role", "mentor");
+            localStorage.setItem("token", response.data.data.access_token);
+            localStorage.setItem(
+              "mentor",
+              JSON.stringify(response.data.data.user)
+            );
+            this.$alert.close();
+            this.$alert.toast("success", "You Successfully Login");
+            window.location.href = "/mentor";
+          }
         } catch (e) {
           this.error_login = e.response.data.error;
           if (e.response.status == 400) {
@@ -187,7 +194,7 @@ export default {
           } else {
             this.$alert.close();
           }
-          console.log(e.response);
+          // console.log(e);
         }
       }
     },

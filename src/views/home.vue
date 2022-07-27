@@ -181,6 +181,14 @@
         <v-login v-if="showModal == 'login'" @show="checkModal"></v-login>
       </transition>
 
+      <!-- Set a new Password -->
+      <transition name="pop" appear>
+        <v-new-password
+          v-if="showModal == 'set_password'"
+          @show="checkModal"
+        ></v-new-password>
+      </transition>
+
       <!-- Register  -->
       <transition name="pop" appear>
         <v-register
@@ -211,6 +219,7 @@ import header from "@/components/layout/home/header";
 import Loader from "@/components/library/loader";
 import footer from "@/components/layout/home/footer";
 import Login from "@/components/auth/login";
+import NewPassword from "@/components/auth/set_password";
 import Register from "@/components/auth/register";
 import Verify from "@/components/auth/verify";
 import Forgot from "@/components/auth/forgot";
@@ -223,6 +232,7 @@ export default {
     "v-footer": footer,
     "v-loader": Loader,
     "v-login": Login,
+    "v-new-password": NewPassword,
     "v-register": Register,
     "v-verify": Verify,
     "v-forgot": Forgot,
