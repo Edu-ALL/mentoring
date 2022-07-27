@@ -62,26 +62,30 @@
       <form @submit.prevent="handleSubmit" method="post">
         <h6 class="mb-0">Publication Links</h6>
         <hr class="my-1 mb-3" />
-        <div class="mb-2">
+        <div class="mb-3">
           <input-group>
             <input
               type="text"
               v-model="link.subject[0]"
-              class="form-mentoring form-control-sm w-100"
+              class="form-mentoring form-control w-100"
               required
+              placeholder="fill in here ..."
+              id="title"
             />
-            <label>Title</label>
+            <label for="title">Title</label>
           </input-group>
         </div>
         <div class="mb-3">
           <input-group>
             <input
-              type="text"
+              type="url"
               v-model="link.value[0]"
-              class="form-mentoring form-control-sm w-100"
+              class="form-mentoring form-control w-100"
               required
+              placeholder="fill in here ..."
+              id="link"
             />
-            <label>Hyperlink</label>
+            <label for="link">Hyperlink</label>
           </input-group>
         </div>
         <div class="text-end">
@@ -133,12 +137,14 @@ export default {
         subject: [""],
         value: [""],
       },
+      error_link: [],
     };
   },
   methods: {
     goto(i) {
       window.open(i, "_blank");
     },
+
     async handleSubmit() {
       this.modal = "";
 
@@ -159,7 +165,7 @@ export default {
         // console.log(response);
       } catch (e) {
         console.log(e.response);
-        this.$alert.close();
+        this.$alert.toast("error", "Please try again.");
       }
     },
 
@@ -169,14 +175,13 @@ export default {
     },
 
     async handleDelete() {
-      this.modal = "";
-
       this.$alert.loading();
       try {
         const response = await this.$axios.delete(
           "student/academic/requirement/" + this.link_id
         );
 
+        this.modal = "";
         // console.log(response.data);
         this.$emit("check", "academic");
         this.$alert.toast("success", response.data.message);

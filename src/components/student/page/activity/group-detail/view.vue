@@ -66,18 +66,20 @@
                 <div class="" v-if="editGroup">
                   <h6>Edit Group</h6>
                   <hr />
-                  <div class="mb-2">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         v-model="group_info.project_name"
                         type="text"
                         required
-                        class="form-mentoring form-control-sm w-100"
+                        class="form-mentoring form-control w-100"
+                        placeholder="fill in here ..."
+                        id="project Name"
                       />
-                      <label>Group Name</label>
+                      <label for="projectName">Group Name</label>
                     </input-group>
                   </div>
-                  <div class="mb-2">
+                  <div class="mb-3">
                     <group-type
                       v-model="group_info.project_type"
                       :options="options"
@@ -87,14 +89,16 @@
                     >
                     </group-type>
                   </div>
-                  <div class="mb-2">
+                  <div class="mb-3">
                     <input-group>
-                      <span class="bg-white">Group Description</span>
                       <textarea
                         v-model="group_info.project_desc"
-                        class="form-mentoring w-100"
+                        class="form-mentoring form-control w-100"
                         rows="5"
+                        placeholder="fill in here ..."
+                        id="desc"
                       ></textarea>
+                      <label for="desc">Group Description</label>
                     </input-group>
                   </div>
                   <hr class="my-0 mb-2" />
@@ -140,24 +144,28 @@
                     @click="editMember = !editMember"
                   ></i>
                 </div>
-                <div class="text-center">
-                  <h5>
+                <div class="">
+                  <h5 class="mb-3">
                     {{ student_info.first_name + " " + student_info.last_name }}
                   </h5>
-                  <div class="member-role" v-if="!editMember">
+                  <div class="member-role text-center" v-if="!editMember">
                     {{
                       student_info.contribution_role == null
                         ? "Not Available"
                         : student_info.contribution_role
                     }}
                   </div>
-                  <div class="mb-2" v-if="editMember">
-                    <input
-                      v-model="student_info.contribution_role"
-                      type="text"
-                      class="form-mentoring form-control-sm"
-                      placeholder="Fill in your role here .."
-                    />
+                  <div class="mb-3" v-if="editMember">
+                    <input-group class="text-start">
+                      <input
+                        v-model="student_info.contribution_role"
+                        type="text"
+                        class="form-mentoring form-control"
+                        placeholder="Fill in your role here .."
+                        id="role"
+                      />
+                      <label for="role">Your role</label>
+                    </input-group>
                   </div>
                   <div
                     class="border rounded-3 member-contribution"
@@ -169,15 +177,19 @@
                         : student_info.contribution_description
                     }}
                   </div>
-                  <div class="mb-2" v-if="editMember">
-                    <textarea
-                      placeholder="Describe your contribution here .."
-                      v-model="student_info.contribution_description"
-                      rows="5"
-                      class="form-mentoring form-control-sm w-100"
-                    ></textarea>
+                  <div class="mb-3" v-if="editMember">
+                    <input-group>
+                      <textarea
+                        placeholder="Describe your contribution here .."
+                        v-model="student_info.contribution_description"
+                        rows="5"
+                        class="form-mentoring form-control w-100"
+                        id="contribute"
+                      ></textarea>
+                      <label for="contribute">Your contribution</label>
+                    </input-group>
                   </div>
-                  <div class="" v-if="editMember">
+                  <div class="text-center" v-if="editMember">
                     <button
                       type="submit"
                       class="btn-mentoring btn-sm py-1 bg-primary"

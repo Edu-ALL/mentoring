@@ -7,20 +7,22 @@
           <hr class="my-1 mb-3" />
         </div>
         <div class="col-md-6">
-          <div class="mb-2">
+          <div class="mb-3">
             <input-group>
               <input
                 type="text"
                 v-model="group.project_name"
-                class="form-mentoring form-control-sm w-100"
+                class="form-mentoring form-control w-100"
                 required
+                placeholder="fill in here ..."
+                id="projectName"
               />
-              <label class="bg-secondary text-white">Project Name</label>
+              <label for="projectName">Project Name</label>
             </input-group>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="mb-2">
+          <div class="mb-3">
             <group-type
               v-model="group.project_type"
               :options="options"
@@ -33,19 +35,20 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="mb-2">
+          <div class="mb-3">
             <input-group>
               <input
                 type="email"
-                class="form-mentoring w-100"
+                class="form-mentoring form-control w-100"
                 v-model="member"
                 placeholder="add members email here."
                 @blur="validateEmail"
                 @keydown.enter.prevent="addMember"
                 @keydown.tab.prevent="addMember"
                 @keydown.,.prevent="addMember"
+                id="member"
               />
-              <label class="bg-secondary text-white">Invite Member</label>
+              <label for="member">Invite New Member</label>
             </input-group>
             <transition name="fade">
               <small class="text-danger d-block" v-if="error_member"
@@ -68,14 +71,16 @@
         <div class="col-md-12">
           <div class="mb-3">
             <input-group>
-              <span class="bg-secondary text-white">Project Description</span>
               <textarea
                 cols="30"
                 rows="10"
-                class="w-100"
+                class="form-control form-mentoring w-100"
                 v-model="group.project_desc"
                 required
+                placeholder="fill in here ..."
+                id="desc"
               ></textarea>
+              <label for="desc">Project Description</label>
             </input-group>
           </div>
         </div>
@@ -199,13 +204,4 @@ export default {
 </script>
 
 <style scoped>
-input-group input:focus,
-input-group textarea:focus {
-  border: 2px solid #fff;
-}
-
-input::placeholder {
-  color: rgb(237, 237, 237) !important;
-  font-size: 0.8em;
-}
 </style>>

@@ -158,6 +158,7 @@ input-group label {
     font-size: 0.8em;
     transition: all 0.4s;
     z-index: 1;
+    cursor: text;
 }
 
 input-group span {
@@ -169,15 +170,20 @@ input-group span {
     padding: 0 5px;
 }
 
+input-group input:not(:placeholder-shown),
+input-group textarea:not(:placeholder-shown) {
+border: 2px solid #EFA859;
+}
+
 
 input-group input:not(:placeholder-shown)+label,
 input-group textarea:not(:placeholder-shown)+label {
-    color: #000;
     top: -10px;
     left:12px;
     background: #fff;
     padding: 0 4px;
     z-index: 3;
+    color: #EFA859;
 }
 
 .form-control {

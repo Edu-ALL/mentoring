@@ -16,7 +16,12 @@
           class="mb-4 text-center"
           :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
         >
-          <strong> Login to Your Account </strong>
+          <strong>
+            Login as
+            <span style="text-transform: capitalize">
+              {{ login_as }}
+            </span></strong
+          >
         </h4>
         <div class="mb-3">
           <div class="input-group">
@@ -31,7 +36,11 @@
               >Email</label
             >
           </div>
-          <p class="text-warning mt-1 small" v-if="error_login.email">
+          <p
+            class="mt-1 small"
+            v-if="error_login.email"
+            :class="login_as == 'student' ? 'text-warning' : 'text-white'"
+          >
             {{ error_login.email[0] }}
           </p>
         </div>
@@ -48,7 +57,11 @@
               >Password</label
             >
           </div>
-          <p class="text-warning mt-1 small" v-if="error_login.password">
+          <p
+            class="mt-1 small"
+            v-if="error_login.password"
+            :class="login_as == 'student' ? 'text-warning' : 'text-white'"
+          >
             {{ error_login.password[0] }}
           </p>
           <p
@@ -166,7 +179,6 @@ export default {
           this.$alert.toast("success", "You Successfully Login");
 
           window.location.href = "/mentor";
-          // this.$router.push({ path: "/user" });
         } catch (e) {
           this.error_login = e.response.data.error;
           if (e.response.status == 400) {
@@ -175,7 +187,7 @@ export default {
           } else {
             this.$alert.close();
           }
-          // console.log(e.response);
+          console.log(e.response);
         }
       }
     },

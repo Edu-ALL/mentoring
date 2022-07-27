@@ -52,7 +52,7 @@
         <hr class="mt-1 mb-3" />
         <div class="row">
           <div class="col">
-            <div class="mb-1">
+            <div class="mb-3">
               <multiselect
                 v-model="score.subject[0]"
                 :options="options"
@@ -60,16 +60,18 @@
               >
               </multiselect>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="score.value[0]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
                   required
+                  placeholder="fill in here ..."
+                  id="score"
                 />
-                <label>Score</label>
+                <label for="score">Score</label>
               </input-group>
             </div>
           </div>

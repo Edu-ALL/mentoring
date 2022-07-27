@@ -39,21 +39,25 @@
                   </multiselect>
 
                   <!-- new -->
-                  <input-group v-if="newField">
-                    <input
-                      type="text"
-                      name=""
-                      class="form-mentoring w-100 form-control-s"
-                      required
-                      v-model="interest.other"
-                    />
-                    <label>Interest</label>
-                  </input-group>
-                  <small
-                    class="text-danger"
-                    v-if="error_form && error_form.career_major_other"
-                    >{{ error_form.career_major_other[0] }}</small
-                  >
+                  <div class="mt-3" v-if="newField">
+                    <input-group>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-mentoring w-100 form-control"
+                        required
+                        v-model="interest.other"
+                        placeholder="fill in here ..."
+                        id="other"
+                      />
+                      <label for="other">Interest</label>
+                    </input-group>
+                    <small
+                      class="text-danger"
+                      v-if="error_form && error_form.career_major_other"
+                      >{{ error_form.career_major_other[0] }}</small
+                    >
+                  </div>
 
                   <div class="text-end mt-3">
                     <button
@@ -143,7 +147,7 @@ export default {
       add: false,
       modal: "",
       newField: false,
-      options: ["HRD", "Customer Service", "Digital Marketing", "Others"],
+      options: [],
       interest_id: "",
       interest_list: [],
       interest: {
@@ -160,11 +164,29 @@ export default {
     },
 
     interestCheck(value) {
-      if (value == "Others") {
+      if (value == "Other") {
         this.newField = true;
       } else {
         this.newField = false;
         this.error_form = [];
+      }
+    },
+
+    async getInterest() {
+      this.options = [];
+      try {
+        const response = await this.$axios.get(
+          "https://internship.all-inedu.com/api/specialization"
+        );
+
+        let specialization = response.data.data;
+        specialization.forEach((element) => {
+          this.options.push(element.spec_name);
+        });
+        // this.interest_list = response.data.data;
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
       }
     },
 
@@ -180,7 +202,7 @@ export default {
 
     async handleSubmit() {
       // check others name
-      if (this.interest.name == "Others") {
+      if (this.interest.name == "Other") {
         this.interest.exist = false;
         this.interest.name = null;
       } else {
@@ -215,7 +237,7 @@ export default {
         if (e.response.status == 400) {
           console.log(e.response.data.error);
           this.error_form = e.response.data.error;
-          this.interest.name = "Others";
+          this.interest.name = "Other";
         }
 
         this.$alert.toast("error", "Please try again");
@@ -247,6 +269,7 @@ export default {
   },
   created() {
     this.getData();
+    this.getInterest();
   },
 };
 </script>

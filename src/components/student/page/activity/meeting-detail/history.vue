@@ -40,6 +40,22 @@
               <td nowrap>{{ $customDate.date(i.call_date) }}</td>
               <td nowrap>{{ $customDate.time(i.call_date) }}</td>
               <td nowrap style="text-transform: capitalize">
+                <i
+                  class="fa-solid fa-ban text-danger"
+                  v-if="i.call_status == 'rejected'"
+                ></i>
+                <i
+                  class="fa-solid fa-clock text-info"
+                  v-if="i.call_status == 'waiting'"
+                ></i>
+                <i
+                  class="fa-solid fa-times-circle text-danger"
+                  v-if="i.call_status == 'canceled'"
+                ></i>
+                <i
+                  class="fa-solid fa-check-circle text-success"
+                  v-if="i.call_status == 'finished'"
+                ></i>
                 {{ i.call_status }}
               </td>
             </tr>

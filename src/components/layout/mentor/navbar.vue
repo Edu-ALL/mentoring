@@ -15,13 +15,23 @@
               <img
                 src="~@/assets/img/editor/alysha.webp"
                 alt=""
-                class="dropdown-toggle"
+                class="dropdown-toggle pointer"
                 data-bs-toggle="dropdown"
               />
-              <ul class="dropdown-menu">
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                style="font-size: 0.8em"
+              >
+                <!-- <li>
+                  <a class="dropdown-item" href="#">
+                    <i class="fa-solid fa-key me-2"></i>
+                    Change Password</a
+                  >
+                </li> -->
                 <li>
-                  <a class="dropdown-item" href="#" @click="handleLogout"
-                    >Logout</a
+                  <a class="dropdown-item" href="#" @click="handleLogout">
+                    <i class="fa-solid fa-sign-out me-2"></i>
+                    Logout</a
                   >
                 </li>
               </ul>

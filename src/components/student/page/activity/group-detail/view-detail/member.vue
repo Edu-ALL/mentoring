@@ -68,10 +68,7 @@
     <div class="vue-modal-overlay" v-if="modal != ''"></div>
     <!-- New Member  -->
     <transition name="pop">
-      <div
-        class="vue-modal vue-modal-sm bg-secondary"
-        v-if="modal == 'new-meeting'"
-      >
+      <div class="vue-modal vue-modal-sm" v-if="modal == 'new-meeting'">
         <form method="post" @submit.prevent="handleSubmit()">
           <h5>Invite New Member</h5>
           <hr class="my-0 mb-3" />
@@ -79,11 +76,13 @@
             <input-group>
               <input
                 type="email"
-                class="form-mentoring w-100"
+                class="form-mentoring form-control w-100"
                 v-model="participant"
                 required
+                placeholder="fill in here ..."
+                id="email"
               />
-              <label class="bg-secondary text-white">Email</label>
+              <label for="email">Email</label>
             </input-group>
           </div>
           <hr />
@@ -173,16 +172,6 @@ export default {
 </script>
 
 <style scoped>
-input-group input:focus,
-input-group textarea:focus {
-  border: 2px solid #fff;
-}
-
-input::placeholder {
-  color: rgb(237, 237, 237) !important;
-  font-size: 0.8em;
-}
-
 .members {
   font-size: 0.9em;
 }

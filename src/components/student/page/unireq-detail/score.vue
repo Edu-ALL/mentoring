@@ -67,102 +67,118 @@
   <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
   <!-- Modal Document  -->
   <transition name="pop">
-    <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
+    <div class="vue-modal vue-modal-sm" v-if="modal == 'add'">
       <form @submit.prevent="submitData" method="post">
         <div class="row">
           <div class="col-md-6">
             <h6>TOEFL Score</h6>
             <hr class="mt-1 mb-3" />
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.toefl_data.value[0]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="toeflReading"
                 />
-                <label>Reading</label>
+                <label for="toeflReading">Reading</label>
               </input-group>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.toefl_data.value[1]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="toeflListening"
                 />
-                <label>Listening</label>
+                <label for="toeflListening">Listening</label>
               </input-group>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.toefl_data.value[2]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="toeflSpeaking"
                 />
-                <label>Speaking</label>
+                <label for="toeflSpeaking">Speaking</label>
               </input-group>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.toefl_data.value[3]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="toeflWriting"
                 />
-                <label>Writing</label>
+                <label for="toeflWriting">Writing</label>
               </input-group>
             </div>
           </div>
           <div class="col-md-6">
             <h6>IELTS Score</h6>
             <hr class="mt-1 mb-3" />
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.ielts_data.value[0]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="ieltsReading"
                 />
-                <label>Reading</label>
+                <label for="ieltsReading">Reading</label>
               </input-group>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.ielts_data.value[1]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="ieltsListening"
                 />
-                <label>Listening</label>
+                <label for="ieltsListening">Listening</label>
               </input-group>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.ielts_data.value[2]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="ieltsSpeaking"
                 />
-                <label>Speaking</label>
+                <label for="ieltsSpeaking">Speaking</label>
               </input-group>
             </div>
-            <div class="mb-1">
+            <div class="mb-3">
               <input-group>
                 <input
                   type="number"
                   v-model="scores.ielts_data.value[3]"
                   max="30"
-                  class="form-mentoring form-control-sm w-100"
+                  class="form-mentoring form-control w-100"
+                  placeholder="fill in here ..."
+                  id="ieltsWriting"
                 />
-                <label>Writing</label>
+                <label for="ieltsWriting">Writing</label>
               </input-group>
             </div>
           </div>

@@ -4,18 +4,20 @@
       <div class="row">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h5 class="mb-4">University Requirements</h5>
-            <div class="mb-2 text-end" style="white-space: nowrap">
-              <select
-                class="form-mentoring"
-                v-model="uni_select"
-                @change="checkTab()"
-              >
-                <option value="all">General</option>
-                <option :value="i.imported_id" v-for="i in uni_list" :key="i">
-                  {{ i.uni_name }}
-                </option>
-              </select>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">University Requirements</h5>
+              <div class="mb-2 text-end" style="white-space: nowrap">
+                <select
+                  class="form-mentoring"
+                  v-model="uni_select"
+                  @change="checkTab()"
+                >
+                  <option value="all">General</option>
+                  <option :value="i.imported_id" v-for="i in uni_list" :key="i">
+                    {{ i.uni_name }}
+                  </option>
+                </select>
+              </div>
             </div>
 
             <div

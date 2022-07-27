@@ -92,18 +92,20 @@
       <h6>Upload New Essay</h6>
       <form @submit.prevent="handleUpload" method="post">
         <div class="border p-2" v-if="tabModal == 'new'">
-          <div class="mb-2">
+          <div class="my-3">
             <input-group>
               <input
                 type="text"
-                class="form-mentoring form-control-sm w-100"
+                class="form-mentoring form-control w-100"
                 v-model="file.name"
                 required
+                id="fileName"
+                placeholder="fill in here ..."
               />
-              <label>File Name</label>
+              <label for="fileName">File Name</label>
             </input-group>
           </div>
-          <div class="mb-2">
+          <div class="mb-3">
             <v-uni
               v-model="uni_select"
               :options="uni_list"
@@ -151,6 +153,7 @@
           </div>
           <div class="text-end">
             <button type="submit" class="btn-mentoring btn-sm py-1 bg-primary">
+              <i class="fa-solid fa-save me-2"></i>
               Submit
             </button>
           </div>

@@ -69,37 +69,38 @@
     <div class="vue-modal-overlay" v-if="modal != ''"></div>
     <!-- New Meeting  -->
     <transition name="pop">
-      <div
-        class="vue-modal vue-modal-sm bg-secondary"
-        v-if="modal == 'new-meeting'"
-      >
+      <div class="vue-modal vue-modal-sm" v-if="modal == 'new-meeting'">
         <form method="post" @submit.prevent="handleSubmit">
           <h5>New Group Meeting</h5>
           <hr class="my-0 mb-3" />
-          <div class="mb-2">
+          <div class="mb-3">
             <input-group>
               <input
                 type="text"
-                class="form-mentoring w-100"
+                class="form-mentoring form-control w-100"
                 required
+                placeholder="fill in here"
                 v-model="meeting.meeting_subject"
+                id="subject"
               />
-              <label class="bg-secondary text-white">Meeting Subject</label>
+              <label for="subject">Meeting Subject</label>
             </input-group>
           </div>
 
-          <div class="mb-2">
+          <div class="mb-3">
             <input-group>
               <input
                 :type="input.meeting"
                 :min="this.$customDate.tomorrow()"
-                class="form-mentoring w-100"
+                class="form-mentoring form-control w-100"
                 v-model="meeting.meeting_date"
                 required
+                placeholder="fill in here"
                 @focus="input.meeting = 'datetime-local'"
                 @blur="input.meeting = 'text'"
+                id="date"
               />
-              <label class="bg-secondary text-white">Meeting Date</label>
+              <label for="date">Meeting Date</label>
             </input-group>
           </div>
 
@@ -107,11 +108,13 @@
             <input-group>
               <input
                 type="text"
-                class="form-mentoring w-100"
+                class="form-mentoring form-control w-100"
                 v-model="meeting.meeting_link"
                 required
+                placeholder="fill in here"
+                id="link"
               />
-              <label class="bg-secondary text-white">Location Link</label>
+              <label for="link">Location Link</label>
             </input-group>
           </div>
           <hr />
@@ -251,16 +254,6 @@ export default {
 </script>
 
 <style scoped>
-input-group input:focus,
-input-group textarea:focus {
-  border: 2px solid #fff;
-}
-
-input::placeholder {
-  color: rgb(237, 237, 237) !important;
-  font-size: 0.8em;
-}
-
 .list-group {
   font-size: 0.8em;
 }

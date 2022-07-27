@@ -92,14 +92,18 @@
       <h6>Upload New Transcript</h6>
       <form @submit.prevent="handleUpload" method="post">
         <div class="border p-2" v-if="tabModal == 'new'">
-          <div class="mb-2">
-            <input
-              type="text"
-              class="form-mentoring form-control-sm w-100"
-              placeholder="fill in the file name here .."
-              v-model="file.name"
-              required
-            />
+          <div class="my-3">
+            <input-group>
+              <input
+                type="text"
+                class="form-mentoring form-control w-100"
+                v-model="file.name"
+                required
+                id="fileName"
+                placeholder="fill in here ..."
+              />
+              <label for="fileName">File Name</label>
+            </input-group>
           </div>
           <div class="border mb-2">
             <div
@@ -133,6 +137,7 @@
           </div>
           <div class="text-end">
             <button type="submit" class="btn-mentoring btn-sm py-1 bg-primary">
+              <i class="fa-solid fa-save me-2"></i>
               Submit
             </button>
           </div>

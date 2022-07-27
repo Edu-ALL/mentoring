@@ -30,48 +30,54 @@
               </legend>
               <div class="field">
                 <div class="data">
-                  <div class="mb-1">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         type="text"
                         v-model="academic.subject"
-                        class="form-mentoring form-control-sm w-100"
+                        class="form-mentoring form-control w-100"
                         required
+                        placeholder="fill in here ..."
+                        id="school"
                       />
-                      <label>School Subject</label>
+                      <label for="scholl">School Subject</label>
                     </input-group>
                   </div>
 
                   <div class="row">
                     <div class="col">
-                      <div class="mb-1">
+                      <div class="mb-3">
                         <input-group>
                           <input
                             type="number"
                             v-model="academic.score"
                             required
-                            class="form-mentoring form-control-sm w-100"
+                            placeholder="fill in here ..."
+                            id="score"
+                            class="form-mentoring form-control w-100"
                           />
-                          <label>Score</label>
+                          <label for="score">Score</label>
                         </input-group>
                       </div>
                     </div>
                     <div class="col">
-                      <div class="mb-1">
+                      <div class="mb-3">
                         <input-group>
                           <input
                             type="number"
                             v-model="academic.max_score"
                             required
-                            class="form-mentoring form-control-sm w-100"
+                            placeholder="fill in here ..."
+                            id="maxScore"
+                            class="form-mentoring form-control w-100"
                           />
-                          <label>Max Score</label>
+                          <label for="maxScore">Max Score</label>
                         </input-group>
                       </div>
                     </div>
                   </div>
 
-                  <div class="text-end mt-3">
+                  <div class="text-end mt-1">
                     <button
                       type="submit"
                       class="btn-mentoring btn-sm btn-outline-success py-1"

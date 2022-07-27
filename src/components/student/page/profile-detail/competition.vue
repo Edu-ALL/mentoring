@@ -31,39 +31,47 @@
               <div class="field">
                 <div class="data">
                   <!-- new -->
-                  <div class="mb-1">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         type="text"
                         v-model="competition.name"
                         required
-                        class="form-mentoring form-control-sm w-100"
+                        placeholder="fiil in here ..."
+                        class="form-mentoring form-control w-100"
+                        id="compName"
                       />
-                      <label>Competition Name</label>
+                      <label for="compName">Competition Name</label>
                     </input-group>
                     <small></small>
                   </div>
 
-                  <div class="mb-1">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         type="text"
                         v-model="competition.level"
                         required
-                        class="form-mentoring form-control-sm w-100"
+                        placeholder="fiil in here ..."
+                        class="form-mentoring form-control w-100"
+                        id="participationLevel"
                       />
-                      <label>Participation Level</label>
+                      <label for="participationLevel"
+                        >Participation Level</label
+                      >
                     </input-group>
                   </div>
-                  <div class="mb-1">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         type="text"
                         v-model="competition.accomplishment"
-                        class="form-mentoring form-control-sm w-100"
+                        class="form-mentoring form-control w-100"
                         required
+                        placeholder="fiil in here ..."
+                        id="accomplishment"
                       />
-                      <label>Accomplishment</label>
+                      <label for="accomplishment">Accomplishment</label>
                     </input-group>
                   </div>
 

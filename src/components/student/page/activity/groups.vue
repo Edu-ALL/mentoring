@@ -91,7 +91,7 @@
     <!-- MODAL  -->
     <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
     <transition name="pop">
-      <div class="vue-modal vue-modal-lg bg-secondary" v-if="modal == 'add'">
+      <div class="vue-modal vue-modal-lg" v-if="modal == 'add'">
         <v-add @modal="checkModal" @data="checkData"></v-add>
       </div>
     </transition>
