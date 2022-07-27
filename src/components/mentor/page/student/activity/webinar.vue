@@ -134,14 +134,17 @@ export default {
 
   methods: {
     async getData() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "mentor/list/activities/webinar?student=" + id
         );
         this.student_webinar = response.data.data;
-        console.log(response);
+        this.$alert.close();
+        // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },

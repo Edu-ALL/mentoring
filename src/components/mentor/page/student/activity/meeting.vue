@@ -119,14 +119,17 @@ export default {
 
   methods: {
     async getData() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "mentor/list/activities/1-on-1-call?student=" + id
         );
         this.student_meeting = response.data.data;
-        console.log(response);
+        this.$alert.close();
+        // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },

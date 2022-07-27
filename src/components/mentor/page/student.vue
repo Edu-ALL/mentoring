@@ -271,11 +271,14 @@ export default {
 
     async getHistory() {
       try {
+        this.$alert.loading();
         const response = await this.$axios.get("student/list");
 
         this.students_data = response.data.data;
         // console.log(response.data);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },

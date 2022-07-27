@@ -354,14 +354,17 @@ export default {
 
   methods: {
     async getData() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get("select/todos/" + id);
         this.todos_waiting = response.data.data;
         this.todos_conf_need = response.data.data;
         this.todos_confirmed = response.data.data;
-        console.log(response);
+        // console.log(response);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },
