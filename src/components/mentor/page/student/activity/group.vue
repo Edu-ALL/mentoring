@@ -164,40 +164,49 @@ export default {
 
   methods: {
     async newRequest() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "student/group/project/new/" + id
         );
         this.new_request = response.data.data;
-        console.log(response);
+        this.$alert.close();
+        // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },
 
     async inProgress() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "student/group/project/in-progress/" + id
         );
         this.in_progress = response.data.data;
-        console.log(response);
+        this.$alert.close();
+        // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },
 
     async historyProject() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "student/group/project/completed/" + id
         );
         this.history_project = response.data.data;
-        console.log(response);
+        this.$alert.close();
+        // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },

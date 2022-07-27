@@ -79,15 +79,18 @@ export default {
     },
 
     async getDataDocument() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
-          "list/requirement/document/" + id
+          "list/requirement/document/" + id + "/all"
         );
 
         this.documents = response.data.data;
+        this.$alert.close();
         // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },

@@ -364,6 +364,7 @@ export default {
     },
 
     async getData() {
+      this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get("select/shortlisted/" + id);
@@ -372,8 +373,10 @@ export default {
         this.list.uni_accepted = response.data.data.accepted;
         this.list.uni_applied = response.data.data.applied;
         this.list.uni_rejected = response.data.data.rejected;
+        this.$alert.close();
         // console.log(response);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
     },
