@@ -139,16 +139,23 @@ export default {
           this.$emit("show", "");
 
           // Mentee Data
-          localStorage.setItem("role", "mentee");
-          localStorage.setItem("token", response.data.data.access_token);
-          localStorage.setItem(
-            "mentee",
-            JSON.stringify(response.data.data.student)
-          );
-          this.$alert.close();
-          this.$alert.toast("success", "You Successfully Login");
+          if (response.data.code) {
+            localStorage.setItem("role", "mentee");
+            localStorage.setItem("token_user", response.data.token);
+            this.$alert.toast("success", response.data.message);
+            this.$emit("show", "set_password");
+          } else {
+            localStorage.setItem("role", "mentee");
+            localStorage.setItem("token", response.data.data.access_token);
+            localStorage.setItem(
+              "mentee",
+              JSON.stringify(response.data.data.student)
+            );
+            this.$alert.close();
+            this.$alert.toast("success", "You Successfully Login");
 
-          window.location.href = "/user";
+            window.location.href = "/user";
+          }
           // this.$router.push({ path: "/user" });
         } catch (e) {
           this.error_login = e.response.data.error;
@@ -172,6 +179,7 @@ export default {
           // Mentor Data
           // if not set a password yet
           if (response.data.code) {
+            localStorage.setItem("role", "mentor");
             localStorage.setItem("token_user", response.data.token);
             this.$alert.toast("success", response.data.message);
             this.$emit("show", "set_password");

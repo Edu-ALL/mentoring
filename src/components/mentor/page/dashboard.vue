@@ -393,8 +393,8 @@
           ></textarea>
           <label class="bg-white" for="menteeTodos">Mentee Todos</label>
         </input-group>
+        <hr />
       </div>
-      <hr />
       <div class="text-end">
         <button class="btn-mentoring btn-sm bg-primary py-1 px-3" type="submit">
           <i class="fa-solid fa-save me-2"></i>

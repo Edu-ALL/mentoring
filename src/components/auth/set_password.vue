@@ -93,12 +93,18 @@ export default {
     async handleSubmit() {
       this.$alert.loading();
       try {
-        const response = await this.$axios.post(
-          "account/user/new-password",
-          this.set_password
-        );
+        let url = "";
+        if (localStorage.getItem("role") == "mentee") {
+          url = "account/student/new-password";
+        } else {
+          url = "account/user/new-password";
+        }
+
+        const response = await this.$axios.post(url, this.set_password);
+
         this.$emit("show", "login");
         this.$alert.toast("success", response.data.message);
+        localStorage.clear();
         // console.log(response.data);
       } catch (e) {
         if (e.response.data.error) {

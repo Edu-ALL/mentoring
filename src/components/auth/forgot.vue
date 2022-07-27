@@ -24,10 +24,14 @@
                   v-model="forgot.email"
                   type="email"
                   name="email"
-                  class="form-control v-form"
+                  class="form-control form-mentoring w-100"
+                  placeholder=""
                   required
+                  id="email"
                 />
-                <label class="bg-primary text-white mt-2">Email</label>
+                <label class="bg-primary text-white rounded" for="email"
+                  >Email</label
+                >
               </input-group>
               <p class="text-white small" v-if="error_forgot.email">
                 {{ error_forgot.email[0] }}
@@ -110,9 +114,9 @@ export default {
 </script>
 
 <style scoped>
-.form-control {
+/* .form-control {
   box-shadow: none !important;
   outline: none !important;
   color: #fff !important;
-}
+} */
 </style>> 
