@@ -202,7 +202,7 @@ export default {
           } else {
             this.$alert.close();
           }
-          // console.log(e);
+          console.log(e.response);
         }
       }
     },

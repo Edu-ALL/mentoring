@@ -488,17 +488,17 @@
                           <i
                             class="fa-solid fa-clock text-info"
                             v-if="i.status == 1"
-                            @click="switchTodos(i.id, 3)"
+                            @click="switchTodos(i.id, 1)"
                           ></i>
                           <i
                             class="fa-solid fa-clock"
                             v-if="i.status == 0"
-                            @click="switchTodos(i.id, 3)"
+                            @click="switchTodos(i.id, 1)"
                           ></i>
                           <i
                             class="fa-solid fa-clock text-danger"
                             v-if="i.status == 2"
-                            @click="switchTodos(i.id, 3)"
+                            @click="switchTodos(i.id, 1)"
                           ></i>
                           <i
                             class="fa-solid fa-check-circle text-success"
