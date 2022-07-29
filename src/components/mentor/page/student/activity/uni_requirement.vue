@@ -5,13 +5,25 @@
         class="mb-3 overflow-auto d-flex w-100 mentoring-scroll"
         style="white-space: nowrap"
       >
-        <button
+        <!-- <button
           class="btn-mentoring btn-sm me-2 py-0 mt-2 mx-1"
           :class="tab == 'all' ? 'bg-secondary' : 'btn-type-2'"
           @click="checkTab('all')"
         >
           ALL
-        </button>
+        </button> -->
+        <div class="text-end" style="white-space: nowrap">
+          <select
+            class="form-mentoring"
+            v-model="uni_select"
+            @change="checkTab()"
+          >
+            <option value="all">General</option>
+            <option :value="i.imported_id" v-for="i in uni_list" :key="i">
+              {{ i.uni_name }}
+            </option>
+          </select>
+        </div>
         <!-- <div v-for="i in uni_list" :key="i">
           <button
             class="btn-mentoring btn-sm mt-1 me-2"
@@ -66,24 +78,30 @@ export default {
       tab: "all",
       documents: [],
       academic: [],
+      uni_select: "all",
       uni_list: [],
     };
   },
   methods: {
+    checkTab() {
+      // alert(this.uni_select);
+      this.getDataDocument(this.uni_select);
+    },
+
     checkData(i) {
       if (i == "academic") {
         this.getDataText();
       } else if (i == "file") {
-        this.getDataDocument();
+        this.getDataDocument(this.uni_select);
       }
     },
 
-    async getDataDocument() {
+    async getDataDocument(i = "all") {
       this.$alert.loading();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
-          "list/requirement/document/" + id + "/all"
+          "list/requirement/document/" + id + "/" + i
         );
 
         this.documents = response.data.data;
@@ -113,7 +131,8 @@ export default {
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
-          "student/university/shortlisted/" + id + "/all"
+          // https://services.all-inedu.com/api/v1/select/shortlisted/{{student_id}}/all
+          "select/shortlisted/" + id + "/all"
         );
 
         this.uni_list = response.data.data;

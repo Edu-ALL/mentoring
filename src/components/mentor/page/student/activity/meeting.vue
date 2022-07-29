@@ -19,7 +19,7 @@
               v-for="(i, index) in student_meeting.data"
               :key="index"
             >
-              <td>{{ index + 1 }}</td>
+              <td>{{ parseInt(index) + 1 }}</td>
 
               <td>
                 {{
@@ -83,7 +83,15 @@
                     : ''
                 "
                 href="#"
-                @click="getPage(student_meeting.path + '?page=' + i)"
+                @click="
+                  getPage(
+                    student_meeting.path +
+                      '?student=' +
+                      menus.submenu +
+                      '&page=' +
+                      i
+                  )
+                "
                 >{{ i }}</a
               >
             </li>
@@ -132,6 +140,20 @@ export default {
         this.$alert.close();
         console.log(e.response);
       }
+    },
+
+    async getPage(link) {
+      this.student_meeting = [];
+      this.$alert.loading();
+      try {
+        const response = await this.$axios.get(link);
+
+        this.student_meeting = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+      this.$alert.close();
     },
   },
   created() {

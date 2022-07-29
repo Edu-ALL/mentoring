@@ -480,29 +480,37 @@
             <h5 class="text-center mb-3">TODOS</h5>
             <div class="card shadow rounded-2 todos mentoring-scroll">
               <div class="card-body">
-                <div v-for="i in 5" :key="i">
+                <div v-for="(i, index) in todos_list" :key="index">
                   <div class="row align-items-center">
                     <div class="col-12">
                       <div class="d-flex align-items-center">
                         <div class="me-3">
                           <i
-                            class="fa-solid fa-clock text-warning"
-                            v-if="i < 5"
+                            class="fa-solid fa-clock text-info"
+                            v-if="i.status == 1"
+                            @click="switchTodos(i.id, 3)"
                           ></i>
                           <i
-                            class="fa-solid fa-circle-check text-success"
-                            v-if="i == 5"
+                            class="fa-solid fa-clock"
+                            v-if="i.status == 0"
+                            @click="switchTodos(i.id, 3)"
+                          ></i>
+                          <i
+                            class="fa-solid fa-clock text-danger"
+                            v-if="i.status == 2"
+                            @click="switchTodos(i.id, 3)"
+                          ></i>
+                          <i
+                            class="fa-solid fa-check-circle text-success"
+                            v-if="i.status == 3"
                           ></i>
                         </div>
                         <div class="task" style="text-align: justify">
                           <div class="text-end mb-1">
                             <i class="fa-solid fa-calendar me-2"></i>
-                            24 July 2022
+                            {{ $customDate.date(i.due_date) }}
                           </div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Aperiam magni sit autem odit, a in maiores totam
-                          quas quia Lorem ipsum dolor, sit amet consectetur
-                          adipisicing elit. Necessitatibus veniam explicabo,
+                          {{ i.description }}
                         </div>
                       </div>
                     </div>
@@ -579,6 +587,7 @@ export default {
       modal: "",
       sosmed: [],
       mentee: [],
+      todos_list: [],
       uni_list: {
         waitlisted: [],
         applied: [],
@@ -668,6 +677,37 @@ export default {
       }
     },
 
+    async getTodosList() {
+      try {
+        const response = await this.$axios.get("student/todos");
+
+        this.todos_list = response.data;
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async switchTodos(j, s) {
+      // alert(j);
+      try {
+        const response = await this.$axios.post("switch/todos", {
+          todos_id: j,
+          new_status: s,
+        });
+        console.log(response);
+        if (response.data.success) {
+          this.getTodosList();
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.$alert.toast("error", response.data.error);
+        }
+      } catch (e) {
+        console.log(e.response);
+        this.$alert.toast("error", "Please try again");
+      }
+    },
+
     async handleUpload() {
       this.modal = "";
       if (this.dropzoneFile) {
@@ -703,6 +743,7 @@ export default {
     this.mentee = JSON.parse(localStorage.getItem("mentee"));
     this.getSosmed();
     this.getMeeting();
+    this.getTodosList();
     this.getUniList("waitlisted");
     this.getUniList("applied");
     this.getUniList("accepted");

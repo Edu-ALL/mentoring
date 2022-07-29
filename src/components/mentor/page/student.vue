@@ -3,15 +3,27 @@
     <div class="" v-if="menus.submenu == ''">
       <div class="row mb-4">
         <div class="col-md-6 text-start">
-          <input-group>
-            <input
-              type="text"
-              class="form-mentoring form-control-sm"
-              required
-            />
-            <label>Search</label>
-          </input-group>
+          <div class="d-flex align-item-center">
+            <input-group>
+              <input
+                type="text"
+                class="form-mentoring form-control"
+                v-model="search.name"
+                @change="searchData"
+                id="search"
+                placeholder="Search"
+              />
+
+              <label for="search">Search</label>
+            </input-group>
+            <i
+              class="fa-solid fa-close ms-3 pointer"
+              @click="closeSearch"
+              v-if="search.bar"
+            ></i>
+          </div>
         </div>
+
         <div class="col-12">
           <div class="card-white m-0 px-2 py-1 mt-2">
             <div class="table-responsive">
@@ -34,10 +46,18 @@
                     <td nowrap class="pointer" @click="checkDetail(i.id)">
                       {{ i.first_name + " " + i.last_name }}
                     </td>
-                    <td nowrap>{{ i.email }}</td>
-                    <td nowrap>{{ i.school_name }}</td>
-                    <td nowrap>{{ i.grade }}</td>
-                    <td nowrap>{{ i.phone_number }}</td>
+                    <td nowrap class="pointer" @click="checkDetail(i.id)">
+                      {{ i.email }}
+                    </td>
+                    <td nowrap class="pointer" @click="checkDetail(i.id)">
+                      {{ i.school_name }}
+                    </td>
+                    <td nowrap class="pointer" @click="checkDetail(i.id)">
+                      {{ i.grade }}
+                    </td>
+                    <td nowrap class="pointer" @click="checkDetail(i.id)">
+                      {{ i.phone_number }}
+                    </td>
                     <td nowrap>
                       <button
                         @click="changeProgresStatus(i.id, 'ahead')"
@@ -75,6 +95,7 @@
                     </td>
                     <td width="50%" nowrap>
                       <transition name="fade">
+                        <!-- {{ tag_list }} -->
                         <div
                           class="d-flex align-items-center"
                           v-if="add_tags[index]"
@@ -84,9 +105,15 @@
                             class="form-mentoring w-100 form-control-sm"
                             @change="addTags(i.id, index)"
                           >
-                            <option value="val1">Value 1</option>
-                            <option value="val2">Value 2</option>
-                            <option value="val3">Value 3</option>
+                            <option
+                              :value="i.name"
+                              v-for="i in tag_list"
+                              :key="i"
+                            >
+                              {{ i.name }}
+                            </option>
+                            <!-- <option value="val2">Value 2</option>
+                            <option value="val3">Value 3</option> -->
                           </select>
                           <i
                             class="fa-solid fa-close ms-2 text-danger pointer"
@@ -123,7 +150,12 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="text-center" v-if="students_data.from == null">
+                <hr />
+                <h6>Sorry, data is not found</h6>
+              </div>
             </div>
+
             <nav class="mt-3" v-if="students_data.from != null">
               <ul class="pagination justify-content-center">
                 <li class="page-item" v-if="students_data.current_page != 1">
@@ -187,6 +219,7 @@ export default {
   props: {
     menus: Object,
   },
+
   // data() {
   //   return {
   //     add_tags: false,
@@ -198,7 +231,12 @@ export default {
 
   data() {
     return {
+      search: {
+        bar: false,
+        name: "",
+      },
       add_tags: [],
+      tag_list: [],
       // category: [],
       // webinar_data: [],
       students_data: [],
@@ -223,6 +261,57 @@ export default {
       }
     },
 
+    async handleSubmit() {
+      // const id = this.menus.submenu;
+      this.modal = "";
+      this.uni.student_id = this.menus.submenu;
+      this.uni.univ_id = this.uni_select.univ_id;
+
+      console.log(this.uni);
+
+      this.$alert.loading();
+
+      try {
+        const response = await this.$axios.post("create/shortlisted", this.uni);
+
+        this.uni.univ_id = "";
+        this.uni.major = "";
+
+        console.log(response.data);
+        this.getData();
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        console.log(e.response.data);
+        // if (e.response.data.error) {
+        //   this.$alert.toast("error", e.response.data.error.univ_id[0]);
+        // } else {
+        this.$alert.toast("error", "Please try again");
+        // }
+      }
+    },
+
+    searchData() {
+      this.$alert.loading();
+      this.$axios
+        .get(this.$url + "student/list?keyword=" + this.search.name)
+        .then((response) => {
+          this.$alert.close();
+          this.students_data = response.data.data;
+          this.search.bar = true;
+          console.log(response);
+        })
+        .catch((error) => {
+          this.$alert.close();
+          console.log(error);
+        });
+    },
+
+    closeSearch() {
+      this.search.bar = false;
+      this.search.name = "";
+      this.getHistory();
+    },
+
     async addTags(id, index) {
       // alert(id + this.tags_name)
       try {
@@ -242,6 +331,20 @@ export default {
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    async tagList() {
+      try {
+        this.$alert.loading();
+        const response = await this.$axios.get("list/tag");
+
+        this.tag_list = response.data.data;
+        // console.log(response.data);
+        this.$alert.close();
+      } catch (e) {
+        this.$alert.close();
+        console.log(e.response);
       }
     },
 
@@ -285,6 +388,7 @@ export default {
   },
   created() {
     this.getHistory();
+    this.tagList();
   },
 };
 </script>
