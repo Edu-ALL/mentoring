@@ -212,9 +212,7 @@ export default {
     },
 
     detail(i) {
-      this.$router.push({
-        path: "/mentor/student/" + this.menus.submenu + "/group/" + i,
-      });
+      window.open("/mentor/activity/group/in-progress/" + i.id, "_blank");
     },
   },
   created() {

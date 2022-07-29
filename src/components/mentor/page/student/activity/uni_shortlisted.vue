@@ -242,7 +242,7 @@
         <hr class="mb-1" />
         <form method="post" @submit.prevent="handleSubmit">
           <div class="mt-2">
-            {{ uni_select }}
+            <!-- {{ uni_select }} -->
             <v-uni
               v-model="uni_select"
               :options="uni_list"
