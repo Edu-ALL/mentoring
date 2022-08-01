@@ -37,11 +37,11 @@
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
-                  <vue-feather type="user" class="h-ico"></vue-feather>
+                  <vue-feather type="clock" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">Belum Ada</div>
-                  <div class="h-label">Meetings Total</div>
+                  <div class="h-count">00</div>
+                  <div class="h-label">Upcoming Meeting</div>
                 </div>
               </div>
             </div>
@@ -52,11 +52,74 @@
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
-                  <vue-feather type="user" class="h-ico"></vue-feather>
+                  <vue-feather type="phone-missed" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">Belum Ada</div>
-                  <div class="h-label">Group Poject</div>
+                  <div class="h-count">00</div>
+                  <div class="h-label">Canceled Meeting</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-card shadow-sm">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="phone-off" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <div class="h-count">00</div>
+                  <div class="h-label">Rejected Meeting</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-card shadow-sm">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather
+                    type="phone-outgoing"
+                    class="h-ico"
+                  ></vue-feather>
+                </div>
+                <div class="col-8">
+                  <div class="h-count">00</div>
+                  <div class="h-label">Completed Meeting</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-card shadow-sm">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="twitch" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <div class="h-count">00</div>
+                  <div class="h-label">Ongoing Group</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-card shadow-sm">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="check-square" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <div class="h-count">00</div>
+                  <div class="h-label">Completed Group</div>
                 </div>
               </div>
             </div>

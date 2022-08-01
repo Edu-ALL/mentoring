@@ -1,31 +1,84 @@
 <template>
   <div id="successMail">
-    <div class="row my-4">
-      <div class="col-md-6 text-start">
-        <input
-          type="text"
-          class="form-mentoring"
-          v-model="search.name"
-          @change="searchData"
-          placeholder="Search"
-        />
-        <br />
-        <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
-          {{ search.name }}
-          <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
-        </span>
-      </div>
-      <!-- <div class="col-md-6 text-md-end text-center">
+    <div class="card-white">
+      <div class="row mb-2 align-items-center justify-content-between">
+        <div class="col-md-6">
+          <button
+            type="button"
+            class="btn-sm btn-mentoring py-1 position-relative me-3"
+            :class="menus.submenu == '' ? 'btn-type-1' : ' btn-type-2'"
+            @click="this.$router.push({ path: '/admin/mail/' })"
+          >
+            Error
+            <span
+              class="
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+                badge
+                rounded-pill
+                bg-primary
+              "
+              v-if="mails_count.error > 0"
+            >
+              {{ mails_count.error > 99 ? "99+" : mails_count.error }}
+            </span>
+          </button>
+          <button
+            type="button"
+            class="btn-sm btn-mentoring py-1 position-relative me-3"
+            :class="menus.submenu == 'success' ? 'btn-type-1' : ' btn-type-2'"
+            @click="this.$router.push({ path: '/admin/mail/success' })"
+          >
+            Success
+            <span
+              class="
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+                badge
+                rounded-pill
+                bg-primary
+              "
+              v-if="mails_count.success > 0"
+            >
+              {{ mails_count.success > 99 ? "99+" : mails_count.success }}
+            </span>
+          </button>
+        </div>
+
+        <div class="col-md-3">
+          <input-group>
+            <input
+              type="text"
+              class="form-mentoring form-control w-100"
+              v-model="search.name"
+              @change="searchData"
+              placeholder="Search"
+              id="search"
+            />
+            <label for="search">Search</label>
+          </input-group>
+          <span
+            class="badge bg-primary px-3 d-inline-block float-end mt-1"
+            v-if="search.bar && search.name != ''"
+          >
+            {{ search.name }}
+            <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
+          </span>
+        </div>
+        <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
           Sync Students Data
         </button>
         <button class="btn-mentoring btn-type-2">Add a New Student</button>
       </div> -->
-    </div>
-    <div class="card-white">
+      </div>
       <!-- {{ mails }} -->
       <div class="table-responsive">
-        <table class="table align-middle table-hover">
+        <table class="table table-bordered align-middle table-hover">
           <thead>
             <tr class="text-center">
               <th>No</th>
@@ -122,6 +175,10 @@
 <script>
 export default {
   name: "successMail",
+  props: {
+    menus: Object,
+    mails_count: Object,
+  },
   data() {
     return {
       mails: [],

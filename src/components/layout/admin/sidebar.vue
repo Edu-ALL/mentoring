@@ -67,7 +67,7 @@
 
       <li :class="menus.menu == 'todos' ? 'active' : ''" @click="goTo('todos')">
         <vue-feather
-          type="airplay"
+          type="check-square"
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
@@ -76,7 +76,7 @@
 
       <li :class="menus.menu == 'group' ? 'active' : ''" @click="goTo('group')">
         <vue-feather
-          type="airplay"
+          type="users"
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather

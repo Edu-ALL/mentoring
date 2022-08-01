@@ -1,68 +1,16 @@
 <template>
   <div id="mail">
-    <div class="container">
-      <div class="card-white">
-        <div class="row">
-          <div class="col-md-12">
-            <button
-              type="button"
-              class="btn-sm btn-mentoring position-relative me-3"
-              :class="menus.submenu == '' ? 'btn-type-1' : ' btn-type-2'"
-              @click="this.$router.push({ path: '/admin/mail/' })"
-            >
-              Error
-              <span
-                class="
-                  position-absolute
-                  top-0
-                  start-100
-                  translate-middle
-                  badge
-                  rounded-pill
-                  bg-primary
-                "
-                v-if="mails.error > 0"
-              >
-                {{ mails.error > 99 ? "99+" : mails.error }}
-              </span>
-            </button>
-            <button
-              type="button"
-              class="btn-sm btn-mentoring position-relative me-3"
-              :class="menus.submenu == 'success' ? 'btn-type-1' : ' btn-type-2'"
-              @click="this.$router.push({ path: '/admin/mail/success' })"
-            >
-              Success
-              <span
-                class="
-                  position-absolute
-                  top-0
-                  start-100
-                  translate-middle
-                  badge
-                  rounded-pill
-                  bg-primary
-                "
-                v-if="mails.success > 0"
-              >
-                {{ mails.success > 99 ? "99+" : mails.success }}
-              </span>
-            </button>
-          </div>
+    <div class="row">
+      <transition name="fade">
+        <div class="col-md-12" v-if="menus.submenu == ''">
+          <v-error :mails_count="mails" :menus="menus" />
         </div>
-        <div class="row">
-          <transition name="fade">
-            <div class="col-md-12" v-if="menus.submenu == ''">
-              <v-error></v-error>
-            </div>
-          </transition>
-          <transition name="fade">
-            <div class="col-md-12" v-if="menus.submenu == 'success'">
-              <v-success></v-success>
-            </div>
-          </transition>
+      </transition>
+      <transition name="fade">
+        <div class="col-md-12" v-if="menus.submenu == 'success'">
+          <v-success :mails_count="mails" :menus="menus" />
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -74,7 +22,7 @@ import Success from "@/components/admin/maillog/success";
 export default {
   name: "mail",
   props: {
-    menus: String,
+    menus: Object,
   },
   components: {
     "v-error": Error,
@@ -82,7 +30,7 @@ export default {
   },
   data() {
     return {
-      mails: [],
+      mails: { error: "", success: "" },
     };
   },
   methods: {
@@ -91,7 +39,7 @@ export default {
         .get(this.$url + "list/mail/log/error")
         .then((response) => {
           this.mails.error = response.data.data.data.length;
-          console.log(this.mails.error);
+          // console.log(this.mails.error);
         })
         .catch((error) => {
           console.log(error);
@@ -102,7 +50,7 @@ export default {
         .get(this.$url + "list/mail/log/success")
         .then((response) => {
           this.mails.success = response.data.data.data.length;
-          console.log(this.mails.error);
+          // console.log(this.mails.error);
         })
         .catch((error) => {
           console.log(error);

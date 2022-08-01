@@ -170,6 +170,16 @@ export default {
         } else if (this.menus.submenu == "alumni") {
           title = "Alumni";
         }
+      } else if (this.menus.menu == "1on1") {
+        title = "Meetings";
+      } else if (this.menus.menu == "todos") {
+        title = "Todos";
+      } else if (this.menus.menu == "group") {
+        title = "Group Project";
+      } else if (this.menus.menu == "webinar") {
+        title = "Webinars";
+      } else if (this.menus.menu == "mail") {
+        title = "Mail Log";
       }
 
       return title;

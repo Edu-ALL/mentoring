@@ -2,40 +2,44 @@
   <div id="webinar">
     <transition name="fade">
       <div class="" v-if="menus.submenu == ''">
-        <div class="row my-4">
-          <div class="col-md-6 text-start">
-            <input
-              type="text"
-              class="form-mentoring"
-              v-model="search.name"
-              @change="searchData"
-              placeholder="Search"
-            />
-            <br />
-            <span
-              class="badge bg-primary px-3 d-inline-block"
-              v-if="search.bar"
-            >
-              {{ search.name }}
-              <i
-                class="fa-solid fa-close ms-3 pointer"
-                @click="closeSearch"
-              ></i>
-            </span>
-          </div>
-          <div class="col-md-6 text-md-end text-center">
-            <button
-              class="btn-mentoring btn-type-2"
-              @click="this.$router.push({ path: '/admin/webinar/add' })"
-            >
-              Add a New Webinar
-            </button>
-          </div>
-        </div>
         <!-- {{ webinars }} -->
         <div class="card-white">
+          <div class="row mb-3 d-flex align-items-center">
+            <div class="col-md-6 text-start">
+              <input-group>
+                <input
+                  type="text"
+                  class="form-mentoring form-control w-50"
+                  v-model="search.name"
+                  @change="searchData"
+                  placeholder="Search"
+                  id="search"
+                />
+                <label for="search">Search</label>
+              </input-group>
+              <span
+                class="badge bg-primary px-3 d-inline-block"
+                v-if="search.bar && search.name != ''"
+              >
+                {{ search.name }}
+                <i
+                  class="fa-solid fa-close ms-3 pointer"
+                  @click="closeSearch"
+                ></i>
+              </span>
+            </div>
+            <div class="col-md-6 text-md-end text-center">
+              <button
+                class="btn-mentoring btn-type-2 py-1 px-3"
+                @click="this.$router.push({ path: '/admin/webinar/add' })"
+              >
+                Add a New Webinar
+              </button>
+            </div>
+          </div>
+
           <div class="table-responsive">
-            <table class="table align-middle table-hover">
+            <table class="table table-bordered align-middle table-hover">
               <thead>
                 <tr class="text-center">
                   <th>No</th>
@@ -190,18 +194,24 @@ export default {
 
     searchData() {
       this.$alert.loading();
-      this.$axios
-        .get(this.$url + "list/programme/webinar?keyword=" + this.search.name)
-        .then((response) => {
-          this.$alert.close();
-          this.webinars = response.data.data;
-          this.search.bar = true;
-          // console.log(response);
-        })
-        .catch((error) => {
-          this.$alert.close();
-          console.log(error);
-        });
+      if (this.search.name == "") {
+        this.getData();
+        this.search.bar = false;
+        this.$alert.close();
+      } else {
+        this.$axios
+          .get(this.$url + "list/programme/webinar?keyword=" + this.search.name)
+          .then((response) => {
+            this.$alert.close();
+            this.webinars = response.data.data;
+            this.search.bar = true;
+            // console.log(response);
+          })
+          .catch((error) => {
+            this.$alert.close();
+            console.log(error);
+          });
+      }
     },
 
     closeSearch() {
