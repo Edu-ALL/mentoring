@@ -24,18 +24,23 @@
           >
         </h4>
         <div class="mb-3">
-          <div class="input-group">
+          <input-group>
             <input
               v-model="login.email"
               type="email"
               autocomplete="off"
               class="form-control v-form"
+              placeholder="Email"
             />
             <label
-              :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
+              :class="
+                login_as == 'student'
+                  ? 'bg-primary'
+                  : 'bg-secondary  text-white'
+              "
               >Email</label
             >
-          </div>
+          </input-group>
           <p
             class="mt-1 small"
             v-if="error_login.email"
@@ -45,18 +50,21 @@
           </p>
         </div>
         <div class="mb-3">
-          <div class="input-group">
+          <input-group>
             <input
               v-model="login.password"
               type="password"
               autocomplete="off"
               class="form-control v-form"
+              placeholder="Password"
             />
             <label
-              :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
+              :class="
+                login_as == 'student' ? 'bg-primary' : 'bg-secondary text-white'
+              "
               >Password</label
             >
-          </div>
+          </input-group>
           <p
             class="mt-1 small"
             v-if="error_login.password"
@@ -73,7 +81,7 @@
         </div>
         <div class="text-center">
           <button
-            class="btn btn-allin my-3 px-5"
+            class="btn btn-primary btn-mentoring my-3 px-5"
             :class="login_as == 'student' ? 'bg-secondary' : 'bg-primary'"
             type="submit"
           >
@@ -219,33 +227,8 @@ export default {
   z-index: 1 !important;
 }
 
-input:focus,
-input:active {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.input-group {
-  position: relative;
-  z-index: 1;
-}
-
-.input-group label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #fff;
-  transform: translate(20px, 5px);
-  transition: all 0.4s;
-}
-
-input:focus + label,
-input:valid + label {
-  position: absolute;
-  color: #fff;
-  transform: translate(10px, -12px) scale(0.7);
-  background: #223872;
-  padding: 0 4px;
-  z-index: 2;
+input::placeholder,
+textarea::placeholder {
+  color: transparent !important;
 }
 </style>

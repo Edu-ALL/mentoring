@@ -10,6 +10,12 @@
             class="st-pic"
             v-if="!student.image"
           />
+          <img
+            v-lazy="$base_url + '/' + student.image"
+            alt="Profile"
+            class="st-pic"
+            v-if="student.image"
+          />
         </div>
         <!-- {{ student }} -->
         <div class="col-md-9">
@@ -56,222 +62,98 @@
 
     <div class="card-white">
       <button
-        class="btn-mentoring me-2"
+        class="btn-mentoring py-1 me-2"
         :class="activity == '1on1' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('1on1')"
       >
-        1on1 Calls
+        Meetings
       </button>
       <button
-        class="btn-mentoring me-2"
+        class="btn-mentoring py-1 me-2"
+        :class="activity == 'todos' ? 'btn-type-1' : 'btn-type-2'"
+        @click="getActivity('todos')"
+      >
+        Todos
+      </button>
+      <button
+        class="btn-mentoring py-1 me-2"
+        :class="activity == 'group' ? 'btn-type-1' : 'btn-type-2'"
+        @click="getActivity('group')"
+      >
+        Group Project
+      </button>
+      <button
+        class="btn-mentoring py-1 me-2"
         :class="activity == 'webinar' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('webinar')"
       >
         Webinars
       </button>
       <button
-        class="btn-mentoring me-2"
+        class="btn-mentoring py-1 me-2"
+        :class="activity == 'uni-shortlisted' ? 'btn-type-1' : 'btn-type-2'"
+        @click="getActivity('uni-shortlisted')"
+      >
+        Uni Shortlisted
+      </button>
+      <button
+        class="btn-mentoring py-1 me-2"
+        :class="activity == 'uni-requirement' ? 'btn-type-1' : 'btn-type-2'"
+        @click="getActivity('uni-requirement')"
+      >
+        Uni Requirements
+      </button>
+
+      <!-- Event & Files  -->
+      <!-- <button
+        class="btn-mentoring py-1 me-2"
         :class="activity == 'event' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('event')"
       >
         Join the Event
       </button>
       <button
-        class="btn-mentoring me-2"
+        class="btn-mentoring py-1 me-2"
         :class="activity == 'files' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('files')"
       >
         File Libraries
-      </button>
+      </button> -->
 
       <!-- {{ activities.files }} -->
 
       <!-- 1on1 Calls  -->
       <transition name="fade">
-        <div class="border p-3 rounded mt-3" v-if="activity == '1on1'">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr class="text-center">
-                  <th width="2%">No</th>
-                  <th>Call with</th>
-                  <th>Category</th>
-                  <th>Date & Time</th>
-                  <th>Status</th>
-                  <th>Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="text-center"
-                  v-for="(i, index) in activities.calls.data"
-                  :key="index"
-                >
-                  <td>{{ activities.calls.from + index }}</td>
-                  <td>{{ i.users.first_name + " " + i.users.last_name }}</td>
-                  <td>{{ i.module + " - " + i.call_with }}</td>
-                  <td>
-                    <small>
-                      {{ $customDate.date(i.created_at) }} <br />
-                      {{ $customDate.time(i.created_at) }}
-                    </small>
-                  </td>
-                  <td style="text-transform: capitalize">
-                    {{ i.std_act_status }}
-                  </td>
-                  <td>{{ i.location_link }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-center" v-if="activities.calls.from == null">
-            <hr />
-            <h6>Sorry, data is not found</h6>
-          </div>
-          <nav class="mt-2" v-if="activities.calls.from != null">
-            <ul class="pagination justify-content-center">
-              <li class="page-item" v-if="activities.calls.current_page != 1">
-                <a
-                  class="page-link"
-                  @click="getPage(activities.calls.links[0].url)"
-                >
-                  <i class="fa-solid fa-chevron-left"></i>
-                </a>
-              </li>
-              <div
-                v-for="(i, index) in activities.calls.last_page"
-                :key="index"
-              >
-                <li
-                  class="page-item"
-                  v-if="
-                    activities.calls.current_page - 2 < i &&
-                    activities.calls.current_page + 2 > i
-                  "
-                >
-                  <a
-                    class="page-link"
-                    :class="
-                      activities.calls.current_page == i
-                        ? 'bg-primary text-white'
-                        : ''
-                    "
-                    href="#"
-                    @click="getPage(activities.calls.path + '?page=' + i)"
-                    >{{ i }}</a
-                  >
-                </li>
-              </div>
-              <li
-                class="page-item"
-                v-if="
-                  activities.calls.current_page != activities.calls.last_page
-                "
-              >
-                <a
-                  class="page-link"
-                  @click="getPage(activities.calls.next_page_url)"
-                >
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        <v-meeting v-if="activity == '1on1'" />
+      </transition>
+
+      <!-- Todos  -->
+      <transition name="fade">
+        <v-todos v-if="activity == 'todos'" />
+      </transition>
+
+      <!-- Group  -->
+      <transition name="fade">
+        <v-group v-if="activity == 'group'" />
       </transition>
 
       <!-- Webinar -->
       <transition name="fade">
-        <div class="border p-3 rounded mt-3" v-if="activity == 'webinar'">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr class="text-center">
-                  <th width="2%">No</th>
-                  <th>Webinar Name</th>
-                  <th>Date & Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="text-center"
-                  v-for="(i, index) in activities.webinars.data"
-                  :key="index"
-                >
-                  <td>{{ activities.webinars.from + index }}</td>
-                  <td>
-                    {{ i.programme_details.dtl_name }}
-                  </td>
-                  <td>
-                    {{ $customDate.date(i.created_at) }} at
-                    {{ $customDate.time(i.created_at) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-center" v-if="activities.webinars.from == null">
-            <hr />
-            <h6>Sorry, data is not found</h6>
-          </div>
-          <nav class="mt-2" v-if="activities.webinars.from != null">
-            <ul class="pagination justify-content-center">
-              <li
-                class="page-item"
-                v-if="activities.webinars.current_page != 1"
-              >
-                <a
-                  class="page-link"
-                  @click="getPage(activities.webinars.links[0].url)"
-                >
-                  <i class="fa-solid fa-chevron-left"></i>
-                </a>
-              </li>
-              <div
-                v-for="(i, index) in activities.webinars.last_page"
-                :key="index"
-              >
-                <li
-                  class="page-item"
-                  v-if="
-                    activities.webinars.current_page - 2 < i &&
-                    activities.webinars.current_page + 2 > i
-                  "
-                >
-                  <a
-                    class="page-link"
-                    :class="
-                      activities.webinars.current_page == i
-                        ? 'bg-primary text-white'
-                        : ''
-                    "
-                    href="#"
-                    @click="getPage(activities.webinars.path + '?page=' + i)"
-                    >{{ i }}</a
-                  >
-                </li>
-              </div>
-              <li
-                class="page-item"
-                v-if="
-                  activities.webinars.current_page !=
-                  activities.webinars.last_page
-                "
-              >
-                <a
-                  class="page-link"
-                  @click="getPage(activities.webinars.next_page_url)"
-                >
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        <v-webinar v-if="activity == 'webinar'" />
+      </transition>
+
+      <!-- Uni Shortlisted  -->
+      <transition name="fade">
+        <v-uni-shortlisted v-if="activity == 'uni-shortlisted'" />
+      </transition>
+
+      <!-- Uni Shortlisted  -->
+      <transition name="fade">
+        <v-uni-req v-if="activity == 'uni-requirement'" />
       </transition>
 
       <!-- Event -->
-      <transition name="fade">
+      <!-- <transition name="fade">
         <div class="border p-3 rounded mt-3" v-if="activity == 'event'">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -356,10 +238,10 @@
             </ul>
           </nav>
         </div>
-      </transition>
+      </transition> -->
 
       <!-- Files -->
-      <transition name="fade">
+      <!-- <transition name="fade">
         <div class="border p-3 rounded mt-3" v-if="activity == 'files'">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -443,17 +325,32 @@
             </ul>
           </nav>
         </div>
-      </transition>
+      </transition> -->
     </div>
   </div>
 </template>
 
 <script>
+import Meetings from "@/components/admin/user/detail/student-activity/meeting";
+import Todos from "@/components/admin/user/detail/student-activity/todos";
+import Group from "@/components/admin/user/detail/student-activity/group";
+import Webinars from "@/components/admin/user/detail/student-activity/webinar";
+import UniShortlisted from "@/components/admin/user/detail/student-activity/uni_shortlisted";
+import UniRequirement from "@/components/admin/user/detail/student-activity/uni_requirement";
+
 export default {
   name: "studentDetail",
+  components: {
+    "v-meeting": Meetings,
+    "v-todos": Todos,
+    "v-group": Group,
+    "v-webinar": Webinars,
+    "v-uni-shortlisted": UniShortlisted,
+    "v-uni-req": UniRequirement,
+  },
   data() {
     return {
-      email: "",
+      student_id: "",
       student: [],
       activity: "1on1",
       activities: {
@@ -465,10 +362,10 @@ export default {
     };
   },
   methods: {
-    getData(email) {
+    getData(id) {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/student?mail=" + email)
+        .get(this.$url + "student/detail/" + id)
         .then((response) => {
           this.$alert.close();
           this.student = response.data.data;
@@ -554,9 +451,9 @@ export default {
     },
   },
   created() {
-    this.email = this.$route.params.key;
-    this.getData(this.email);
-    this.get1on1(this.email);
+    this.student_id = this.$route.params.key;
+    this.getData(this.student_id);
+    // this.get1on1(this.student_id);
   },
 };
 </script>

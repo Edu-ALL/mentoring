@@ -41,7 +41,7 @@
             >
               <span>Mentors</span>
             </li>
-            <li
+            <!-- <li
               @click="goTo('user/editor')"
               :class="menus.submenu == 'editor' ? 'active' : ''"
             >
@@ -52,7 +52,7 @@
               :class="menus.submenu == 'alumni' ? 'active' : ''"
             >
               <span>Alumni</span>
-            </li>
+            </li> -->
           </ul>
         </transition>
       </li>
@@ -62,16 +62,27 @@
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
-        ><span v-if="sidebar">1on1 Calls</span>
+        ><span v-if="sidebar">Meetings</span>
       </li>
-      <li :class="menus.menu == 'files' ? 'active' : ''" @click="goTo('files')">
+
+      <li :class="menus.menu == 'todos' ? 'active' : ''" @click="goTo('todos')">
         <vue-feather
-          type="file"
+          type="airplay"
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
-        ><span v-if="sidebar">File Libraries</span>
+        ><span v-if="sidebar">Todos</span>
       </li>
+
+      <li :class="menus.menu == 'group' ? 'active' : ''" @click="goTo('group')">
+        <vue-feather
+          type="airplay"
+          size="18"
+          :class="sidebar ? 'float-start mt-1 me-2' : ''"
+        ></vue-feather
+        ><span v-if="sidebar">Group Project</span>
+      </li>
+
       <li
         :class="menus.menu == 'webinar' ? 'active' : ''"
         @click="goTo('webinar')"
@@ -83,7 +94,28 @@
         ></vue-feather
         ><span v-if="sidebar">Webinar List</span>
       </li>
-      <li
+
+      <li :class="menus.menu == 'mail' ? 'active' : ''" @click="goTo('mail')">
+        <vue-feather
+          type="mail"
+          size="18"
+          :class="sidebar ? 'float-start mt-1 me-2' : ''"
+        ></vue-feather
+        ><span v-if="sidebar">Mail Log</span>
+      </li>
+
+      <!-- Files  -->
+      <!-- <li :class="menus.menu == 'files' ? 'active' : ''" @click="goTo('files')">
+        <vue-feather
+          type="file"
+          size="18"
+          :class="sidebar ? 'float-start mt-1 me-2' : ''"
+        ></vue-feather
+        ><span v-if="sidebar">File Libraries</span>
+      </li> -->
+
+      <!-- Events  -->
+      <!-- <li
         :class="menus.menu == 'events' ? 'active' : ''"
         @click="goTo('events')"
       >
@@ -93,7 +125,9 @@
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
         ><span v-if="sidebar">Events</span>
-      </li>
+      </li> -->
+
+      <!-- Messages  -->
       <!-- <li :class="menus.menu == 'inbox' ? 'active' : ''" @click="goTo('inbox')">
         <vue-feather
           type="message-square"
@@ -102,7 +136,9 @@
         ></vue-feather
         ><span v-if="sidebar">Inboxes</span>
       </li> -->
-      <li
+
+      <!-- Transactions  -->
+      <!-- <li
         :class="menus.menu == 'transactions' ? 'active' : ''"
         @click="goTo('transactions')"
       >
@@ -112,15 +148,7 @@
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
         ><span v-if="sidebar">Transactions</span>
-      </li>
-      <li :class="menus.menu == 'mail' ? 'active' : ''" @click="goTo('mail')">
-        <vue-feather
-          type="mail"
-          size="18"
-          :class="sidebar ? 'float-start mt-1 me-2' : ''"
-        ></vue-feather
-        ><span v-if="sidebar">Mail Log</span>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>

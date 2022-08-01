@@ -1,6 +1,6 @@
 <template>
   <div id="webinar">
-    <h6 class="act-title">Join the Webinar</h6>
+    <h6 class="act-title">Watch Webinars</h6>
     <table class="table table-borderless">
       <tbody>
         <tr v-for="i in list" :key="i">

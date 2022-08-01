@@ -1,6 +1,6 @@
 <template>
   <div id="1on1">
-    <h6 class="act-title">1on1 Call</h6>
+    <h6 class="act-title">Meetings</h6>
     <table class="table table-borderless">
       <tbody>
         <tr v-for="i in list" :key="i">

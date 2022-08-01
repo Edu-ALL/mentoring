@@ -2,14 +2,17 @@
   <div id="1on1">
     <div class="row my-4">
       <div class="col-md-6 text-start">
-        <input
-          type="text"
-          class="form-mentoring"
-          v-model="search.name"
-          @change="searchData"
-          placeholder="Search"
-        />
-        <br />
+        <input-group>
+          <input
+            type="text"
+            class="form-mentoring form-control w-50"
+            v-model="search.name"
+            @change="searchData"
+            placeholder="Search"
+            id="search"
+          />
+          <label for="search">Search</label>
+        </input-group>
         <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
           {{ search.name }}
           <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
@@ -29,7 +32,7 @@
           <thead>
             <tr class="text-center">
               <th>No</th>
-              <th>Call with</th>
+              <th>Mentors Name</th>
               <th>Students Name</th>
               <th>Category</th>
               <th>Date & Time</th>
@@ -50,15 +53,42 @@
               <td>
                 {{ i.students.first_name + " " + i.students.last_name }}
               </td>
-              <td>{{ i.module + " - " + i.call_with }}</td>
+              <td style="text-transform: capitalize">
+                {{ i.module + " - " + i.call_with }}
+              </td>
               <td>
                 <small>
                   {{ $customDate.date(i.created_at) }} <br />
                   {{ $customDate.time(i.created_at) }}
                 </small>
               </td>
-              <td style="text-transform: capitalize">{{ i.std_act_status }}</td>
-              <td>{{ i.location_link }}</td>
+              <td style="text-transform: capitalize">
+                <i
+                  class="fa-solid fa-ban text-danger"
+                  v-if="i.call_status == 'rejected'"
+                ></i>
+                <i
+                  class="fa-solid fa-clock text-info"
+                  v-if="i.call_status == 'waiting'"
+                ></i>
+                <i
+                  class="fa-solid fa-times-circle text-danger"
+                  v-if="i.call_status == 'canceled'"
+                ></i>
+                <i
+                  class="fa-solid fa-check-circle text-success"
+                  v-if="i.call_status == 'finished'"
+                ></i>
+                {{ i.call_status }}
+              </td>
+              <td>
+                <button
+                  class="btn-mentoring py-1 bg-secondary"
+                  @click="goLink(i.location_link)"
+                >
+                  Link <i class="fa-solid fa-paper-plane ms-2"></i>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -166,6 +196,10 @@ export default {
       this.search.bar = false;
       this.search.name = "";
       this.getData();
+    },
+
+    goLink(link) {
+      window.open(link, "_blank");
     },
   },
   created() {

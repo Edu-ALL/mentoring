@@ -25,13 +25,11 @@
                   type="email"
                   name="email"
                   class="form-control form-mentoring w-100"
-                  placeholder=""
+                  placeholder="Email"
                   required
                   id="email"
                 />
-                <label class="bg-primary text-white rounded" for="email"
-                  >Email</label
-                >
+                <label class="bg-primary rounded" for="email">Email</label>
               </input-group>
               <p class="text-white small" v-if="error_forgot.email">
                 {{ error_forgot.email[0] }}
@@ -114,9 +112,11 @@ export default {
 </script>
 
 <style scoped>
-/* .form-control {
-  box-shadow: none !important;
-  outline: none !important;
+.form-control {
+  position: relative;
+  border: 2px solid #fff !important;
+  background: transparent !important;
   color: #fff !important;
-} */
+  z-index: 1 !important;
+}
 </style>> 

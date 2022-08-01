@@ -2,14 +2,18 @@
   <div id="mentor">
     <div class="row mb-4">
       <div class="col-md-6 text-start">
-        <input
-          type="text"
-          class="form-mentoring"
-          v-model="search.name"
-          @change="searchData"
-          placeholder="Search"
-        />
-        <br />
+        <input-group>
+          <input
+            type="text"
+            class="form-mentoring form-control w-50"
+            v-model="search.name"
+            @change="searchData"
+            placeholder="Search"
+            id="search"
+          />
+          <label for="search">Search</label>
+        </input-group>
+
         <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
           {{ search.name }}
           <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
@@ -21,7 +25,7 @@
     </div>
     <div class="card-white">
       <!-- {{ mentors }} -->
-      <table class="table table-borderless table-hover pointer">
+      <table class="table table-hover pointer">
         <thead>
           <tr>
             <th width="1%">No</th>

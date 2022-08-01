@@ -455,7 +455,8 @@ export default {
             uni_sh_id: id,
           }
         );
-        console.log(response.data);
+        this.$alert.toast("success", response.data.message);
+        // console.log(response.data);
       } catch (e) {
         console.log(e.response);
       }

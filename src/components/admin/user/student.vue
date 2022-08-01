@@ -2,14 +2,17 @@
   <div id="student">
     <div class="row mb-4">
       <div class="col-md-6 text-start">
-        <input
-          type="text"
-          class="form-mentoring"
-          v-model="search.name"
-          @change="searchData"
-          placeholder="Search"
-        />
-        <br />
+        <input-group>
+          <input
+            type="text"
+            class="form-mentoring form-control w-50"
+            v-model="search.name"
+            @change="searchData"
+            placeholder="Search"
+            id="search"
+          />
+          <label for="search">Search</label>
+        </input-group>
         <span class="badge bg-primary px-3 d-inline-block" v-if="search.bar">
           {{ search.name }}
           <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
@@ -24,7 +27,7 @@
     </div>
     <div class="card-white">
       <!-- {{ students }} -->
-      <table class="table table-borderless table-hover pointer">
+      <table class="table table-hover pointer">
         <thead>
           <tr>
             <th width="1%">No</th>
@@ -38,9 +41,7 @@
           <tr
             v-for="(i, index) in students.data"
             :key="index"
-            @click="
-              this.$router.push({ path: '/admin/user/student/' + i.email })
-            "
+            @click="this.$router.push({ path: '/admin/user/student/' + i.id })"
           >
             <td>{{ students.from + index }}</td>
             <td>

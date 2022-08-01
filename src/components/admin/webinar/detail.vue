@@ -35,22 +35,22 @@
           <div class="col-md-7">
             <div class="mb-3">
               <label>Webinar Name</label> <br />
-              {{ webinar.dtl_name }}
+              {{ webinar.detail?.dtl_name }}
             </div>
             <div class="mb-3">
               <label>Category</label> <br />
-              {{ webinar.dtl_category }}
+              {{ webinar.detail?.dtl_category }}
             </div>
             <div class="mb-3">
               <label>Descriptions</label> <br />
-              {{ webinar.dtl_desc }}
+              {{ webinar.detail?.dtl_desc }}
             </div>
             <div class="mb-3">
               <label>Video</label> <br />
               <iframe
                 width="100%"
                 height="300"
-                :src="webinar.dtl_video_link"
+                :src="webinar.detail?.dtl_video_link"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -62,7 +62,9 @@
             <div class="card shadow-sm border-0">
               <div class="card-body">
                 <label>Watched</label> <br />
-                <h6 class="d-inline">234 x</h6>
+                <h6 class="d-inline">
+                  {{ webinar.detail?.student_activities_count }} x
+                </h6>
                 <div
                   class="float-end pointer text-primary"
                   @click="userList = true"

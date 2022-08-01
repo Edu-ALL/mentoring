@@ -96,7 +96,7 @@
                 </span>
               </div>
 
-              <div class="preview">
+              <div class="preview" v-if="webinar.dtl_video_link == null">
                 <iframe
                   width="100%"
                   height="310"
@@ -106,6 +106,18 @@
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                   v-if="preview.frame"
+                ></iframe>
+              </div>
+
+              <div class="preview" v-if="webinar.dtl_video_link">
+                <iframe
+                  width="100%"
+                  height="310"
+                  :src="webinar.dtl_video_link"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
                 ></iframe>
               </div>
             </div>
@@ -145,7 +157,7 @@ export default {
         .get(this.$url + "find/programme/detail/" + id)
         .then((response) => {
           this.$alert.close();
-          this.webinar = response.data.data;
+          this.webinar = response.data.data.detail;
           this.webinar.dtl_category = this.webinar.dtl_category
             .replaceAll(" ", "-")
             .toLowerCase();

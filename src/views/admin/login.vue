@@ -4,33 +4,41 @@
       <div class="row justify-content-center">
         <div class="col-md-5">
           <div class="card bg-secondary" style="border-radius: 20px">
-            <div class="card-body text-center">
-              <h5>Administrator</h5>
+            <div class="card-body">
+              <h5 class="text-center">Administrator</h5>
               <div class="border border-2 p-3 rounded rounded-5">
                 <form @submit.prevent="handleSubmit" method="post">
-                  <div class="mb-1">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         v-model="user.email"
                         type="email"
-                        class="form-mentoring w-100 text-white"
+                        class="form-mentoring form-control w-100"
+                        placeholder="email"
                         required
+                        id="email"
                       />
-                      <label class="bg-secondary text-white">Email</label>
-                      <small class="text-white" v-if="error?.email">{{
-                        error.email[0]
-                      }}</small>
+                      <label class="bg-secondary text-white" for="email"
+                        >Email</label
+                      >
                     </input-group>
+                    <small class="text-white" v-if="error?.email">{{
+                      error.email[0]
+                    }}</small>
                   </div>
-                  <div class="mb-1">
+                  <div class="mb-3">
                     <input-group>
                       <input
                         v-model="user.password"
                         type="password"
-                        class="form-mentoring w-100 text-white"
+                        class="form-mentoring form-control w-100"
                         required
+                        placeholder="password"
+                        id="password"
                       />
-                      <label class="bg-secondary text-white">Password</label>
+                      <label class="bg-secondary text-white" for="password"
+                        >Password</label
+                      >
                     </input-group>
                   </div>
                   <hr />
@@ -106,7 +114,11 @@ export default {
   height: 100vh;
 }
 
-input-group input:focus {
-  border: 2px solid #fff;
+.form-control {
+  position: relative;
+  border: 2px solid #fff !important;
+  background: transparent !important;
+  color: #fff !important;
+  z-index: 1 !important;
 }
-</style>>
+</style>> 

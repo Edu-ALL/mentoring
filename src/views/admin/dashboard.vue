@@ -198,6 +198,11 @@ export default {
   },
 };
 </script>
+<style>
+.table {
+  font-size: 0.9em !important;
+}
+</style>
 <style scoped>
 #adminDashboard {
   display: flex;
