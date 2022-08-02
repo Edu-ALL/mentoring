@@ -162,7 +162,6 @@ export default {
     async handleSubmit() {
       this.$emit("modal", "");
 
-      this.$alert.loading();
       try {
         const response = await this.$axios.post(
           "student/group/project",

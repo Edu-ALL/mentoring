@@ -65,6 +65,12 @@
           <v-1on1 v-if="menus.menu == '1on1'"></v-1on1>
         </transition>
         <transition name="fade">
+          <v-todos v-if="menus.menu == 'todos'"></v-todos>
+        </transition>
+        <transition name="fade">
+          <v-group v-if="menus.menu == 'group'"></v-group>
+        </transition>
+        <transition name="fade">
           <v-files v-if="menus.menu == 'files'" :menus="menus"></v-files>
         </transition>
         <transition name="fade">
@@ -96,6 +102,8 @@ import Sidebar from "@/components/layout/admin/sidebar";
 import Home from "@/views/admin/page/home";
 import User from "@/views/admin/page/user";
 import Call from "@/views/admin/page/1on1";
+import Todos from "@/views/admin/page/todos";
+import Group from "@/views/admin/page/group";
 import Files from "@/views/admin/page/files";
 import Webinar from "@/views/admin/page/webinar";
 import Events from "@/views/admin/page/events";
@@ -110,6 +118,8 @@ export default {
     "v-home": Home,
     "v-user": User,
     "v-1on1": Call,
+    "v-todos": Todos,
+    "v-group": Group,
     "v-files": Files,
     "v-webinar": Webinar,
     "v-events": Events,
