@@ -253,6 +253,7 @@ export default {
     },
 
     async getData() {
+      this.$alert.loading();
       try {
         const response = await this.$axios.get(
           "student/detail/group/project/" + this.groupId
@@ -263,7 +264,9 @@ export default {
         this.group_member = response.data.data.group_member;
         this.student_info = response.data.data.student_info;
         // console.log(response.data);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         this.$alert.toast("error", "Group project is not found");
         this.$router.push({ path: "/user/my-activity/group" });
         console.log(e.response);
@@ -287,7 +290,9 @@ export default {
         this.editGroup = false;
         this.$alert.toast("success", response.data.message);
         // console.log(response.data);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
         this.$alert.toast("error", "Please try again.");
       }
@@ -307,8 +312,10 @@ export default {
         this.editMember = false;
         this.$alert.toast("success", response.data.message);
         this.getData();
+        this.$alert.close();
         // console.log(response.data);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response.data);
         this.$alert.toast("error", "Please try again.");
       }

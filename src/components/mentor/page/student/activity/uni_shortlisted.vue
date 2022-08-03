@@ -18,7 +18,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Shortlisted</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-2"
+            v-if="list.uni_shortlisted.length == 0"
+          >
+            No university yet
+          </div>
           <draggable
             v-model="list.uni_shortlisted"
             group="uniList"
@@ -62,7 +67,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Applied</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-2"
+            v-if="list.uni_applied.length == 0"
+          >
+            No university yet
+          </div>
           <draggable
             v-model="list.uni_applied"
             group="uniList"
@@ -106,7 +116,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Accepted</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-2"
+            v-if="list.uni_accepted.length == 0"
+          >
+            No university yet
+          </div>
           <draggable
             v-model="list.uni_accepted"
             group="uniList"
@@ -150,7 +165,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Rejected</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-2"
+            v-if="list.uni_rejected.length == 0"
+          >
+            No university yet
+          </div>
           <draggable
             v-model="list.uni_rejected"
             group="uniList"
@@ -194,7 +214,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Waitlisted</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-2"
+            v-if="list.uni_waitlisted.length == 0"
+          >
+            No university yet
+          </div>
           <draggable
             v-model="list.uni_waitlisted"
             group="uniList"
@@ -241,7 +266,7 @@
         <h6 class="my-0">New University</h6>
         <hr class="mb-1" />
         <form method="post" @submit.prevent="handleSubmit">
-          <div class="mt-2">
+          <div class="mt-2 mb-3">
             <!-- {{ uni_select }} -->
             <v-uni
               v-model="uni_select"
@@ -396,20 +421,23 @@ export default {
       this.uni.student_id = this.menus.submenu;
       this.uni.univ_id = this.uni_select.univ_id;
 
-      console.log(this.uni);
+      // console.log(this.uni);
 
       this.$alert.loading();
 
       try {
         const response = await this.$axios.post("create/shortlisted", this.uni);
-
+        this.uni = "";
+        // this.uni_select.univ_id = "";
         this.uni.univ_id = "";
         this.uni.major = "";
 
         console.log(response.data);
         this.getData();
         this.$alert.toast("success", response.data.message);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         console.log(e.response.data);
         // if (e.response.data.error) {
         //   this.$alert.toast("error", e.response.data.error.univ_id[0]);

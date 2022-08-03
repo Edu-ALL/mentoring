@@ -3,7 +3,12 @@
     <div class="" v-if="menus.submenu == ''">
       <div class="row mb-4">
         <div class="col-md-6 text-start">
-          <div class="d-flex align-item-center">
+          <div class="d-block p-0 m-0">
+            <label class="search-desc p-0 m-0 text-danger"
+              >Search by Name, Email, School Name</label
+            >
+          </div>
+          <div class="d-flex search-student align-item-center">
             <input-group>
               <input
                 type="text"
@@ -13,7 +18,6 @@
                 id="search"
                 placeholder="Search"
               />
-
               <label for="search">Search</label>
             </input-group>
             <i
@@ -41,6 +45,12 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <div
+                    class="col-6 text-center p-4"
+                    v-if="students_data.length == 0"
+                  >
+                    No students yet
+                  </div>
                   <tr v-for="(i, index) in students_data.data" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td nowrap class="pointer" @click="checkDetail(i.id)">
@@ -53,7 +63,8 @@
                       {{ i.school_name }}
                     </td>
                     <td nowrap class="pointer" @click="checkDetail(i.id)">
-                      {{ i.grade }}
+                      <label v-if="i.grade == 0"> N/A</label>
+                      <label v-if="i.grade != 0"> {{ i.grade }}</label>
                     </td>
                     <td nowrap class="pointer" @click="checkDetail(i.id)">
                       {{ i.phone_number }}
@@ -394,6 +405,15 @@ export default {
 </script>
 
 <style>
+.search-desc {
+  font-size: 11px;
+  font-style: italic;
+}
+
+.search-student {
+  align-items: center;
+}
+
 .card-white {
   background: #fff;
   padding: 20px;

@@ -194,13 +194,20 @@ export default {
         this.$alert.close();
 
         // Reset
-        this.add = false;
-        this.academic.subject = "";
-        this.academic.score = "";
-        this.academic.max_score = "";
 
-        this.$alert.toast("success", response.data.message);
-        this.getData();
+        if (response.data.success) {
+          this.add = false;
+          this.academic.subject = "";
+          this.academic.score = "";
+          this.academic.max_score = "";
+          // console.log(response.data);
+          this.$alert.toast("success", response.data.message);
+          this.getData();
+        } else {
+          this.academic.score = "";
+          this.academic.max_score = "";
+          this.$alert.toast("error", response.data.error);
+        }
       } catch (e) {
         console.log(e.response.data);
         this.$alert.close();

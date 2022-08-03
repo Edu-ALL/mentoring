@@ -67,6 +67,7 @@
                 <v-progress
                   v-if="tab == '' || tab == 'progress'"
                   :check="modal"
+                  @modal="checkModal"
                 ></v-progress>
               </transition>
               <transition name="fade">
@@ -89,7 +90,11 @@
     </div>
 
     <!-- MODAL  -->
-    <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+    <div
+      class="vue-modal-overlay"
+      v-if="modal != '' || alert != ''"
+      @click="modal = ''"
+    ></div>
     <transition name="pop">
       <div class="vue-modal vue-modal-lg" v-if="modal == 'add'">
         <v-add @modal="checkModal" @data="checkData"></v-add>
@@ -97,22 +102,22 @@
     </transition>
 
     <transition name="pop">
-      <div class="vue-modal vue-modal-md" v-if="modal == 'new-group'">
+      <div class="vue-modal vue-modal-md" v-if="alert == 'new-group'">
         <div class="text-center">
           <i class="fa-solid fa-check-circle fa-2xl text-success"></i>
           <h5 class="mt-2 mb-3">Group successfully created !</h5>
         </div>
         <div class="text-center" v-if="group_data.error">
           <div class="text-danger">* Notes</div>
-          {{ group_data.error.exists }}
-          {{ group_data.error.joined }}
+          {{ group_data.error?.exists }}
+          {{ group_data.error?.joined }}
         </div>
 
         <div class="row justify-content-center mt-3">
           <div class="col-3 text-center">
             <button
               class="btn btn-mentoring bg-primary w-100"
-              @click="modal = ''"
+              @click="alert = ''"
             >
               OK
             </button>
@@ -145,6 +150,7 @@ export default {
     return {
       tab: "",
       modal: "",
+      alert: "",
       menu: {
         menu: "",
         submenu: "",
@@ -161,6 +167,7 @@ export default {
 
     checkData(i) {
       this.group_data = i;
+      this.alert = "new-group";
       this.modal = "new-group";
     },
 

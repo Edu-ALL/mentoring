@@ -161,6 +161,7 @@ export default {
 
     async handleSubmit() {
       this.$emit("modal", "");
+      this.$alert.loading();
 
       try {
         const response = await this.$axios.post(
@@ -168,14 +169,15 @@ export default {
           this.group
         );
 
-        // console.log(response.data);
         if (response.data.success) {
           this.handleMembers(response.data.data.id);
         } else {
           this.$alert.toast("error", response.data.error);
         }
+
         // console.log(response.data);
       } catch (e) {
+        // this.$alert.close();
         console.log(e.response.error);
       }
     },
@@ -190,7 +192,6 @@ export default {
           }
         );
 
-        // console.log(this.member);
         this.$emit("data", response.data);
       } catch (e) {
         console.log(e.response);
