@@ -162,26 +162,30 @@ export default {
     async handleSubmit() {
       this.$emit("modal", "");
 
-      this.$alert.loading();
+      // this.$alert.loading();
       try {
         const response = await this.$axios.post(
           "student/group/project",
           this.group
         );
-
+        // this.$alert.close();
         // console.log(response.data);
+        // this.modal = "";
         if (response.data.success) {
           this.handleMembers(response.data.data.id);
         } else {
           this.$alert.toast("error", response.data.error);
         }
+        // this.$alert.close();
         // console.log(response.data);
       } catch (e) {
+        // this.$alert.close();
         console.log(e.response.error);
       }
     },
 
     async handleMembers(id) {
+      // this.$alert.loading();
       try {
         const response = await this.$axios.post(
           "student/group/project/participant",
@@ -197,7 +201,7 @@ export default {
         console.log(e.response);
         this.$emit("data", e.response.data);
       }
-      this.$alert.close();
+      // this.$alert.close();
     },
   },
 };

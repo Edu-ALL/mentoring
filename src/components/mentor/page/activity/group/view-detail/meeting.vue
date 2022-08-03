@@ -42,7 +42,7 @@
                 <div class="text-success" v-if="i.status == 1">Completed</div>
                 <div class="text-danger" v-if="i.status == 2">Cancel</div>
               </div>
-              <div class="col-md-2 text-md-end">
+              <div class="col-md-2 text-md-end p-0">
                 <button
                   :class="i.status != 0 ? 'bg-light text-muted' : 'bg-primary'"
                   :disabled="i.status != 0"

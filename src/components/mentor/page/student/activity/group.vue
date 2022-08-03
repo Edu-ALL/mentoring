@@ -8,6 +8,12 @@
             <h6 class="my-0">New Request</h6>
           </div>
           <div
+            class="col-12 text-center p-4"
+            v-if="new_request?.data?.length == 0"
+          >
+            No group meeting yet
+          </div>
+          <div
             class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
           >
             <div
@@ -50,7 +56,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">In Progress</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-4"
+            v-if="in_progress?.data?.length >= 1"
+          >
+            No group meeting yet
+          </div>
           <div
             class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
           >
@@ -94,7 +105,12 @@
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">History</h6>
           </div>
-
+          <div
+            class="col-12 text-center p-4"
+            v-if="new_request?.data?.length == 0"
+          >
+            No histories yet
+          </div>
           <div
             class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
           >

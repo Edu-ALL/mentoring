@@ -309,8 +309,10 @@ export default {
         } else {
           this.$alert.toast("error", response.data.error);
         }
+        this.$alert.close();
         // console.log(response.data);
       } catch (e) {
+        this.$alert.close();
         console.log(e.response.error);
         this.$alert.toast("error", "Please try again.");
       }

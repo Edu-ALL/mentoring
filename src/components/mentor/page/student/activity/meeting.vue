@@ -13,7 +13,14 @@
               <th>Status</th>
             </tr>
           </thead>
+
           <tbody>
+            <div
+              class="col-6 text-center p-4"
+              v-if="student_meeting.length == 0"
+            >
+              No meeting yet
+            </div>
             <tr
               class="text-center"
               v-for="(i, index) in student_meeting.data"

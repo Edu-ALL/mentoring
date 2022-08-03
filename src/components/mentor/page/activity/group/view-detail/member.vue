@@ -38,7 +38,7 @@
                   {{ i.contribution_role == null ? "-" : i.contribution_role }}
                 </div>
               </div>
-              <div class="col-1">
+              <div class="col-1 p-0">
                 <v-tooltip
                   arrow="true"
                   placement="left"

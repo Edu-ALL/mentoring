@@ -13,9 +13,24 @@
                 </div>
               </div>
             </div>
+            <!-- <div class="col-md-3 text-center">
+              <img
+                v-if="mentee.image != null"
+                v-lazy="this.$base_url + mentee.image"
+                alt="Profile"
+                class="st-pic"
+              />
+
+              <img
+                v-if="mentee.image == null"
+                v-lazy="'https://picsum.photos/200/300'"
+                alt="Profile"
+                class="st-pic"
+              />
+            </div> -->
             <img
               :src="
-                mentee.image != ''
+                mentee.image != null
                   ? $base_url + '' + mentee.image
                   : 'https://picsum.photos/id/130/200/300'
               "

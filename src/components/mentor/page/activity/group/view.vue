@@ -15,6 +15,9 @@
           :disabled="group_info.status != 'in progress'"
           @change="changeProgress"
         >
+          <option value="null" v-if="group_info.progress_status == null">
+            Update progress here
+          </option>
           <option value="ahead">Ahead</option>
           <option value="on-track">On-track</option>
           <option value="behind">Behind</option>

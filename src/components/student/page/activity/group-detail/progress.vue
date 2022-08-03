@@ -96,10 +96,11 @@ export default {
 
         this.groups = response.data.data;
         // console.log(response.data);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async getPage(link) {
@@ -109,10 +110,11 @@ export default {
 
         this.groups = response.data.data;
         // console.log(response.data);
+        this.$alert.close();
       } catch (e) {
+        this.$alert.close();
         console.log(e.response);
       }
-      this.$alert.close();
     },
   },
   created() {
