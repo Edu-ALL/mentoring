@@ -40,7 +40,7 @@
                   <vue-feather type="clock" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">00</div>
+                  <div class="h-count">{{ users.meeting?.upcoming }}</div>
                   <div class="h-label">Upcoming Meeting</div>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                   <vue-feather type="phone-missed" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">00</div>
+                  <div class="h-count">{{ users.meeting?.canceled }}</div>
                   <div class="h-label">Canceled Meeting</div>
                 </div>
               </div>
@@ -70,7 +70,7 @@
                   <vue-feather type="phone-off" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">00</div>
+                  <div class="h-count">{{ users.meeting?.rejected }}</div>
                   <div class="h-label">Rejected Meeting</div>
                 </div>
               </div>
@@ -88,7 +88,7 @@
                   ></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">00</div>
+                  <div class="h-count">{{ users.meeting?.completed }}</div>
                   <div class="h-label">Completed Meeting</div>
                 </div>
               </div>
@@ -103,7 +103,7 @@
                   <vue-feather type="twitch" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">00</div>
+                  <div class="h-count">{{ users.group?.ongoing }}</div>
                   <div class="h-label">Ongoing Group</div>
                 </div>
               </div>
@@ -118,7 +118,7 @@
                   <vue-feather type="check-square" class="h-ico"></vue-feather>
                 </div>
                 <div class="col-8">
-                  <div class="h-count">00</div>
+                  <div class="h-count">{{ users.group?.completed }}</div>
                   <div class="h-label">Completed Group</div>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default {
     getusers() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "overview/admin/total")
+        .get(this.$url + "../v2/overview/admin/total")
         .then((response) => {
           this.$alert.close();
           this.users = response.data.data;

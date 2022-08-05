@@ -92,15 +92,20 @@
                 <transition name="fade">
                   <div class="border p-2 mt-2" v-if="userList">
                     <ul class="list-group">
-                      <li class="list-group-item" v-for="i in 5" :key="i">
-                        Full Name <br />
+                      <li
+                        class="list-group-item"
+                        v-for="(i, index) in watched_list.data"
+                        :key="index"
+                      >
+                        <!-- {{ watched_list }} -->
+                        {{ i.first_name + " " + i.last_name }} <br />
                         <small class="text-muted" style="font-size: 0.8em">
                           <vue-feather
                             type="play-circle"
                             size="17"
                             class="float-start mt-1 me-1"
                           ></vue-feather>
-                          25 July 2022
+                          {{ $customDate.date(i.watch_date) }}
                         </small>
                       </li>
                     </ul>
@@ -126,6 +131,7 @@ export default {
       webinar_id: "",
       userList: false,
       webinar: [],
+      watched_list: [],
     };
   },
   methods: {
@@ -148,10 +154,22 @@ export default {
       let token = "Bearer " + localStorage.getItem("token");
       this.$alert.confirm(link, token, "/admin/webinar");
     },
+
+    async WatchedList(id) {
+      try {
+        const response = await this.$axios.get("find/view/webinar/" + id);
+        this.watched_list = response.data;
+        console.log(response.data);
+      } catch (e) {
+        // this.$alert.close();
+        console.log(e.response);
+      }
+    },
   },
   created() {
     this.webinar_id = this.$route.params.key;
     this.getData(this.webinar_id);
+    this.WatchedList(this.webinar_id);
   },
 };
 </script>

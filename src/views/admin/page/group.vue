@@ -35,80 +35,89 @@
           <thead>
             <tr class="text-center">
               <th>No</th>
-              <th>Mentors Name</th>
-              <th>Students Name</th>
-              <th>New Request</th>
-              <th>In Progress</th>
-              <th>Completed</th>
-              <th>Total</th>
-              <th>More</th>
+              <th>Projects Name</th>
+              <th>Projects Type</th>
+              <th>Progress Status</th>
+              <th>Status</th>
+              <th>Member</th>
+              <th>Mentor</th>
+              <!-- <th>More</th> -->
             </tr>
           </thead>
           <tbody>
             <tr
-              class="text-center pointer"
+              class="text-start pointer"
               v-for="(i, index) in groups.data"
               :key="index"
             >
-              <td>{{ groups.from + index }}</td>
+              <td>{{ groups.from + parseInt(index) }}</td>
               <td>
-                {{ i.users.first_name + " " + i.users.last_name }}
-              </td>
-              <td>
-                {{ i.students.first_name + " " + i.students.last_name }}
-              </td>
-              <td style="text-transform: capitalize">
-                {{ i.module + " - " + i.call_with }}
+                {{ i.project_name }}
               </td>
               <td>
-                <small>
-                  {{ $customDate.date(i.created_at) }}
-                </small>
+                {{ i.project_type }}
               </td>
-              <td>
-                <small>
-                  {{ $customDate.date(i.created_at) }}
-                </small>
-              </td>
-              <td style="text-transform: capitalize">
+              <td class="text-center">
+                <div
+                  class="badge"
+                  :class="
+                    i.progress_status == 'ahead'
+                      ? 'bg-success'
+                      : i.progress_status == 'on-track'
+                      ? 'bg-info text-dark'
+                      : 'bg-danger'
+                  "
+                  style="text-transform: capitalize"
+                >
+                  {{ i.progress_status }}
+                </div>
                 <i
-                  class="fa-solid fa-ban text-danger"
-                  v-if="i.call_status == 'rejected'"
+                  class="fa-solid fa-close"
+                  v-if="i.progress_status == null"
                 ></i>
-                <i
-                  class="fa-solid fa-clock text-info"
-                  v-if="i.call_status == 'waiting'"
-                ></i>
-                <i
-                  class="fa-solid fa-times-circle text-danger"
-                  v-if="i.call_status == 'canceled'"
-                ></i>
-                <i
-                  class="fa-solid fa-check-circle text-success"
-                  v-if="i.call_status == 'finished'"
-                ></i>
-                {{ i.call_status }}
+
+                <!-- {{ i.progress_status }} -->
               </td>
-              <td>
+              <td nowrap>
+                <div class="col-6 text-end">
+                  <i
+                    class="fa-solid text-success fa-check-circle"
+                    v-if="i.status == 'completed'"
+                  ></i>
+                  <i
+                    class="fa-solid text-warning fa-exclamation-triangle"
+                    v-if="i.status == 'in progress'"
+                  ></i>
+                  {{ i.status }}
+                </div>
+              </td>
+              <td nowrap>
+                {{ i.total_member }}
+              </td>
+              <td nowrap>
+                {{ i.total_mentor }}
+              </td>
+              <!-- <td>
                 <button
                   class="btn-mentoring py-1 bg-secondary"
                   @click="goLink(i.location_link)"
                 >
                   Detail <i class="fa-solid fa-paper-plane ms-2"></i>
                 </button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
       </div>
       <div class="text-center" v-if="groups.from == null">
         <hr />
+        <!-- {{ groups.data }} -->
         <h6>Sorry, data is not found</h6>
       </div>
       <nav class="mt-2" v-if="groups.from != null">
         <ul class="pagination justify-content-center">
           <li class="page-item" v-if="groups.current_page != 1">
-            <a class="page-link" @click="getPage(groups.links[0].url)">
+            <a class="page-link" @click="getPage(groups.prev_page_url)">
               <i class="fa-solid fa-chevron-left"></i>
             </a>
           </li>
@@ -145,6 +154,7 @@ export default {
   data() {
     return {
       groups: [],
+      // participant: [],
       search: {
         bar: false,
         name: "",
@@ -155,11 +165,12 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call")
+        .get(this.$url + "list/group-project")
         .then((response) => {
           this.$alert.close();
           this.groups = response.data.data;
-          // console.log(response);
+          // this.participant = response.data.group_participant;
+          console.log(response);
         })
         .catch((error) => {
           this.$alert.close();
@@ -168,6 +179,7 @@ export default {
     },
 
     getPage(link) {
+      alert(link);
       this.$axios
         .get(link)
         .then((response) => {
@@ -187,16 +199,11 @@ export default {
         this.$alert.close();
       } else {
         this.$axios
-          .get(
-            this.$url +
-              "list/activities/1-on-1-call?keyword=" +
-              this.search.name,
-            {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
-          )
+          .get(this.$url + "list/group-project?keyword=" + this.search.name, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
           .then((response) => {
             this.$alert.close();
             this.groups = response.data.data;

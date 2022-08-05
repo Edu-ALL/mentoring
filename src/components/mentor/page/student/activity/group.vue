@@ -58,7 +58,7 @@
           </div>
           <div
             class="col-12 text-center p-4"
-            v-if="in_progress?.data?.length >= 1"
+            v-if="in_progress?.data?.length == 0"
           >
             No group meeting yet
           </div>
