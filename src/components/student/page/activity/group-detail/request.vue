@@ -72,35 +72,8 @@
           </div>
         </div>
       </div>
-
-      <nav class="mt-3" v-if="groups.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="groups.current_page != 1">
-            <a class="page-link" @click="getPage(groups.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in groups.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="groups.current_page - 2 < i && groups.current_page + 2 > i"
-            >
-              <a
-                class="page-link"
-                :class="groups.current_page == i ? 'bg-primary text-white' : ''"
-                href="#"
-                @click="getPage(groups.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li class="page-item" v-if="groups.current_page != groups.last_page">
-            <a class="page-link" @click="getPage(groups.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <v-pagination :datas="groups" @result="getPage" />
+     
     </div>
 
     <!-- MODAL -->

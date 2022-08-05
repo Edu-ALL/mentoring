@@ -76,41 +76,7 @@
             <hr />
             <h6>Sorry, data is not found</h6>
           </div>
-          <nav class="mt-2" v-if="events.from != null">
-            <ul class="pagination justify-content-center">
-              <li class="page-item" v-if="events.current_page != 1">
-                <a class="page-link" @click="getPage(events.links[0].url)">
-                  <i class="fa-solid fa-chevron-left"></i>
-                </a>
-              </li>
-              <div v-for="i in events.last_page" :key="i">
-                <li
-                  class="page-item"
-                  v-if="
-                    events.current_page - 2 < i && events.current_page + 2 > i
-                  "
-                >
-                  <a
-                    class="page-link"
-                    :class="
-                      events.current_page == i ? 'bg-primary text-white' : ''
-                    "
-                    href="#"
-                    @click="getPage(events.path + '?page=' + i)"
-                    >{{ i }}</a
-                  >
-                </li>
-              </div>
-              <li
-                class="page-item"
-                v-if="events.current_page != events.last_page"
-              >
-                <a class="page-link" @click="getPage(events.next_page_url)">
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <v-pagination :datas="events" @result="getPage" />
         </div>
       </div>
     </transition>
