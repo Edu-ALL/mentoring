@@ -34,7 +34,7 @@
                   {{ i.meeting_subject }}
                   <div
                     class="cancel justify-content-center"
-                    v-if="group.student_id == student.id"
+                    v-if="group.student_id == student.id && i.status == 0"
                     @click="cancelModal(i.id)"
                   >
                     <div class="text-center">Cancel</div>

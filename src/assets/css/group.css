@@ -1,0 +1,33 @@
+.group-card {
+    border-left: 10px solid #dedede;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.group-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.group-card .group-image img {
+    transform: rotate(5deg);
+    transition: all 0.5s ease-in-out;
+}
+
+.group-card:hover {
+    border-left: 10px solid #EFA859;
+}
+
+.group-card:hover .group-image img {
+    transform: rotate(0);
+    transform: scale(1.2);
+}
+
+.badge-group {
+    border-radius: 30px !important;
+}
+
+.title h5 {
+    text-transform: capitalize;
+}

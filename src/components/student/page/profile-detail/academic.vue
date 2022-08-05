@@ -40,7 +40,7 @@
                         placeholder="fill in here ..."
                         id="school"
                       />
-                      <label for="scholl">School Subject</label>
+                      <label for="school">School Subject</label>
                     </input-group>
                   </div>
 

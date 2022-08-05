@@ -14,6 +14,7 @@ import './assets/css/tabs.css'
 import './assets/css/pagination.css'
 import './assets/css/alert.css'
 import './assets/css/tooltip.css'
+import './assets/css/group.css'
 import 'vue-multiselect/dist/vue-multiselect.css'
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import 'vue3-date-time-picker/dist/main.css'

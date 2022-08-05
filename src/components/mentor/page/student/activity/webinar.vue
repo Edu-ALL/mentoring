@@ -2,7 +2,7 @@
   <div id="webinars">
     <div class="border p-3 rounded mt-3">
       <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table table-bordered align-middle">
           <thead>
             <tr class="text-center">
               <th>No</th>

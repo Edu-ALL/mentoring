@@ -7,33 +7,64 @@
         </div>
       </div>
 
-      <div class="row row-cols-md-2 row-cols-1 g-2">
-        <div class="col" v-for="i in groups.data" :key="i">
-          <div class="card card-group border shadow-sm">
+      <div class="row row-cols-1 g-2">
+        <div class="col" v-for="(i, index) in groups.data" :key="i">
+          <div class="card group-card">
             <div class="card-body">
-              <h5 class="mb-1">{{ i.project_name }}</h5>
-              <span class="badge bg-secondary rounded-pill text-dark">
-                {{ i.project_type }}
-              </span>
-              <div class="project-desc mt-2">
-                {{ $customText.text(i.project_desc, 20) }}
-              </div>
-              <hr class="my-2" />
-              <div class="row align-items-center">
-                <div class="col-6">
+              <div class="row p-0 align-items-center">
+                <div class="col-md-9">
+                  <div class="d-flex align-items-center">
+                    <div class="group-image" style="width: 20%">
+                      <img
+                        v-lazy="
+                          'https://picsum.photos/id/' +
+                          groups.from +
+                          index * 2 +
+                          '/300/300'
+                        "
+                        class="w-100"
+                      />
+                    </div>
+                    <div class="title ms-3" style="width: 80%">
+                      <h5>{{ i.project_name }}</h5>
+                      <p class="my-0">
+                        {{ $customText.text(i.project_desc, 20) }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <div class="badge badge-group bg-info px-3 py-1">
+                      {{ i.project_type }}
+                    </div>
+                    <div class="badge badge-group bg-info px-3 py-1 ms-1">
+                      {{ i.group_participant_count }} Members
+                    </div>
+                    <div
+                      class="badge badge-group bg-info px-3 py-1 ms-1"
+                      v-if="
+                        i.progress_status != '' || i.progress_status != null
+                      "
+                      style="text-transform: capitalize"
+                    >
+                      {{ i.progress_status }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 text-md-center">
+                  <button
+                    class="btn-mentoring btn-sm py-1 bg-primary mb-2"
+                    @click="handleConfirm(i.id, 'accept')"
+                  >
+                    <i class="fa-solid fa-check me-2"></i>
+                    Accept
+                  </button>
+                  <br />
                   <button
                     class="btn-mentoring btn-sm py-1 btn-outline-danger"
                     @click="decline(i.id)"
                   >
+                    <i class="fa-solid fa-times me-2"></i>
                     Decline
-                  </button>
-                </div>
-                <div class="col-6 text-end">
-                  <button
-                    class="btn-mentoring btn-sm py-1 bg-primary"
-                    @click="handleConfirm(i.id, 'accept')"
-                  >
-                    Accept
                   </button>
                 </div>
               </div>

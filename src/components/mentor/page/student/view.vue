@@ -35,7 +35,11 @@
               </div>
               <div class="mb-2">
                 <label>Grade</label> <br />
-                {{ students_detail.grade }}
+                {{
+                  students_detail.grade == null || students_detail.grade == 0
+                    ? "N/A"
+                    : students_detail.grade
+                }}
               </div>
             </div>
             <div class="col-md-6">
@@ -249,7 +253,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+label {
+  color: #6d6d6d;
+  font-size: 0.8em;
+}
+
 .card-white {
   background: #fff;
   padding: 20px;

@@ -7,36 +7,64 @@
         </div>
       </div>
 
-      <div class="row row-cols-md-2 row-cols-1 g-2">
-        <div class="col" v-for="i in groups.data" :key="i">
-          <div class="card card-group border shadow-sm" @click="detail(1)">
-            <!-- <div class="card-status bg-success">
-              <i class="fa-solid fa-thumbs-up mx-1"></i>
-            </div> -->
+      <div class="row row-cols-md-1 row-cols-1 g-2">
+        <div class="col" v-for="(i, index) in groups.data" :key="i">
+          <div class="card group-card">
             <div class="card-body">
-              <h5 class="mb-1">{{ i.project_name }}</h5>
-              <span class="badge bg-secondary rounded-pill text-dark">
-                {{ i.project_type }}
-              </span>
-              <div class="project-desc mt-2">
-                {{ $customText.text(i.project_desc, 20) }}
-              </div>
-              <hr class="my-2" />
-              <div class="row align-items-center">
-                <div class="col-6">
-                  <small>
-                    <i class="fa-solid fa-users me-2"></i
-                    >{{ i.group_participant_count }} Members
-                  </small>
+              <div class="row p-0 align-items-center">
+                <div class="col-md-9">
+                  <div class="d-flex align-items-center">
+                    <div class="group-image" style="width: 20%">
+                      <img
+                        v-lazy="
+                          'https://picsum.photos/id/' +
+                          groups.from +
+                          index * 2 +
+                          '/300/300'
+                        "
+                        class="w-100"
+                      />
+                    </div>
+                    <div class="title ms-3" style="width: 80%">
+                      <h5>{{ i.project_name }}</h5>
+                      <p class="my-0">
+                        {{ $customText.text(i.project_desc, 20) }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <div class="badge badge-group bg-info px-3 py-1">
+                      {{ i.project_type }}
+                    </div>
+                    <div class="badge badge-group bg-info px-3 py-1 ms-1">
+                      {{ i.group_participant_count }} Members
+                    </div>
+                    <div
+                      class="badge badge-group bg-info px-3 py-1 ms-1"
+                      v-if="
+                        i.progress_status != '' || i.progress_status != null
+                      "
+                      style="text-transform: capitalize"
+                    >
+                      {{ i.progress_status }}
+                    </div>
+                  </div>
                 </div>
-                <div class="col-6 text-end">
-                  <i class="fa-solid fa-arrow-right"></i>
+                <div class="col-md-3 text-md-center">
+                  <button
+                    class="btn-mentoring btn-secondary py-1 btn-sm"
+                    @click="detail(i.id)"
+                  >
+                    View Detail
+                    <i class="fa-solid fa-arrow-right ms-2"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <nav class="mt-3" v-if="groups.from != null">
         <ul class="pagination justify-content-center">
           <li class="page-item" v-if="groups.current_page != 1">

@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="table-responsive" v-if="meeting?.data?.length != 0">
-      <table class="table">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr class="text-center">
             <th width="3%">No</th>

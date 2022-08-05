@@ -241,7 +241,7 @@ export default {
   data() {
     return {
       loading: true,
-      showModal: "reset",
+      showModal: "",
     };
   },
   methods: {

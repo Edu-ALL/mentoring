@@ -3,11 +3,6 @@
     <div class="" v-if="menus.submenu == ''">
       <div class="row mb-4">
         <div class="col-md-6 text-start">
-          <div class="d-block p-0 m-0">
-            <label class="search-desc p-0 m-0 text-danger"
-              >Search by Name, Email, School Name</label
-            >
-          </div>
           <div class="d-flex search-student align-item-center">
             <input-group>
               <input
@@ -25,6 +20,11 @@
               @click="closeSearch"
               v-if="search.bar"
             ></i>
+          </div>
+          <div class="d-block p-0 m-0">
+            <label class="search-desc p-0 m-0 text-danger"
+              >Search by Name, Email, School Name</label
+            >
           </div>
         </div>
 
@@ -70,41 +70,20 @@
                       {{ i.phone_number }}
                     </td>
                     <td nowrap>
-                      <button
-                        @click="changeProgresStatus(i.id, 'ahead')"
-                        class="btn-mentoring py-0 px-3 btn-sm mx-1"
-                        :class="
-                          i.progress_status == 'ahead'
-                            ? 'btn-primary'
-                            : 'btn-type-2'
-                        "
+                      <select
+                        v-model="i.progress_status"
+                        class="form-mentoring form-control-sm"
+                        @change="changeProgresStatus(i.id, i.progress_status)"
                       >
-                        Ahead
-                      </button>
-                      <button
-                        @click="changeProgresStatus(i.id, 'ontrack')"
-                        class="btn-mentoring py-0 px-3 btn-sm mx-1"
-                        :class="
-                          i.progress_status == 'ontrack'
-                            ? 'btn-primary'
-                            : 'btn-type-2'
-                        "
-                      >
-                        On-track
-                      </button>
-                      <button
-                        @click="changeProgresStatus(i.id, 'behind')"
-                        class="btn-mentoring py-0 px-3 btn-sm mx-1"
-                        :class="
-                          i.progress_status == 'behind'
-                            ? 'btn-primary'
-                            : 'btn-type-2'
-                        "
-                      >
-                        Behind
-                      </button>
+                        <option value="" disabled>
+                          Select progress status
+                        </option>
+                        <option value="ahead">Ahead</option>
+                        <option value="ontrack">On-Track</option>
+                        <option value="behind">Behind</option>
+                      </select>
                     </td>
-                    <td width="50%" nowrap>
+                    <td width="400px" nowrap>
                       <transition name="fade">
                         <!-- {{ tag_list }} -->
                         <div
@@ -116,6 +95,7 @@
                             class="form-mentoring w-100 form-control-sm"
                             @change="addTags(i.id, index)"
                           >
+                            <option value="">Select tag</option>
                             <option
                               :value="i.name"
                               v-for="i in tag_list"
@@ -214,7 +194,6 @@ export default {
   },
   methods: {
     async changeProgresStatus(id, s) {
-      // alert(s)
       try {
         const response = await this.$axios.put(
           "update/student/" + id + "/progress-status",
@@ -337,7 +316,7 @@ export default {
     },
 
     async checkDetail(id) {
-      this.$router.push({ path: "/mentor/student/" + id });
+      this.$router.push({ path: "/mentor/student/" + id + "/meeting" });
     },
 
     async getHistory() {

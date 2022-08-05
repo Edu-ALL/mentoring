@@ -4,149 +4,275 @@
       <div class="row" v-if="menus.key2 == ''">
         <!-- New Request  -->
         <div class="col-12">
-          <div class="card border-1 my-2 py-2 text-center bg-primary">
+          <div
+            class="card border-1 my-2 py-2 text-center bg-primary pointer"
+            @click="section = 'new-request'"
+          >
             <h6 class="my-0">New Request</h6>
           </div>
-          <div
-            class="col-12 text-center p-4"
-            v-if="new_request?.data?.length == 0"
-          >
-            No group meeting yet
-          </div>
-          <div
-            class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
-          >
-            <div
-              class="col"
-              v-for="(i, index) in new_request.data"
-              :key="index"
-            >
-              <div class="card card-project shadow-sm" @click="detail(i)">
-                <div class="card-body">
-                  <h6 class="my-0">{{ i.project_name }}</h6>
-                  <div
-                    class="badge bg-secondary text-white"
-                    style="border-radius: 10px"
-                  >
-                    {{ i.project_type }}
-                  </div>
-                  <div class="group-desc mt-3">
-                    {{ $customText.text(i.project_desc, 20) }}
-                  </div>
-                  <hr class="my-1" />
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="">
-                      <i class="fa-solid fa-users me-2"></i>
-                      {{ i.group_participant_count }} Members
-                    </div>
-                    <div class="">
-                      <i class="fa-solid fa-arrow-right"></i>
+          <transition name="fade">
+            <div v-if="section == 'new-request' || section == ''">
+              <div
+                class="col-12 text-center p-4"
+                v-if="new_request?.data?.length == 0"
+              >
+                No group meeting yet
+              </div>
+              <div
+                class="
+                  row row-cols-md-3 row-cols-1
+                  g-2
+                  max-height
+                  mentoring-scroll
+                "
+              >
+                <div
+                  class="col"
+                  v-for="(i, index) in new_request.data"
+                  :key="i"
+                >
+                  <div class="card group-card">
+                    <div class="card-body">
+                      <div class="row p-0 align-items-center">
+                        <div class="col-md-9">
+                          <div class="d-flex align-items-center">
+                            <div class="group-image" style="width: 20%">
+                              <img
+                                v-lazy="
+                                  'https://picsum.photos/id/' +
+                                  new_request.from +
+                                  index * 2 +
+                                  '/300/300'
+                                "
+                                class="w-100"
+                              />
+                            </div>
+                            <div class="title ms-3" style="width: 80%">
+                              <h5>{{ i.project_name }}</h5>
+                              <p class="my-0">
+                                {{ $customText.text(i.project_desc, 20) }}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <div class="badge badge-group bg-info px-3 py-1">
+                              {{ i.project_type }}
+                            </div>
+                            <div
+                              class="badge badge-group bg-info px-3 py-1 ms-1"
+                            >
+                              {{ i.group_participant_count }} Members
+                            </div>
+                            <div
+                              class="badge badge-group bg-info px-3 py-1 ms-1"
+                              v-if="
+                                i.progress_status != '' ||
+                                i.progress_status != null
+                              "
+                              style="text-transform: capitalize"
+                            >
+                              {{ i.progress_status }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 text-md-center">
+                          <button
+                            class="btn-mentoring btn-secondary py-1 btn-sm"
+                            @click="detail(i)"
+                          >
+                            Detail
+                            <i class="fa-solid fa-arrow-right ms-2"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </transition>
         </div>
 
         <!-- In Progress  -->
         <div class="col-12">
-          <div class="card border-1 my-2 py-2 text-center bg-primary">
+          <div
+            class="card border-1 my-2 py-2 text-center bg-primary pointer"
+            @click="section = 'progress'"
+          >
             <h6 class="my-0">In Progress</h6>
           </div>
-          <div
-            class="col-12 text-center p-4"
-            v-if="in_progress?.data?.length == 0"
-          >
-            No group meeting yet
-          </div>
-          <div
-            class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
-          >
-            <div
-              class="col"
-              v-for="(i, index) in in_progress.data"
-              :key="index"
-            >
-              <div class="card card-project shadow-sm" @click="detail(i)">
-                <div class="card-body">
-                  <h6 class="my-0">{{ i.project_name }}</h6>
-                  <div
-                    class="badge bg-secondary text-white"
-                    style="border-radius: 10px"
-                  >
-                    {{ i.project_type }}
-                  </div>
-                  <div class="group-desc mt-3">
-                    {{ $customText.text(i.project_desc, 20) }}
-                  </div>
-                  <hr class="my-1" />
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="">
-                      <i class="fa-solid fa-users me-2"></i>
-                      {{ i.group_participant_count }} Members
-                    </div>
-                    <div class="">
-                      <i class="fa-solid fa-arrow-right"></i>
+          <transition name="fade">
+            <div v-if="section == 'progress'">
+              <div
+                class="col-12 text-center p-4"
+                v-if="in_progress?.data?.length == 0"
+              >
+                No group meeting yet
+              </div>
+              <div
+                class="
+                  row row-cols-md-2 row-cols-1
+                  g-2
+                  max-height
+                  mentoring-scroll
+                "
+              >
+                <div
+                  class="col"
+                  v-for="(i, index) in in_progress.data"
+                  :key="i"
+                >
+                  <div class="card group-card">
+                    <div class="card-body">
+                      <div class="row p-0 align-items-center">
+                        <div class="col-md-9">
+                          <div class="d-flex align-items-center">
+                            <div class="group-image" style="width: 20%">
+                              <img
+                                v-lazy="
+                                  'https://picsum.photos/id/' +
+                                  in_progress.from +
+                                  index * 2 +
+                                  '/300/300'
+                                "
+                                class="w-100"
+                              />
+                            </div>
+                            <div class="title ms-3" style="width: 80%">
+                              <h5>{{ i.project_name }}</h5>
+                              <p class="my-0">
+                                {{ $customText.text(i.project_desc, 20) }}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <div class="badge badge-group bg-info px-3 py-1">
+                              {{ i.project_type }}
+                            </div>
+                            <div
+                              class="badge badge-group bg-info px-3 py-1 ms-1"
+                            >
+                              {{ i.group_participant_count }} Members
+                            </div>
+                            <div
+                              class="badge badge-group bg-info px-3 py-1 ms-1"
+                              v-if="
+                                i.progress_status != '' ||
+                                i.progress_status != null
+                              "
+                              style="text-transform: capitalize"
+                            >
+                              {{ i.progress_status }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 text-md-center">
+                          <button
+                            class="btn-mentoring btn-secondary py-1 btn-sm"
+                            @click="detail(i)"
+                          >
+                            Detail
+                            <i class="fa-solid fa-arrow-right ms-2"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </transition>
         </div>
 
         <!-- History  -->
         <div class="col-12">
-          <div class="card border-1 my-2 py-2 text-center bg-primary">
+          <div
+            class="card border-1 my-2 py-2 text-center bg-primary pointer"
+            @click="section = 'history'"
+          >
             <h6 class="my-0">History</h6>
           </div>
-          <div
-            class="col-12 text-center p-4"
-            v-if="new_request?.data?.length == 0"
-          >
-            No histories yet
-          </div>
-          <div
-            class="row row-cols-md-3 row-cols-1 g-2 max-height mentoring-scroll"
-          >
-            <div
-              class="col"
-              v-for="(i, index) in history_project.data"
-              :key="index"
-            >
-              <div class="card card-project shadow-sm" @click="detail(i)">
-                <div class="card-body">
-                  <h6 class="my-0">{{ i.project_name }}</h6>
-                  <div
-                    class="badge bg-secondary text-white"
-                    style="border-radius: 10px"
-                  >
-                    {{ i.project_type }}
-                  </div>
-                  <div class="group-desc mt-3">
-                    {{ $customText.text(i.project_desc, 20) }}
-                  </div>
-                  <hr class="my-1" />
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="">
-                      <i class="fa-solid fa-users me-2"></i>
-                      {{ i.group_participant_count }} Members
-                    </div>
-                    <div class="">
-                      <i class="fa-solid fa-arrow-right"></i>
+          <transition name="fade">
+            <div v-if="section == 'history'">
+              <div
+                class="col-12 text-center p-4"
+                v-if="new_request?.data?.length == 0"
+              >
+                No histories yet
+              </div>
+              <div
+                class="
+                  row row-cols-md-3 row-cols-1
+                  g-2
+                  max-height
+                  mentoring-scroll
+                "
+              >
+                <div
+                  class="col"
+                  v-for="(i, index) in history_project.data"
+                  :key="i"
+                >
+                  <div class="card group-card">
+                    <div class="card-body">
+                      <div class="row p-0 align-items-center">
+                        <div class="col-md-9">
+                          <div class="d-flex align-items-center">
+                            <div class="group-image" style="width: 20%">
+                              <img
+                                v-lazy="
+                                  'https://picsum.photos/id/' +
+                                  history_project.from +
+                                  index * 2 +
+                                  '/300/300'
+                                "
+                                class="w-100"
+                              />
+                            </div>
+                            <div class="title ms-3" style="width: 80%">
+                              <h5>{{ i.project_name }}</h5>
+                              <p class="my-0">
+                                {{ $customText.text(i.project_desc, 20) }}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <div class="badge badge-group bg-info px-3 py-1">
+                              {{ i.project_type }}
+                            </div>
+                            <div
+                              class="badge badge-group bg-info px-3 py-1 ms-1"
+                            >
+                              {{ i.group_participant_count }} Members
+                            </div>
+                            <div
+                              class="badge badge-group bg-info px-3 py-1 ms-1"
+                              v-if="
+                                i.progress_status != '' ||
+                                i.progress_status != null
+                              "
+                              style="text-transform: capitalize"
+                            >
+                              {{ i.progress_status }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 text-md-center">
+                          <button
+                            class="btn-mentoring btn-secondary py-1 btn-sm"
+                            @click="detail(i)"
+                          >
+                            Detail
+                            <i class="fa-solid fa-arrow-right ms-2"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
 
@@ -172,6 +298,7 @@ export default {
 
   data() {
     return {
+      section: "",
       new_request: [],
       in_progress: [],
       history_project: [],
@@ -240,7 +367,7 @@ export default {
 </script>
 <style scoped>
 .max-height {
-  max-height: 200px;
+  max-height: 500px;
   overflow: auto;
 }
 
