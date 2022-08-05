@@ -23,14 +23,14 @@
         <div class="row mt-3">
           <div class="col-md-9 col-8 menu-tab">
             <button
-              class="btn-mentoring btn-sm mx-1"
+              class="btn-mentoring btn-sm mx-1 py-1"
               :class="tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
               @click="tab = 'request'"
             >
               New Request
             </button>
             <button
-              class="btn-mentoring btn-sm mx-1"
+              class="btn-mentoring btn-sm mx-1 py-1"
               :class="
                 tab == '' || tab == 'progress' ? 'btn-type-1' : 'btn-type-2'
               "
@@ -39,7 +39,7 @@
               In Progress
             </button>
             <button
-              class="btn-mentoring btn-sm mx-1"
+              class="btn-mentoring btn-sm mx-1 py-1"
               :class="tab == 'completed' ? 'btn-type-1' : 'btn-type-2'"
               @click="tab = 'completed'"
             >

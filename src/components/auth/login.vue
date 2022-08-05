@@ -4,25 +4,25 @@
       class="vue-modal vue-modal-sm"
       :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
     >
-      <form @submit.prevent="handleSubmit" autocomplete="off">
-        <div class="text-center mb-4">
-          <img
-            src="@/assets/img/logo-white.webp"
-            alt="ALL-in Eduspace"
-            class="vue-modal-logo"
-          />
-        </div>
-        <h4
-          class="mb-4 text-center"
-          :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+      <div class="text-center mb-4">
+        <img
+          src="@/assets/img/logo-white.webp"
+          alt="ALL-in Eduspace"
+          class="vue-modal-logo"
+        />
+      </div>
+      <h4
+        class="mb-4 text-center"
+        :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+      >
+        <strong>
+          Login as
+          <span style="text-transform: capitalize">
+            {{ login_as }}
+          </span></strong
         >
-          <strong>
-            Login as
-            <span style="text-transform: capitalize">
-              {{ login_as }}
-            </span></strong
-          >
-        </h4>
+      </h4>
+      <form @submit.prevent="handleSubmit" method="post">
         <div class="mb-3">
           <input-group>
             <input
@@ -30,8 +30,8 @@
               type="email"
               class="form-control v-form"
               placeholder="Email"
-              id="email"
-              autocomplete="off"
+              id="login_email"
+              required
             />
             <label
               :class="
@@ -39,7 +39,7 @@
                   ? 'bg-primary'
                   : 'bg-secondary  text-white'
               "
-              for="email"
+              for="login_email"
               >Email</label
             >
           </input-group>

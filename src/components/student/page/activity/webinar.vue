@@ -24,7 +24,7 @@
             <button
               v-for="i in category"
               :key="i"
-              class="btn-mentoring btn-sm mx-1"
+              class="btn-mentoring btn-sm mx-1 py-1"
               :class="tab == i.dtl_category ? 'btn-type-1' : 'btn-type-2'"
               @click="checkCategory(i.dtl_category)"
               style="text-transform: capitalize"

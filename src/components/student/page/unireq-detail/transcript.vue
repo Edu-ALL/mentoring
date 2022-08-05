@@ -154,12 +154,17 @@
         <hr class="mt-1 mb-3" />
         <div class="mb-2">
           <input v-model="media_id" hidden />
-          <input
-            type="text"
-            class="form-mentoring form-control-sm w-100"
-            placeholder="fill in the file name here .."
-            v-model="file.name"
-          />
+          <input-group>
+            <input
+              type="text"
+              class="form-mentoring form-control w-100"
+              v-model="file.name"
+              required
+              id="fileName"
+              placeholder="fill in here ..."
+            />
+            <label for="fileName">File Name</label>
+          </input-group>
         </div>
 
         <div class="float-start">

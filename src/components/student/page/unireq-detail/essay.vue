@@ -173,11 +173,13 @@
           <input-group>
             <input
               type="text"
-              class="form-mentoring form-control-sm w-100"
+              class="form-mentoring form-control w-100"
               v-model="file.name"
               required
+              id="fileName"
+              placeholder="fill in here ..."
             />
-            <label>File Name</label>
+            <label for="fileName">File Name</label>
           </input-group>
         </div>
         <div class="mb-2">

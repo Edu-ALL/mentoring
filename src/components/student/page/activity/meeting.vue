@@ -12,28 +12,28 @@
       <div class="row mt-3">
         <div class="col-md-12 col-12 menu-tab">
           <button
-            class="btn-mentoring btn-sm mx-1"
+            class="btn-mentoring btn-sm mx-1 py-1"
             :class="tab == '' || tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'request'"
           >
             New Request
           </button>
           <button
-            class="btn-mentoring btn-sm mx-1"
+            class="btn-mentoring btn-sm mx-1 py-1"
             :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'pending'"
           >
             Pending
           </button>
           <button
-            class="btn-mentoring btn-sm mx-1"
+            class="btn-mentoring btn-sm mx-1 py-1"
             :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'upcoming'"
           >
             Upcoming
           </button>
           <button
-            class="btn-mentoring btn-sm mx-1"
+            class="btn-mentoring btn-sm mx-1 py-1"
             :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'history'"
           >

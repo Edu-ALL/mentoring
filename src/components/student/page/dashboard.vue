@@ -493,10 +493,10 @@
         <div class="col">
           <div class="border p-4">
             <h5 class="text-center mb-3">TODOS</h5>
-            <div class="card shadow rounded-2 todos mentoring-scroll">
-              <div class="card-body">
+            <div class="card shadow rounded-2 todos mentoring-scroll p-0">
+              <div class="card-body p-0">
                 <div v-for="(i, index) in todos_list" :key="index">
-                  <div class="row align-items-center">
+                  <div class="row align-items-center todo-list py-3 m-0">
                     <div class="col-12">
                       <div class="d-flex align-items-center">
                         <div class="me-3">
@@ -516,21 +516,28 @@
                             @click="switchTodos(i.id, 1)"
                           ></i>
                           <i
-                            class="fa-solid fa-check-circle text-success"
+                            class="
+                              fa-solid fa-check-circle
+                              text-success
+                              pointer
+                            "
                             v-if="i.status == 3"
+                            @click="switchTodos(i.id, 0)"
                           ></i>
                         </div>
-                        <div class="task" style="text-align: justify">
-                          <div class="text-end mb-1">
+                        <div class="task w-100">
+                          <div class="text-start text-primary mb-1 w-100">
                             <i class="fa-solid fa-calendar me-2"></i>
                             {{ $customDate.date(i.due_date) }}
                           </div>
-                          {{ i.description }}
+                          <div style="text-align: justify">
+                            {{ i.description }}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <hr class="my-3 bg-info" />
+                  <hr class="my-0 bg-info" />
                 </div>
               </div>
             </div>
@@ -925,6 +932,14 @@ a {
   z-index: 1;
   transform: rotate(45deg);
   transition: all 0.6s;
+}
+
+.todo-list {
+  transition: all 0.2s ease-in-out;
+}
+
+.todo-list:hover {
+  background: #ededed;
 }
 
 @media only screen and (max-width: 800px) {

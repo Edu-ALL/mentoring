@@ -17,6 +17,7 @@
                         placeholder="email"
                         required
                         id="email"
+                        autocomplete="off"
                       />
                       <label class="bg-secondary text-white" for="email"
                         >Email</label
@@ -35,6 +36,7 @@
                         required
                         placeholder="password"
                         id="password"
+                        autocomplete="off"
                       />
                       <label class="bg-secondary text-white" for="password"
                         >Password</label
