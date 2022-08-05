@@ -1,6 +1,6 @@
 <template>
   <div id="groups">
-    <div class="border p-3 rounded mt-3">
+    <div class="border p-3 rounded mt-3" v-if="$route.params.key3 == ''">
       <div class="row">
         <!-- New Request  -->
         <div class="col-12">
@@ -151,13 +151,20 @@
         </div>
       </div>
     </div>
+
+    <div class="border p-3 rounded mt-3" v-if="$route.params.key3 != ''">
+      <v-detail />
+    </div>
   </div>
 </template>
 
 <script>
+import groupDetail from "@/components/admin/user/detail/student-activity/group/view";
 export default {
   name: "groupProject",
-
+  components: {
+    "v-detail": groupDetail,
+  },
   data() {
     return {
       new_request: [],
@@ -216,7 +223,15 @@ export default {
     },
 
     detail(i) {
-      window.open("/mentor/activity/group/in-progress/" + i.id, "_blank");
+      // window.open(
+      //   "/admin/user/student/" + this.$route.params.key + "/group/" + i.id,
+      //   "_blank"
+      // );
+
+      this.$router.push({
+        path:
+          "/admin/user/student/" + this.$route.params.key + "/group/" + i.id,
+      });
     },
   },
   created() {

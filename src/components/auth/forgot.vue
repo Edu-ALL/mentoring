@@ -98,6 +98,7 @@ export default {
 
         this.$alert.toast("success", response.data.message);
         this.sent = true;
+        localStorage.setItem("email_reset", this.forgot.email);
         // console.log(response.data);
       } catch (e) {
         this.error_forgot = e.response.data.error;

@@ -63,55 +63,8 @@
           </tbody>
         </table>
       </div>
-      <nav class="mt-3" v-if="student_meeting.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="student_meeting.current_page != 1">
-            <a class="page-link" @click="getPage(student_meeting.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in student_meeting.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="
-                student_meeting.current_page - 2 < i &&
-                student_meeting.current_page + 2 > i
-              "
-            >
-              <a
-                class="page-link"
-                :class="
-                  student_meeting.current_page == i
-                    ? 'bg-primary text-white'
-                    : ''
-                "
-                href="#"
-                @click="
-                  getPage(
-                    student_meeting.path +
-                      '?student=' +
-                      menus.submenu +
-                      '&page=' +
-                      i
-                  )
-                "
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li
-            class="page-item"
-            v-if="student_meeting.current_page != student_meeting.last_page"
-          >
-            <a
-              class="page-link"
-              @click="getPage(student_meeting.next_page_url)"
-            >
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
+      <v-pagination :datas="student_meeting" @result="getPage" />
     </div>
   </div>
 </template>

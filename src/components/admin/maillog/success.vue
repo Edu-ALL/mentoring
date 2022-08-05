@@ -127,34 +127,8 @@
         <hr />
         <h6>Sorry, data is not found</h6>
       </div>
-      <nav class="mt-2" v-if="mails.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="mails.current_page != 1">
-            <a class="page-link" @click="getPage(mails.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in mails.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="mails.current_page - 2 < i && mails.current_page + 2 > i"
-            >
-              <a
-                class="page-link"
-                :class="mails.current_page == i ? 'bg-primary text-white' : ''"
-                href="#"
-                @click="getPage(mails.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li class="page-item" v-if="mails.current_page != mails.last_page">
-            <a class="page-link" @click="getPage(mails.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
+      <v-pagination :datas="mails" @result="getPage" />
     </div>
 
     <transition name="fade">

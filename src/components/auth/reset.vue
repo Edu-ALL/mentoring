@@ -15,37 +15,52 @@
         <transition name="fade">
           <div v-if="!changed">
             <div class="mb-3">
-              <input
-                v-model="reset.email"
-                type="text"
-                name="email"
-                class="form-control v-form"
-                placeholder="Email"
-              />
+              <input-group>
+                <input
+                  v-model="reset.email"
+                  type="text"
+                  name="email"
+                  class="form-control v-form"
+                  placeholder="Email"
+                  readonly
+                  id="email"
+                />
+                <label for="email">Email</label>
+              </input-group>
               <p class="text-white small" v-if="error_reset?.email">
                 {{ error_reset.email[0] }}
               </p>
             </div>
             <div class="mb-3">
-              <input
-                v-model="reset.password"
-                type="password"
-                name="password"
-                placeholder="New Password"
-                class="form-control v-form"
-              />
+              <input-group>
+                <input
+                  v-model="reset.password"
+                  type="password"
+                  name="password"
+                  placeholder="New Password"
+                  class="form-control v-form"
+                  autocomplete="off"
+                  id="password"
+                />
+                <label for="password">Password</label>
+              </input-group>
               <p class="text-white small" v-if="error_reset?.password">
                 {{ error_reset.password[0] }}
               </p>
             </div>
             <div class="mb-3">
-              <input
-                v-model="reset.password_confirmation"
-                type="password"
-                name="password"
-                placeholder="Password Confirmation"
-                class="form-control v-form"
-              />
+              <input-group>
+                <input
+                  v-model="reset.password_confirmation"
+                  type="password"
+                  name="password"
+                  placeholder="Password Confirmation"
+                  class="form-control v-form"
+                  autocomplete="off"
+                  id="confirm_password"
+                />
+                <label for="confirm_password">Password Confirmation</label>
+              </input-group>
             </div>
             <div class="text-center">
               <button
@@ -113,6 +128,11 @@ export default {
         }
       }
     },
+  },
+  created() {
+    if (localStorage.getItem("email_reset")) {
+      this.reset.email = localStorage.getItem("email_reset");
+    }
   },
 };
 </script>

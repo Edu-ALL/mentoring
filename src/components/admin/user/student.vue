@@ -68,41 +68,8 @@
         <hr />
         <h6>Sorry, data is not found</h6>
       </div>
-      <nav class="mt-2" v-if="students.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="students.current_page != 1">
-            <a class="page-link" @click="getPage(students.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in students.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="
-                students.current_page - 2 < i && students.current_page + 2 > i
-              "
-            >
-              <a
-                class="page-link"
-                :class="
-                  students.current_page == i ? 'bg-primary text-white' : ''
-                "
-                href="#"
-                @click="getPage(students.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li
-            class="page-item"
-            v-if="students.current_page != students.last_page"
-          >
-            <a class="page-link" @click="getPage(students.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
+      <v-pagination :datas="students" @result="getPage" />
     </div>
   </div>
 </template>
@@ -145,6 +112,10 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    getResults(e) {
+      console.log(e);
     },
 
     searchData() {

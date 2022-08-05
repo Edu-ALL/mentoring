@@ -32,6 +32,9 @@ import { customDate } from './assets/js/customDate'
 import { customText } from './assets/js/customText'
 import Youtube from 'vue3-youtube'
 import Popper from 'vue3-popper'
+import Pagination from './components/library/pagination'
+
+
 
 import '../src/assets/js/axios'
 
@@ -52,13 +55,14 @@ const adminToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjo
 const app = createApp(App)
 app.use(router)
 app.use(VueTelInput, VueTelInputOptions)
+app.use(VueSplide)
+app.use(VueLazyLoad)
 app.component('datepicker', Datepicker)
 app.component(VueFeather.name, VueFeather)
 app.component('v-datepicker', Datetimepicker)
 app.component('v-tooltip', Popper)
 app.component('v-youtube', Youtube)
-app.use(VueSplide)
-app.use(VueLazyLoad)
+app.component('v-pagination', Pagination)
 app.config.globalProperties.$base_url = base_url
 app.config.globalProperties.$url = url
 app.config.globalProperties.$adminToken = adminToken

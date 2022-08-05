@@ -4,7 +4,7 @@
       class="vue-modal vue-modal-sm"
       :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
     >
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" autocomplete="off">
         <div class="text-center mb-4">
           <img
             src="@/assets/img/logo-white.webp"
@@ -28,9 +28,10 @@
             <input
               v-model="login.email"
               type="email"
-              autocomplete="off"
               class="form-control v-form"
               placeholder="Email"
+              id="email"
+              autocomplete="off"
             />
             <label
               :class="
@@ -38,6 +39,7 @@
                   ? 'bg-primary'
                   : 'bg-secondary  text-white'
               "
+              for="email"
               >Email</label
             >
           </input-group>
@@ -54,11 +56,12 @@
             <input
               v-model="login.password"
               type="password"
-              autocomplete="off"
               class="form-control v-form"
               placeholder="Password"
+              id="password"
             />
             <label
+              for="password"
               :class="
                 login_as == 'student' ? 'bg-primary' : 'bg-secondary text-white'
               "

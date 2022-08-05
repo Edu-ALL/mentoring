@@ -167,50 +167,7 @@
               </div>
             </div>
 
-            <nav class="mt-3" v-if="students_data.from != null">
-              <ul class="pagination justify-content-center">
-                <li class="page-item" v-if="students_data.current_page != 1">
-                  <a
-                    class="page-link"
-                    @click="getPage(students_data.links[0].url)"
-                  >
-                    <i class="fa-solid fa-chevron-left"></i>
-                  </a>
-                </li>
-                <div v-for="(i, index) in students_data.last_page" :key="index">
-                  <li
-                    class="page-item"
-                    v-if="
-                      students_data.current_page - 2 < i &&
-                      students_data.current_page + 2 > i
-                    "
-                  >
-                    <a
-                      class="page-link"
-                      :class="
-                        students_data.current_page == i
-                          ? 'bg-primary text-white'
-                          : ''
-                      "
-                      href="#"
-                      @click="getPage(students_data.path + '?page=' + i)"
-                      >{{ i }}</a
-                    >
-                  </li>
-                </div>
-                <li
-                  class="page-item"
-                  v-if="students_data.current_page != students_data.last_page"
-                >
-                  <a
-                    class="page-link"
-                    @click="getPage(students_data.next_page_url)"
-                  >
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <v-pagination :datas="students_data" @result="getPage" />
           </div>
         </div>
       </div>
@@ -395,6 +352,18 @@ export default {
         this.$alert.close();
         console.log(e.response);
       }
+    },
+
+    getPage(link) {
+      this.$axios
+        .get(link)
+        .then((response) => {
+          this.students_data = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   created() {

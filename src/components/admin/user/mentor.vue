@@ -64,41 +64,8 @@
         <hr />
         <h6>Sorry, data is not found</h6>
       </div>
-      <nav class="mt-2" v-if="mentors.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="mentors.current_page != 1">
-            <a class="page-link" @click="getPage(mentors.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="i in mentors.last_page" :key="i">
-            <li
-              class="page-item"
-              v-if="
-                mentors.current_page - 2 < i && mentors.current_page + 2 > i
-              "
-            >
-              <a
-                class="page-link"
-                :class="
-                  mentors.current_page == i ? 'bg-primary text-white' : ''
-                "
-                href="#"
-                @click="getPage(mentors.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li
-            class="page-item"
-            v-if="mentors.current_page != mentors.last_page"
-          >
-            <a class="page-link" @click="getPage(mentors.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
+      <v-pagination :datas="mentors" @result="getPage" />
     </div>
   </div>
 </template>
