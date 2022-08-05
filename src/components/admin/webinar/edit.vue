@@ -183,7 +183,7 @@ export default {
       this.$alert.loading();
       this.$axios
         .put(
-          this.$url + "update/programme/detail/" + this.webinar_id,
+          this.$url + "../v2/update/programme/detail/" + this.webinar_id,
           this.webinar,
           {
             headers: {
@@ -192,11 +192,13 @@ export default {
           }
         )
         .then((response) => {
-          this.$router.push({
-            path: "/admin/webinar/detail/" + response.data.data.prog_detail.id,
-          });
           this.$alert.close();
           this.$alert.toast("success", "Webinar has been updated");
+          window.location.href =
+            "/admin/webinar/detail/" + response.data.data.id;
+          // this.$router.push({
+          //   path: "/admin/webinar/detail/" + response.data.data.id,
+          // });
           // console.log(response);
         })
         .catch((error) => {

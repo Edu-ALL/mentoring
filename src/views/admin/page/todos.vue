@@ -37,40 +37,43 @@
               <th>No</th>
               <th>Mentors Name</th>
               <th>Students Name</th>
-              <th>Pending</th>
+              <th>Waiting</th>
               <th>Confirmation Needs</th>
               <th>Completed</th>
               <th>Total</th>
-              <th>More</th>
+              <!-- <th>More</th> -->
             </tr>
           </thead>
+
           <tbody>
             <tr
               class="text-center pointer"
               v-for="(i, index) in todos.data"
               :key="index"
             >
-              <td>{{ todos.from + index }}</td>
+              <td>{{ todos.from + parseInt(index) }}</td>
               <td>
-                {{ i.users.first_name + " " + i.users.last_name }}
+                {{ i.mentor_name }}
               </td>
               <td>
-                {{ i.students.first_name + " " + i.students.last_name }}
+                {{ i.first_name + " " + i.last_name }}
               </td>
-              <td style="text-transform: capitalize">
+              <!-- <td style="text-transform: capitalize">
                 {{ i.module + " - " + i.call_with }}
+              </td> -->
+              <td>
+                {{ i.waiting }}
               </td>
               <td>
-                <small>
-                  {{ $customDate.date(i.created_at) }}
-                </small>
+                {{ i.need_confirmation }}
               </td>
               <td>
-                <small>
-                  {{ $customDate.date(i.created_at) }}
-                </small>
+                {{ i.finished }}
               </td>
-              <td style="text-transform: capitalize">
+              <td>
+                {{ i.finished + i.need_confirmation }}
+              </td>
+              <!-- <td style="text-transform: capitalize">
                 <i
                   class="fa-solid fa-ban text-danger"
                   v-if="i.call_status == 'rejected'"
@@ -88,15 +91,15 @@
                   v-if="i.call_status == 'finished'"
                 ></i>
                 {{ i.call_status }}
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <button
                   class="btn-mentoring py-1 bg-secondary"
                   @click="goLink(i.location_link)"
                 >
                   Detail <i class="fa-solid fa-paper-plane ms-2"></i>
                 </button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -129,11 +132,11 @@ export default {
     getData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call")
+        .get(this.$url + "list/todos")
         .then((response) => {
           this.$alert.close();
           this.todos = response.data.data;
-          // console.log(response);
+          console.log(response);
         })
         .catch((error) => {
           this.$alert.close();
@@ -161,21 +164,16 @@ export default {
         this.$alert.close();
       } else {
         this.$axios
-          .get(
-            this.$url +
-              "list/activities/1-on-1-call?keyword=" +
-              this.search.name,
-            {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
-          )
+          .get(this.$url + "list/todos?keyword=" + this.search.name, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
           .then((response) => {
             this.$alert.close();
             this.todos = response.data.data;
             this.search.bar = true;
-            // console.log(response);
+            console.log(response);
           })
           .catch((error) => {
             this.$alert.close();

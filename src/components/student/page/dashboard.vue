@@ -501,17 +501,17 @@
                       <div class="d-flex align-items-center">
                         <div class="me-3">
                           <i
-                            class="fa-solid fa-clock text-info"
+                            class="fa-solid fa-clock text-info pointer"
                             v-if="i.status == 1"
                             @click="switchTodos(i.id, 1)"
                           ></i>
                           <i
-                            class="fa-solid fa-clock"
+                            class="fa-solid fa-clock pointer"
                             v-if="i.status == 0"
                             @click="switchTodos(i.id, 1)"
                           ></i>
                           <i
-                            class="fa-solid fa-clock text-danger"
+                            class="fa-solid fa-clock text-danger pointer"
                             v-if="i.status == 2"
                             @click="switchTodos(i.id, 1)"
                           ></i>
