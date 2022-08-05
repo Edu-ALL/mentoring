@@ -99,56 +99,7 @@
             </tbody>
           </table>
         </div>
-        <nav class="mt-2" v-if="activities.one_on_one.from != null">
-          <ul class="pagination justify-content-center">
-            <li
-              class="page-item"
-              v-if="activities.one_on_one.current_page != 1"
-            >
-              <a
-                class="page-link"
-                @click="getPage(activities.one_on_one.links[0].url)"
-              >
-                <i class="fa-solid fa-chevron-left"></i>
-              </a>
-            </li>
-            <div v-for="i in activities.one_on_one.last_page" :key="i">
-              <li
-                class="page-item"
-                v-if="
-                  activities.one_on_one.current_page - 2 < i &&
-                  activities.one_on_one.current_page + 2 > i
-                "
-              >
-                <a
-                  class="page-link"
-                  :class="
-                    activities.one_on_one.current_page == i
-                      ? 'bg-primary text-white'
-                      : ''
-                  "
-                  href="#"
-                  @click="getPage(activities.one_on_one.path + '?page=' + i)"
-                  >{{ i }}</a
-                >
-              </li>
-            </div>
-            <li
-              class="page-item"
-              v-if="
-                activities.one_on_one.current_page !=
-                activities.one_on_one.last_page
-              "
-            >
-              <a
-                class="page-link"
-                @click="getPage(activities.one_on_one.next_page_url)"
-              >
-                <i class="fa-solid fa-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <v-pagination :datas="activities.one_on_one.from" @result="getPage" />
       </div>
     </div>
   </div>

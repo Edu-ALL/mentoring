@@ -87,36 +87,7 @@
           <hr />
           <h6>Sorry, data is not found</h6>
         </div>
-        <nav class="mt-2" v-if="paids.from != null">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" v-if="paids.current_page != 1">
-              <a class="page-link" @click="getPage(paids.links[0].url)">
-                <i class="fa-solid fa-chevron-left"></i>
-              </a>
-            </li>
-            <div v-for="i in paids.last_page" :key="i">
-              <li
-                class="page-item"
-                v-if="paids.current_page - 2 < i && paids.current_page + 2 > i"
-              >
-                <a
-                  class="page-link"
-                  :class="
-                    paids.current_page == i ? 'bg-primary text-white' : ''
-                  "
-                  href="#"
-                  @click="getPage(paids.path + '?page=' + i)"
-                  >{{ i }}</a
-                >
-              </li>
-            </div>
-            <li class="page-item" v-if="paids.current_page != paids.last_page">
-              <a class="page-link" @click="getPage(paids.next_page_url)">
-                <i class="fa-solid fa-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <v-pagination :datas="paids.from" @result="getPage" />
       </div>
     </div>
 
