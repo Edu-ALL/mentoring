@@ -37,7 +37,8 @@
           </div>
         </div>
       </div>
-      <nav class="mt-3" v-if="groups.from != null">
+      <v-pagination :datas="groups" @result="getPage" />
+      <!-- <nav class="mt-3" v-if="groups.from != null">
         <ul class="pagination justify-content-center">
           <li class="page-item" v-if="groups.current_page != 1">
             <a class="page-link" @click="getPage(groups.links[0].url)">
@@ -64,7 +65,7 @@
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </div>
 </template>

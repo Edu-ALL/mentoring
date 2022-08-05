@@ -64,34 +64,7 @@
       </div>
 
       <!-- Pagination  -->
-      <nav class="mt-3" v-if="data.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="data.current_page != 1">
-            <a class="page-link" @click="getPage(data.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in data.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="data.current_page - 2 < i && data.current_page + 2 > i"
-            >
-              <a
-                class="page-link"
-                :class="data.current_page == i ? 'bg-primary text-white' : ''"
-                href="#"
-                @click="getPage(data.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li class="page-item" v-if="data.current_page != data.last_page">
-            <a class="page-link" @click="getPage(data.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <v-pagination :datas="data" @result="getPage" />
     </div>
   </div>
 </template>

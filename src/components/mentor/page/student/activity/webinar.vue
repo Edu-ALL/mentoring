@@ -69,47 +69,7 @@
           </tbody>
         </table>
       </div>
-      <nav class="mt-3" v-if="student_webinar.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="student_webinar.current_page != 1">
-            <a class="page-link" @click="getPage(student_webinar.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in student_webinar.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="
-                student_webinar.current_page - 2 < i &&
-                student_webinar.current_page + 2 > i
-              "
-            >
-              <a
-                class="page-link"
-                :class="
-                  student_webinar.current_page == i
-                    ? 'bg-primary text-white'
-                    : ''
-                "
-                href="#"
-                @click="getPage(student_webinar.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li
-            class="page-item"
-            v-if="student_webinar.current_page != student_webinar.last_page"
-          >
-            <a
-              class="page-link"
-              @click="getPage(webinar_history.next_page_url)"
-            >
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <v-pagination :datas="student_webinar" @result="getPage" />
     </div>
   </div>
 </template>

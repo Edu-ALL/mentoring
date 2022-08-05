@@ -163,61 +163,7 @@
                     </div>
 
                     <!-- Pagination  -->
-                    <nav class="mt-3" v-if="webinar_history.from != null">
-                      <ul class="pagination justify-content-center">
-                        <li
-                          class="page-item"
-                          v-if="webinar_history.current_page != 1"
-                        >
-                          <a
-                            class="page-link"
-                            @click="getPage(webinar_history.links[0].url)"
-                          >
-                            <i class="fa-solid fa-chevron-left"></i>
-                          </a>
-                        </li>
-                        <div
-                          v-for="(i, index) in webinar_history.last_page"
-                          :key="index"
-                        >
-                          <li
-                            class="page-item"
-                            v-if="
-                              webinar_history.current_page - 2 < i &&
-                              webinar_history.current_page + 2 > i
-                            "
-                          >
-                            <a
-                              class="page-link"
-                              :class="
-                                webinar_history.current_page == i
-                                  ? 'bg-primary text-white'
-                                  : ''
-                              "
-                              href="#"
-                              @click="
-                                getPage(webinar_history.path + '?page=' + i)
-                              "
-                              >{{ i }}</a
-                            >
-                          </li>
-                        </div>
-                        <li
-                          class="page-item"
-                          v-if="
-                            webinar_history.current_page !=
-                            webinar_history.last_page
-                          "
-                        >
-                          <a
-                            class="page-link"
-                            @click="getPage(webinar_history.next_page_url)"
-                          >
-                            <i class="fa-solid fa-chevron-right"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
+                    <v-pagination :datas="webinar_history" @result="getPage" />
                   </div>
                 </div>
               </div>

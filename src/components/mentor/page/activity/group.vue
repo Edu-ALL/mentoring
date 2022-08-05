@@ -54,7 +54,8 @@
       </div>
 
       <!-- Pagination  -->
-      <nav class="my-0 mt-2" v-if="group_data?.data?.length != 0">
+      <v-pagination :datas="group_data" @result="getPage" />
+      <!-- <nav class="my-0 mt-2" v-if="group_data?.data?.length != 0">
         <ul class="pagination justify-content-center pb-0 mb-0">
           <li class="page-item" v-if="group_data.current_page != 1">
             <a class="page-link" @click="getPage(group_data.links[0].url)">
@@ -89,7 +90,7 @@
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
 
     <div id="detail">

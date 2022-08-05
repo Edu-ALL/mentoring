@@ -65,42 +65,7 @@
       />
 
       <!-- Pagination  -->
-      <nav class="my-0 mt-2" v-if="meeting_data?.data?.length != 0">
-        <ul class="pagination justify-content-center pb-0 mb-0">
-          <li class="page-item" v-if="meeting_data.current_page != 1">
-            <a class="page-link" @click="getPage(meeting_data.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in meeting_data.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="
-                meeting_data.current_page - 2 < i &&
-                meeting_data.current_page + 2 > i
-              "
-            >
-              <a
-                class="page-link"
-                :class="
-                  meeting_data.current_page == i ? 'bg-primary text-white' : ''
-                "
-                href="#"
-                @click="getPage(meeting_data.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li
-            class="page-item"
-            v-if="meeting_data.current_page != meeting_data.last_page"
-          >
-            <a class="page-link" @click="getPage(meeting_data.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <v-pagination :datas="meeting_data" @result="getPage" />
     </div>
   </div>
 

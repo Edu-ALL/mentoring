@@ -76,9 +76,9 @@
         </tbody>
       </table>
     </div>
-
+<v-pagination :datas="meeting" @result="getPage" />
     <!-- Pagination  -->
-    <nav class="my-0 mt-2" v-if="meeting?.data?.length != 0">
+    <!-- <nav class="my-0 mt-2" v-if="meeting?.data?.length != 0">
       <ul class="pagination justify-content-center pb-0 mb-0">
         <li class="page-item" v-if="meeting.current_page != 1">
           <a class="page-link" @click="getPage(meeting.links[0].url)">
@@ -105,7 +105,7 @@
           </a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 
   <!-- Last Meeting  -->

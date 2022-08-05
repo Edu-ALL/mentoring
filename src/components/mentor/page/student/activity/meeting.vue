@@ -67,7 +67,8 @@
           </tbody>
         </table>
       </div>
-      <nav class="mt-3" v-if="student_meeting.from != null">
+      <v-pagination :datas="student_meeting" @result="getPage" />
+      <!-- <nav class="mt-3" v-if="student_meeting.from != null">
         <ul class="pagination justify-content-center">
           <li class="page-item" v-if="student_meeting.current_page != 1">
             <a class="page-link" @click="getPage(student_meeting.links[0].url)">
@@ -115,7 +116,7 @@
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </div>
 </template>
