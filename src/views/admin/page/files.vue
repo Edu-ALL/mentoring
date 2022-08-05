@@ -89,34 +89,7 @@
         <hr />
         <h6>Sorry, data is not found</h6>
       </div>
-      <nav class="mt-2" v-if="files.from != null">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" v-if="files.current_page != 1">
-            <a class="page-link" @click="getPage(files.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="i in files.last_page" :key="i">
-            <li
-              class="page-item"
-              v-if="files.current_page - 2 < i && files.current_page + 2 > i"
-            >
-              <a
-                class="page-link"
-                :class="files.current_page == i ? 'bg-primary text-white' : ''"
-                href="#"
-                @click="getPage(files.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li class="page-item" v-if="files.current_page != files.last_page">
-            <a class="page-link" @click="getPage(files.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <v-pagination :datas="files.from" @result="getPage" />
     </div>
 
     <transition name="fade">

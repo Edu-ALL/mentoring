@@ -73,41 +73,7 @@
           <hr />
           <h6>Sorry, data is not found</h6>
         </div>
-        <nav class="mt-2" v-if="pendings.from != null">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" v-if="pendings.current_page != 1">
-              <a class="page-link" @click="getPage(pendings.links[0].url)">
-                <i class="fa-solid fa-chevron-left"></i>
-              </a>
-            </li>
-            <div v-for="(i, index) in pendings.last_page" :key="index">
-              <li
-                class="page-item"
-                v-if="
-                  pendings.current_page - 2 < i && pendings.current_page + 2 > i
-                "
-              >
-                <a
-                  class="page-link"
-                  :class="
-                    pendings.current_page == i ? 'bg-primary text-white' : ''
-                  "
-                  href="#"
-                  @click="getPage(pendings.path + '?page=' + i)"
-                  >{{ i }}</a
-                >
-              </li>
-            </div>
-            <li
-              class="page-item"
-              v-if="pendings.current_page != pendings.last_page"
-            >
-              <a class="page-link" @click="getPage(pendings.next_page_url)">
-                <i class="fa-solid fa-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <v-pagination :datas="pendings.from" @result="getPage" />
       </div>
     </div>
 

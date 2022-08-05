@@ -167,7 +167,7 @@ export default {
         .catch((error) => {
           this.$alert.close();
           this.errorWebinar = error.response.data.error;
-          console.log(error.response);
+          // console.log(error.response);
         });
     },
   },
