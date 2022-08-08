@@ -39,7 +39,9 @@
             </div>
             <div class="mb-3">
               <label>Category</label> <br />
-              {{ webinar.detail?.dtl_category }}
+              <span style="text-transform: capitalize">
+                {{ webinar.detail?.dtl_category.replaceAll("-", " ") }}
+              </span>
             </div>
             <div class="mb-3">
               <label>Descriptions</label> <br />
@@ -183,5 +185,10 @@ export default {
   background: #dedede;
   width: 100%;
   height: 310px;
+}
+
+label {
+  font-size: 0.8em;
+  color: #4f4e4e;
 }
 </style>

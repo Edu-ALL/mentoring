@@ -60,7 +60,7 @@
                   "
                 >
                   <td>{{ parseInt(index) + 1 }}</td>
-                  <td>{{ i.dtl_name }}</td>
+                  <td class="text-start">{{ i.dtl_name }}</td>
                   <td>{{ i.dtl_category }}</td>
                   <td>{{ i.student_activities_count }}</td>
                   <td style="text-transform: capitalize">{{ i.status }}</td>

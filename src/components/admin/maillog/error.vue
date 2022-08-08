@@ -113,7 +113,7 @@
               </td>
               <td class="pointer">
                 <i
-                  class="fa-solid fa-circle-check fa-fw"
+                  class="fa-solid fa-triangle-exclamation fa-fw"
                   @click="solveMail(i.id)"
                 ></i>
               </td>
@@ -195,14 +195,18 @@ export default {
     },
 
     solveMail(id) {
+      this.$alert.loading();
       this.$axios
         .get(this.$url + "update/mail/log/" + id)
         .then((response) => {
-          console.log(response.data);
-          // this.$router.push({ path: "/admin/mail/success" });
+          // console.log(response.data);
+          this.$emit("check", "");
+          this.getData();
+          this.$alert.toast("success", response.data.message);
         })
         .catch((error) => {
           console.log(error.response);
+          this.$alert.toast("error", "Please try again.");
         });
     },
 

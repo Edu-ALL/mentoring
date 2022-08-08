@@ -3,12 +3,12 @@
     <div class="row">
       <transition name="fade">
         <div class="col-md-12" v-if="menus.submenu == ''">
-          <v-error :mails_count="mails" :menus="menus" />
+          <v-error :mails_count="mails" :menus="menus" @check="checkData" />
         </div>
       </transition>
       <transition name="fade">
         <div class="col-md-12" v-if="menus.submenu == 'success'">
-          <v-success :mails_count="mails" :menus="menus" />
+          <v-success :mails_count="mails" :menus="menus" @check="checkData" />
         </div>
       </transition>
     </div>
@@ -38,8 +38,8 @@ export default {
       this.$axios
         .get(this.$url + "list/mail/log/error")
         .then((response) => {
-          this.mails.error = response.data.data.data.length;
-          // console.log(this.mails.error);
+          this.mails.error = response.data.data.total;
+          // console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -49,12 +49,15 @@ export default {
       this.$axios
         .get(this.$url + "list/mail/log/success")
         .then((response) => {
-          this.mails.success = response.data.data.data.length;
-          // console.log(this.mails.error);
+          this.mails.success = response.data.data.total;
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    checkData() {
+      this.getMailError();
+      this.getMailSuccess();
     },
   },
   created() {

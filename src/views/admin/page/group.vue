@@ -1,6 +1,6 @@
 <template>
   <div id="group">
-    <div class="card-white">
+    <div class="card-white" v-if="!$route.params.submenu">
       <div class="row mb-2 justify-content-end">
         <div class="col-md-3">
           <input-group>
@@ -49,6 +49,7 @@
               class="text-start pointer"
               v-for="(i, index) in groups.data"
               :key="index"
+              @click="$router.push({ path: '/admin/group/' + i.id })"
             >
               <td>{{ groups.from + parseInt(index) }}</td>
               <td>
@@ -78,23 +79,21 @@
 
                 <!-- {{ i.progress_status }} -->
               </td>
-              <td nowrap>
-                <div class="col-6 text-end">
-                  <i
-                    class="fa-solid text-success fa-check-circle"
-                    v-if="i.status == 'completed'"
-                  ></i>
-                  <i
-                    class="fa-solid text-warning fa-exclamation-triangle"
-                    v-if="i.status == 'in progress'"
-                  ></i>
-                  {{ i.status }}
-                </div>
+              <td class="text-center" nowrap style="text-transform: capitalize">
+                <i
+                  class="fa-solid text-success fa-check-circle me-2"
+                  v-if="i.status == 'completed'"
+                ></i>
+                <i
+                  class="fa-solid text-warning fa-clock me-2"
+                  v-if="i.status == 'in progress'"
+                ></i>
+                {{ i.status }}
               </td>
-              <td nowrap>
+              <td class="text-center" nowrap>
                 {{ i.total_member }}
               </td>
-              <td nowrap>
+              <td class="text-center" nowrap>
                 {{ i.total_mentor }}
               </td>
               <!-- <td>
@@ -118,13 +117,18 @@
       <v-pagination :datas="groups" @result="getPage" />
     </div>
 
-    <!-- <div class="vue-modal-overlay"></div> -->
+    <v-detail v-if="$route.params.submenu" />
   </div>
 </template>
 
 <script>
+import Detail from "@/components/admin/group/view";
+
 export default {
   name: "group",
+  components: {
+    "v-detail": Detail,
+  },
   data() {
     return {
       groups: [],
@@ -144,7 +148,7 @@ export default {
           this.$alert.close();
           this.groups = response.data.data;
           // this.participant = response.data.group_participant;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           this.$alert.close();
@@ -153,7 +157,6 @@ export default {
     },
 
     getPage(link) {
-      alert(link);
       this.$axios
         .get(link)
         .then((response) => {

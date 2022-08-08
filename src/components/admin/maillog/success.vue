@@ -111,7 +111,7 @@
                   v-if="i.error_status"
                   @click="checkDetail(i)"
                 >
-                  <i class="fa-solid fa-triangle-exclamation fa-fw"></i>
+                  <i class="fa-solid fa-check fa-fw"></i>
                   Solved
                 </div>
                 <div class="text-success" v-if="!i.error_status">
