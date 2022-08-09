@@ -211,9 +211,9 @@ export default {
         this.meeting.meeting_subject = "";
         this.meeting.meeting_link = "";
 
-        console.log(response.data);
-        this.$emit("check", "new");
+        // console.log(response.data);
         this.$alert.toast("success", response.data.message);
+        this.$emit("check", "new");
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");
@@ -234,13 +234,17 @@ export default {
           "student/group/project/meeting/" + this.meeting_id
         );
 
-        console.log(response.data);
-        this.$emit("check", "new");
+        // console.log(response.data);
         this.$alert.toast("success", response.data.message);
+        this.$emit("check", "new");
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");
       }
+    },
+
+    join(link) {
+      window.open(link, "_blank");
     },
   },
   updated() {

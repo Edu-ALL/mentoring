@@ -18,13 +18,13 @@
           >
             New Request
           </button>
-          <button
+          <!-- <button
             class="btn-mentoring btn-sm mx-1 py-1"
             :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'pending'"
           >
             Pending
-          </button>
+          </button> -->
           <button
             class="btn-mentoring btn-sm mx-1 py-1"
             :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
@@ -60,9 +60,9 @@
                 @tab="checkTab"
               ></v-request>
             </transition>
-            <transition name="fade">
+            <!-- <transition name="fade">
               <v-pending v-if="tab == 'pending'" :new="new_meeting"></v-pending>
-            </transition>
+            </transition> -->
             <transition name="fade">
               <v-upcoming v-if="tab == 'upcoming'"></v-upcoming>
             </transition>
@@ -268,7 +268,7 @@
 import Multiselect from "vue-multiselect";
 
 import Request from "@/components/student/page/activity/meeting-detail/request";
-import Pending from "@/components/student/page/activity/meeting-detail/pending";
+// import Pending from "@/components/student/page/activity/meeting-detail/pending";
 import Upcoming from "@/components/student/page/activity/meeting-detail/upcoming";
 import History from "@/components/student/page/activity/meeting-detail/history";
 
@@ -276,7 +276,7 @@ export default {
   name: "meetings",
   components: {
     "v-request": Request,
-    "v-pending": Pending,
+    // "v-pending": Pending,
     "v-upcoming": Upcoming,
     "v-history": History,
     Multiselect,

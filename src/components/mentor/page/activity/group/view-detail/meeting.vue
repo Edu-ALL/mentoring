@@ -221,7 +221,7 @@ export default {
       this.$alert.loading();
       try {
         const response = await this.$axios.put(
-          "student/group/project/meeting/" + this.meeting_id
+          "mentor/group/project/meeting/" + this.meeting_id
         );
 
         console.log(response.data);
@@ -235,6 +235,10 @@ export default {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");
       }
+    },
+
+    join(link) {
+      window.open(link, "_blank");
     },
   },
   updated() {

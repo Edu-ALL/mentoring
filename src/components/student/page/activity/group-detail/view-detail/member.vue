@@ -139,7 +139,7 @@ export default {
           }
         );
 
-        console.log(response.data);
+        // console.log(response.data);
 
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
