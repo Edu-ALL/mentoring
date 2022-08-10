@@ -159,6 +159,7 @@ input-group label {
     transition: all 0.4s;
     z-index: 1;
     cursor: text;
+    white-space: nowrap;
 }
 
 input-group span {

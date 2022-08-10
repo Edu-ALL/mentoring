@@ -36,10 +36,10 @@
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <input-group>
+            <input-group class="w-100">
               <input
                 type="email"
-                class="form-mentoring form-control w-100"
+                class="form-mentoring form-control"
                 v-model="member"
                 placeholder="add members email here."
                 @blur="validateEmail"

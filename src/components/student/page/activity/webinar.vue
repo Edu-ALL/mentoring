@@ -86,7 +86,9 @@
                   </div>
                   <div v-if="webinar_history.data?.length != 0">
                     <div class="table-responsive">
-                      <table class="table align-middle">
+                      <table
+                        class="table table-bordered table-hover align-middle"
+                      >
                         <thead>
                           <tr
                             class="text-center"
@@ -108,7 +110,9 @@
                             :key="index"
                           >
                             <td>{{ index + 1 }}</td>
-                            <td nowrap>{{ i.programme_details.dtl_name }}</td>
+                            <td class="text-start">
+                              {{ i.programme_details.dtl_name }}
+                            </td>
                             <td nowrap style="text-transform: capitalize">
                               {{
                                 $customText.removeDash(

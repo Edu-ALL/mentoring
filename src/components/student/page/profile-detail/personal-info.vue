@@ -36,7 +36,7 @@
                 v-model="mentee.first_name"
               />
             </div>
-            <div class="col-6">
+            <div class="col-6 ps-md-3">
               <input
                 type="text"
                 name=""
@@ -57,6 +57,7 @@
               class="form-mentoring form-control-sm w-50"
               placeholder="E-mail"
               v-model="mentee.email"
+              readonly
             />
           </div>
         </div>
@@ -84,6 +85,7 @@
               name=""
               class="form-mentoring w-100"
               v-model="mentee.address"
+              rows="5"
             ></textarea>
           </div>
         </div>

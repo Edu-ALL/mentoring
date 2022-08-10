@@ -28,6 +28,9 @@
               @click="tab = 'request'"
             >
               New Request
+              <div class="badge bg-primary ms-2" v-if="summary?.request > 0">
+                {{ summary.request }}
+              </div>
             </button>
             <button
               class="btn-mentoring btn-sm mx-1 py-1"
@@ -37,6 +40,9 @@
               @click="tab = 'progress'"
             >
               In Progress
+              <div class="badge bg-primary ms-2" v-if="summary?.upcoming > 0">
+                {{ summary.upcoming }}
+              </div>
             </button>
             <button
               class="btn-mentoring btn-sm mx-1 py-1"
@@ -44,6 +50,9 @@
               @click="tab = 'completed'"
             >
               Completed
+              <div class="badge bg-primary ms-2" v-if="summary?.history > 0">
+                {{ summary.history }}
+              </div>
             </button>
           </div>
           <div class="col-md-3 col-4 text-end">
@@ -157,6 +166,7 @@ export default {
         key: "",
         key2: "",
       },
+      summary: [],
       group_data: [],
     };
   },
@@ -169,6 +179,17 @@ export default {
       this.group_data = i;
       this.alert = "new-group";
       this.modal = "new-group";
+    },
+
+    async getSummary() {
+      try {
+        const response = await this.$axios.get(
+          "student/group-projects/summary"
+        );
+        this.summary = response.data;
+      } catch (e) {
+        console.log(e.response);
+      }
     },
 
     redirect() {
@@ -188,6 +209,8 @@ export default {
     this.menu.submenu = this.$route.params.submenu;
     this.menu.key = this.$route.params.key;
     this.menu.key2 = this.$route.params.key2;
+
+    this.getSummary();
   },
 };
 </script>

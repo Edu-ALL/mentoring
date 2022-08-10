@@ -9,7 +9,7 @@
       </div>
 
       <div class="table-responsive" v-if="data.data?.length != 0">
-        <table class="table">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr class="text-center">
               <th width="3%">No</th>
@@ -137,13 +137,14 @@ export default {
         );
 
         if (response.data.success) {
+          this.$emit("summary", "new");
           this.$emit("tab", "upcoming");
           this.$alert.toast("success", response.data.message);
         } else {
           this.$alert.toast("error", response.data.error);
         }
 
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again.");

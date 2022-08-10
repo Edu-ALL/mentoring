@@ -17,6 +17,9 @@
             @click="tab = 'request'"
           >
             New Request
+            <div class="badge bg-primary ms-2" v-if="summary?.request > 0">
+              {{ summary.request }}
+            </div>
           </button>
           <!-- <button
             class="btn-mentoring btn-sm mx-1 py-1"
@@ -31,6 +34,9 @@
             @click="tab = 'upcoming'"
           >
             Upcoming
+            <div class="badge bg-primary ms-2" v-if="summary?.upcoming > 0">
+              {{ summary.upcoming }}
+            </div>
           </button>
           <button
             class="btn-mentoring btn-sm mx-1 py-1"
@@ -38,6 +44,9 @@
             @click="tab = 'history'"
           >
             History
+            <div class="badge bg-primary ms-2" v-if="summary?.history > 0">
+              {{ summary.history }}
+            </div>
           </button>
         </div>
         <!-- <div class="col-md-3 col-4 text-end">
@@ -58,6 +67,7 @@
               <v-request
                 v-if="tab == '' || tab == 'request'"
                 @tab="checkTab"
+                @summary="getSummary"
               ></v-request>
             </transition>
             <!-- <transition name="fade">
@@ -288,6 +298,7 @@ export default {
       modal: "",
       user_select: "",
       user_list: [],
+      summary: [],
       meeting_date: {
         date: "",
         time: "",
@@ -323,6 +334,15 @@ export default {
 
     checkTab(i) {
       this.tab = i;
+    },
+
+    async getSummary() {
+      try {
+        const response = await this.$axios.get("student/meetings/summary");
+        this.summary = response.data;
+      } catch (e) {
+        console.log(e.response);
+      }
     },
 
     async getMentorList() {
@@ -384,6 +404,7 @@ export default {
   },
   created() {
     this.getMentorList();
+    this.getSummary();
   },
 };
 </script>

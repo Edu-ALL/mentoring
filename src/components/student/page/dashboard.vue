@@ -62,12 +62,16 @@
               </div>
             </div>
             <div class="d-md-flex d-block">
-              <div class="py-1 me-2" v-for="i in sosmed" :key="i">
+              <div
+                class="py-1 me-2 pointer"
+                v-for="i in sosmed"
+                :key="i"
+                @click="goSosmed(i.hyperlink)"
+              >
                 <vue-feather
                   type="facebook"
                   stroke="blue"
-                  class="float-start mt-md-1 me-1 pointer"
-                  @click="goSosmed(i.hyperlink)"
+                  class="float-start mt-md-1 me-1"
                   v-if="
                     i.social_media_name == 'facebook' && i.hyperlink != null
                   "
@@ -75,8 +79,7 @@
                 <vue-feather
                   type="instagram"
                   stroke="#DB554A"
-                  class="float-start mt-md-1 me-1 pointer"
-                  @click="goSosmed(i.hyperlink)"
+                  class="float-start mt-md-1 me-1"
                   v-if="
                     i.social_media_name == 'instagram' && i.hyperlink != null
                   "
@@ -84,12 +87,15 @@
                 <vue-feather
                   type="linkedin"
                   stroke="#0A66C2"
-                  class="float-start mt-md-1 me-1 pointer"
-                  @click="goSosmed(i.hyperlink)"
+                  class="float-start mt-md-1 me-1"
                   v-if="
                     i.social_media_name == 'linkedin' && i.hyperlink != null
                   "
                 ></vue-feather>
+
+                <span class="me-2">
+                  {{ i.username }}
+                </span>
               </div>
             </div>
           </div>
@@ -312,6 +318,52 @@
                   overflow-hidden
                   pointer
                 "
+                @click="uni_status = 'shortlisted'"
+              >
+                <div class="uni-title">
+                  SHORTLISTED
+                  <div class="float-end">{{ uni_list.shortlisted.length }}</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0" />
+              <transition name="fade">
+                <div class="p-3 pt-2" v-if="uni_status == 'shortlisted'">
+                  <div
+                    class="p-3 text-center text-muted"
+                    v-if="uni_list.shortlisted?.length == 0"
+                  >
+                    No university shortlisted yet.
+                  </div>
+                  <div v-if="uni_list.shortlisted?.length != 0">
+                    <div
+                      class="d-flex align-items-start mb-2"
+                      v-for="i in uni_list.shortlisted"
+                      :key="i"
+                    >
+                      <div class="text-warning" style="width: 8%">
+                        <i class="fa-solid fa-clock mt-1"></i>
+                      </div>
+                      <div class="uni-name" style="width: 92%">
+                        {{ i.uni_name }} <br />
+                        <small class="text-muted">{{ i.uni_major }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+            </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer
+                "
                 @click="uni_status = 'waitlisted'"
               >
                 <div class="uni-title">
@@ -490,6 +542,7 @@
           </div>
         </div>
 
+        <!-- TODOS  -->
         <div class="col">
           <div class="border p-4">
             <h5 class="text-center mb-3">TODOS</h5>
@@ -522,7 +575,6 @@
                               pointer
                             "
                             v-if="i.status == 3"
-                            @click="switchTodos(i.id, 0)"
                           ></i>
                         </div>
                         <div class="task w-100">
@@ -615,6 +667,7 @@ export default {
         applied: [],
         accepted: [],
         rejected: [],
+        shortlisted: [],
       },
       meeting: [],
       uni_status: "waitlisted",
@@ -692,6 +745,8 @@ export default {
           this.uni_list.accepted = response.data.data;
         } else if (status == "rejected") {
           this.uni_list.rejected = response.data.data;
+        } else if (status == "shortlisted") {
+          this.uni_list.shortlisted = response.data.data;
         }
         // console.log(response.data);
       } catch (e) {
@@ -704,7 +759,7 @@ export default {
         const response = await this.$axios.get("student/todos");
 
         this.todos_list = response.data;
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -717,7 +772,7 @@ export default {
           todos_id: j,
           new_status: s,
         });
-        console.log(response);
+        // console.log(response);
         if (response.data.success) {
           this.getTodosList();
           this.$alert.toast("success", response.data.message);
@@ -770,6 +825,7 @@ export default {
     this.getUniList("applied");
     this.getUniList("accepted");
     this.getUniList("rejected");
+    this.getUniList("shortlisted");
   },
 };
 </script>

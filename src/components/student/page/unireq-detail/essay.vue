@@ -366,9 +366,14 @@ export default {
           form
         );
 
+        this.file.name = "";
+        this.file.uploaded_file = [];
+        this.dropzoneFile = "";
+        this.uni_select = [];
+
         this.$emit("check", "file");
         this.$alert.toast("success", response.data.message);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (e) {
         console.log(e.response.data);
         if (e.response.data.error.uploaded_file) {
@@ -423,7 +428,7 @@ export default {
           form_data
         );
 
-        console.log(response.data);
+        // console.log(response.data);
         this.$emit("check", "file");
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);

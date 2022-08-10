@@ -21,7 +21,7 @@
     </div>
     <div class="desc">
       <form method="post" @submit.prevent="handleSubmit">
-        <div class="row g-1 align-items-center">
+        <div class="row g-1 align-items-center mt-md-2">
           <div class="col-md-3 col-4">
             <div class="field">
               <div class="data">
@@ -30,17 +30,34 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 col-8">
-            <div class="field">
-              <div class="data">
+          <div class="col-md-9 col-8 py-1">
+            <div class="field d-md-flex">
+              <div class="data w-50 pe-md-3">
                 <input type="hidden" v-model="sosmed.id" />
-                <input
-                  type="text"
-                  name=""
-                  class="form-mentoring form-control-sm w-100"
-                  v-model="sosmed.data[0].hyperlink"
-                  :readonly="!edit"
-                />
+                <input-group>
+                  <input
+                    type="text"
+                    class="form-mentoring form-control w-100"
+                    v-model="sosmed.data[0].username"
+                    :readonly="!edit"
+                    placeholder="Username"
+                    id="user-0"
+                  />
+                  <label for="user-0">Username</label>
+                </input-group>
+              </div>
+              <div class="data w-50">
+                <input-group>
+                  <input
+                    type="url"
+                    class="form-mentoring form-control w-100"
+                    v-model="sosmed.data[0].hyperlink"
+                    :readonly="!edit"
+                    placeholder="Hyperlink"
+                    id="link-0"
+                  />
+                  <label for="link-0">Hyperlink</label>
+                </input-group>
                 <small
                   class="text-danger"
                   v-if="error_submit && error_submit['data.0.hyperlink']"
@@ -59,16 +76,34 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 col-8">
-            <div class="field">
-              <div class="data">
-                <input
-                  type="text"
-                  name=""
-                  class="form-mentoring form-control-sm w-100"
-                  v-model="sosmed.data[1].hyperlink"
-                  :readonly="!edit"
-                />
+          <div class="col-md-9 col-8 py-1">
+            <div class="field d-md-flex">
+              <div class="data w-50 pe-md-3">
+                <input-group>
+                  <input
+                    type="text"
+                    class="form-mentoring form-control w-100"
+                    v-model="sosmed.data[1].username"
+                    :readonly="!edit"
+                    placeholder="Username"
+                    id="user-1"
+                  />
+                  <label for="user-1">Username</label>
+                </input-group>
+              </div>
+
+              <div class="data w-50">
+                <input-group>
+                  <input
+                    type="url"
+                    class="form-mentoring form-control w-100"
+                    v-model="sosmed.data[1].hyperlink"
+                    :readonly="!edit"
+                    placeholder="hyperlink"
+                    id="link-1"
+                  />
+                  <label for="link-1">Hyperlink</label>
+                </input-group>
                 <small
                   class="text-danger"
                   v-if="error_submit && error_submit['data.1.hyperlink']"
@@ -79,6 +114,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-3 col-4">
             <div class="field">
               <div class="data">
@@ -87,16 +123,34 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 col-8">
-            <div class="field">
-              <div class="data">
-                <input
-                  type="text"
-                  name=""
-                  class="form-mentoring form-control-sm w-100"
-                  v-model="sosmed.data[2].hyperlink"
-                  :readonly="!edit"
-                />
+          <div class="col-md-9 col-8 py-1">
+            <div class="field d-md-flex">
+              <div class="data w-50 pe-md-3">
+                <input-group>
+                  <input
+                    type="text"
+                    class="form-mentoring form-control w-100"
+                    v-model="sosmed.data[2].username"
+                    :readonly="!edit"
+                    placeholder="Username"
+                    id="user-2"
+                  />
+                  <label for="user-2">Username</label>
+                </input-group>
+              </div>
+
+              <div class="data w-50">
+                <input-group>
+                  <input
+                    type="url"
+                    class="form-mentoring form-control w-100"
+                    v-model="sosmed.data[2].hyperlink"
+                    :readonly="!edit"
+                    placeholder="link"
+                    id="link-2"
+                  />
+                  <label for="link-2">Hyperlink</label>
+                </input-group>
                 <small
                   class="text-danger"
                   v-if="error_submit && error_submit['data.2.hyperlink']"
@@ -138,16 +192,17 @@ export default {
         person: "student",
         data: [
           {
+            username: "",
             instance: "facebook",
             hyperlink: "",
           },
           {
-            person: "student",
+            username: "",
             instance: "instagram",
             hyperlink: "",
           },
           {
-            person: "student",
+            username: "",
             instance: "linkedin",
             hyperlink: "",
           },
@@ -162,14 +217,19 @@ export default {
         const response = await this.$axios.get(
           "social-media/student/" + this.id
         );
+
+        console.log(response.data);
         this.sosmed_list = response.data.data;
         const sosmed_new = this.sosmed;
         this.sosmed_list.map(function (sosmed) {
           if (sosmed.social_media_name == "facebook") {
+            sosmed_new.data[0].username = sosmed.username;
             sosmed_new.data[0].hyperlink = sosmed.hyperlink;
           } else if (sosmed.social_media_name == "instagram") {
+            sosmed_new.data[1].username = sosmed.username;
             sosmed_new.data[1].hyperlink = sosmed.hyperlink;
           } else if (sosmed.social_media_name == "linkedin") {
+            sosmed_new.data[2].username = sosmed.username;
             sosmed_new.data[2].hyperlink = sosmed.hyperlink;
           }
         });

@@ -29,7 +29,7 @@
                 data_detail.watch_info == null
                   ? 0
                   : data_detail.watch_info.current_time,
-              controls: 0,
+              controls: 1,
             }"
             ref="youtube"
             class="w-100 h-100"

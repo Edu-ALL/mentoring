@@ -73,7 +73,6 @@
         </div>
       </div>
       <v-pagination :datas="groups" @result="getPage" />
-     
     </div>
 
     <!-- MODAL -->
@@ -153,8 +152,10 @@ export default {
           }
         );
 
-        this.$alert.toast("success", response.data.message);
+        this.$emit("summary", "new");
         this.getData();
+
+        this.$alert.toast("success", response.data.message);
         // console.log(response.data);
       } catch (e) {
         this.$alert.close();

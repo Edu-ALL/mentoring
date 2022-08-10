@@ -288,6 +288,7 @@ export default {
 
         this.file.name = "";
         this.file.uploaded_file = [];
+        this.dropzoneFile = "";
 
         this.$emit("check", "file");
         this.$alert.toast("success", response.data.message);

@@ -365,6 +365,11 @@ export default {
           form
         );
 
+        this.file.name = "";
+        this.file.uploaded_file = [];
+        this.dropzoneFile = "";
+        this.uni_select = [];
+
         this.$emit("check", "file");
         this.$alert.toast("success", response.data.message);
         console.log(response.data);
