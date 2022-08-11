@@ -169,6 +169,7 @@ export default {
 
         if (response.data.success) {
           this.getData();
+          this.$emit("summary", "new");
           this.$alert.toast("success", response.data.message);
         } else {
           this.$alert.toast("error", response.data.error);

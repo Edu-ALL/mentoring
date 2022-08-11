@@ -337,6 +337,7 @@ export default {
     },
 
     async getSummary() {
+      this.summary = [];
       try {
         const response = await this.$axios.get("student/meetings/summary");
         this.summary = response.data;
@@ -403,6 +404,10 @@ export default {
     },
   },
   created() {
+    if (localStorage.getItem("tab")) {
+      this.tab = localStorage.getItem("tab");
+      localStorage.removeItem("tab");
+    }
     this.getMentorList();
     this.getSummary();
   },

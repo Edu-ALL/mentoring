@@ -14,13 +14,15 @@
               <div class="row p-0 align-items-center">
                 <div class="col-md-9">
                   <div class="d-flex align-items-center">
-                    <div class="group-image" style="width: 20%">
+                    <div class="group-image">
                       <img
                         v-lazy="
-                          'https://picsum.photos/id/' +
-                          groups.from +
-                          index * 2 +
-                          '/300/300'
+                          i.picture
+                            ? $base_url + '' + i.picture
+                            : 'https://picsum.photos/id/' +
+                              groups.from +
+                              index * 2 +
+                              '/300/300'
                         "
                         class="w-100"
                       />
@@ -152,10 +154,12 @@ export default {
           }
         );
 
-        this.$emit("summary", "new");
-        this.getData();
-
+        // this.getData();
         this.$alert.toast("success", response.data.message);
+        this.$emit("summary", "new");
+        setTimeout(() => {
+          this.getData();
+        }, 1000);
         // console.log(response.data);
       } catch (e) {
         this.$alert.close();

@@ -12,13 +12,34 @@
       <div class="row">
         <div class="col-md-7 mb-3">
           <div
-            class="card border-0 shadow mb-3"
+            class="card border-0 shadow mb-3 position-relative overflow-hidden"
             v-if="groups.group_info == null"
           >
+            <img
+              v-lazy="
+                'https://picsum.photos/id/' + group_info.id * 2 + '/900/300'
+              "
+              class="thumbnail shadow"
+            />
+            <div class="thumbnail-logo">
+              <div class="logo shadow">
+                <img
+                  v-lazy="
+                    group_info.picture != null && group_info.picture != ''
+                      ? $base_url + '' + group_info.picture
+                      : 'https://picsum.photos/id/' + group_info.id + '/200/300'
+                  "
+                  class="w-100"
+                />
+              </div>
+            </div>
             <div class="card-body">
               <div
                 class="float-end"
-                v-if="group_info.student_id == student_info.id"
+                v-if="
+                  menu.key == 'progress' &&
+                  group_info.student_id == student_info.id
+                "
               >
                 <i
                   class="fa-solid fa-edit pointer"
@@ -89,6 +110,16 @@
                     >
                     </group-type>
                   </div>
+                  <div class="mb-4">
+                    <input-group>
+                      <input
+                        type="file"
+                        class="form-mentoring form-control"
+                        placeholder="add a logo"
+                        @change="addLogo"
+                      />
+                    </input-group>
+                  </div>
                   <div class="mb-3">
                     <input-group>
                       <textarea
@@ -128,11 +159,18 @@
             </div>
           </div>
         </div>
+
         <div class="col-md-5 mb-3">
           <form method="post" @submit.prevent="handleUpdateRole()">
             <div class="card border-0 shadow mb-3">
               <div class="card-body">
-                <div class="float-end">
+                <div
+                  class="float-end"
+                  v-if="
+                    menu.key == 'progress' &&
+                    group_info.student_id == student_info.id
+                  "
+                >
                   <i
                     class="fa-solid fa-edit pointer"
                     v-if="!editMember"
@@ -207,6 +245,7 @@
                 :menu="menu"
                 :member="group_member"
                 :group="group_info"
+                :student="student_info"
                 @check="checkComponent"
               ></v-member>
             </div>
@@ -242,6 +281,7 @@ export default {
       groupId: "",
       groups: [],
       group_info: [],
+      group_logo: [],
       group_meeting: [],
       group_member: [],
       student_info: [],
@@ -250,6 +290,10 @@ export default {
   methods: {
     redirect() {
       this.$router.push({ path: "/user/my-activity/group" });
+    },
+
+    addLogo(e) {
+      this.group_logo = e.target.files[0];
     },
 
     async getData() {
@@ -274,16 +318,20 @@ export default {
     },
 
     async handleUpdateGroup() {
+      let form = new FormData();
+      form.append("project_name", this.group_info.project_name);
+      form.append("project_type", this.group_info.project_type);
+      form.append("project_desc", this.group_info.project_desc);
+      form.append("project_status", this.group_info.project_status);
+      form.append("status", this.group_info.status);
+      form.append("owner_type", this.group_info.owner_type);
+      form.append("picture", this.group_logo);
+
       this.$alert.loading();
       try {
-        const response = await this.$axios.put(
-          "student/group/project/" + this.groupId,
-          {
-            project_name: this.group_info.project_name,
-            project_type: this.group_info.project_type,
-            project_desc: this.group_info.project_desc,
-            status: "in progress",
-          }
+        const response = await this.$axios.post(
+          "student/update/group/project/" + this.groupId,
+          form
         );
 
         this.group_info = response.data.data;

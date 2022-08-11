@@ -4,7 +4,10 @@
       <div class="col-6">
         <h6>Group Members</h6>
       </div>
-      <div class="col-6" v-if="menu.key == 'progress'">
+      <div
+        class="col-6"
+        v-if="menu.key == 'progress' && group.student_id == student.id"
+      >
         <div class="text-end">
           <i class="fa-solid fa-add pointer" @click="modal = 'new-meeting'"></i>
         </div>
@@ -117,6 +120,7 @@ export default {
     menu: Object,
     member: Object,
     group: Object,
+    student: Object,
   },
   data() {
     return {

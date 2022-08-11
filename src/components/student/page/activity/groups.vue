@@ -57,7 +57,7 @@
           </div>
           <div class="col-md-3 col-4 text-end">
             <button
-              class="btn-mentoring btn-sm btn-type-3 mx-1"
+              class="btn-mentoring btn-sm btn-type-3 mx-1 py-1"
               @click="modal = 'add'"
             >
               <i class="fa-solid fa-add"></i>
@@ -70,7 +70,10 @@
           <div class="col">
             <div class="card border-0 shadow">
               <transition name="fade">
-                <v-request v-if="tab == 'request'"></v-request>
+                <v-request
+                  v-if="tab == 'request'"
+                  @summary="getSummary"
+                ></v-request>
               </transition>
               <transition name="fade">
                 <v-progress
@@ -182,6 +185,7 @@ export default {
     },
 
     async getSummary() {
+      this.summary = [];
       try {
         const response = await this.$axios.get(
           "student/group-projects/summary"
@@ -205,6 +209,11 @@ export default {
     },
   },
   created() {
+    if (localStorage.getItem("tab")) {
+      this.tab = localStorage.getItem("tab");
+      localStorage.removeItem("tab");
+    }
+
     this.menu.menu = this.$route.params.menu;
     this.menu.submenu = this.$route.params.submenu;
     this.menu.key = this.$route.params.key;

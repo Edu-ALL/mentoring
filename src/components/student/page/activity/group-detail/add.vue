@@ -36,6 +36,18 @@
         </div>
         <div class="col-md-12">
           <div class="mb-3">
+            <input-group>
+              <input
+                type="file"
+                class="form-mentoring form-control"
+                placeholder="add a logo"
+                @change="addLogo"
+              />
+            </input-group>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-3">
             <input-group class="w-100">
               <input
                 type="email"
@@ -125,6 +137,7 @@ export default {
         status: "in progress",
         owner_type: "student",
       },
+      group_logo: "",
       member: "",
       members: [],
       error_member: false,
@@ -136,6 +149,10 @@ export default {
     //   //   this.emailOptions.push(emails);
     //   this.emails.push(emails);
     // },
+
+    addLogo(e) {
+      this.group_logo = e.target.files[0];
+    },
 
     validateEmail(email) {
       var re =
@@ -160,14 +177,23 @@ export default {
     },
 
     async handleSubmit() {
+      let form = new FormData();
+      form.append("project_name", this.group.project_name);
+      form.append("project_type", this.group.project_type);
+      form.append("project_desc", this.group.project_desc);
+      form.append("project_status", this.group.project_status);
+      form.append("status", this.group.status);
+      form.append("owner_type", this.group.owner_type);
+      form.append("picture", this.group_logo);
+
+      // for (var pair of form.entries()) {
+      //   console.log(pair[0] + ", " + pair[1]);
+      // }
+
       this.$emit("modal", "");
       this.$alert.loading();
-
       try {
-        const response = await this.$axios.post(
-          "student/group/project",
-          this.group
-        );
+        const response = await this.$axios.post("student/group/project", form);
 
         if (response.data.success) {
           this.handleMembers(response.data.data.id);
@@ -178,24 +204,26 @@ export default {
         // console.log(response.data);
       } catch (e) {
         // this.$alert.close();
-        console.log(e.response.error);
+        console.log(e.response);
       }
     },
 
     async handleMembers(id) {
-      try {
-        const response = await this.$axios.post(
-          "student/group/project/participant",
-          {
-            group_id: id,
-            participant: this.members,
-          }
-        );
+      if (this.members) {
+        try {
+          const response = await this.$axios.post(
+            "student/group/project/participant",
+            {
+              group_id: id,
+              participant: this.members,
+            }
+          );
 
-        this.$emit("data", response.data);
-      } catch (e) {
-        console.log(e.response);
-        this.$emit("data", e.response.data);
+          this.$emit("data", response.data);
+        } catch (e) {
+          console.log(e.response);
+          this.$emit("data", e.response.data);
+        }
       }
       this.$alert.close();
     },

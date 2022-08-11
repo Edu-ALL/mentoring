@@ -50,23 +50,11 @@
               My Activities
             </li>
             <li
-              @click="goToMenu('uni-list')"
-              :class="params == 'uni-list' ? 'active' : ''"
+              @click="goToMenu('uni')"
+              :class="params == 'uni' ? 'active' : ''"
             >
-              University Shortlisted
+              Universities
             </li>
-            <li
-              @click="goToMenu('uni-requirement')"
-              :class="params == 'uni-requirement' ? 'active' : ''"
-            >
-              University Requirements
-            </li>
-            <!-- <li
-              @click="goToMenu('my-files')"
-              :class="params == 'my-files' ? 'active' : ''"
-            >
-              My Files
-            </li> -->
           </ul>
         </div>
         <div class="navbar-button d-md-block" :class="!menu ? 'd-none' : ''">

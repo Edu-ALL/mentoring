@@ -29,7 +29,7 @@
               />
             </div> -->
             <img
-              :src="
+              v-lazy="
                 mentee.image != null && mentee.image != ''
                   ? $base_url + '' + mentee.image
                   : 'https://picsum.photos/id/130/200/300'
@@ -119,12 +119,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
-                  pointer
+                  pointer pointer
                 "
-                @click="getUniList('waitlisted')"
+                @click="goTo('/user/my-activity/meeting', 'request')"
               >
                 <div class="mt-title">
-                  REQUEST
+                  New Request
                   <div class="float-end">
                     {{ meeting.personal.request }}
                   </div>
@@ -134,37 +134,23 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
+
+            <div
+              class="card shadow rounded-2 mb-2 pointer"
+              v-if="meeting.personal"
+            >
               <div
                 class="
                   card-body
                   position-relative
                   card-dashboard
+                  pointer
                   overflow-hidden
                 "
+                @click="goTo('/user/my-activity/meeting', 'upcoming')"
               >
                 <div class="mt-title">
-                  PENDING
-                  <div class="float-end">
-                    {{ meeting.personal.pending }}
-                  </div>
-                </div>
-                <div class="icon">
-                  <i class="fa-solid fa-clock"></i>
-                </div>
-              </div>
-            </div>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
-              <div
-                class="
-                  card-body
-                  position-relative
-                  card-dashboard
-                  overflow-hidden
-                "
-              >
-                <div class="mt-title">
-                  UPCOMING
+                  Upcoming
                   <div class="float-end">
                     {{ meeting.personal.upcoming }}
                   </div>
@@ -174,17 +160,20 @@
                 </div>
               </div>
             </div>
+
             <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
                   position-relative
                   card-dashboard
+                  pointer
                   overflow-hidden
                 "
+                @click="goTo('/user/my-activity/meeting', 'history')"
               >
                 <div class="mt-title">
-                  HISTORY
+                  History
                   <div class="float-end">
                     {{ meeting.personal.history }}
                   </div>
@@ -205,10 +194,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
+                  pointer
                 "
+                @click="goTo('/user/my-activity/group', 'request')"
               >
                 <div class="mt-title">
-                  REQUEST
+                  Request
                   <div class="float-end">
                     {{ meeting.group.request }}
                   </div>
@@ -225,10 +216,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
+                  pointer
                 "
+                @click="goTo('/user/my-activity/group', 'progress')"
               >
                 <div class="mt-title">
-                  UPCOMING
+                  In Progress
                   <div class="float-end">
                     {{ meeting.group.upcoming }}
                   </div>
@@ -245,10 +238,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
+                  pointer
                 "
+                @click="goTo('/user/my-activity/group', 'completed')"
               >
                 <div class="mt-title">
-                  HISTORY
+                  Completed
                   <div class="float-end">
                     {{ meeting.group.history }}
                   </div>
@@ -272,10 +267,11 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
+                  pointer
                 "
               >
                 <div class="mt-title">
-                  UPCOMING
+                  Upcoming
                   <div class="float-end">
                     {{ meeting.group_m.upcoming }}
                   </div>
@@ -292,10 +288,11 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
+                  pointer
                 "
               >
                 <div class="mt-title">
-                  HISTORY
+                  History
                   <div class="float-end">
                     {{ meeting.group_m.history }}
                   </div>
@@ -316,12 +313,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
-                  pointer
+                  pointer pointer
                 "
                 @click="uni_status = 'shortlisted'"
               >
                 <div class="uni-title">
-                  SHORTLISTED
+                  Shortlisted
                   <div class="float-end">{{ uni_list.shortlisted.length }}</div>
                 </div>
                 <div class="icon">
@@ -362,12 +359,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
-                  pointer
+                  pointer pointer
                 "
                 @click="uni_status = 'waitlisted'"
               >
                 <div class="uni-title">
-                  WAITLISTED
+                  Waitlisted
                   <div class="float-end">{{ uni_list.waitlisted.length }}</div>
                 </div>
                 <div class="icon">
@@ -408,12 +405,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
-                  pointer
+                  pointer pointer
                 "
                 @click="uni_status = 'applied'"
               >
                 <div class="uni-title">
-                  APPLIED
+                  Applied
                   <div class="float-end">{{ uni_list.applied.length }}</div>
                 </div>
                 <div class="icon">
@@ -454,12 +451,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
-                  pointer
+                  pointer pointer
                 "
                 @click="uni_status = 'accepted'"
               >
                 <div class="uni-title">
-                  ACCEPTED
+                  Accepted
                   <div class="float-end">{{ uni_list.accepted.length }}</div>
                 </div>
                 <div class="icon">
@@ -500,12 +497,12 @@
                   position-relative
                   card-dashboard
                   overflow-hidden
-                  pointer
+                  pointer pointer
                 "
                 @click="uni_status = 'rejected'"
               >
                 <div class="uni-title">
-                  REJECTED
+                  Rejected
                   <div class="float-end">{{ uni_list.rejected.length }}</div>
                 </div>
                 <div class="icon">
@@ -714,6 +711,11 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+
+    goTo(link, tab) {
+      this.$router.push({ path: link });
+      localStorage.setItem("tab", tab);
     },
 
     goSosmed(i) {

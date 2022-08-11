@@ -28,10 +28,7 @@
           <v-event v-if="page == 'event'"></v-event>
         </transition> -->
         <transition name="fade">
-          <v-uni v-if="page == 'uni-list'"></v-uni>
-        </transition>
-        <transition name="fade">
-          <v-uni-req v-if="page == 'uni-requirement'"></v-uni-req>
+          <v-univ v-if="page == 'uni'"></v-univ>
         </transition>
         <transition name="fade">
           <v-files v-if="page == 'my-files'"></v-files>
@@ -52,8 +49,7 @@ import Activity from "@/components/student/page/activity";
 // import Group from "@/components/student/page/groups";
 // import Webinar from "@/components/student/page/webinar";
 // import Event from "@/components/student/page/event";
-import Uni from "@/components/student/page/uni-list";
-import UniReq from "@/components/student/page/uni-req";
+import Univ from "@/components/student/page/uni";
 import Files from "@/components/student/page/files";
 
 export default {
@@ -68,8 +64,7 @@ export default {
     // "v-group": Group,
     // "v-webinar": Webinar,
     // "v-event": Event,
-    "v-uni": Uni,
-    "v-uni-req": UniReq,
+    "v-univ": Univ,
     "v-files": Files,
   },
   data() {
