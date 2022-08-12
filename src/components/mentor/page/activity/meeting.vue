@@ -19,21 +19,21 @@
       >
         <button
           class="btn-mentoring btn-sm mx-1 py-1 px-3"
-          :class="tab == 'pending' ? 'bg-primary' : ''"
+          :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
           @click="goTab('pending')"
         >
           Pending
         </button>
         <button
           class="btn-mentoring btn-sm mx-1 py-1 px-3"
-          :class="tab == 'upcoming' ? 'bg-primary' : ''"
+          :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
           @click="goTab('upcoming')"
         >
           Upcoming
         </button>
         <button
           class="btn-mentoring btn-sm mx-1 py-1 px-3"
-          :class="tab == 'history' ? 'bg-primary' : ''"
+          :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
           @click="goTab('history')"
         >
           History

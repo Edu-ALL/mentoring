@@ -272,10 +272,7 @@
               v-model="uni_select"
               :options="uni_list"
               placeholder="Select One"
-              track-by="uni_name"
               :custom-label="customUnilabel"
-              label="uni_name"
-              :searchable="true"
               required
               @select="uniListCheck"
             >
@@ -285,7 +282,8 @@
             <input-group>
               <input
                 type="text"
-                class="form-mentoring w-100"
+                class="form-mentoring form-control w-100"
+                placeholder="fill in here."
                 required
                 v-model="uni.major"
               />
@@ -423,27 +421,22 @@ export default {
 
       // console.log(this.uni);
 
-      this.$alert.loading();
-
       try {
         const response = await this.$axios.post("create/shortlisted", this.uni);
-        this.uni = "";
-        // this.uni_select.univ_id = "";
         this.uni.univ_id = "";
         this.uni.major = "";
 
-        console.log(response.data);
-        this.getData();
+        // console.log(response.data);
         this.$alert.toast("success", response.data.message);
-        this.$alert.close();
+        setTimeout(() => {
+          this.getData();
+        }, 1000);
       } catch (e) {
-        this.$alert.close();
-        console.log(e.response.data);
-        // if (e.response.data.error) {
-        //   this.$alert.toast("error", e.response.data.error.univ_id[0]);
-        // } else {
-        this.$alert.toast("error", "Please try again");
-        // }
+        if (e.response.data.error) {
+          this.$alert.toast("error", e.response.data.error.univ_id[0]);
+        } else {
+          this.$alert.toast("error", "Please try again");
+        }
       }
     },
 
@@ -460,10 +453,12 @@ export default {
         const response = await this.$axios.delete(
           "delete/shortlisted/" + this.uni_id
         );
-        console.log(response);
+        // console.log(response);
         if (response.data.success) {
-          this.getData();
           this.$alert.toast("success", response.data.message);
+          setTimeout(() => {
+            this.getData();
+          }, 1000);
         } else {
           this.$alert.toast("error", response.data.error);
         }

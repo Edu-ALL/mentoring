@@ -44,6 +44,25 @@
     <div class="row">
       <div class="col-md-7 mb-3">
         <div class="card border-0 shadow mb-3">
+          <img
+            v-lazy="
+              'https://picsum.photos/id/' + group_info.id * 2 + '/900/300'
+            "
+            class="thumbnail shadow"
+          />
+          <div class="thumbnail-logo">
+            <div class="logo shadow">
+              <img
+                v-lazy="
+                  group_info.picture != null && group_info.picture != ''
+                    ? $base_url + '' + group_info.picture
+                    : 'https://picsum.photos/id/' + group_info.id + '/200/300'
+                "
+                class="w-100"
+              />
+            </div>
+          </div>
+
           <div class="card-body">
             <div class="float-end" v-if="mentor.id == group_info.user_id">
               <i

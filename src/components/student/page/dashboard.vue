@@ -71,7 +71,8 @@
                 <vue-feather
                   type="facebook"
                   stroke="blue"
-                  class="float-start mt-md-1 me-1"
+                  class="float-start mt-md-2 me-1"
+                  size="20"
                   v-if="
                     i.social_media_name == 'facebook' && i.hyperlink != null
                   "
@@ -79,7 +80,8 @@
                 <vue-feather
                   type="instagram"
                   stroke="#DB554A"
-                  class="float-start mt-md-1 me-1"
+                  class="float-start mt-md-2 me-1"
+                  size="20"
                   v-if="
                     i.social_media_name == 'instagram' && i.hyperlink != null
                   "
@@ -87,13 +89,14 @@
                 <vue-feather
                   type="linkedin"
                   stroke="#0A66C2"
-                  class="float-start mt-md-1 me-1"
+                  class="float-start mt-md-2 me-1"
+                  size="20"
                   v-if="
                     i.social_media_name == 'linkedin' && i.hyperlink != null
                   "
                 ></vue-feather>
 
-                <span class="me-2">
+                <span class="me-2" style="font-size: 0.7em">
                   {{ i.username }}
                 </span>
               </div>
@@ -260,6 +263,7 @@
         <div class="col">
           <div class="border p-4">
             <h5 class="text-center mb-3">GROUP MEETING</h5>
+
             <div class="card shadow rounded-2 mb-2" v-if="meeting.group_m">
               <div
                 class="
@@ -269,6 +273,7 @@
                   overflow-hidden
                   pointer
                 "
+                @click="showGroupMeeting = !showGroupMeeting"
               >
                 <div class="mt-title">
                   Upcoming
@@ -278,6 +283,37 @@
                 </div>
                 <div class="icon">
                   <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+              <div class="card-body" v-if="showGroupMeeting">
+                <div
+                  style="margin-top: -10px"
+                  v-if="meeting.group_m?.detail?.upcoming?.length > 0"
+                >
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <tbody>
+                        <tr
+                          v-for="i in meeting.group_m.detail.upcoming"
+                          :key="i"
+                          style="vertical-align: middle"
+                        >
+                          <td>{{ i.meeting_subject }}</td>
+                          <td class="text-center">
+                            {{ $customDate.date(i.meeting_date) }} <br />
+                            {{ $customDate.time(i.meeting_date) }}
+                          </td>
+                          <td class="text-end">
+                            <a :href="i.meeting_link" target="_blank">
+                              <span class="btn-mentoring py-1 bg-primary"
+                                >Join</span
+                              >
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -669,6 +705,7 @@ export default {
       meeting: [],
       uni_status: "waitlisted",
       uploaded_file: [],
+      showGroupMeeting: false,
     };
   },
   setup() {

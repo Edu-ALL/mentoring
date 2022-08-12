@@ -2,38 +2,55 @@
   <div id="student">
     <div class="" v-if="menus.submenu == ''">
       <div class="row mb-4">
-        <div class="col-md-6 text-start">
-          <div class="d-flex search-student align-item-center">
+        <div class="col-md-12 d-flex align-items-center">
+          <div class="mt-3 w-50">
             <input-group>
               <input
-                type="text"
-                class="form-mentoring form-control"
                 v-model="search.name"
-                @change="searchData"
+                type="text"
+                placeholder="fill in"
                 id="search"
-                placeholder="Search"
+                class="form-mentoring form-control"
               />
               <label for="search">Search</label>
             </input-group>
-            <i
-              class="fa-solid fa-close ms-3 pointer"
-              @click="closeSearch"
-              v-if="search.bar"
-            ></i>
           </div>
-          <div class="d-block p-0 m-0">
-            <label class="search-desc p-0 m-0 text-danger"
-              >Search by Name, Email, School Name</label
+
+          <div class="mt-3 mx-3 w-25">
+            <select class="form-mentoring w-100" v-model="search.progress">
+              <option value="">Select progress status</option>
+              <option value="ahead">Ahead</option>
+              <option value="ontrack">On-Track</option>
+              <option value="behind">Behind</option>
+            </select>
+          </div>
+
+          <div class="mt-3 w-25">
+            <select class="form-mentoring w-100" v-model="search.tag">
+              <option value="">Select progress status</option>
+              <option :value="i.name" v-for="i in tag_list" :key="i">
+                {{ i.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mt-3 text-end" style="width: 12%">
+            <button
+              class="btn-mentoring btn-secondary py-1"
+              @click="searchData"
             >
+              <i class="fa-solid fa-search me-3"></i>
+              Search
+            </button>
           </div>
         </div>
 
         <div class="col-12">
           <div class="card-white m-0 px-2 py-1 mt-2">
             <div class="table-responsive">
-              <table class="table table-hover align-middle">
+              <table class="table table-bordered table-hover align-middle">
                 <thead>
-                  <tr class="text-secondary">
+                  <tr class="text-center">
                     <td nowrap>No</td>
                     <td nowrap>Full Name</td>
                     <td nowrap>Email</td>
@@ -52,7 +69,7 @@
                     No students yet
                   </div>
                   <tr v-for="(i, index) in students_data.data" :key="index">
-                    <td>{{ index + 1 }}</td>
+                    <td class="text-center">{{ index + 1 }}</td>
                     <td nowrap class="pointer" @click="checkDetail(i.id)">
                       {{ i.first_name + " " + i.last_name }}
                     </td>
@@ -161,32 +178,26 @@
 </template>
 
 <script>
+// import Multiselect from "vue-multiselect";
 import Detail from "@/components/mentor/page/student/view";
 export default {
   name: "student",
   props: {
     menus: Object,
   },
-
-  // data() {
-  //   return {
-  //     add_tags: false,
-  //   };
-  // },
   components: {
     "v-detail": Detail,
+    // "v-tag": Multiselect,
   },
-
   data() {
     return {
       search: {
-        bar: false,
         name: "",
+        progress: "",
+        tag: "",
       },
       add_tags: [],
       tag_list: [],
-      // category: [],
-      // webinar_data: [],
       students_data: [],
       tags_name: "",
       students_detail: [],
@@ -240,12 +251,18 @@ export default {
     searchData() {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "student/list?keyword=" + this.search.name)
+        .get(
+          "student/list?keyword=" +
+            this.search.name +
+            "&status=" +
+            this.search.progress +
+            "&tag=" +
+            this.search.tag
+        )
         .then((response) => {
           this.$alert.close();
           this.students_data = response.data.data;
-          this.search.bar = true;
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           this.$alert.close();

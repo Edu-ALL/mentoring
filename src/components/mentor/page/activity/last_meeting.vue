@@ -76,7 +76,7 @@
         </tbody>
       </table>
     </div>
-<v-pagination :datas="meeting" @result="getPage" />
+    <v-pagination :datas="meeting" @result="getPage" />
     <!-- Pagination  -->
     <!-- <nav class="my-0 mt-2" v-if="meeting?.data?.length != 0">
       <ul class="pagination justify-content-center pb-0 mb-0">
@@ -132,81 +132,81 @@
       <div class="row row-cols-md-2 row-cols-1">
         <div class="col mb-3">
           <input-group>
-            <textarea
+            <v-editor
+              api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
               class="form-control form-mentoring w-100"
-              placeholder="fill in here ..."
+              placeholder="Academic Performance"
               v-model="meeting_minutes.academic_performance"
               rows="5"
               required
               id="acad"
-            ></textarea>
-            <label class="bg-white" for="acad">Academic Performance</label>
+            ></v-editor>
           </input-group>
         </div>
         <div class="col mb-3">
           <input-group>
-            <textarea
+            <v-editor
+              api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
               class="form-control form-mentoring w-100"
-              placeholder="fill in here ..."
+              placeholder="Exploration"
               v-model="meeting_minutes.exploration"
               rows="5"
               required
               id="exploration"
-            ></textarea>
-            <label class="bg-white" for="exploration">Exploration</label>
+            ></v-editor>
           </input-group>
         </div>
         <div class="col mb-3">
           <input-group>
-            <textarea
+            <v-editor
+              api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
               class="form-control form-mentoring w-100"
-              placeholder="fill in here ..."
+              placeholder="Writing Skills"
               v-model="meeting_minutes.writing_skills"
               rows="5"
               required
               id="writing"
-            ></textarea>
-            <label class="bg-white" for="writing">Writing Skills</label>
+            ></v-editor>
           </input-group>
         </div>
         <div class="col mb-3">
           <input-group>
-            <textarea
+            <v-editor
+              api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
               class="form-control form-mentoring w-100"
-              placeholder="fill in here ..."
+              placeholder="Personal Brand"
               v-model="meeting_minutes.personal_brand"
               rows="5"
               required
               id="personal"
-            ></textarea>
-            <label class="bg-white" for="personal">Personal Brand</label>
+            ></v-editor>
           </input-group>
         </div>
       </div>
       <div class="mb-3">
         <input-group>
-          <textarea
+          <v-editor
+            api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
             class="form-control form-mentoring w-100"
-            placeholder="fill in here ..."
+            placeholder="Mentor Todos"
             v-model="meeting_minutes.mt_todos_note"
             rows="5"
             required
             id="mentorTodos"
-          ></textarea>
-          <label class="bg-white" for="mentorTodos">Mentor Todos</label>
+          ></v-editor>
         </input-group>
       </div>
       <div class="mb-3">
         <input-group>
-          <textarea
+          <v-editor
+            api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
             class="form-control form-mentoring w-100"
-            placeholder="fill in here ..."
+            placeholder="Mentee Todos"
             v-model="meeting_minutes.st_todos_note"
             rows="5"
             required
             id="menteeTodos"
-          ></textarea>
-          <label class="bg-white" for="menteeTodos">Mentee Todos</label>
+          ></v-editor>
         </input-group>
       </div>
       <hr />

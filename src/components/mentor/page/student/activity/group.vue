@@ -2,30 +2,46 @@
   <div id="groups">
     <div class="border p-3 rounded mt-3">
       <div class="row" v-if="menus.key2 == ''">
-        <!-- New Request  -->
-        <div class="col-12">
+        <div class="col-md-3">
           <div
-            class="card border-1 my-2 py-2 text-center bg-primary pointer"
+            class="card my-1 border-0 py-2 text-center pointer"
+            :class="
+              section == 'new-request' || section == ''
+                ? 'bg-primary'
+                : 'bg-secondary'
+            "
             @click="section = 'new-request'"
           >
-            <h6 class="my-0">New Request</h6>
+            <p class="my-0 text-white">New Request</p>
           </div>
+
+          <div
+            class="card my-1 border-0 py-2 text-center pointer"
+            :class="section == 'progress' ? 'bg-primary' : 'bg-secondary'"
+            @click="section = 'progress'"
+          >
+            <p class="my-0 text-white">In Progress</p>
+          </div>
+
+          <div
+            class="card my-1 border-0 py-2 text-center pointer"
+            :class="section == 'history' ? 'bg-primary' : 'bg-secondary'"
+            @click="section = 'history'"
+          >
+            <p class="my-0 text-white">History</p>
+          </div>
+        </div>
+
+        <div class="col-md-9">
           <transition name="fade">
             <div v-if="section == 'new-request' || section == ''">
               <div
                 class="col-12 text-center p-4"
                 v-if="new_request?.data?.length == 0"
               >
-                No group meeting yet
+                No group project yet.
               </div>
-              <div
-                class="
-                  row row-cols-md-3 row-cols-1
-                  g-2
-                  max-height
-                  mentoring-scroll
-                "
-              >
+              <div class="row row-cols-1 g-2 max-height mentoring-scroll">
                 <div
                   class="col"
                   v-for="(i, index) in new_request.data"
@@ -36,13 +52,15 @@
                       <div class="row p-0 align-items-center">
                         <div class="col-md-9">
                           <div class="d-flex align-items-center">
-                            <div class="group-image" style="width: 20%">
+                            <div class="group-image">
                               <img
                                 v-lazy="
-                                  'https://picsum.photos/id/' +
-                                  new_request.from +
-                                  index * 2 +
-                                  '/300/300'
+                                  i.picture
+                                    ? $base_url + '' + i.picture
+                                    : 'https://picsum.photos/id/' +
+                                      new_request.from +
+                                      index * 2 +
+                                      '/300/300'
                                 "
                                 class="w-100"
                               />
@@ -75,7 +93,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 text-md-center">
+                        <div class="col-md-3 text-end">
                           <button
                             class="btn-mentoring btn-secondary py-1 btn-sm"
                             @click="detail(i)"
@@ -91,32 +109,16 @@
               </div>
             </div>
           </transition>
-        </div>
 
-        <!-- In Progress  -->
-        <div class="col-12">
-          <div
-            class="card border-1 my-2 py-2 text-center bg-primary pointer"
-            @click="section = 'progress'"
-          >
-            <h6 class="my-0">In Progress</h6>
-          </div>
           <transition name="fade">
             <div v-if="section == 'progress'">
               <div
                 class="col-12 text-center p-4"
                 v-if="in_progress?.data?.length == 0"
               >
-                No group meeting yet
+                No group project yet.
               </div>
-              <div
-                class="
-                  row row-cols-md-2 row-cols-1
-                  g-2
-                  max-height
-                  mentoring-scroll
-                "
-              >
+              <div class="row row-cols-1 g-2 max-height mentoring-scroll">
                 <div
                   class="col"
                   v-for="(i, index) in in_progress.data"
@@ -127,13 +129,15 @@
                       <div class="row p-0 align-items-center">
                         <div class="col-md-9">
                           <div class="d-flex align-items-center">
-                            <div class="group-image" style="width: 20%">
+                            <div class="group-image">
                               <img
                                 v-lazy="
-                                  'https://picsum.photos/id/' +
-                                  in_progress.from +
-                                  index * 2 +
-                                  '/300/300'
+                                  i.picture
+                                    ? $base_url + '' + i.picture
+                                    : 'https://picsum.photos/id/' +
+                                      in_progress.from +
+                                      index * 2 +
+                                      '/300/300'
                                 "
                                 class="w-100"
                               />
@@ -166,7 +170,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 text-md-center">
+                        <div class="col-md-3 text-end">
                           <button
                             class="btn-mentoring btn-secondary py-1 btn-sm"
                             @click="detail(i)"
@@ -182,32 +186,16 @@
               </div>
             </div>
           </transition>
-        </div>
 
-        <!-- History  -->
-        <div class="col-12">
-          <div
-            class="card border-1 my-2 py-2 text-center bg-primary pointer"
-            @click="section = 'history'"
-          >
-            <h6 class="my-0">History</h6>
-          </div>
           <transition name="fade">
             <div v-if="section == 'history'">
               <div
                 class="col-12 text-center p-4"
-                v-if="new_request?.data?.length == 0"
+                v-if="history_project?.data?.length == 0"
               >
                 No histories yet
               </div>
-              <div
-                class="
-                  row row-cols-md-3 row-cols-1
-                  g-2
-                  max-height
-                  mentoring-scroll
-                "
-              >
+              <div class="row row-cols-1 g-2 max-height mentoring-scroll">
                 <div
                   class="col"
                   v-for="(i, index) in history_project.data"
@@ -218,13 +206,15 @@
                       <div class="row p-0 align-items-center">
                         <div class="col-md-9">
                           <div class="d-flex align-items-center">
-                            <div class="group-image" style="width: 20%">
+                            <div class="group-image">
                               <img
                                 v-lazy="
-                                  'https://picsum.photos/id/' +
-                                  history_project.from +
-                                  index * 2 +
-                                  '/300/300'
+                                  i.picture
+                                    ? $base_url + '' + i.picture
+                                    : 'https://picsum.photos/id/' +
+                                      history_project.from +
+                                      index * 2 +
+                                      '/300/300'
                                 "
                                 class="w-100"
                               />
@@ -257,7 +247,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 text-md-center">
+                        <div class="col-md-3 text-end">
                           <button
                             class="btn-mentoring btn-secondary py-1 btn-sm"
                             @click="detail(i)"

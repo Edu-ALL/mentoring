@@ -34,6 +34,7 @@ import { customText } from './assets/js/customText'
 import Youtube from 'vue3-youtube'
 import Popper from 'vue3-popper'
 import Pagination from './components/library/pagination'
+import Editor from '@tinymce/tinymce-vue';
 
 
 
@@ -66,6 +67,7 @@ app.component('v-datepicker', Datetimepicker)
 app.component('v-tooltip', Popper)
 app.component('v-youtube', Youtube)
 app.component('v-pagination', Pagination)
+app.component('v-editor', Editor)
 app.config.globalProperties.$base_url = base_url
 app.config.globalProperties.$url = url
 app.config.globalProperties.$adminToken = adminToken

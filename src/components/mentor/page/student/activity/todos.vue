@@ -262,6 +262,7 @@
                 type="date"
                 class="form-control form-mentoring w-100"
                 v-model="todos.due_date"
+                :min="this.$customDate.tomorrowDateOnly()"
                 placeholder="Date"
                 id="deadline"
                 required
@@ -271,16 +272,16 @@
           </div>
           <div class="my-3">
             <input-group>
-              <textarea
+              <v-editor
+                api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
                 cols="30"
-                rows="5"
+                rows="15"
                 class="form-control form-mentoring w-100"
                 v-model="todos.description"
-                placeholder="project"
+                placeholder="Project Description"
                 id="desc"
                 required
-              ></textarea>
-              <label class="bg-white" for="desc">Project Description</label>
+              ></v-editor>
             </input-group>
           </div>
           <hr class="my-1 mb-3" />

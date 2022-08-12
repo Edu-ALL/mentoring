@@ -48,6 +48,10 @@
     font-size: 1em;
 }
 
+.multiselect__tag {
+margin-bottom: 3px !important;
+}
+
 .multiselect__tags {
     border: 2px solid #dedede !important;
     border-radius: 15px !important;
@@ -56,6 +60,7 @@
     display: block;
     padding: 5px 40px 0 8px !important;
     background: transparent !important;
+    
 }
 
 .multiselect__input {

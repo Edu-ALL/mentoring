@@ -4,13 +4,13 @@
       <div class="table-responsive">
         <table class="table table-bordered align-middle">
           <thead>
-            <tr class="text-center">
+            <tr class="text-center align-middle">
               <th>No</th>
               <th>Topic</th>
               <th>Category</th>
-              <th>Date & Time</th>
+              <th nowrap>Date & Time</th>
               <th>Duration</th>
-              <th>Long Time Watching</th>
+              <th nowrap>Long Time Watching</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -21,11 +21,13 @@
               :key="index"
             >
               <td>{{ index + 1 }}</td>
-              <td nowrap>{{ i.programme_details.dtl_name }}</td>
+              <td class="text-start">
+                {{ i.programme_details.dtl_name }}
+              </td>
               <td nowrap style="text-transform: capitalize">
                 {{ $customText.removeDash(i.programme_details.dtl_category) }}
               </td>
-              <td>
+              <td nowrap>
                 <small>
                   {{ $customDate.date(i.created_at) }} <br />
                   {{ $customDate.time(i.created_at) }}
