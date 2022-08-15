@@ -17,6 +17,13 @@
                 @click="changeTab('shortlisted')"
               >
                 Shortlisted
+
+                <div
+                  class="badge bg-primary ms-2"
+                  v-if="summary.shortlisted > 0"
+                >
+                  {{ summary.shortlisted }}
+                </div>
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1 py-1"
@@ -24,6 +31,9 @@
                 @click="changeTab('applied')"
               >
                 Applied
+                <div class="badge bg-primary ms-2" v-if="summary.applied > 0">
+                  {{ summary.applied }}
+                </div>
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1 py-1"
@@ -31,6 +41,9 @@
                 @click="changeTab('accepted')"
               >
                 Accepted
+                <div class="badge bg-primary ms-2" v-if="summary.accepted > 0">
+                  {{ summary.accepted }}
+                </div>
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1 py-1"
@@ -38,6 +51,9 @@
                 @click="changeTab('rejected')"
               >
                 Rejected
+                <div class="badge bg-primary ms-2" v-if="summary.rejected > 0">
+                  {{ summary.rejected }}
+                </div>
               </button>
               <button
                 class="btn-mentoring btn-sm mx-1 py-1"
@@ -47,6 +63,12 @@
                 @click="changeTab('waitlisted')"
               >
                 Waitlisted
+                <div
+                  class="badge bg-primary ms-2"
+                  v-if="summary.waitlisted > 0"
+                >
+                  {{ summary.waitlisted }}
+                </div>
               </button>
             </div>
           </div>
@@ -98,6 +120,7 @@ export default {
     return {
       tab: "shortlisted",
       uniList: [],
+      summary: [],
     };
   },
   methods: {
@@ -107,6 +130,18 @@ export default {
       this.getData(tab);
     },
 
+    async getSummary() {
+      try {
+        const response = await this.$axios.get(
+          "student/uni-shortlisted/summary"
+        );
+        this.summary = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     async getData(status = "shortlisted") {
       this.$alert.loading();
       try {
@@ -114,6 +149,7 @@ export default {
           "student/university/shortlisted/" + status
         );
 
+        this.getSummary();
         this.uniList = response.data.data;
         // console.log(response.data);
       } catch (e) {

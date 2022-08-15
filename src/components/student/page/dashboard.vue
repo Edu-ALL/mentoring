@@ -388,52 +388,7 @@
                 </div>
               </transition>
             </div>
-            <div class="card shadow rounded-2 mb-2">
-              <div
-                class="
-                  card-body
-                  position-relative
-                  card-dashboard
-                  overflow-hidden
-                  pointer pointer
-                "
-                @click="uni_status = 'waitlisted'"
-              >
-                <div class="uni-title">
-                  Waitlisted
-                  <div class="float-end">{{ uni_list.waitlisted.length }}</div>
-                </div>
-                <div class="icon">
-                  <i class="fa-solid fa-clock"></i>
-                </div>
-              </div>
-              <hr class="mt-0 mb-0" />
-              <transition name="fade">
-                <div class="p-3 pt-2" v-if="uni_status == 'waitlisted'">
-                  <div
-                    class="p-3 text-center text-muted"
-                    v-if="uni_list.waitlisted?.length == 0"
-                  >
-                    No university shortlisted yet.
-                  </div>
-                  <div v-if="uni_list.waitlisted?.length != 0">
-                    <div
-                      class="d-flex align-items-start mb-2"
-                      v-for="i in uni_list.waitlisted"
-                      :key="i"
-                    >
-                      <div class="text-warning" style="width: 8%">
-                        <i class="fa-solid fa-clock mt-1"></i>
-                      </div>
-                      <div class="uni-name" style="width: 92%">
-                        {{ i.uni_name }} <br />
-                        <small class="text-muted">{{ i.uni_major }}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </transition>
-            </div>
+
             <div class="card shadow rounded-2 mb-2">
               <div
                 class="
@@ -572,6 +527,52 @@
                 </div>
               </transition>
             </div>
+            <div class="card shadow rounded-2 mb-2">
+              <div
+                class="
+                  card-body
+                  position-relative
+                  card-dashboard
+                  overflow-hidden
+                  pointer pointer
+                "
+                @click="uni_status = 'waitlisted'"
+              >
+                <div class="uni-title">
+                  Waitlisted
+                  <div class="float-end">{{ uni_list.waitlisted.length }}</div>
+                </div>
+                <div class="icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+              </div>
+              <hr class="mt-0 mb-0" />
+              <transition name="fade">
+                <div class="p-3 pt-2" v-if="uni_status == 'waitlisted'">
+                  <div
+                    class="p-3 text-center text-muted"
+                    v-if="uni_list.waitlisted?.length == 0"
+                  >
+                    No university shortlisted yet.
+                  </div>
+                  <div v-if="uni_list.waitlisted?.length != 0">
+                    <div
+                      class="d-flex align-items-start mb-2"
+                      v-for="i in uni_list.waitlisted"
+                      :key="i"
+                    >
+                      <div class="text-warning" style="width: 8%">
+                        <i class="fa-solid fa-clock mt-1"></i>
+                      </div>
+                      <div class="uni-name" style="width: 92%">
+                        {{ i.uni_name }} <br />
+                        <small class="text-muted">{{ i.uni_major }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+            </div>
           </div>
         </div>
 
@@ -615,9 +616,11 @@
                             <i class="fa-solid fa-calendar me-2"></i>
                             {{ $customDate.date(i.due_date) }}
                           </div>
-                          <div style="text-align: justify">
-                            {{ i.description }}
-                          </div>
+                          <div
+                            style="text-align: justify"
+                            class="my-0"
+                            v-html="i.description"
+                          ></div>
                         </div>
                       </div>
                     </div>

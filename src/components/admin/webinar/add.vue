@@ -16,12 +16,16 @@
           <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control form-mentoring"
-                  placeholder="Webinar Name"
-                  v-model="webinar.dtl_name"
-                />
+                <input-group>
+                  <input
+                    type="text"
+                    class="form-control form-mentoring"
+                    placeholder="Webinar Name"
+                    v-model="webinar.dtl_name"
+                    id="name"
+                  />
+                  <label for="name">Webinar Name</label>
+                </input-group>
                 <span v-if="errorWebinar">
                   <small class="text-danger" v-if="errorWebinar.dtl_name">
                     {{ errorWebinar.dtl_name[0] }}
@@ -50,14 +54,12 @@
               </div>
 
               <div class="mb-3">
-                <textarea
-                  name=""
-                  id=""
+                <v-editor
+                  api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
                   cols="30"
-                  rows="10"
-                  class="form-control form-mentoring"
+                  rows="15"
                   v-model="webinar.dtl_desc"
-                ></textarea>
+                ></v-editor>
                 <span v-if="errorWebinar">
                   <small class="text-danger" v-if="errorWebinar.dtl_desc">
                     {{ errorWebinar.dtl_desc[0] }}
@@ -68,18 +70,23 @@
             <div class="col-md-6">
               <div class="mb-3">
                 <div class="d-flex">
-                  <input
-                    type="text"
-                    class="form-control form-mentoring"
-                    placeholder="Video Link"
-                    v-model="webinar.dtl_video_link"
-                  />
+                  <input-group class="w-75">
+                    <input
+                      type="text"
+                      class="form-control form-mentoring"
+                      placeholder="Video Link"
+                      v-model="webinar.dtl_video_link"
+                      id="link"
+                    />
+                    <label for="link">Video Link</label>
+                  </input-group>
                   <button
                     type="button"
-                    class="btn btn-primary btn-sm ms-2"
+                    class="btn btn-primary btn-sm ms-2 w-25"
                     style="border-radius: 15px"
                     @click="previewLink()"
                   >
+                    <i class="fa-solid fa-search me-2"></i>
                     Preview
                   </button>
                 </div>

@@ -100,7 +100,7 @@
         <hr />
         <h6>Sorry, data is not found</h6>
       </div>
-      <v-pagination :datas="calls.from" @result="getPage" />
+      <v-pagination :datas="calls" @result="getPage" />
     </div>
   </div>
 </template>
@@ -125,7 +125,7 @@ export default {
         .then((response) => {
           this.$alert.close();
           this.calls = response.data.data;
-          // console.log(response);
+          console.log(response.data.data);
         })
         .catch((error) => {
           this.$alert.close();

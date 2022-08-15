@@ -3,10 +3,10 @@
     <h6 class="act-title">Watch Webinars</h6>
     <table class="table table-borderless">
       <tbody>
-        <tr v-for="i in list" :key="i">
+        <tr v-for="i in list" :key="i" class="align-middle">
           <td>{{ i.students.first_name + " " + i.students.last_name }}</td>
-          <td class="text-center">{{ i.programme_details.dtl_name }}</td>
-          <td class="text-end">{{ $customDate.date(i.created_at) }}</td>
+          <td>{{ i.programme_details.dtl_name }}</td>
+          <td>{{ $customDate.date(i.created_at) }}</td>
         </tr>
       </tbody>
     </table>

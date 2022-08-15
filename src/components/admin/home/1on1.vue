@@ -3,10 +3,10 @@
     <h6 class="act-title">Meetings</h6>
     <table class="table table-borderless">
       <tbody>
-        <tr v-for="i in list" :key="i">
+        <tr v-for="i in list" :key="i" class="align-middle">
           <td>{{ i.students.first_name + " " + i.students.last_name }}</td>
-          <td class="text-center">{{ $customDate.date(i.created_at) }}</td>
-          <td class="text-end" style="text-transform: capitalize">
+          <td>{{ $customDate.date(i.created_at) }}</td>
+          <td style="text-transform: capitalize">
             {{ i.std_act_status }}
           </td>
         </tr>

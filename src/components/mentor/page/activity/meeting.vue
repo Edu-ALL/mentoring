@@ -10,7 +10,6 @@
       </button>
     </div>
     <hr class="my-2" />
-
     <!-- Tabs  -->
     <div class="row mt-1">
       <div
@@ -23,6 +22,9 @@
           @click="goTab('pending')"
         >
           Pending
+          <div class="badge bg-primary ms-2" v-if="summary.pending > 0">
+            {{ summary.pending }}
+          </div>
         </button>
         <button
           class="btn-mentoring btn-sm mx-1 py-1 px-3"
@@ -30,6 +32,9 @@
           @click="goTab('upcoming')"
         >
           Upcoming
+          <div class="badge bg-primary ms-2" v-if="summary.upcoming > 0">
+            {{ summary.upcoming }}
+          </div>
         </button>
         <button
           class="btn-mentoring btn-sm mx-1 py-1 px-3"
@@ -37,6 +42,9 @@
           @click="goTab('history')"
         >
           History
+          <div class="badge bg-primary ms-2" v-if="summary.history > 0">
+            {{ summary.history }}
+          </div>
         </button>
       </div>
     </div>
@@ -290,6 +298,7 @@ export default {
       tab: "pending",
       user_select: "",
       modal: "",
+      summary: [],
       meeting_data: [],
       user_list: [],
       call_data: {
@@ -336,6 +345,16 @@ export default {
       this.getData(e);
     },
 
+    async getSummary() {
+      try {
+        const response = await this.$axios.get("mentor/meeting/summary");
+        this.summary = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     async getData(tab) {
       this.$alert.loading();
       this.meeting_data = [];
@@ -343,6 +362,8 @@ export default {
         const response = await this.$axios.get(
           "../v2/list/activities/1-on-1-call/" + tab
         );
+
+        this.getSummary();
         this.meeting_data = response.data.data;
         // console.log(response.data);
       } catch (e) {
