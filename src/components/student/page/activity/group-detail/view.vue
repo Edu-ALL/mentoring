@@ -60,9 +60,10 @@
                 <span class="badge bg-secondary rounded-pill text-dark">
                   {{ group_info.project_type }}
                 </span>
-                <div class="project-desc mt-2">
-                  {{ group_info.project_desc }}
-                </div>
+                <div
+                  class="project-desc mt-2"
+                  v-html="group_info.project_desc"
+                ></div>
                 <div class="row mt-3 align-items-center">
                   <div class="col-6">
                     <small class="text-muted"

@@ -83,16 +83,13 @@
         <div class="col-md-12">
           <div class="mb-3">
             <input-group>
-              <textarea
+              <v-editor
                 cols="30"
-                rows="10"
-                class="form-control form-mentoring w-100"
+                rows="15"
                 v-model="group.project_desc"
-                required
-                placeholder="fill in here ..."
+                placeholder="Project Description"
                 id="desc"
-              ></textarea>
-              <label for="desc">Project Description</label>
+              ></v-editor>
             </input-group>
           </div>
         </div>

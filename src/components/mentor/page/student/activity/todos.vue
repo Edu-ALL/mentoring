@@ -280,7 +280,6 @@
                 v-model="todos.description"
                 placeholder="Project Description"
                 id="desc"
-                required
               ></v-editor>
             </input-group>
           </div>
