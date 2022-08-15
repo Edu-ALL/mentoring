@@ -190,7 +190,7 @@ export default {
         const response = await this.$axios.get(
           "student/group-projects/summary"
         );
-        this.summary = response.data;
+        this.summary = response.data.data;
       } catch (e) {
         console.log(e.response);
       }

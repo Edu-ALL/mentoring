@@ -340,7 +340,7 @@ export default {
       this.summary = [];
       try {
         const response = await this.$axios.get("student/meetings/summary");
-        this.summary = response.data;
+        this.summary = response.data.data;
       } catch (e) {
         console.log(e.response);
       }

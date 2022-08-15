@@ -22,6 +22,9 @@
             @click="checkTab('in-progress')"
           >
             In Progress
+            <div class="badge bg-primary ms-2" v-if="summary.upcoming > 0">
+              {{ summary.upcoming }}
+            </div>
           </button>
           <button
             class="btn-mentoring btn-sm py-1 mx-1"
@@ -29,6 +32,9 @@
             @click="checkTab('completed')"
           >
             Completed
+            <div class="badge bg-primary ms-2" v-if="summary.history > 0">
+              {{ summary.history }}
+            </div>
           </button>
         </div>
       </div>
@@ -217,6 +223,7 @@ export default {
     return {
       tab: "in-progress",
       modal: "",
+      summary: [],
       options: ["Group Mentoring", "Profile Building Mentoring"],
       menteeList: [],
       members: [],
@@ -261,6 +268,16 @@ export default {
       }
     },
 
+    async getSummary() {
+      try {
+        const response = await this.$axios.get("mentor/group-projects/summary");
+        this.summary = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     async getData(tab = "in-progress") {
       this.$alert.loading();
       this.group_data = [];
@@ -268,6 +285,7 @@ export default {
         const response = await this.$axios.get(
           "list/mentor/group/project/" + tab
         );
+        this.getSummary();
         this.group_data = response.data.data;
         // console.log(response.data);
       } catch (e) {
