@@ -32,9 +32,10 @@
                     </div>
                     <div class="title ms-3" style="width: 80%">
                       <h5>{{ i.project_name }}</h5>
-                      <p class="my-0">
-                        {{ $customText.text(i.project_desc, 20) }}
-                      </p>
+                      <p
+                        class="my-0"
+                        v-html="$customText.text(i.project_desc, 20)"
+                      ></p>
                     </div>
                   </div>
                   <div class="mt-2">

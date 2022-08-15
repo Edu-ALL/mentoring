@@ -4,7 +4,7 @@
       <div class="row" v-if="menus.key2 == ''">
         <div class="col-md-3">
           <div
-            class="card my-1 border-0 py-2 text-center pointer"
+            class="card my-1 border-0 p-2 pointer"
             :class="
               section == 'new-request' || section == ''
                 ? 'bg-primary'
@@ -12,23 +12,56 @@
             "
             @click="section = 'new-request'"
           >
-            <p class="my-0 text-white">New Request</p>
+            <div
+              class="
+                my-0
+                text-white
+                d-flex
+                justify-content-between
+                align-items-center
+              "
+            >
+              New Request
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
           </div>
 
           <div
-            class="card my-1 border-0 py-2 text-center pointer"
+            class="card my-1 border-0 p-2 pointer"
             :class="section == 'progress' ? 'bg-primary' : 'bg-secondary'"
             @click="section = 'progress'"
           >
-            <p class="my-0 text-white">In Progress</p>
+            <div
+              class="
+                my-0
+                text-white
+                d-flex
+                justify-content-between
+                align-items-center
+              "
+            >
+              In Progress
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
           </div>
 
           <div
-            class="card my-1 border-0 py-2 text-center pointer"
+            class="card my-1 border-0 p-2 pointer"
             :class="section == 'history' ? 'bg-primary' : 'bg-secondary'"
             @click="section = 'history'"
           >
-            <p class="my-0 text-white">History</p>
+            <div
+              class="
+                my-0
+                text-white
+                d-flex
+                justify-content-between
+                align-items-center
+              "
+            >
+              History
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
           </div>
         </div>
 
@@ -36,7 +69,7 @@
           <transition name="fade">
             <div v-if="section == 'new-request' || section == ''">
               <div
-                class="col-12 text-center p-4"
+                class="col-12 text-center p-4 shadow-sm"
                 v-if="new_request?.data?.length == 0"
               >
                 No group project yet.
@@ -67,9 +100,10 @@
                             </div>
                             <div class="title ms-3" style="width: 80%">
                               <h5>{{ i.project_name }}</h5>
-                              <p class="my-0">
-                                {{ $customText.text(i.project_desc, 20) }}
-                              </p>
+                              <p
+                                class="my-0"
+                                v-html="$customText.text(i.project_desc, 20)"
+                              ></p>
                             </div>
                           </div>
                           <div class="mt-2">
@@ -113,7 +147,7 @@
           <transition name="fade">
             <div v-if="section == 'progress'">
               <div
-                class="col-12 text-center p-4"
+                class="col-12 text-center p-4 shadow-sm"
                 v-if="in_progress?.data?.length == 0"
               >
                 No group project yet.
@@ -144,9 +178,10 @@
                             </div>
                             <div class="title ms-3" style="width: 80%">
                               <h5>{{ i.project_name }}</h5>
-                              <p class="my-0">
-                                {{ $customText.text(i.project_desc, 20) }}
-                              </p>
+                              <p
+                                class="my-0"
+                                v-html="$customText.text(i.project_desc, 20)"
+                              ></p>
                             </div>
                           </div>
                           <div class="mt-2">
@@ -190,7 +225,7 @@
           <transition name="fade">
             <div v-if="section == 'history'">
               <div
-                class="col-12 text-center p-4"
+                class="col-12 text-center p-4 shadow-sm"
                 v-if="history_project?.data?.length == 0"
               >
                 No histories yet
@@ -221,9 +256,10 @@
                             </div>
                             <div class="title ms-3" style="width: 80%">
                               <h5>{{ i.project_name }}</h5>
-                              <p class="my-0">
-                                {{ $customText.text(i.project_desc, 20) }}
-                              </p>
+                              <p
+                                class="my-0"
+                                v-html="$customText.text(i.project_desc, 20)"
+                              ></p>
                             </div>
                           </div>
                           <div class="mt-2">

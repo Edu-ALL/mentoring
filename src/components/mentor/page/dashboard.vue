@@ -5,7 +5,7 @@
       <div class="col-md-3">
         <div
           class="card h-card shadow-sm position-relative overflow-hidden"
-          @click="redirect('student', '')"
+          @click="redirect('student', '', '')"
         >
           <div class="shadow-count">{{ total?.total_student }}</div>
           <div class="card-body">
@@ -22,7 +22,10 @@
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card h-card shadow-sm" @click="redirect('activity', '')">
+        <div
+          class="card h-card shadow-sm"
+          @click="redirect('activity', '', 'pending')"
+        >
           <div class="card-body">
             <div class="shadow-count">
               {{ total?.meeting?.total_new_request }}
@@ -52,7 +55,10 @@
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card h-card shadow-sm" @click="redirect('activity', '')">
+        <div
+          class="card h-card shadow-sm"
+          @click="redirect('activity', '', 'upcoming')"
+        >
           <div class="shadow-count">
             {{ total?.meeting?.total_upcoming }}
           </div>
@@ -323,7 +329,6 @@
               placeholder="Academic Performance"
               v-model="meeting_minutes.academic_performance"
               rows="5"
-              required
               id="acad"
             ></v-editor>
           </input-group>
@@ -336,7 +341,6 @@
               placeholder="Exploration"
               v-model="meeting_minutes.exploration"
               rows="5"
-              required
               id="exploration"
             ></v-editor>
           </input-group>
@@ -349,7 +353,6 @@
               placeholder="Writing Skills"
               v-model="meeting_minutes.writing_skills"
               rows="5"
-              required
               id="writing"
             ></v-editor>
           </input-group>
@@ -362,13 +365,15 @@
               placeholder="Personal Brand"
               v-model="meeting_minutes.personal_brand"
               rows="5"
-              required
               id="personal"
             ></v-editor>
           </input-group>
         </div>
       </div>
       <div class="mb-3">
+        <small class="text-danger" v-if="error?.mt_todos_note">
+          {{ error.mt_todos_note[0] }}
+        </small>
         <input-group>
           <v-editor
             api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
@@ -376,12 +381,14 @@
             placeholder="Mentor Todos"
             v-model="meeting_minutes.mt_todos_note"
             rows="5"
-            required
             id="mentorTodos"
           ></v-editor>
         </input-group>
       </div>
       <div class="mb-3">
+        <small class="text-danger" v-if="error?.st_todos_note">
+          {{ error.st_todos_note[0] }}
+        </small>
         <input-group>
           <v-editor
             api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
@@ -389,7 +396,6 @@
             placeholder="Mentee Todos"
             v-model="meeting_minutes.st_todos_note"
             rows="5"
-            required
             id="menteeTodos"
           ></v-editor>
         </input-group>
@@ -425,11 +431,13 @@ export default {
         mt_todos_note: "",
         st_todos_note: "",
       },
+      error: [],
     };
   },
   methods: {
-    redirect(menu, submenu) {
+    redirect(menu, submenu, tab) {
       this.$router.push({ path: "/mentor/" + menu + "/" + submenu });
+      localStorage.setItem("tab", tab);
     },
 
     async getTotal() {
@@ -498,6 +506,11 @@ export default {
         // console.log(response);
       } catch (e) {
         // console.log(e.response);
+        if (e.response.status == 400) {
+          this.error = e.response.data.error;
+        } else {
+          this.modal = "";
+        }
         this.$alert.toast("error", "Please try again.");
       }
     },

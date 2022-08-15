@@ -2,32 +2,34 @@
   <div id="activity">
     <div class="container">
       <div class="row g-2">
-        <div :class="sidebar ? 'col-md-3' : 'col-md-1'">
+        <div :class="sidebar ? 'col-md-3' : 'col-md-1 text-center'">
           <div class="sidebar">
-            <div class="list-group">
+            <div class="list-group border-0 shadow-sm">
               <div
-                class="list-group-item list-group-item-action pointer"
+                class="list-group-item list-group-item-action pointer border-0"
                 @click="goTo('')"
                 :class="menus.submenu == '' ? 'bg-primary' : ''"
               >
                 <i class="fa-solid fa-phone fa-fw me-2"></i>
-                M<span v-if="sidebar">eetings </span>
+                <span v-if="sidebar">Meetings</span>
               </div>
+              <hr class="my-0" />
               <div
-                class="list-group-item list-group-item-action pointer"
+                class="list-group-item list-group-item-action pointer border-0"
                 @click="goTo('group')"
                 :class="menus.submenu == 'group' ? 'bg-primary' : ''"
               >
                 <i class="fa-solid fa-users fa-fw me-2"></i>
-                G<span v-if="sidebar">roup Project</span>
+                <span v-if="sidebar">Group Project</span>
               </div>
+              <hr class="my-0" />
               <div
-                class="list-group-item list-group-item-action pointer"
+                class="list-group-item list-group-item-action pointer border-0"
                 @click="goTo('last-meeting')"
                 :class="menus.submenu == 'last-meeting' ? 'bg-primary' : ''"
               >
                 <i class="fa-solid fa-file fa-fw me-2"></i>
-                L<span v-if="sidebar">ast Meeting Minutes</span>
+                <span v-if="sidebar">Last Meeting Minutes</span>
               </div>
             </div>
             <div class="text-center mt-2 d-md-block d-none">
@@ -85,6 +87,7 @@ export default {
       this.$router.push({ path: "/mentor/activity/" + to });
     },
   },
+  created() {},
 };
 </script>
 

@@ -83,7 +83,7 @@
                 {{ group_info.project_type }}
               </span>
               <div class="project-desc mt-2">
-                {{ group_info.project_desc }}
+                <p class="my-0" v-html="group_info.project_desc"></p>
               </div>
               <div class="row mt-3 align-items-center">
                 <div class="col-6">

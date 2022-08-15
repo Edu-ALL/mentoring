@@ -138,7 +138,6 @@
               placeholder="Academic Performance"
               v-model="meeting_minutes.academic_performance"
               rows="5"
-              required
               id="acad"
             ></v-editor>
           </input-group>
@@ -151,7 +150,6 @@
               placeholder="Exploration"
               v-model="meeting_minutes.exploration"
               rows="5"
-              required
               id="exploration"
             ></v-editor>
           </input-group>
@@ -164,7 +162,6 @@
               placeholder="Writing Skills"
               v-model="meeting_minutes.writing_skills"
               rows="5"
-              required
               id="writing"
             ></v-editor>
           </input-group>
@@ -177,13 +174,15 @@
               placeholder="Personal Brand"
               v-model="meeting_minutes.personal_brand"
               rows="5"
-              required
               id="personal"
             ></v-editor>
           </input-group>
         </div>
       </div>
       <div class="mb-3">
+        <small class="text-danger" v-if="error?.mt_todos_note">
+          {{ error.mt_todos_note[0] }}
+        </small>
         <input-group>
           <v-editor
             api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
@@ -191,12 +190,14 @@
             placeholder="Mentor Todos"
             v-model="meeting_minutes.mt_todos_note"
             rows="5"
-            required
             id="mentorTodos"
           ></v-editor>
         </input-group>
       </div>
       <div class="mb-3">
+        <small class="text-danger" v-if="error?.st_todos_note">
+          {{ error.st_todos_note[0] }}
+        </small>
         <input-group>
           <v-editor
             api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
@@ -204,7 +205,6 @@
             placeholder="Mentee Todos"
             v-model="meeting_minutes.st_todos_note"
             rows="5"
-            required
             id="menteeTodos"
           ></v-editor>
         </input-group>
@@ -279,6 +279,7 @@ export default {
         mt_todos_note: "",
         st_todos_note: "",
       },
+      error: [],
     };
   },
   methods: {
@@ -342,7 +343,11 @@ export default {
         this.$alert.toast("success", response.data.message);
         // console.log(response);
       } catch (e) {
-        // console.log(e.response);
+        if (e.response.status == 400) {
+          this.error = e.response.data.error;
+        } else {
+          this.modal = "";
+        }
         this.$alert.toast("error", "Please try again.");
       }
     },

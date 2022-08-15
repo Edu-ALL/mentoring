@@ -40,7 +40,7 @@
               <div class="col-md-3 text-md-center">
                 <div class="text-primary" v-if="i.status == 0">Upcoming</div>
                 <div class="text-success" v-if="i.status == 1">Completed</div>
-                <div class="text-danger" v-if="i.status == 2">Cancel</div>
+                <div class="text-danger" v-if="i.status == 2">Canceled</div>
               </div>
               <div class="col-md-2 text-md-end p-0">
                 <button

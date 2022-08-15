@@ -122,8 +122,9 @@
                   class="form-mentoring form-control w-100"
                   required
                   placeholder="fill in here .."
+                  id="projectName"
                 />
-                <label>Project Name</label>
+                <label for="projectName">Project Name</label>
               </input-group>
             </div>
           </div>
@@ -167,7 +168,6 @@
                   rows="13"
                   class="form-control form-mentoring w-100"
                   v-model="group.project_desc"
-                  required
                   placeholder="Project Description"
                   id="desc"
                 ></v-editor>

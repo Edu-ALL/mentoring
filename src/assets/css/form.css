@@ -196,3 +196,7 @@ input-group textarea:not(:placeholder-shown)+label {
     box-shadow: none !important;
     outline: none !important;
 }
+
+.mce-content-body {
+    font-size: .9em !important;
+}

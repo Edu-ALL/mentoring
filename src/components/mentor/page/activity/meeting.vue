@@ -424,6 +424,11 @@ export default {
     },
   },
   created() {
+    if (localStorage.getItem("tab")) {
+      this.tab = localStorage.getItem("tab");
+      localStorage.removeItem("tab");
+    }
+
     this.getMentee();
     this.getData(this.tab);
   },

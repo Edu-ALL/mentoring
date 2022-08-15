@@ -35,7 +35,7 @@
               <div class="col-md-3 text-md-center">
                 <div class="text-primary">Upcoming</div>
                 <div class="text-success">Completed</div>
-                <div class="text-danger">Cancel</div>
+                <div class="text-danger">Canceled</div>
               </div>
               <div class="col-md-2 text-md-end">
                 <button class="btn-mentoring py-1 px-4" @click="join(i)">
