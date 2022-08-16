@@ -68,7 +68,7 @@
         <!-- Content  -->
         <div class="row mt-2">
           <div class="col">
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow-sm">
               <transition name="fade">
                 <v-request
                   v-if="tab == 'request'"

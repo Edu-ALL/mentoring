@@ -37,6 +37,10 @@
     text-transform: capitalize;
 }
 
+.group-card .title {
+    width: 70%;
+}
+
 .thumbnail {
     position: relative;
     z-index: 1;

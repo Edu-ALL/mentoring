@@ -113,9 +113,9 @@
       <div class="row row-cols-md-3 row-cols-1">
         <!-- Meeting  -->
         <div class="col">
-          <div class="border p-4">
-            <h5 class="text-center mb-3">1-ON-1 MEETING</h5>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
+          <div class="shadow-sm p-2">
+            <h6 class="text-center mb-3">1-ON-1 MEETING</h6>
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
@@ -139,7 +139,7 @@
             </div>
 
             <div
-              class="card shadow rounded-2 mb-2 pointer"
+              class="card shadow-sm rounded-2 mb-2 pointer"
               v-if="meeting.personal"
             >
               <div
@@ -164,7 +164,7 @@
               </div>
             </div>
 
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.personal">
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.personal">
               <div
                 class="
                   card-body
@@ -188,9 +188,9 @@
             </div>
           </div>
 
-          <div class="border p-4 mt-3">
-            <h5 class="text-center mb-3">GROUP PROJECT</h5>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
+          <div class="shadow-sm p-2 mt-3">
+            <h6 class="text-center mb-3">GROUP PROJECT</h6>
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="
                   card-body
@@ -212,7 +212,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="
                   card-body
@@ -234,7 +234,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.group">
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.group">
               <div
                 class="
                   card-body
@@ -259,12 +259,12 @@
           </div>
         </div>
 
-        <!-- Uni shortlisted  -->
-        <div class="col">
-          <div class="border p-4">
-            <h5 class="text-center mb-3">GROUP MEETING</h5>
+        <!-- Group Meeting  -->
+        <div class="col mt-md-0 mt-3">
+          <div class="shadow-sm p-2">
+            <h6 class="text-center mb-3">GROUP MEETING</h6>
 
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.group_m">
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.group_m">
               <div
                 class="
                   card-body
@@ -317,7 +317,7 @@
                 </div>
               </div>
             </div>
-            <div class="card shadow rounded-2 mb-2" v-if="meeting.group_m">
+            <div class="card shadow-sm rounded-2 mb-2" v-if="meeting.group_m">
               <div
                 class="
                   card-body
@@ -340,9 +340,9 @@
             </div>
           </div>
 
-          <div class="border p-4 mt-3">
-            <h5 class="text-center mb-3">UNIVERSITY SHORTLISTED</h5>
-            <div class="card shadow rounded-2 mb-2">
+          <div class="shadow-sm p-2 mt-3">
+            <h6 class="text-center mb-3">UNIVERSITY SHORTLISTED</h6>
+            <div class="card shadow-sm rounded-2 mb-2">
               <div
                 class="
                   card-body
@@ -389,7 +389,7 @@
               </transition>
             </div>
 
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow-sm rounded-2 mb-2">
               <div
                 class="
                   card-body
@@ -435,7 +435,7 @@
                 </div>
               </transition>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow-sm rounded-2 mb-2">
               <div
                 class="
                   card-body
@@ -481,7 +481,7 @@
                 </div>
               </transition>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow-sm rounded-2 mb-2">
               <div
                 class="
                   card-body
@@ -527,7 +527,7 @@
                 </div>
               </transition>
             </div>
-            <div class="card shadow rounded-2 mb-2">
+            <div class="card shadow-sm rounded-2 mb-2">
               <div
                 class="
                   card-body
@@ -577,10 +577,10 @@
         </div>
 
         <!-- TODOS  -->
-        <div class="col">
-          <div class="border p-4">
-            <h5 class="text-center mb-3">TODOS</h5>
-            <div class="card shadow rounded-2 todos mentoring-scroll p-0">
+        <div class="col mt-md-0 mt-3">
+          <div class="shadow-sm p-2">
+            <h6 class="text-center mb-3">TODOS</h6>
+            <div class="card shadow-sm rounded-2 todos mentoring-scroll p-0">
               <div class="card-body p-0">
                 <div v-for="(i, index) in todos_list" :key="index">
                   <div class="row align-items-center todo-list py-3 m-0">

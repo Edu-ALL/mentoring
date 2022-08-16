@@ -1,6 +1,6 @@
 <template>
   <div id="request">
-    <div class="container mt-3">
+    <div class="container mt-3 p-2">
       <div class="row p-4" v-if="groups.data && groups.data.length == 0">
         <div class="col text-center">
           <p>No project group yet.</p>
@@ -27,7 +27,7 @@
                         class="w-100"
                       />
                     </div>
-                    <div class="title ms-3" style="width: 80%">
+                    <div class="title ms-3">
                       <h5>{{ i.project_name }}</h5>
                       <p
                         class="my-0"
@@ -53,7 +53,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3 text-md-center">
+                <div class="col-md-3 text-md-center mt-md-0 mt-3">
                   <button
                     class="btn-mentoring btn-sm py-1 bg-primary mb-2"
                     @click="handleConfirm(i.id, 'accept')"

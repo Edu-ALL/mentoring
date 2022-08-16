@@ -1,14 +1,14 @@
 <template>
   <div id="view">
-    <div class="row mb-3">
+    <div class="row mb-3 p-0">
       <div class="col-12">
-        <div class="ps-3 pointer" style="margin-top: -20px" @click="redirect">
+        <div class="pointer" style="margin-top: -20px" @click="redirect">
           <i class="fa-solid fa-arrow-left me-2"></i>
           <h5 class="d-inline">Groups</h5>
         </div>
       </div>
     </div>
-    <div class="container mt-3">
+    <div class="container mt-3 p-0">
       <div class="row">
         <div class="col-md-7 mb-3">
           <div

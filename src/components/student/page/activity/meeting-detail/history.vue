@@ -1,6 +1,6 @@
 <template>
   <div id="history">
-    <div class="container">
+    <div class="container p-1">
       <!-- Empty  -->
       <div class="row" v-if="data.data?.length == 0">
         <div class="col py-4 text-center">

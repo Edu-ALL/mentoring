@@ -79,7 +79,7 @@
             class="mt-3 pointer text-center"
             @click="this.$emit('show', 'forgot')"
           >
-            Forgot Password
+            Forgot Password sfsf
           </p>
         </div>
         <div class="text-center">
@@ -223,7 +223,6 @@ export default {
 </script>
 <style scoped>
 .form-control {
-  position: relative;
   border: 2px solid #fff !important;
   background: transparent !important;
   color: #fff !important;

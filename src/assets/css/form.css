@@ -152,12 +152,12 @@ textarea::placeholder {
 
 
 input-group {
-    position: relative;
+    position: relative !important;
 }
 
 input-group label {
-    position: absolute;
-    top: 10px;
+    position: absolute !important;
+    top: -10px;
     left: 17px;
     color: rgb(47, 47, 47);
     font-size: 0.8em;

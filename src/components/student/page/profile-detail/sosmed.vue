@@ -22,7 +22,7 @@
     <div class="desc">
       <form method="post" @submit.prevent="handleSubmit">
         <div class="row g-1 align-items-center mt-md-2">
-          <div class="col-md-3 col-4">
+          <div class="col-md-3">
             <div class="field">
               <div class="data">
                 <i class="fa-brands fa-facebook me-2"></i>
@@ -30,9 +30,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 col-8 py-1">
+          <div class="col-md-9 py-1">
             <div class="field d-md-flex">
-              <div class="data w-50 pe-md-3">
+              <div class="data w-100 pe-md-3 mb-md-0">
                 <input type="hidden" v-model="sosmed.id" />
                 <input-group>
                   <input
@@ -46,7 +46,7 @@
                   <label for="user-0">Username</label>
                 </input-group>
               </div>
-              <div class="data w-50">
+              <div class="data w-100">
                 <input-group>
                   <input
                     type="url"
@@ -68,7 +68,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 col-4">
+          <div class="col-md-3">
             <div class="field">
               <div class="data">
                 <i class="fa-brands fa-instagram me-2"></i>
@@ -76,9 +76,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 col-8 py-1">
+          <div class="col-md-9 py-1">
             <div class="field d-md-flex">
-              <div class="data w-50 pe-md-3">
+              <div class="data w-100 pe-md-3 mb-md-0">
                 <input-group>
                   <input
                     type="text"
@@ -92,7 +92,7 @@
                 </input-group>
               </div>
 
-              <div class="data w-50">
+              <div class="data w-100">
                 <input-group>
                   <input
                     type="url"
@@ -115,7 +115,7 @@
             </div>
           </div>
 
-          <div class="col-md-3 col-4">
+          <div class="col-md-3">
             <div class="field">
               <div class="data">
                 <i class="fa-brands fa-linkedin me-2"></i>
@@ -123,9 +123,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 col-8 py-1">
+          <div class="col-md-9 py-1">
             <div class="field d-md-flex">
-              <div class="data w-50 pe-md-3">
+              <div class="data w-100 pe-md-3 mb-md-0">
                 <input-group>
                   <input
                     type="text"
@@ -139,7 +139,7 @@
                 </input-group>
               </div>
 
-              <div class="data w-50">
+              <div class="data w-100">
                 <input-group>
                   <input
                     type="url"

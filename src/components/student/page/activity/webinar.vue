@@ -111,7 +111,9 @@
                           >
                             <td>{{ index + 1 }}</td>
                             <td class="text-start">
-                              {{ i.programme_details.dtl_name }}
+                              <div class="" style="width: 300px">
+                                {{ i.programme_details.dtl_name }}
+                              </div>
                             </td>
                             <td nowrap style="text-transform: capitalize">
                               {{
