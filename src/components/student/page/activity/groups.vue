@@ -1,6 +1,6 @@
 <template>
   <div id="group">
-    <div class="container my-4">
+    <div class="container mb-3">
       <!-- List  -->
       <div
         class=""
@@ -11,19 +11,11 @@
           menu.key2 == ''
         "
       >
-        <div class="row">
-          <div class="col-12">
-            <div class="ps-3 pointer" style="top: 100px" @click="redirect">
-              <h5 class="d-inline">Groups</h5>
-            </div>
-          </div>
-        </div>
-
         <!-- Tabs  -->
-        <div class="row mt-3">
+        <div class="row align-items-center">
           <div class="col-md-9 col-8 menu-tab">
             <button
-              class="btn-mentoring btn-sm mx-1 py-1"
+              class="btn btn-sm mx-1 py-1"
               :class="tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
               @click="tab = 'request'"
             >
@@ -33,7 +25,7 @@
               </div>
             </button>
             <button
-              class="btn-mentoring btn-sm mx-1 py-1"
+              class="btn btn-sm mx-1 py-1"
               :class="
                 tab == '' || tab == 'progress' ? 'btn-type-1' : 'btn-type-2'
               "
@@ -45,7 +37,7 @@
               </div>
             </button>
             <button
-              class="btn-mentoring btn-sm mx-1 py-1"
+              class="btn btn-sm mx-1 py-1"
               :class="tab == 'completed' ? 'btn-type-1' : 'btn-type-2'"
               @click="tab = 'completed'"
             >
@@ -57,7 +49,7 @@
           </div>
           <div class="col-md-3 col-4 text-end">
             <button
-              class="btn-mentoring btn-sm btn-type-3 mx-1 py-1"
+              class="btn btn-sm btn-type-3 mx-1 py-1"
               @click="modal = 'add'"
             >
               <i class="fa-solid fa-add"></i>

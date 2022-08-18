@@ -1,7 +1,7 @@
 <template>
   <div id="pending">
     <div class="row p-4" v-if="meeting?.data?.length == 0">
-      <div class="col text-center">
+      <div class="col text-center text-muted">
         <p class="my-0">No meeting yet.</p>
       </div>
     </div>

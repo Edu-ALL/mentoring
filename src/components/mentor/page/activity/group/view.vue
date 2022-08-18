@@ -1,14 +1,15 @@
 <template>
   <div id="view">
     <div class="row align-items-center">
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="pointer" @click="redirect">
           <h6 class="py-0 my-0">
             <i class="fa-solid fa-arrow-left me-2"></i> Groups
           </h6>
+          <hr class="my-1 d-md-none d-block" />
         </div>
       </div>
-      <div class="col-6 text-end">
+      <div class="col-md-6 text-end mt-md-0 mt-3">
         <select
           v-model="group_info.progress_status"
           class="form-mentoring py-1 me-1"
@@ -40,8 +41,8 @@
         </button>
       </div>
     </div>
-    <hr class="my-1 mb-3" />
-    <div class="row">
+
+    <div class="row mt-3">
       <div class="col-md-7 mb-3">
         <div class="card border-0 shadow mb-3">
           <img

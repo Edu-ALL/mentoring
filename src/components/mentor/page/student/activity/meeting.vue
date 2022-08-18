@@ -1,11 +1,11 @@
 <template>
   <!-- {{ student_meeting }} -->
   <div id="meetings">
-    <div class="border p-3 rounded mt-3">
+    <div class="border p-1 rounded mt-3">
       <div class="table-responsive">
         <table class="table table-bordered align-middle">
           <thead>
-            <tr class="text-center">
+            <tr class="text-center align-middle">
               <th>No</th>
               <th>Call with</th>
               <th>Subject</th>
@@ -16,7 +16,7 @@
 
           <tbody>
             <div
-              class="col-6 text-center p-4"
+              class="col-6 text-center p-4 text-muted"
               v-if="student_meeting.length == 0"
             >
               No meeting yet
@@ -28,7 +28,7 @@
             >
               <td>{{ parseInt(index) + 1 }}</td>
 
-              <td>
+              <td nowrap class="text-start">
                 {{
                   i.users.first_name +
                   " " +
@@ -38,13 +38,13 @@
                 }}
               </td>
               <td style="text-transform: capitalize">{{ i.module }}</td>
-              <td>
+              <td nowrap>
                 <small>
                   {{ $customDate.date(i.call_date) }} <br />
                   {{ $customDate.time(i.call_date) }}
                 </small>
               </td>
-              <td style="text-transform: capitalize">
+              <td nowrap style="text-transform: capitalize">
                 <i
                   class="fa-solid fa-ban text-danger"
                   v-if="i.call_status == 'rejected'"

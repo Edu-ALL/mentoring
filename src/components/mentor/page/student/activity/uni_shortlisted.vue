@@ -1,7 +1,7 @@
 <template>
   <!-- {{ list.uni_rejected }} -->
   <div id="uniShortlisted">
-    <div class="border p-3 rounded mt-3">
+    <div class="border p-1 rounded mt-3">
       <div class="row row-cols-md-5 row-cols-1">
         <!-- Shortlisted  -->
         <div class="col">
@@ -19,7 +19,7 @@
             <h6 class="my-0">Shortlisted</h6>
           </div>
           <div
-            class="col-12 text-center p-2"
+            class="col-12 text-center p-2 text-muted shadow-sm"
             v-if="list.uni_shortlisted.length == 0"
           >
             No university yet
@@ -68,7 +68,7 @@
             <h6 class="my-0">Applied</h6>
           </div>
           <div
-            class="col-12 text-center p-2"
+            class="col-12 text-center p-2 text-muted shadow-sm"
             v-if="list.uni_applied.length == 0"
           >
             No university yet
@@ -117,7 +117,7 @@
             <h6 class="my-0">Accepted</h6>
           </div>
           <div
-            class="col-12 text-center p-2"
+            class="col-12 text-center p-2 text-muted shadow-sm"
             v-if="list.uni_accepted.length == 0"
           >
             No university yet
@@ -166,7 +166,7 @@
             <h6 class="my-0">Rejected</h6>
           </div>
           <div
-            class="col-12 text-center p-2"
+            class="col-12 text-center p-2 text-muted shadow-sm"
             v-if="list.uni_rejected.length == 0"
           >
             No university yet
@@ -215,7 +215,7 @@
             <h6 class="my-0">Waitlisted</h6>
           </div>
           <div
-            class="col-12 text-center p-2"
+            class="col-12 text-center p-2 text-muted shadow-sm"
             v-if="list.uni_waitlisted.length == 0"
           >
             No university yet

@@ -1,47 +1,55 @@
 <template>
   <div id="student">
-    <div class="" v-if="menus.submenu == ''">
+    <div class="container" v-if="menus.submenu == ''">
       <div class="row mb-4">
-        <div class="col-md-12 d-flex align-items-center">
-          <div class="mt-3 w-50">
-            <input-group>
-              <input
-                v-model="search.name"
-                type="text"
-                placeholder="fill in"
-                id="search"
-                class="form-mentoring form-control"
-              />
-              <label for="search">Search</label>
-            </input-group>
-          </div>
+        <div class="col-md-12 mb-3">
+          <div class="row row-cols-md-4 row-cols-1 align-items-center">
+            <div class="mt-2 col">
+              <input-group>
+                <input
+                  v-model="search.name"
+                  type="text"
+                  placeholder="fill in"
+                  id="search"
+                  class="form-mentoring form-control"
+                />
+                <label for="search">Search</label>
+              </input-group>
+            </div>
 
-          <div class="mt-3 mx-3 w-25">
-            <select class="form-mentoring w-100" v-model="search.progress">
-              <option value="">Select progress status</option>
-              <option value="ahead">Ahead</option>
-              <option value="ontrack">On-Track</option>
-              <option value="behind">Behind</option>
-            </select>
-          </div>
+            <div class="mt-2 col">
+              <select
+                class="form-mentoring form-control w-100"
+                v-model="search.progress"
+              >
+                <option value="">Select progress status</option>
+                <option value="ahead">Ahead</option>
+                <option value="ontrack">On-Track</option>
+                <option value="behind">Behind</option>
+              </select>
+            </div>
 
-          <div class="mt-3 w-25">
-            <select class="form-mentoring w-100" v-model="search.tag">
-              <option value="">Select progress status</option>
-              <option :value="i.name" v-for="i in tag_list" :key="i">
-                {{ i.name }}
-              </option>
-            </select>
-          </div>
+            <div class="mt-2 col">
+              <select
+                class="form-mentoring form-control w-100"
+                v-model="search.tag"
+              >
+                <option value="">Select Tag</option>
+                <option :value="i.name" v-for="i in tag_list" :key="i">
+                  {{ i.name }}
+                </option>
+              </select>
+            </div>
 
-          <div class="mt-3 text-end" style="width: 12%">
-            <button
-              class="btn-mentoring btn-secondary py-1"
-              @click="searchData"
-            >
-              <i class="fa-solid fa-search me-3"></i>
-              Search
-            </button>
+            <div class="mt-2 text-end col">
+              <button
+                class="btn-mentoring btn-secondary py-1"
+                @click="searchData"
+              >
+                <i class="fa-solid fa-search me-3"></i>
+                Search
+              </button>
+            </div>
           </div>
         </div>
 

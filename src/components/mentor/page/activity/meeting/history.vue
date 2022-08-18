@@ -1,7 +1,7 @@
 <template>
   <div id="history">
     <div class="row p-4" v-if="meeting?.data?.length == 0">
-      <div class="col text-center">
+      <div class="col text-center text-muted">
         <p class="my-0">No meeting yet.</p>
       </div>
     </div>
@@ -36,7 +36,7 @@
             <td nowrap>
               {{ $customDate.time(i.call_date) }}
             </td>
-            <td style="text-transform: capitalize">
+            <td nowrap style="text-transform: capitalize">
               <small class="text-warning" v-if="i.call_status == 'canceled'">
                 <i class="fa-solid fa-times"></i>
                 {{ i.call_status }}

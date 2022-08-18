@@ -3,19 +3,16 @@
     <div id="view" v-if="menus.key == '' || menus.key2 == ''">
       <div class="d-flex align-items-center justify-content-between">
         <h6 class="my-0 py-0">Group Project</h6>
-        <button
-          class="btn-mentoring btn-sm py-1 btn-type-3 mx-1"
-          @click="modal = 'add'"
-        >
+        <button class="btn btn-sm py-1 btn-type-3 mx-1" @click="modal = 'add'">
           <i class="fa-solid fa-add"></i>
         </button>
       </div>
-      <hr class="my-2" />
+      <hr class="my-1" />
       <!-- Tabs  -->
       <div class="row mt-1">
         <div class="col-md-12 menu-tab">
           <button
-            class="btn-mentoring btn-sm py-1 mx-1"
+            class="btn btn-sm py-1 mx-1"
             :class="
               tab == '' || tab == 'in-progress' ? 'btn-type-1' : 'btn-type-2'
             "
@@ -27,7 +24,7 @@
             </div>
           </button>
           <button
-            class="btn-mentoring btn-sm py-1 mx-1"
+            class="btn btn-sm py-1 mx-1"
             :class="tab == 'completed' ? 'btn-type-1' : 'btn-type-2'"
             @click="checkTab('completed')"
           >

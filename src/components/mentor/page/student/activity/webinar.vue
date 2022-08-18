@@ -22,7 +22,9 @@
             >
               <td>{{ index + 1 }}</td>
               <td class="text-start">
-                {{ i.programme_details.dtl_name }}
+                <div class="" style="width: 400px">
+                  {{ i.programme_details.dtl_name }}
+                </div>
               </td>
               <td nowrap style="text-transform: capitalize">
                 {{ $customText.removeDash(i.programme_details.dtl_category) }}

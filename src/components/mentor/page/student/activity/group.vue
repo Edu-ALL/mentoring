@@ -1,6 +1,6 @@
 <template>
   <div id="groups">
-    <div class="border p-3 rounded mt-3">
+    <div class="border p-1 rounded mt-3">
       <div class="row" v-if="menus.key2 == ''">
         <div class="col-md-3">
           <div
@@ -65,11 +65,12 @@
           </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9 mt-md-0 mt-3">
+          <!-- New Request  -->
           <transition name="fade">
             <div v-if="section == 'new-request' || section == ''">
               <div
-                class="col-12 text-center p-4 shadow-sm"
+                class="col-12 text-center p-4 shadow-sm text-muted"
                 v-if="new_request?.data?.length == 0"
               >
                 No group project yet.
@@ -98,7 +99,7 @@
                                 class="w-100"
                               />
                             </div>
-                            <div class="title ms-3" style="width: 80%">
+                            <div class="title ms-3">
                               <h5>{{ i.project_name }}</h5>
                               <p
                                 class="my-0"
@@ -127,7 +128,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 text-end">
+                        <div class="col-md-3 text-md-end mt-md-0 mt-3">
                           <button
                             class="btn-mentoring btn-secondary py-1 btn-sm"
                             @click="detail(i)"
@@ -144,10 +145,11 @@
             </div>
           </transition>
 
+          <!-- Progress  -->
           <transition name="fade">
             <div v-if="section == 'progress'">
               <div
-                class="col-12 text-center p-4 shadow-sm"
+                class="col-12 text-center p-4 shadow-sm text-muted"
                 v-if="in_progress?.data?.length == 0"
               >
                 No group project yet.
@@ -176,7 +178,7 @@
                                 class="w-100"
                               />
                             </div>
-                            <div class="title ms-3" style="width: 80%">
+                            <div class="title ms-3">
                               <h5>{{ i.project_name }}</h5>
                               <p
                                 class="my-0"
@@ -205,7 +207,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 text-end">
+                        <div class="col-md-3 text-md-end mt-md-0 mt-3">
                           <button
                             class="btn-mentoring btn-secondary py-1 btn-sm"
                             @click="detail(i)"
@@ -222,10 +224,11 @@
             </div>
           </transition>
 
+          <!-- History  -->
           <transition name="fade">
             <div v-if="section == 'history'">
               <div
-                class="col-12 text-center p-4 shadow-sm"
+                class="col-12 text-center p-4 shadow-sm text-muted"
                 v-if="history_project?.data?.length == 0"
               >
                 No histories yet
@@ -254,7 +257,7 @@
                                 class="w-100"
                               />
                             </div>
-                            <div class="title ms-3" style="width: 80%">
+                            <div class="title ms-3">
                               <h5>{{ i.project_name }}</h5>
                               <p
                                 class="my-0"
@@ -283,7 +286,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 text-end">
+                        <div class="col-md-3 text-md-end mt-md-0 mt-3">
                           <button
                             class="btn-mentoring btn-secondary py-1 btn-sm"
                             @click="detail(i)"

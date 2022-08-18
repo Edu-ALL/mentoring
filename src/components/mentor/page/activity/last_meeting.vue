@@ -1,9 +1,5 @@
 <template>
   <div id="lastMeeting">
-    <div class="d-flex align-items-center justify-content-between">
-      <h6 class="my-0 py-0">Last Meeting Minutes</h6>
-    </div>
-    <hr class="my-2" />
     <div class="row p-4" v-if="meeting?.data?.length == 0">
       <div class="col text-center">
         <p class="my-0">No meeting yet.</p>
@@ -41,7 +37,7 @@
             <td nowrap>
               {{ $customDate.time(i.call_date) }}
             </td>
-            <td style="text-transform: capitalize">
+            <td nowrap style="text-transform: capitalize">
               <small class="text-warning" v-if="i.call_status == 'canceled'">
                 <i class="fa-solid fa-times"></i>
                 {{ i.call_status }}
@@ -55,7 +51,7 @@
                 {{ i.call_status }}
               </small>
             </td>
-            <td>
+            <td nowrap>
               <button
                 v-if="i.call_status == 'finished' && i.meeting_minute == 1"
                 class="btn-mentoring py-1 px-3 btn-sm btn-primary text-white"

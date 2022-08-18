@@ -1,7 +1,7 @@
 <template>
   <!-- {{ todos_waiting }} -->
   <div id="todos">
-    <div class="border p-3 rounded mt-3">
+    <div class="border p-1 rounded mt-3">
       <div class="row row-cols-md-3 row-cols-1 g-3">
         <div class="col">
           <div
@@ -12,6 +12,13 @@
               <i class="fa-solid fa-plus me-2"></i>
               New Todos
             </div>
+          </div>
+
+          <div
+            class="border p-2 text-center text-muted"
+            v-if="todos_waiting.waiting?.length == 0"
+          >
+            No todos yet
           </div>
 
           <div
@@ -89,6 +96,12 @@
             <h6 class="my-0">Confirmation Needs</h6>
           </div>
           <div
+            class="border p-2 text-center text-muted"
+            v-if="todos_conf_need.confirmation_need?.length == 0"
+          >
+            No todos yet
+          </div>
+          <div
             class="card border-1 shadow-sm my-2 card-todos"
             v-for="(i, index) in todos_conf_need.confirmation_need"
             :key="index"
@@ -163,6 +176,13 @@
         <div class="col">
           <div class="card border-1 my-2 py-2 text-center bg-primary">
             <h6 class="my-0">Completed</h6>
+          </div>
+
+          <div
+            class="border p-2 text-center text-muted"
+            v-if="todos_confirmed.completed?.length == 0"
+          >
+            No todos yet
           </div>
 
           <div

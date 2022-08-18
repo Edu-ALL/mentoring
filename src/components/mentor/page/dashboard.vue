@@ -1,298 +1,308 @@
 <template>
   <div id="dashboard pb-5">
-    <!-- TOTAL  -->
-    <div class="row border py-3 px-2 g-3">
-      <div class="col-md-3">
-        <div
-          class="card h-card shadow-sm position-relative overflow-hidden"
-          @click="redirect('student', '', '')"
-        >
-          <div class="shadow-count">{{ total?.total_student }}</div>
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-4 text-center">
-                <vue-feather type="user" class="h-ico"></vue-feather>
-              </div>
-              <div class="col-8">
-                <div class="h-count">{{ total?.total_student }}</div>
-                <div class="h-label">Students Total</div>
+    <div class="container">
+      <!-- TOTAL  -->
+      <div class="row py-3 px-0 g-3">
+        <div class="col-md-3">
+          <div
+            class="card h-card shadow-sm position-relative overflow-hidden"
+            @click="redirect('student', '', '')"
+          >
+            <div class="shadow-count">{{ total?.total_student }}</div>
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="user" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <div class="h-count">{{ total?.total_student }}</div>
+                  <div class="h-label">Students Total</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div
-          class="card h-card shadow-sm"
-          @click="redirect('activity', '', 'pending')"
-        >
-          <div class="card-body">
+        <div class="col-md-3">
+          <div
+            class="card h-card shadow-sm"
+            @click="redirect('activity', '', 'pending')"
+          >
+            <div class="card-body">
+              <div class="shadow-count">
+                {{ total?.meeting?.total_new_request }}
+              </div>
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="phone-call" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <h5 class="text-white">Meeting</h5>
+                  <div
+                    class="
+                      d-flex
+                      text-white
+                      align-items-center
+                      justify-content-between
+                    "
+                  >
+                    <div>New Request</div>
+                    <h6 class="my-0 text-end text-white">
+                      {{ total?.meeting?.total_new_request }}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div
+            class="card h-card shadow-sm"
+            @click="redirect('activity', '', 'upcoming')"
+          >
             <div class="shadow-count">
-              {{ total?.meeting?.total_new_request }}
+              {{ total?.meeting?.total_upcoming }}
             </div>
-            <div class="row align-items-center">
-              <div class="col-4 text-center">
-                <vue-feather type="phone-call" class="h-ico"></vue-feather>
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="phone-call" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <h5 class="text-white">Meeting</h5>
+                  <div
+                    class="
+                      d-flex
+                      text-white
+                      align-items-center
+                      justify-content-between
+                    "
+                  >
+                    <div>Upcoming</div>
+                    <h6 class="my-0 text-end text-white">
+                      {{ total?.meeting?.total_upcoming }}
+                    </h6>
+                  </div>
+                </div>
               </div>
-              <div class="col-8">
-                <h5 class="text-white">Meeting</h5>
-                <div
-                  class="
-                    d-flex
-                    text-white
-                    align-items-center
-                    justify-content-between
-                  "
-                >
-                  <div>New Request</div>
-                  <h6 class="my-0 text-end text-white">
-                    {{ total?.meeting?.total_new_request }}
-                  </h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-card shadow-sm">
+            <div class="shadow-count">
+              {{ total?.group_meeting?.total_upcoming }}
+            </div>
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-4 text-center">
+                  <vue-feather type="phone-call" class="h-ico"></vue-feather>
+                </div>
+                <div class="col-8">
+                  <h5 class="text-white">Group Meeting</h5>
+                  <div
+                    class="
+                      d-flex
+                      text-white
+                      align-items-center
+                      justify-content-between
+                    "
+                  >
+                    <div>Upcoming</div>
+                    <h6 class="my-0 text-end text-white">
+                      {{ total?.group_meeting?.total_upcoming }}
+                    </h6>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div
-          class="card h-card shadow-sm"
-          @click="redirect('activity', '', 'upcoming')"
-        >
-          <div class="shadow-count">
-            {{ total?.meeting?.total_upcoming }}
+
+      <!-- ACTIVITIES  -->
+      <div class="row mt-2 py-3 px-0">
+        <h5>Recent Activities</h5>
+        <div class="col-md-6">
+          <div class="card-white shadow-sm mt-2">
+            <h6 class="act-title text-secondary">
+              <div class="float-end">Upcoming</div>
+              <div class="">Meetings</div>
+            </h6>
+            <!-- Upcoming Meeting  -->
+            <div class="card-activity mentoring-scroll table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr
+                    class="text-center"
+                    v-if="recent?.meeting?.upcoming?.length == 0"
+                  >
+                    <td class="py-2">No Group Meeting Yet</td>
+                  </tr>
+                  <tr
+                    v-for="i in recent.meeting.upcoming"
+                    :key="i"
+                    class="py-0 align-middle"
+                  >
+                    <td nowrap style="text-transform: capitalize">
+                      {{ i.students.first_name + " " + i.students.last_name }}
+                    </td>
+                    <td nowrap style="text-transform: capitalize">
+                      {{ i.module }}
+                    </td>
+                    <td class="text-center">
+                      <div style="width: 150px">
+                        {{ $customDate.date(i.call_date) }} <br />
+                        {{ $customDate.time(i.call_date) }}
+                      </div>
+                    </td>
+                    <td class="text-end">
+                      <button
+                        class="btn-mentoring btn-primary btn-sm py-1 px-3"
+                        @click="joinZoom(i.location_link)"
+                      >
+                        Join
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-4 text-center">
-                <vue-feather type="phone-call" class="h-ico"></vue-feather>
-              </div>
-              <div class="col-8">
-                <h5 class="text-white">Meeting</h5>
-                <div
-                  class="
-                    d-flex
-                    text-white
-                    align-items-center
-                    justify-content-between
-                  "
-                >
-                  <div>Upcoming</div>
-                  <h6 class="my-0 text-end text-white">
-                    {{ total?.meeting?.total_upcoming }}
-                  </h6>
-                </div>
-              </div>
+
+          <!-- Latest Meeting  -->
+          <div class="card-white shadow-sm mt-2">
+            <h6 class="act-title text-secondary">
+              <div class="float-end">Latest</div>
+              <div class="">Meetings</div>
+            </h6>
+            <div class="card-activity mentoring-scroll table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr
+                    class="text-center"
+                    v-if="recent?.meeting?.latest_meeting?.length == 0"
+                  >
+                    <td class="py-2">No Group Meeting Yet</td>
+                  </tr>
+                  <tr
+                    v-for="i in recent.meeting.latest_meeting"
+                    :key="i"
+                    class="py-0 align-middle"
+                  >
+                    <td nowrap style="text-transform: capitalize">
+                      {{ i.students.first_name + " " + i.students.last_name }}
+                    </td>
+                    <td nowrap style="text-transform: capitalize">
+                      {{ i.module }}
+                    </td>
+                    <td class="text-center">
+                      <div style="width: 150px">
+                        {{ $customDate.date(i.call_date) }} <br />
+                        {{ $customDate.time(i.call_date) }}
+                      </div>
+                    </td>
+                    <td class="text-end" nowrap>
+                      <button
+                        class="
+                          btn-mentoring btn-outline-success btn-sm
+                          py-1
+                          px-3
+                          mx-1
+                        "
+                        @click="detail(i.id)"
+                      >
+                        Add Result
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card h-card shadow-sm">
-          <div class="shadow-count">
-            {{ total?.group_meeting?.total_upcoming }}
-          </div>
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-4 text-center">
-                <vue-feather type="phone-call" class="h-ico"></vue-feather>
-              </div>
-              <div class="col-8">
-                <h5 class="text-white">Group Meeting</h5>
-                <div
-                  class="
-                    d-flex
-                    text-white
-                    align-items-center
-                    justify-content-between
-                  "
-                >
-                  <div>Upcoming</div>
-                  <h6 class="my-0 text-end text-white">
-                    {{ total?.group_meeting?.total_upcoming }}
-                  </h6>
-                </div>
-              </div>
+
+        <div class="col-md-6">
+          <!-- Attendance   -->
+          <div class="card-white shadow-sm mt-2">
+            <h6 class="act-title text-secondary">
+              <div class="float-end">Attendance</div>
+              <div class="">Group Meetings</div>
+            </h6>
+            <div class="card-activity mentoring-scroll table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr
+                    class="text-center"
+                    v-if="recent?.group?.attendances?.length == 0"
+                  >
+                    <td class="py-2">No Group Meeting Yet</td>
+                  </tr>
+                  <tr
+                    v-for="i in recent.group.attendances"
+                    :key="i"
+                    class="py-0 align-middle"
+                  >
+                    <td>{{ i.group_project.project_name }}</td>
+                    <td class="text-center">
+                      {{ $customDate.date(i.meeting_date) }} <br />
+                      {{ $customDate.time(i.meeting_date) }}
+                    </td>
+                    <td class="text-end">
+                      <button
+                        class="
+                          btn-mentoring btn-outline-success btn-sm
+                          py-1
+                          px-3
+                        "
+                        @click="attendance(i.id)"
+                      >
+                        Yes
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ACTIVITIES  -->
-    <div class="row mt-2 border py-3 px-2">
-      <h5>Recent Activities</h5>
-      <div class="col-md-6">
-        <div class="card-white shadow-sm mt-2">
-          <h6 class="act-title text-secondary">
-            <div class="float-end">Upcoming</div>
-            <div class="">Meetings</div>
-          </h6>
-          <!-- Upcoming Meeting  -->
-          <div class="card-activity mentoring-scroll table-responsive">
-            <table class="table">
-              <tbody>
-                <tr
-                  class="text-center"
-                  v-if="recent?.meeting?.upcoming?.length == 0"
-                >
-                  <td class="py-2">No Group Meeting Yet</td>
-                </tr>
-                <tr
-                  v-for="i in recent.meeting.upcoming"
-                  :key="i"
-                  class="py-0 align-middle"
-                >
-                  <td style="text-transform: capitalize">
-                    {{ i.students.first_name + " " + i.students.last_name }}
-                  </td>
-                  <td style="text-transform: capitalize">
-                    {{ i.module }}
-                  </td>
-                  <td class="text-center">
-                    {{ $customDate.date(i.call_date) }} <br />
-                    {{ $customDate.time(i.call_date) }}
-                  </td>
-                  <td class="text-end">
-                    <button
-                      class="btn-mentoring btn-primary btn-sm py-1 px-3"
-                      @click="joinZoom(i.location_link)"
-                    >
-                      Join
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Latest Meeting  -->
-        <div class="card-white shadow-sm mt-2">
-          <h6 class="act-title text-secondary">
-            <div class="float-end">Latest</div>
-            <div class="">Meetings</div>
-          </h6>
-          <div class="card-activity mentoring-scroll table-responsive">
-            <table class="table">
-              <tbody>
-                <tr
-                  class="text-center"
-                  v-if="recent?.meeting?.latest_meeting?.length == 0"
-                >
-                  <td class="py-2">No Group Meeting Yet</td>
-                </tr>
-                <tr
-                  v-for="i in recent.meeting.latest_meeting"
-                  :key="i"
-                  class="py-0 align-middle"
-                >
-                  <td style="text-transform: capitalize">
-                    {{ i.students.first_name + " " + i.students.last_name }}
-                  </td>
-                  <td style="text-transform: capitalize">
-                    {{ i.module }}
-                  </td>
-                  <td class="text-center">
-                    {{ $customDate.date(i.call_date) }} <br />
-                    {{ $customDate.time(i.call_date) }}
-                  </td>
-                  <td class="text-end">
-                    <button
-                      class="
-                        btn-mentoring btn-outline-success btn-sm
-                        py-1
-                        px-3
-                        mx-1
-                      "
-                      @click="detail(i.id)"
-                    >
-                      Add Result
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <!-- Attendance   -->
-        <div class="card-white shadow-sm mt-2">
-          <h6 class="act-title text-secondary">
-            <div class="float-end">Attendance</div>
-            <div class="">Group Meetings</div>
-          </h6>
-          <div class="card-activity mentoring-scroll table-responsive">
-            <table class="table">
-              <tbody>
-                <tr
-                  class="text-center"
-                  v-if="recent?.group?.attendances?.length == 0"
-                >
-                  <td class="py-2">No Group Meeting Yet</td>
-                </tr>
-                <tr
-                  v-for="i in recent.group.attendances"
-                  :key="i"
-                  class="py-0 align-middle"
-                >
-                  <td>{{ i.group_project.project_name }}</td>
-                  <td class="text-center">
-                    {{ $customDate.date(i.meeting_date) }} <br />
-                    {{ $customDate.time(i.meeting_date) }}
-                  </td>
-                  <td class="text-end">
-                    <button
-                      class="btn-mentoring btn-outline-success btn-sm py-1 px-3"
-                      @click="attendance(i.id)"
-                    >
-                      Yes
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="card-white shadow-sm mt-2">
-          <h6 class="act-title text-secondary">
-            <div class="float-end">Upcoming</div>
-            <div class="">Group Meetings</div>
-          </h6>
-          <div class="card-activity mentoring-scroll table-responsive">
-            <table class="table">
-              <tbody>
-                <tr
-                  class="text-center"
-                  v-if="recent?.group?.upcoming?.length == 0"
-                >
-                  <td class="py-2">No Group Meeting Yet</td>
-                </tr>
-                <tr
-                  v-for="i in recent.group.upcoming"
-                  :key="i"
-                  class="py-0 align-middle"
-                >
-                  <td>{{ i.group_project.project_name }}</td>
-                  <td>{{ i.meeting_subject }}</td>
-                  <td class="text-center">
-                    {{ $customDate.date(i.meeting_date) }} <br />
-                    {{ $customDate.time(i.meeting_date) }}
-                  </td>
-                  <td class="text-end">
-                    <button
-                      class="btn-mentoring btn-primary btn-sm py-1 px-3"
-                      @click="joinZoom(i.meeting_link)"
-                    >
-                      Join
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card-white shadow-sm mt-2">
+            <h6 class="act-title text-secondary">
+              <div class="float-end">Upcoming</div>
+              <div class="">Group Meetings</div>
+            </h6>
+            <div class="card-activity mentoring-scroll table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr
+                    class="text-center"
+                    v-if="recent?.group?.upcoming?.length == 0"
+                  >
+                    <td class="py-2">No Group Meeting Yet</td>
+                  </tr>
+                  <tr
+                    v-for="i in recent.group.upcoming"
+                    :key="i"
+                    class="py-0 align-middle"
+                  >
+                    <td>{{ i.group_project.project_name }}</td>
+                    <td>{{ i.meeting_subject }}</td>
+                    <td class="text-center">
+                      {{ $customDate.date(i.meeting_date) }} <br />
+                      {{ $customDate.time(i.meeting_date) }}
+                    </td>
+                    <td class="text-end">
+                      <button
+                        class="btn-mentoring btn-primary btn-sm py-1 px-3"
+                        @click="joinZoom(i.meeting_link)"
+                      >
+                        Join
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -302,8 +312,9 @@
   <!-- Last Meeting  -->
   <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
   <div
-    class="vue-side mentoring-scroll shadow"
+    class="vue-modal vue-modal-lg mentoring-scroll shadow"
     :class="modal == 'add' ? 'active' : ''"
+    v-if="modal == 'add'"
   >
     <div class="d-flex w-100 justify-content-between">
       <h6 class="mb-0">Last Meeting Minutes</h6>
@@ -320,7 +331,7 @@
     <hr class="my-2" />
     <!-- ADD  -->
     <form @submit.prevent="handleSubmit">
-      <div class="row row-cols-md-2 row-cols-1">
+      <div class="row row-cols-1">
         <div class="col mb-3">
           <input-group>
             <v-editor
@@ -581,6 +592,25 @@ export default {
     top: 0;
     right: -90%;
     width: 90%;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .vue-side {
+    position: fixed;
+    top: 0;
+    right: -50%;
+    height: 100vh;
+    padding: 20px;
+    width: 40%;
+    background: white;
+    overflow: auto;
+    z-index: 99999;
+    transition: all 0.3s;
+  }
+
+  .vue-side.active {
+    right: 0 !important;
   }
 }
 </style>

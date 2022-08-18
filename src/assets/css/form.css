@@ -42,14 +42,14 @@
 
 .multiselect__placeholder {
     color: #000 !important;
-    margin-top:-1px !important;
+    margin-top: -1px !important;
     padding-left: 5px !important;
     margin-bottom: 8px !important;
     font-size: 1em;
 }
 
 .multiselect__tag {
-margin-bottom: 3px !important;
+    margin-bottom: 3px !important;
 }
 
 .multiselect__tags {
@@ -60,7 +60,7 @@ margin-bottom: 3px !important;
     display: block;
     padding: 5px 40px 0 8px !important;
     background: transparent !important;
-    
+
 }
 
 .multiselect__input {
@@ -157,7 +157,7 @@ input-group {
 
 input-group label {
     position: absolute !important;
-    top: -10px;
+    top: 10px;
     left: 17px;
     color: rgb(47, 47, 47);
     font-size: 0.8em;
@@ -178,14 +178,14 @@ input-group span {
 
 input-group input:not(:placeholder-shown),
 input-group textarea:not(:placeholder-shown) {
-border: 2px solid #EFA859;
+    border: 2px solid #EFA859;
 }
 
 
 input-group input:not(:placeholder-shown)+label,
 input-group textarea:not(:placeholder-shown)+label {
     top: -10px;
-    left:12px;
+    left: 12px;
     background: #fff;
     padding: 0 4px;
     z-index: 3;
@@ -199,4 +199,48 @@ input-group textarea:not(:placeholder-shown)+label {
 
 .mce-content-body {
     font-size: .9em !important;
+}
+
+@supports (-webkit-touch-callout: none) {
+    input-group {
+        position: relative !important;
+    }
+
+    input-group label {
+        position: absolute !important;
+        top: -30px;
+        left: 17px;
+        color: rgb(47, 47, 47);
+        font-size: 0.8em;
+        transition: all 0.4s;
+        z-index: 1;
+        cursor: text;
+        white-space: nowrap;
+    }
+
+    input-group span {
+        position: absolute;
+        z-index: 3;
+        font-size: 0.7em;
+        left: 15px;
+        margin-top: 5px;
+        padding: 0 5px;
+    }
+
+    input-group input:not(:placeholder-shown),
+    input-group textarea:not(:placeholder-shown) {
+        border: 2px solid #EFA859;
+    }
+
+
+    input-group input:not(:placeholder-shown)+label,
+    input-group textarea:not(:placeholder-shown)+label {
+        top: -50px;
+        left: 12px;
+        background: #fff;
+        padding: 0 4px;
+        z-index: 3;
+        color: #EFA859;
+    }
+
 }

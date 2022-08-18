@@ -1,6 +1,6 @@
 <template>
   <div id="webinar">
-    <div class="container my-4">
+    <div class="container mb-3">
       <!-- List  -->
       <div
         class=""
@@ -10,21 +10,13 @@
           menu.key == ''
         "
       >
-        <div class="row">
-          <div class="col-12">
-            <div class="ps-3 pointer" style="top: 100px" @click="redirect">
-              <h5 class="d-inline">Webinars</h5>
-            </div>
-          </div>
-        </div>
-
         <!-- Tabs  -->
-        <div class="row mt-3">
+        <div class="row">
           <div class="col-md-12 col-12 menu-tab">
             <button
               v-for="i in category"
               :key="i"
-              class="btn-mentoring btn-sm mx-1 py-1"
+              class="btn btn-sm mx-1 py-1"
               :class="tab == i.dtl_category ? 'btn-type-1' : 'btn-type-2'"
               @click="checkCategory(i.dtl_category)"
               style="text-transform: capitalize"

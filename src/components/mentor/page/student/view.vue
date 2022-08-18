@@ -18,7 +18,7 @@
             class="st-pic"
           />
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 mt-md-0 mt-3">
           <h5>
             {{ students_detail.first_name + " " + students_detail.last_name }}
           </h5>
@@ -74,7 +74,7 @@
         style="white-space: nowrap"
       >
         <button
-          class="btn-mentoring me-2 py-1 px-3"
+          class="btn me-2 py-1 px-3"
           :class="menus.key == i.slug ? 'btn-type-3' : 'btn-type-1'"
           @click="goTab(i.slug)"
           v-for="(i, index) in tab"

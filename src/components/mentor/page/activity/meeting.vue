@@ -2,14 +2,11 @@
   <div id="meeting">
     <div class="d-flex align-items-center justify-content-between">
       <h6 class="my-0 py-0">Meeting</h6>
-      <button
-        class="btn-mentoring btn-sm py-1 btn-type-3 mx-1"
-        @click="modal = 'new'"
-      >
+      <button class="btn btn-sm py-1 btn-type-3 mx-1" @click="modal = 'new'">
         <i class="fa-solid fa-add"></i>
       </button>
     </div>
-    <hr class="my-2" />
+    <hr class="my-1" />
     <!-- Tabs  -->
     <div class="row mt-1">
       <div
@@ -17,7 +14,7 @@
         style="white-space: nowrap"
       >
         <button
-          class="btn-mentoring btn-sm mx-1 py-1 px-3"
+          class="btn btn-sm mx-1 py-1 px-3"
           :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
           @click="goTab('pending')"
         >
@@ -27,7 +24,7 @@
           </div>
         </button>
         <button
-          class="btn-mentoring btn-sm mx-1 py-1 px-3"
+          class="btn btn-sm mx-1 py-1 px-3"
           :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
           @click="goTab('upcoming')"
         >
@@ -37,7 +34,7 @@
           </div>
         </button>
         <button
-          class="btn-mentoring btn-sm mx-1 py-1 px-3"
+          class="btn btn-sm mx-1 py-1 px-3"
           :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
           @click="goTab('history')"
         >
@@ -48,7 +45,7 @@
         </button>
       </div>
     </div>
-    <div class="border p-3">
+    <div class="border p-1">
       <!-- Data  -->
 
       <!-- Pending  -->

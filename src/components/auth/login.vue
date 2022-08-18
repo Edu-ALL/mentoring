@@ -79,7 +79,7 @@
             class="mt-3 pointer text-center"
             @click="this.$emit('show', 'forgot')"
           >
-            Forgot Password sfsf
+            Forgot Password
           </p>
         </div>
         <div class="text-center">

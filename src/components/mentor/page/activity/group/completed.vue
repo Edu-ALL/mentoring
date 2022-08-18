@@ -30,7 +30,7 @@
                         class="w-100"
                       />
                     </div>
-                    <div class="title ms-3" style="width: 80%">
+                    <div class="title ms-3">
                       <h5>{{ i.project_name }}</h5>
                       <p
                         class="my-0"
@@ -56,7 +56,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3 text-md-end">
+                <div class="col-md-3 text-md-end mt-md-0 mt-3">
                   <button
                     class="btn-mentoring btn-secondary py-1 btn-sm"
                     @click="detail(i.id)"

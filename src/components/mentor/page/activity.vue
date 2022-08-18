@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row g-2">
         <div :class="sidebar ? 'col-md-3' : 'col-md-1 text-center'">
-          <div class="sidebar">
+          <div class="sidebar border-0">
             <div class="list-group border-0 shadow-sm">
               <div
                 class="list-group-item list-group-item-action pointer border-0"
                 @click="goTo('')"
-                :class="menus.submenu == '' ? 'bg-primary' : ''"
+                :class="menus.submenu == '' ? 'btn-type-1' : ''"
               >
                 <i class="fa-solid fa-phone fa-fw me-2"></i>
                 <span v-if="sidebar">Meetings</span>
@@ -17,7 +17,7 @@
               <div
                 class="list-group-item list-group-item-action pointer border-0"
                 @click="goTo('group')"
-                :class="menus.submenu == 'group' ? 'bg-primary' : ''"
+                :class="menus.submenu == 'group' ? 'btn-type-1' : ''"
               >
                 <i class="fa-solid fa-users fa-fw me-2"></i>
                 <span v-if="sidebar">Group Project</span>
@@ -26,23 +26,28 @@
               <div
                 class="list-group-item list-group-item-action pointer border-0"
                 @click="goTo('last-meeting')"
-                :class="menus.submenu == 'last-meeting' ? 'bg-primary' : ''"
+                :class="menus.submenu == 'last-meeting' ? 'btn-type-1' : ''"
               >
                 <i class="fa-solid fa-file fa-fw me-2"></i>
                 <span v-if="sidebar">Last Meeting Minutes</span>
               </div>
             </div>
             <div class="text-center mt-2 d-md-block d-none">
-              <i
-                class="fa-solid fa-arrow-left"
-                v-if="sidebar"
-                @click="sidebar = !sidebar"
-              ></i>
-              <i
-                class="fa-solid fa-arrow-right"
-                v-if="!sidebar"
-                @click="sidebar = !sidebar"
-              ></i>
+              <button
+                class="btn btn-primary btn-sm"
+                style="border-radius: 100%"
+              >
+                <i
+                  class="fa-solid fa-times p-1"
+                  v-if="sidebar"
+                  @click="sidebar = !sidebar"
+                ></i>
+                <i
+                  class="fa-solid fa-bars"
+                  v-if="!sidebar"
+                  @click="sidebar = !sidebar"
+                ></i>
+              </button>
             </div>
           </div>
         </div>

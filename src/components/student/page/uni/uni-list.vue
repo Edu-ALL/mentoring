@@ -5,10 +5,10 @@
       <div class="card border-0 shadow-sm">
         <div class="card-body">
           <!-- Tabs  -->
-          <div class="row mt-3">
+          <div class="row mt-2">
             <div class="col-12 menu-tab">
               <button
-                class="btn-mentoring btn-sm mx-1 py-1"
+                class="btn btn-sm mx-1 py-1"
                 :class="
                   tab == '' || tab == 'shortlisted'
                     ? 'btn-type-1'
@@ -26,7 +26,7 @@
                 </div>
               </button>
               <button
-                class="btn-mentoring btn-sm mx-1 py-1"
+                class="btn btn-sm mx-1 py-1"
                 :class="tab == 'applied' ? 'btn-type-1' : 'btn-type-2'"
                 @click="changeTab('applied')"
               >
@@ -36,7 +36,7 @@
                 </div>
               </button>
               <button
-                class="btn-mentoring btn-sm mx-1 py-1"
+                class="btn btn-sm mx-1 py-1"
                 :class="tab == 'accepted' ? 'btn-type-1' : 'btn-type-2'"
                 @click="changeTab('accepted')"
               >
@@ -46,7 +46,7 @@
                 </div>
               </button>
               <button
-                class="btn-mentoring btn-sm mx-1 py-1"
+                class="btn btn-sm mx-1 py-1"
                 :class="tab == 'rejected' ? 'btn-type-1' : 'btn-type-2'"
                 @click="changeTab('rejected')"
               >
@@ -56,7 +56,7 @@
                 </div>
               </button>
               <button
-                class="btn-mentoring btn-sm mx-1 py-1"
+                class="btn btn-sm mx-1 py-1"
                 :class="
                   tab == '' || tab == 'waitlisted' ? 'btn-type-1' : 'btn-type-2'
                 "
@@ -74,14 +74,27 @@
           </div>
 
           <!-- Content  -->
-          <div class="row mt-3" v-if="uniList.length == 0">
-            <div class="col-12 pt-3 text-center">No university list yet</div>
+          <div class="row mt-3 shadow-sm p-3 m-1" v-if="uniList.length == 0">
+            <div class="col-12 text-center">No university list yet</div>
           </div>
           <div class="row mt-3 row-cols-md-3 row-cols-1 align-items-stretch">
             <div class="col mb-3" v-for="i in uniList" :key="i">
-              <div class="card border-1 shadow-sm card-uni h-100">
-                <div class="uni-icon">
-                  <i class="fa-solid fa-clock" v-if="tab == 'waitlisted'"></i>
+              <div
+                class="
+                  card-uni
+                  border-1
+                  shadow-sm
+                  d-flex
+                  p-3
+                  align-items-center
+                  h-100
+                "
+              >
+                <div class="uni-icon ps-1 text-start">
+                  <i
+                    class="fa-solid fa-clock"
+                    v-if="tab == 'waitlisted' || tab == 'shortlisted'"
+                  ></i>
                   <i
                     class="fa-solid fa-paper-plane"
                     v-if="tab == 'applied'"
@@ -95,10 +108,11 @@
                     v-if="tab == 'rejected'"
                   ></i>
                 </div>
-                <div class="card-body d-flex align-items-center">
+                <div class="uni-body text-start">
                   <div class="uni-name">
                     <h5 class="my-0">{{ i.uni_name }}</h5>
-                    <p class="my-1 mb-0">{{ i.uni_major }}</p>
+                    <hr class="my-1 mt-2 w-100" />
+                    <p class="my-0 mb-0">{{ i.uni_major }}</p>
                   </div>
                 </div>
               </div>
@@ -167,27 +181,22 @@ export default {
 <style scoped>
 .card-uni {
   position: relative;
-  border-radius: 20px;
+  border-radius: 10px;
   transition: all 0.3s ease-in-out;
   color: #626262;
   cursor: pointer;
   border: 1px solid #e9e9e9;
 }
-
-.card-uni .card-body {
-  display: flex;
-  width: 100%;
+.uni-body {
+  width: 80%;
   align-items: center;
   text-align: center;
 }
 
 .uni-icon {
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  font-size: 20px;
-  color: #dddddd72;
-  z-index: 0;
+  width: 20%;
+  font-size: 2em;
+  color: #3a3d3dac;
 }
 
 .uni-name {
@@ -200,6 +209,10 @@ export default {
 .card-uni.active,
 .card-uni:hover {
   background: #223872;
+  color: #fff !important;
+}
+
+.card-uni:hover .uni-icon {
   color: #fff !important;
 }
 </style>

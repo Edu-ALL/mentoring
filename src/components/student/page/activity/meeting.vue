@@ -1,18 +1,11 @@
 <template>
   <div id="meeting">
-    <div class="container my-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="ps-3 pointer" style="top: 100px">
-            <h5 class="d-inline">Meetings</h5>
-          </div>
-        </div>
-      </div>
+    <div class="container mb-3">
       <!-- Tabs  -->
-      <div class="row mt-3">
+      <div class="row">
         <div class="col-md-12 col-12 menu-tab">
           <button
-            class="btn-mentoring btn-sm mx-1 py-1"
+            class="btn btn-sm mx-1 py-1"
             :class="tab == '' || tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'request'"
           >
@@ -22,14 +15,14 @@
             </div>
           </button>
           <!-- <button
-            class="btn-mentoring btn-sm mx-1 py-1"
+            class="btn btn-sm mx-1 py-1"
             :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'pending'"
           >
             Pending
           </button> -->
           <button
-            class="btn-mentoring btn-sm mx-1 py-1"
+            class="btn btn-sm mx-1 py-1"
             :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'upcoming'"
           >
@@ -39,7 +32,7 @@
             </div>
           </button>
           <button
-            class="btn-mentoring btn-sm mx-1 py-1"
+            class="btn btn-sm mx-1 py-1"
             :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
             @click="tab = 'history'"
           >
