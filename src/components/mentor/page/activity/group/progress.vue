@@ -2,7 +2,7 @@
   <div id="progress">
     <div class="container p-1">
       <div class="row p-4" v-if="group?.data?.length == 0">
-        <div class="col text-center">
+        <div class="col text-center text-muted">
           <p>No project group yet.</p>
         </div>
       </div>
