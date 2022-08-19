@@ -15,6 +15,12 @@ const routes = [
   },
 
   {
+    path: '/notification/:message?',
+    name: 'Notif',
+    component: () => import('../components/auth/notification')
+  },
+
+  {
     path: '/admin/',
     name: 'loginAdmin',
     props: true,
