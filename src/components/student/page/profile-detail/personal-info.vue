@@ -1,21 +1,30 @@
 <template>
   <div id="info" style="scroll-margin-top: 120px">
-    <div class="heading">
-      Personal Information
-      <div class="float-end">
+    <div
+      class="
+        heading
+        px-3
+        py-1
+        d-flex
+        justify-content-between
+        align-items-center
+      "
+    >
+      <div class="fw-light">Personal Information</div>
+      <div class="text-end">
         <button
-          class="btn-mentoring btn-sm bg-primary py-1"
+          class="btn-mentoring btn-sm bg-primary py-1 px-2"
           v-if="!edit"
           @click="edit = true"
         >
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="bi bi-pencil"></i>
         </button>
         <button
-          class="btn-mentoring btn-sm btn-outline-danger py-1"
+          class="btn-mentoring btn-sm btn-outline-danger py-1 px-2"
           v-if="edit"
           @click="edit = false"
         >
-          <i class="fa-solid fa-x"></i>
+          <i class="bi bi-x"></i>
         </button>
       </div>
     </div>
@@ -26,20 +35,18 @@
           <div class="data" v-if="!edit">
             {{ mentee.first_name + " " + mentee.last_name }}
           </div>
-          <div class="row g-1" v-if="edit">
+          <div class="row g-2" v-if="edit">
             <div class="col-6">
               <input
                 type="text"
-                name=""
                 class="form-mentoring form-control-sm w-100"
                 placeholder="First Name"
                 v-model="mentee.first_name"
               />
             </div>
-            <div class="col-6 ps-md-3">
+            <div class="col-6">
               <input
                 type="text"
-                name=""
                 class="form-mentoring form-control-sm w-100"
                 placeholder="Last Name"
                 v-model="mentee.last_name"
@@ -47,31 +54,64 @@
             </div>
           </div>
         </div>
-        <div class="field">
-          <div class="label">Email</div>
-          <div class="data" v-if="!edit">{{ mentee.email }}</div>
-          <div class="" v-if="edit">
-            <input
-              type="text"
-              name=""
-              class="form-mentoring form-control-sm w-50"
-              placeholder="E-mail"
-              v-model="mentee.email"
-              readonly
-            />
+
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div class="field">
+              <div class="label">Email</div>
+              <div class="data" v-if="!edit">{{ mentee.email }}</div>
+              <div class="" v-if="edit">
+                <input
+                  type="text"
+                  class="form-mentoring form-control-sm w-100"
+                  placeholder="E-mail"
+                  v-model="mentee.email"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="field">
+              <div class="label">Phone Number</div>
+              <div class="data" v-if="!edit">{{ mentee.phone_number }}</div>
+              <vue-tel-input
+                v-model="mentee.phone_number"
+                v-if="edit"
+              ></vue-tel-input>
+            </div>
           </div>
         </div>
 
-        <div class="field">
-          <div class="label">Phone Number</div>
-          <div class="data" v-if="!edit">{{ mentee.phone_number }}</div>
-          <div class="" v-if="edit">
-            <input
-              type="text"
-              name=""
-              class="form-mentoring form-control-sm w-50"
-              v-model="mentee.phone_number"
-            />
+        <div class="row g-2">
+          <div class="col-md-6">
+            <div class="field">
+              <div class="label">School Name</div>
+              <div class="data" v-if="!edit">{{ mentee.school_name }}</div>
+              <input
+                type="text"
+                class="form-mentoring form-control-sm w-100"
+                placeholder="E-mail"
+                v-model="mentee.school_name"
+                v-if="edit"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="field">
+              <div class="label">Grade</div>
+              <div class="data" v-if="!edit">
+                {{ mentee.grade == 0 ? "-" : "" }}
+              </div>
+              <input
+                type="text"
+                class="form-mentoring form-control-sm w-100"
+                placeholder="E-mail"
+                v-model="mentee.grade"
+                v-if="edit"
+              />
+            </div>
           </div>
         </div>
 
@@ -82,7 +122,6 @@
           </div>
           <div class="" v-if="edit">
             <textarea
-              name=""
               class="form-mentoring w-100"
               v-model="mentee.address"
               rows="5"
@@ -90,20 +129,6 @@
           </div>
         </div>
 
-        <div class="row" v-if="!edit">
-          <div class="col-md-4">
-            <div class="field">
-              <div class="label">School Name</div>
-              <div class="data">{{ mentee.school_name }}</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="field">
-              <div class="label">Grade</div>
-              <div class="data">{{ mentee.grade == 0 ? "-" : "" }}</div>
-            </div>
-          </div>
-        </div>
         <div class="row mb-3" v-if="edit">
           <div class="col">
             <hr />
@@ -112,6 +137,7 @@
                 type="submit"
                 class="btn-mentoring btn-sm btn-outline-success py-1"
               >
+                <i class="bi bi-save me-2"></i>
                 Save Changes
               </button>
             </div>

@@ -58,42 +58,6 @@
 
       <!-- Pagination  -->
       <v-pagination :datas="group_data" @result="getPage" />
-      <!-- <nav class="my-0 mt-2" v-if="group_data?.data?.length != 0">
-        <ul class="pagination justify-content-center pb-0 mb-0">
-          <li class="page-item" v-if="group_data.current_page != 1">
-            <a class="page-link" @click="getPage(group_data.links[0].url)">
-              <i class="fa-solid fa-chevron-left"></i>
-            </a>
-          </li>
-          <div v-for="(i, index) in group_data.last_page" :key="index">
-            <li
-              class="page-item"
-              v-if="
-                group_data.current_page - 2 < i &&
-                group_data.current_page + 2 > i
-              "
-            >
-              <a
-                class="page-link"
-                :class="
-                  group_data.current_page == i ? 'bg-primary text-white' : ''
-                "
-                href="#"
-                @click="getPage(group_data.path + '?page=' + i)"
-                >{{ i }}</a
-              >
-            </li>
-          </div>
-          <li
-            class="page-item"
-            v-if="group_data.current_page != group_data.last_page"
-          >
-            <a class="page-link" @click="getPage(group_data.next_page_url)">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav> -->
     </div>
 
     <div id="detail">
@@ -293,16 +257,18 @@ export default {
     },
 
     async getPage(link) {
-      this.$alert.loading();
-      this.group_data = [];
-      try {
-        const response = await this.$axios.get(link);
-        this.group_data = response.data.data;
-        // console.log(response.data);
-      } catch (e) {
-        console.log(e.response);
+      if (link != null) {
+        this.$alert.loading();
+        this.group_data = [];
+        try {
+          const response = await this.$axios.get(link);
+          this.group_data = response.data.data;
+          console.log(response.data);
+        } catch (e) {
+          console.log(e.response);
+        }
+        this.$alert.close();
       }
-      this.$alert.close();
     },
 
     async handleSubmit() {

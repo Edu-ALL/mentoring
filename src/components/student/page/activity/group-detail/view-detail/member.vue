@@ -147,7 +147,9 @@ export default {
 
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
-          this.$emit("check", "new");
+          setTimeout(() => {
+            this.$emit("check", "new");
+          }, 3000);
         } else {
           this.$alert.toast(
             "error",

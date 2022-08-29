@@ -39,10 +39,11 @@
             <input-group>
               <input
                 type="file"
-                class="form-mentoring form-control"
+                class="form-mentoring form-control form-control-sm"
                 placeholder="add a logo"
                 @change="addLogo"
               />
+              <label for="logo"> Add a Logo </label>
             </input-group>
           </div>
         </div>
@@ -85,7 +86,8 @@
             <input-group>
               <v-editor
                 cols="30"
-                rows="15"
+                rows="10"
+                api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
                 v-model="group.project_desc"
                 placeholder="Project Description"
                 id="desc"
@@ -95,15 +97,17 @@
         </div>
         <div class="col-6">
           <button
-            class="btn-mentoring btn-outline-danger"
+            class="btn-mentoring py-1 btn-outline-danger"
             @click="$emit('modal', '')"
           >
+            <i class="bi bi-x-circle me-1"></i>
             Cancel
           </button>
         </div>
         <div class="col-6 text-end">
-          <button type="submit" class="btn-mentoring btn-success">
-            Submit
+          <button type="submit" class="btn-mentoring py-1 btn-success">
+            <i class="bi bi-save me-2"></i>
+            Save Changes
           </button>
         </div>
       </div>

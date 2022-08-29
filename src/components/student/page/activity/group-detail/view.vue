@@ -115,23 +115,22 @@
                     <input-group>
                       <input
                         type="file"
-                        class="form-mentoring form-control"
+                        class="form-mentoring form-control form-control-sm"
                         placeholder="add a logo"
                         @change="addLogo"
                       />
+                      <label for="logo"> Add a Logo </label>
                     </input-group>
                   </div>
                   <div class="mb-3">
-                    <input-group>
-                      <textarea
-                        v-model="group_info.project_desc"
-                        class="form-mentoring form-control w-100"
-                        rows="5"
-                        placeholder="fill in here ..."
-                        id="desc"
-                      ></textarea>
-                      <label for="desc">Group Description</label>
-                    </input-group>
+                    <v-editor
+                      cols="30"
+                      rows="10"
+                      api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
+                      v-model="group_info.project_desc"
+                      placeholder="Project Description"
+                      id="desc"
+                    ></v-editor>
                   </div>
                   <hr class="my-0 mb-2" />
                   <div class="text-end">
@@ -139,6 +138,7 @@
                       type="submit"
                       class="btn-mentoring btn-sm bg-primary py-1"
                     >
+                      <i class="bi bi-save me-2"></i>
                       Save Changes
                     </button>
                   </div>
@@ -165,13 +165,7 @@
           <form method="post" @submit.prevent="handleUpdateRole()">
             <div class="card border-0 shadow mb-3">
               <div class="card-body">
-                <div
-                  class="float-end"
-                  v-if="
-                    menu.key == 'progress' &&
-                    group_info.student_id == student_info.id
-                  "
-                >
+                <div class="float-end" v-if="menu.key == 'progress'">
                   <i
                     class="fa-solid fa-edit pointer"
                     v-if="!editMember"
@@ -233,6 +227,7 @@
                       type="submit"
                       class="btn-mentoring btn-sm py-1 bg-primary"
                     >
+                      <i class="bi bi-save me-2"></i>
                       Save Changes
                     </button>
                   </div>
@@ -360,8 +355,9 @@ export default {
 
         this.editMember = false;
         this.$alert.toast("success", response.data.message);
-        this.getData();
-        this.$alert.close();
+        setTimeout(() => {
+          this.getData();
+        }, 3000);
         // console.log(response.data);
       } catch (e) {
         this.$alert.close();

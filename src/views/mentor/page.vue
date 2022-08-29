@@ -43,14 +43,12 @@ export default {
   },
   methods: {
     async checkToken() {
-      const response = await this.$axios.get("auth/check");
-
+      const response = await this.$axios.get("auth/u/check/token");
       if (response.data.success == false) {
         localStorage.clear();
         window.location.href = "/";
-        this.$alert.toast("error", "Your token is expired");
+        this.$alert.toast("error", response.data.error);
       }
-      // console.log(response.data);
     },
   },
   watch: {

@@ -52,7 +52,7 @@
               class="btn btn-sm btn-type-3 mx-1 py-1"
               @click="modal = 'add'"
             >
-              <i class="fa-solid fa-add"></i>
+              <i class="bi bi-plus-circle me-2"></i>New a Group
             </button>
           </div>
         </div>
@@ -94,13 +94,12 @@
     </div>
 
     <!-- MODAL  -->
-    <div
-      class="vue-modal-overlay"
-      v-if="modal != '' || alert != ''"
-      @click="modal = ''"
-    ></div>
+    <div class="vue-modal-overlay" v-if="modal != '' || alert != ''"></div>
     <transition name="pop">
-      <div class="vue-modal vue-modal-lg" v-if="modal == 'add'">
+      <div
+        class="vue-modal vue-modal-lg mentoring-scroll"
+        v-if="modal == 'add'"
+      >
         <v-add @modal="checkModal" @data="checkData"></v-add>
       </div>
     </transition>

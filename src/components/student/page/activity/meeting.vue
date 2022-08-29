@@ -249,14 +249,14 @@
             <div class="col-6">
               <button
                 type="button"
-                class="btn-mentoring btn-outline-danger"
+                class="btn-mentoring py-1 btn-outline-danger"
                 @click="modal = ''"
               >
                 Cancel
               </button>
             </div>
             <div class="col-6 text-end">
-              <button type="submit" class="btn-mentoring btn-success">
+              <button type="submit" class="btn-mentoring py-1 btn-success">
                 Save Meeting
               </button>
             </div>

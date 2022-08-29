@@ -1,21 +1,30 @@
 <template>
   <div id="sosmed" style="scroll-margin-top: 120px">
-    <div class="heading">
-      Social Media
-      <div class="float-end">
+    <div
+      class="
+        heading
+        px-3
+        py-1
+        d-flex
+        justify-content-between
+        align-items-center
+      "
+    >
+      <div class="fw-light">Social Media</div>
+      <div class="text-end">
         <button
-          class="btn-mentoring btn-sm bg-primary py-1"
+          class="btn-mentoring btn-sm bg-primary py-1 px-2"
           v-if="!edit"
           @click="edit = true"
         >
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="bi bi-pencil"></i>
         </button>
         <button
-          class="btn-mentoring btn-sm btn-outline-danger py-1"
+          class="btn-mentoring btn-sm btn-outline-danger py-1 px-2"
           v-if="edit"
           @click="edit = false"
         >
-          <i class="fa-solid fa-x"></i>
+          <i class="bi bi-x"></i>
         </button>
       </div>
     </div>
@@ -168,6 +177,7 @@
                 type="submit"
                 class="btn-mentoring btn-sm btn-outline-success py-1"
               >
+                <i class="bi bi-save me-2"></i>
                 Save Changes
               </button>
             </div>
@@ -218,7 +228,7 @@ export default {
           "social-media/student/" + this.id
         );
 
-        console.log(response.data);
+        // console.log(response.data);
         this.sosmed_list = response.data.data;
         const sosmed_new = this.sosmed;
         this.sosmed_list.map(function (sosmed) {
@@ -249,7 +259,6 @@ export default {
         this.error_submit = [];
         // console.log(response.data);
         this.$alert.toast("success", response.data.message);
-        // this.$alert.close();
       } catch (e) {
         this.error_submit = e.response.data.error;
         // console.log(e.response.data);

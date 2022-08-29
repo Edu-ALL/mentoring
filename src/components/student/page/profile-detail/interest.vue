@@ -1,22 +1,30 @@
 <template>
   <div id="interest" style="scroll-margin-top: 120px">
-    <div class="heading">
-      Interest List
-
-      <div class="float-end">
+    <div
+      class="
+        heading
+        px-3
+        py-1
+        d-flex
+        justify-content-between
+        align-items-center
+      "
+    >
+      <div class="fw-light">Interest List</div>
+      <div class="text-end">
         <button
-          class="btn-mentoring btn-sm bg-primary py-1"
+          class="btn-mentoring btn-sm bg-primary py-1 px-2"
           v-if="!add"
           @click="add = true"
         >
-          <i class="fa-solid fa-add"></i>
+          <i class="bi bi-plus"></i>
         </button>
         <button
-          class="btn-mentoring btn-sm btn-outline-danger py-1"
+          class="btn-mentoring btn-sm btn-outline-danger py-1 px-2"
           v-if="add"
           @click="add = false"
         >
-          <i class="fa-solid fa-x"></i>
+          <i class="bi bi-x"></i>
         </button>
       </div>
     </div>
@@ -64,6 +72,7 @@
                       type="submit"
                       class="btn-mentoring btn-sm btn-outline-success py-1"
                     >
+                      <i class="bi bi-save me-2"></i>
                       Save Changes
                     </button>
                   </div>
@@ -87,7 +96,7 @@
                     </div>
                     <div class="icon text-end" style="width: 5%">
                       <i
-                        class="fa-solid fa-trash text-danger pointer"
+                        class="bi bi-x-circle text-danger pointer"
                         @click="deleteInterest(i.id)"
                       ></i>
                     </div>
@@ -184,7 +193,7 @@ export default {
           this.options.push(element.spec_name);
         });
         // this.interest_list = response.data.data;
-        console.log(response);
+        // console.log(response);
       } catch (e) {
         console.log(e.response);
       }

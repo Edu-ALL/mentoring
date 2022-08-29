@@ -2,8 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import 'vue-tel-input/dist/vue-tel-input.css'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap-icons/font/bootstrap-icons.css";
 import '@popperjs/core'
 import './assets/css/style.css'
 import './assets/css/transition.css'
@@ -20,8 +22,7 @@ import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import 'vue3-date-time-picker/dist/main.css'
 
 
-import VueTelInput from 'vue3-tel-input'
-import 'vue3-tel-input/dist/vue3-tel-input.css'
+import VueTelInput from 'vue-tel-input'
 import Datepicker from "vue3-datepicker";
 import VueFeather from 'vue-feather';
 import VueSplide from '@splidejs/vue-splide';

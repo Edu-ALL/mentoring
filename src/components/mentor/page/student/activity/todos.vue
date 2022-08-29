@@ -59,9 +59,11 @@
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div class="long-desc" v-if="todos_id == i.id">
-                          {{ i.description }}
-                        </div>
+                        <div
+                          class="long-desc"
+                          v-if="todos_id == i.id"
+                          v-html="i.description"
+                        ></div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i>
@@ -131,9 +133,11 @@
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div class="long-desc" v-if="todos_id == i.id">
-                          {{ i.description }}
-                        </div>
+                        <div
+                          class="long-desc"
+                          v-if="todos_id == i.id"
+                          v-html="i.description"
+                        ></div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i
@@ -222,9 +226,11 @@
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div class="long-desc" v-if="todos_id == i.id">
-                          {{ i.description }}
-                        </div>
+                        <div
+                          class="long-desc"
+                          v-if="todos_id == i.id"
+                          v-html="i.description"
+                        ></div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i>

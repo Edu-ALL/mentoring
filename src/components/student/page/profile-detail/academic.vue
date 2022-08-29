@@ -1,22 +1,30 @@
 <template>
   <div id="academic" style="scroll-margin-top: 120px">
-    <div class="heading">
-      Academic
-
-      <div class="float-end">
+    <div
+      class="
+        heading
+        px-3
+        py-1
+        d-flex
+        justify-content-between
+        align-items-center
+      "
+    >
+      <div class="fw-light">Academics</div>
+      <div class="text-end">
         <button
-          class="btn-mentoring btn-sm bg-primary py-1"
+          class="btn-mentoring btn-sm bg-primary py-1 px-2"
           v-if="!add"
           @click="add = true"
         >
-          <i class="fa-solid fa-add"></i>
+          <i class="bi bi-plus"></i>
         </button>
         <button
-          class="btn-mentoring btn-sm btn-outline-danger py-1"
+          class="btn-mentoring btn-sm btn-outline-danger py-1 px-2"
           v-if="add"
           @click="add = false"
         >
-          <i class="fa-solid fa-x"></i>
+          <i class="bi bi-x"></i>
         </button>
       </div>
     </div>
@@ -82,6 +90,7 @@
                       type="submit"
                       class="btn-mentoring btn-sm btn-outline-success py-1"
                     >
+                      <i class="bi bi-save me-2"></i>
                       Save Changes
                     </button>
                   </div>
@@ -109,7 +118,7 @@
                 </td>
                 <td class="text-center" width="4%">
                   <i
-                    class="fa-solid fa-trash text-danger pointer"
+                    class="bi bi-x-circle text-danger pointer"
                     @click="deleteAcademic(i.id)"
                   ></i>
                 </td>

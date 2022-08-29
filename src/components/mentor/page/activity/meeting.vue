@@ -370,16 +370,18 @@ export default {
     },
 
     async getPage(link) {
-      this.$alert.loading();
-      this.meeting_data = [];
-      try {
-        const response = await this.$axios.get(link);
-        this.meeting_data = response.data.data;
-        // console.log(response.data);
-      } catch (e) {
-        console.log(e.response);
+      if (link != null) {
+        this.$alert.loading();
+        this.meeting_data = [];
+        try {
+          const response = await this.$axios.get(link);
+          this.meeting_data = response.data.data;
+          // console.log(response.data);
+        } catch (e) {
+          console.log(e.response);
+        }
+        this.$alert.close();
       }
-      this.$alert.close();
     },
 
     async getMentee() {

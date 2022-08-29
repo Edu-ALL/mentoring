@@ -88,20 +88,38 @@
           </div>
 
           <div class="mb-3">
-            <input-group>
-              <input
-                :type="input.meeting"
-                :min="this.$customDate.tomorrow()"
-                class="form-mentoring form-control w-100"
-                v-model="meeting.meeting_date"
-                required
-                placeholder="fill in here"
-                @focus="input.meeting = 'datetime-local'"
-                @blur="input.meeting = 'text'"
-                id="date"
-              />
-              <label for="date">Meeting Date</label>
-            </input-group>
+            <div class="row g-2">
+              <div class="col">
+                <input-group>
+                  <input
+                    :type="input.date"
+                    class="form-mentoring form-control w-100"
+                    v-model="meeting.meeting_date"
+                    required
+                    placeholder="fill in here"
+                    @focus="input.date = 'date'"
+                    @blur="input.date = 'text'"
+                    id="date"
+                  />
+                  <label for="date">Meeting Date</label>
+                </input-group>
+              </div>
+              <div class="col">
+                <input-group>
+                  <input
+                    :type="input.time"
+                    class="form-mentoring form-control w-100"
+                    v-model="meeting.meeting_time"
+                    required
+                    placeholder="fill in here"
+                    @focus="input.time = 'time'"
+                    @blur="input.time = 'text'"
+                    id="time"
+                  />
+                  <label for="time">Time</label>
+                </input-group>
+              </div>
+            </div>
           </div>
 
           <div class="mb-3">
@@ -153,13 +171,13 @@
           class="btn-mentoring btn-sm py-1 btn-danger mx-1"
           @click="modal = ''"
         >
-          Cancel
+          No
         </button>
         <button
           class="btn-mentoring btn-sm py-1 btn-outline-success mx-1"
           @click="handleCancel()"
         >
-          Yes
+          Yes, Cancel
         </button>
       </div>
     </transition>
@@ -195,6 +213,8 @@ export default {
     async handleSubmit() {
       this.modal = "";
       this.meeting.group_id = this.group.id;
+      this.meeting.meeting_date =
+        this.meeting.meeting_date + " " + this.meeting.meeting_time;
       this.meeting.meeting_date = moment(this.meeting.meeting_date).format(
         "YYYY-MM-DD HH:mm"
       );
@@ -213,7 +233,9 @@ export default {
 
         // console.log(response.data);
         this.$alert.toast("success", response.data.message);
-        this.$emit("check", "new");
+        setTimeout(() => {
+          this.$emit("check", "new");
+        }, 3000);
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");
@@ -236,7 +258,9 @@ export default {
 
         // console.log(response.data);
         this.$alert.toast("success", response.data.message);
-        this.$emit("check", "new");
+        setTimeout(() => {
+          this.$emit("check", "new");
+        }, 3000);
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");

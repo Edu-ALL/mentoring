@@ -1,25 +1,34 @@
 <template>
   <div id="competition" style="scroll-margin-top: 120px">
-    <div class="heading">
-      Competitions
-
-      <div class="float-end">
+    <div
+      class="
+        heading
+        px-3
+        py-1
+        d-flex
+        justify-content-between
+        align-items-center
+      "
+    >
+      <div class="fw-light">Competitions</div>
+      <div class="text-end">
         <button
-          class="btn-mentoring btn-sm bg-primary py-1"
+          class="btn-mentoring btn-sm bg-primary py-1 px-2"
           v-if="!add"
           @click="add = true"
         >
-          <i class="fa-solid fa-add"></i>
+          <i class="bi bi-plus"></i>
         </button>
         <button
-          class="btn-mentoring btn-sm btn-outline-danger py-1"
+          class="btn-mentoring btn-sm btn-outline-danger py-1 px-2"
           v-if="add"
           @click="add = false"
         >
-          <i class="fa-solid fa-x"></i>
+          <i class="bi bi-x"></i>
         </button>
       </div>
     </div>
+
     <div class="desc">
       <div class="row mb-2">
         <div class="col-12">
@@ -31,48 +40,69 @@
               <div class="field">
                 <div class="data">
                   <!-- new -->
-                  <div class="mb-3">
-                    <input-group>
-                      <input
-                        type="text"
-                        v-model="competition.name"
-                        required
-                        placeholder="fiil in here ..."
-                        class="form-mentoring form-control w-100"
-                        id="compName"
-                      />
-                      <label for="compName">Competition Name</label>
-                    </input-group>
-                    <small></small>
-                  </div>
-
-                  <div class="mb-3">
-                    <input-group>
-                      <input
-                        type="text"
-                        v-model="competition.level"
-                        required
-                        placeholder="fiil in here ..."
-                        class="form-mentoring form-control w-100"
-                        id="participationLevel"
-                      />
-                      <label for="participationLevel"
-                        >Participation Level</label
-                      >
-                    </input-group>
-                  </div>
-                  <div class="mb-3">
-                    <input-group>
-                      <input
-                        type="text"
-                        v-model="competition.accomplishment"
-                        class="form-mentoring form-control w-100"
-                        required
-                        placeholder="fiil in here ..."
-                        id="accomplishment"
-                      />
-                      <label for="accomplishment">Accomplishment</label>
-                    </input-group>
+                  <div class="row g-3">
+                    <div class="col-md-6 mb-1">
+                      <input-group>
+                        <input
+                          type="text"
+                          v-model="competition.name"
+                          required
+                          placeholder="fiil in here ..."
+                          class="form-mentoring form-control w-100"
+                          id="compName"
+                        />
+                        <label for="compName">Competition Name</label>
+                      </input-group>
+                      <small></small>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                      <input-group>
+                        <input
+                          type="text"
+                          v-model="competition.level"
+                          required
+                          placeholder="fiil in here ..."
+                          class="form-mentoring form-control w-100"
+                          id="participationLevel"
+                        />
+                        <label for="participationLevel"
+                          >Participation Level</label
+                        >
+                      </input-group>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                      <input-group>
+                        <input
+                          type="text"
+                          v-model="competition.accomplishment"
+                          class="form-mentoring form-control w-100"
+                          required
+                          placeholder="fiil in here ..."
+                          id="accomplishment"
+                        />
+                        <label for="accomplishment">Accomplishment</label>
+                      </input-group>
+                    </div>
+                    <div class="col-md-3 mb-1">
+                      <input-group>
+                        <select class="form-mentoring form-control" id="month">
+                          <option :value="i" v-for="i in 12" :key="i">
+                            {{ i }}
+                          </option>
+                        </select>
+                        <label for="month">Month</label>
+                      </input-group>
+                    </div>
+                    <div class="col-md-3 mb-1">
+                      <input-group>
+                        <select class="form-mentoring form-control" id="year">
+                          <option :value="i" v-for="i in 12" :key="i">
+                            {{ 2010 + i }}
+                          </option>
+                        </select>
+                        <label for="year">Year</label>
+                      </input-group>
+                    </div>
                   </div>
 
                   <div class="text-end mt-3">
@@ -80,6 +110,7 @@
                       type="submit"
                       class="btn-mentoring btn-sm btn-outline-success py-1"
                     >
+                      <i class="bi bi-save me-2"></i>
                       Save Changes
                     </button>
                   </div>
@@ -87,6 +118,7 @@
               </div>
             </fieldset>
           </form>
+
           <div class="row row-cols-md-2 row-cols-1 g-2">
             <div class="col" v-for="i in competition_list" :key="i">
               <div class="card shadow border-0">
@@ -100,7 +132,7 @@
                       </div>
                       <div class="col-1">
                         <i
-                          class="fa-solid fa-trash text-danger pointer"
+                          class="bi bi-x-circle text-danger pointer"
                           @click="deleteCompetition(i.id)"
                         ></i>
                       </div>

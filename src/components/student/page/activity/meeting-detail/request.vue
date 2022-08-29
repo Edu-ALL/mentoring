@@ -137,9 +137,11 @@ export default {
         );
 
         if (response.data.success) {
-          this.$emit("summary", "new");
-          this.$emit("tab", "upcoming");
           this.$alert.toast("success", response.data.message);
+          setTimeout(() => {
+            this.$emit("summary", "new");
+            this.$emit("tab", "upcoming");
+          }, 3000);
         } else {
           this.$alert.toast("error", response.data.error);
         }
@@ -168,9 +170,11 @@ export default {
         );
 
         if (response.data.success) {
-          this.getData();
-          this.$emit("summary", "new");
           this.$alert.toast("success", response.data.message);
+          setTimeout(() => {
+            this.getData();
+            this.$emit("summary", "new");
+          }, 3000);
         } else {
           this.$alert.toast("error", response.data.error);
         }

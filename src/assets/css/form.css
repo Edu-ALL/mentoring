@@ -3,7 +3,7 @@
 }
 
 .v-form {
-    border-radius: 15px !important;
+    border-radius: 10px !important;
     color: #35353a !important;
 }
 
@@ -12,7 +12,15 @@
 }
 
 .vue-tel-input {
-    border: none !important;
+    border-radius: 10px;
+    border: 2px solid #dedede;
+    font-size: .875rem !important;
+}
+
+.vue-tel-input:focus-within {
+    box-shadow: none !important;
+    border: 2px solid #a2a2a2 !important;
+    outline: none !important;
 }
 
 .vti__input {
@@ -44,8 +52,9 @@
     color: #000 !important;
     margin-top: -1px !important;
     padding-left: 5px !important;
+    padding-top: 5px !important;
     margin-bottom: 8px !important;
-    font-size: 1em;
+    font-size: .9em;
 }
 
 .multiselect__tag {
@@ -54,8 +63,8 @@
 
 .multiselect__tags {
     border: 2px solid #dedede !important;
-    border-radius: 15px !important;
-    font-size: .9.5em !important;
+    border-radius: 10px !important;
+    font-size: .8em !important;
     min-height: 10px !important;
     display: block;
     padding: 5px 40px 0 8px !important;
@@ -68,35 +77,37 @@
 }
 
 .multiselect__single {
-    font-size: .9.5em !important;
-    padding-top: 3px !important;
+    font-size: .8em !important;
+    padding-top: 1px !important;
     font-size: 1em !important;
     background: transparent !important;
 }
 
+.multiselect__content-wrapper {
+    font-size: .8em !important;
+}
+
 .form-mentoring,
+input,
 textarea {
     padding: 7px 15px;
     border: 2px solid #dedede;
-    border-radius: 15px;
+    border-radius: 10px;
     font-size: .875rem;
     transition: all 0.3s ease-in-out;
+    font-weight: 300 !important;
 }
 
 .form-mentoring:disabled, .form-mentoring[readonly] {
-    background: rgb(238, 238, 238);
-    color: #374875;
-}
-
-.form-mentoring::placeholder,
-textarea::placeholder {
-    color: rgb(206, 206, 206)
+    background: transparent !important;
+    color: #767575 !important;
+    cursor: not-allowed;
 }
 
 .form-mentoring:focus,
 textarea:focus {
     outline: none;
-    border: 2px solid #EFA859;
+    border: 2px solid #a2a2a2;
     box-shadow: 0;
 }
 
@@ -141,6 +152,12 @@ textarea:focus {
     transition: all 0.2s ease-in-out;
 }
 
+.btn-type-3:hover {
+    background: #EFA859;
+    color: #fff;
+    outline: 1px solid #EFA859;
+}
+
 .btn-danger, .btn-success, .btn-info, .btn-warning, .btn-outline-success, .btn-outline-danger {
     box-shadow: none !important;
 }
@@ -158,8 +175,10 @@ input-group {
 input-group label {
     position: absolute !important;
     top: 10px;
-    left: 17px;
+    left: 13px;
     color: rgb(47, 47, 47);
+    border-radius: 5px;
+    padding: 0 5px !important;
     font-size: 0.8em;
     transition: all 0.4s;
     z-index: 1;
@@ -178,12 +197,13 @@ input-group span {
 
 input-group input:not(:placeholder-shown),
 input-group textarea:not(:placeholder-shown) {
-    border: 2px solid #EFA859;
+    border: 2px solid #bababa;
 }
 
 
 input-group input:not(:placeholder-shown)+label,
-input-group textarea:not(:placeholder-shown)+label {
+input-group textarea:not(:placeholder-shown)+label,
+input-group select:not(:placeholder-shown)+label {
     top: -10px;
     left: 12px;
     background: #fff;

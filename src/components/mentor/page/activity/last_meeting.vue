@@ -73,35 +73,6 @@
       </table>
     </div>
     <v-pagination :datas="meeting" @result="getPage" />
-    <!-- Pagination  -->
-    <!-- <nav class="my-0 mt-2" v-if="meeting?.data?.length != 0">
-      <ul class="pagination justify-content-center pb-0 mb-0">
-        <li class="page-item" v-if="meeting.current_page != 1">
-          <a class="page-link" @click="getPage(meeting.links[0].url)">
-            <i class="fa-solid fa-chevron-left"></i>
-          </a>
-        </li>
-        <div v-for="(i, index) in meeting.last_page" :key="index">
-          <li
-            class="page-item"
-            v-if="meeting.current_page - 2 < i && meeting.current_page + 2 > i"
-          >
-            <a
-              class="page-link"
-              :class="meeting.current_page == i ? 'bg-primary text-white' : ''"
-              href="#"
-              @click="getPage(meeting.path + '?page=' + i)"
-              >{{ i }}</a
-            >
-          </li>
-        </div>
-        <li class="page-item" v-if="meeting.current_page != meeting.last_page">
-          <a class="page-link" @click="getPage(meeting.next_page_url)">
-            <i class="fa-solid fa-chevron-right"></i>
-          </a>
-        </li>
-      </ul>
-    </nav> -->
   </div>
 
   <!-- Last Meeting  -->
@@ -294,15 +265,17 @@ export default {
     },
 
     async getPage(link) {
-      this.$alert.loading();
-      try {
-        const response = await this.$axios.get(link);
-        this.meeting = response.data.data;
-        // console.log(response.data);
-      } catch (e) {
-        console.log(e.response);
+      if (link != null) {
+        this.$alert.loading();
+        try {
+          const response = await this.$axios.get(link);
+          this.meeting = response.data.data;
+          // console.log(response.data);
+        } catch (e) {
+          console.log(e.response);
+        }
+        this.$alert.close();
       }
-      this.$alert.close();
     },
 
     async detail(i) {
