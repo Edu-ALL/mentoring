@@ -1,96 +1,94 @@
 <template>
   <div id="view">
-    <div class="container">
-      <div class="row">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <h5 class="mb-0"></h5>
-              <div class="mb-2 text-end" style="white-space: nowrap">
-                <select
-                  class="form-mentoring"
-                  v-model="uni_select"
-                  @change="checkTab()"
-                >
-                  <option value="all">General</option>
-                  <option :value="i.imported_id" v-for="i in uni_list" :key="i">
-                    {{ i.uni_name }}
-                  </option>
-                </select>
+    <div class="row">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"></h5>
+            <div class="mb-2 text-end" style="white-space: nowrap">
+              <select
+                class="form-mentoring"
+                v-model="uni_select"
+                @change="checkTab()"
+              >
+                <option value="all">General</option>
+                <option :value="i.imported_id" v-for="i in uni_list" :key="i">
+                  {{ i.uni_name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div
+            class="alert alert-info alert-dismissible fade show"
+            role="alert"
+            style="font-size: 0.9em"
+          >
+            Uploaded files must be of the following types:
+            <strong> doc, docx, pdf, png, jpeg, jpg </strong> and not larger
+            than <strong> 2048 kilobytes (2MB). </strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="row row-cols-md-1 row-cols-1 g-3">
+            <!-- Essay  -->
+            <div class="col">
+              <div class="req-card">
+                <v-essay :data="documents.essay" @check="checkData"></v-essay>
               </div>
             </div>
 
-            <div
-              class="alert alert-info alert-dismissible fade show"
-              role="alert"
-              style="font-size: 0.9em"
-            >
-              Uploaded files must be of the following types:
-              <strong> doc, docx, pdf, png, jpeg, jpg </strong> and not larger
-              than <strong> 2048 kilobytes (2MB). </strong>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-              ></button>
+            <!-- SAT  -->
+            <div class="col">
+              <div class="req-card">
+                <v-sat :data="academic.sat" @check="checkData"></v-sat>
+              </div>
             </div>
 
-            <div class="row row-cols-md-1 row-cols-1 g-3">
-              <!-- Essay  -->
-              <div class="col">
-                <div class="req-card">
-                  <v-essay :data="documents.essay" @check="checkData"></v-essay>
-                </div>
+            <!-- LOR  -->
+            <div class="col">
+              <div class="req-card">
+                <v-lor :data="documents.lor" @check="checkData"></v-lor>
               </div>
+            </div>
 
-              <!-- SAT  -->
-              <div class="col">
-                <div class="req-card">
-                  <v-sat :data="academic.sat" @check="checkData"></v-sat>
-                </div>
+            <!-- Transcript -->
+            <div class="col">
+              <div class="req-card">
+                <v-transcript
+                  :data="documents.transcript"
+                  @check="checkData"
+                ></v-transcript>
               </div>
+            </div>
 
-              <!-- LOR  -->
-              <div class="col">
-                <div class="req-card">
-                  <v-lor :data="documents.lor" @check="checkData"></v-lor>
-                </div>
+            <div class="col">
+              <div class="req-card">
+                <v-link
+                  :data="academic.publication_links"
+                  @check="checkData"
+                ></v-link>
               </div>
+            </div>
 
-              <!-- Transcript -->
-              <div class="col">
-                <div class="req-card">
-                  <v-transcript
-                    :data="documents.transcript"
-                    @check="checkData"
-                  ></v-transcript>
-                </div>
+            <div class="col">
+              <div class="req-card">
+                <v-score
+                  :toefl="academic.toefl"
+                  :ielts="academic.ielts"
+                  @check="checkData"
+                ></v-score>
               </div>
+            </div>
 
-              <div class="col">
-                <div class="req-card">
-                  <v-link
-                    :data="academic.publication_links"
-                    @check="checkData"
-                  ></v-link>
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="req-card">
-                  <v-score
-                    :toefl="academic.toefl"
-                    :ielts="academic.ielts"
-                    @check="checkData"
-                  ></v-score>
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="req-card">
-                  <v-ap :data="academic.ap_score" @check="checkData"></v-ap>
-                </div>
+            <div class="col">
+              <div class="req-card">
+                <v-ap :data="academic.ap_score" @check="checkData"></v-ap>
               </div>
             </div>
           </div>

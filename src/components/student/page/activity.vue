@@ -3,7 +3,7 @@
     <div class="container mt-4">
       <div class="row g-3">
         <div :class="menu.key ? 'd-none' : 'col-md-3'">
-          <div class="card shadow-sm border-0">
+          <div class="card shadow-sm border-0 sticky-md-top activity-top">
             <div class="card-body">
               <h5>My Activities</h5>
               <ul class="list-group">
@@ -239,6 +239,9 @@ export default {
 </script>
 
 <style scoped>
+.activity-top {
+  top: 13vh;
+}
 .list-group-item {
   position: relative;
   background: #fff;
@@ -296,6 +299,9 @@ export default {
 }
 
 @media only screen and (max-width: 800px) {
+  .activity-top {
+    top: 0;
+  }
   .content-card {
     padding: 10px;
   }

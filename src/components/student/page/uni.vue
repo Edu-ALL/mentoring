@@ -1,9 +1,9 @@
 <template>
   <div id="Uni">
     <div class="container mt-4">
-      <div class="row g-2">
-        <div :class="menu.key ? 'd-none' : 'col-md-3'">
-          <div class="card shadow-sm border-0">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <div class="card shadow-sm border-0 sticky-md-top uni-top">
             <div class="card-body">
               <h5>University</h5>
               <ul class="list-group">
@@ -32,15 +32,15 @@
             </div>
           </div>
         </div>
-        <div :class="menu.key ? 'col-md-12' : 'col-md-9'">
-          <!-- Meetings  -->
+        <div class="col-md-9">
+          <!-- University  -->
           <transition name="fade">
             <v-uni-list
               v-if="university == 'shortlisted' || university == ''"
             ></v-uni-list>
           </transition>
 
-          <!-- Groups  -->
+          <!-- Requirements  -->
           <transition name="fade">
             <v-uni-req v-if="university == 'requirements'"></v-uni-req>
           </transition>
@@ -108,6 +108,10 @@ export default {
 </script>
 
 <style scoped>
+.uni-top {
+  top: 13vh;
+}
+
 .list-group-item {
   position: relative;
   background: #fff;
@@ -165,6 +169,10 @@ export default {
 }
 
 @media only screen and (max-width: 800px) {
+  .uni-top {
+    top: 0vh;
+  }
+
   .content-card {
     padding: 10px;
   }
