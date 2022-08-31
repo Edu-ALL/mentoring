@@ -363,10 +363,7 @@
               <h6 class="mb-1">1-ON-1 MEETING</h6>
               <div class="row row-cols-md-3 row-cols-1">
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.personal"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -380,7 +377,7 @@
                       <div class="mt-title">
                         New Request
                         <div class="float-end">
-                          {{ meeting.personal.request }}
+                          {{ meeting.personal?.request }}
                         </div>
                       </div>
                       <div class="icon">
@@ -390,10 +387,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2 pointer"
-                    v-if="meeting.personal"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2 pointer">
                     <div
                       class="
                         card-body
@@ -407,7 +401,7 @@
                       <div class="mt-title">
                         Upcoming
                         <div class="float-end">
-                          {{ meeting.personal.upcoming }}
+                          {{ meeting.personal?.upcoming }}
                         </div>
                       </div>
                       <div class="icon">
@@ -417,10 +411,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.personal"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -434,7 +425,7 @@
                       <div class="mt-title">
                         History
                         <div class="float-end">
-                          {{ meeting.personal.history }}
+                          {{ meeting.personal?.history }}
                         </div>
                       </div>
                       <div class="icon">
@@ -452,10 +443,7 @@
               <h6 class="mb-1">GROUP PROJECT</h6>
               <div class="row row-cols-md-3 row-cols-1">
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.group"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -469,7 +457,7 @@
                       <div class="mt-title">
                         New Request
                         <div class="float-end">
-                          {{ meeting.group.request }}
+                          {{ meeting.group?.request }}
                         </div>
                       </div>
                       <div class="icon">
@@ -479,10 +467,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.group"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -496,7 +481,7 @@
                       <div class="mt-title">
                         In Progress
                         <div class="float-end">
-                          {{ meeting.group.upcoming }}
+                          {{ meeting.group?.upcoming }}
                         </div>
                       </div>
                       <div class="icon">
@@ -506,10 +491,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.group"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -523,7 +505,7 @@
                       <div class="mt-title">
                         Completed
                         <div class="float-end">
-                          {{ meeting.group.history }}
+                          {{ meeting.group?.history }}
                         </div>
                       </div>
                       <div class="icon">
@@ -541,10 +523,7 @@
               <h6 class="mb-1">GROUP MEETING</h6>
               <div class="row row-cols-md-2 row-cols-1">
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.group_m"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -558,7 +537,7 @@
                       <div class="mt-title">
                         Upcoming
                         <div class="float-end">
-                          {{ meeting.group_m.upcoming }}
+                          {{ meeting.group_m?.upcoming }}
                         </div>
                       </div>
                       <div class="icon">
@@ -599,10 +578,7 @@
                   </div>
                 </div>
                 <div class="col">
-                  <div
-                    class="card shadow-sm rounded-2 mb-2"
-                    v-if="meeting.group_m"
-                  >
+                  <div class="card shadow-sm rounded-2 mb-2">
                     <div
                       class="
                         card-body
@@ -615,7 +591,7 @@
                       <div class="mt-title">
                         History
                         <div class="float-end">
-                          {{ meeting.group_m.history }}
+                          {{ meeting.group_m?.history }}
                         </div>
                       </div>
                       <div class="icon">
@@ -633,6 +609,12 @@
               <h6 class="mb-1">TIMELINE</h6>
               <div class="card shadow-sm rounded-2 todos mentoring-scroll p-0">
                 <div class="card-body p-0">
+                  <div
+                    class="text-center p-3 text-muted"
+                    v-if="todos_list.length == 0"
+                  >
+                    No data yet.
+                  </div>
                   <div v-for="(i, index) in todos_list" :key="index">
                     <div class="row align-items-center todo-list py-3 m-0">
                       <div class="col-12">
@@ -838,21 +820,25 @@ export default {
     },
 
     async getMeeting() {
+      this.$Progress.start();
       try {
+        this.$Progress.finish();
         const response = await this.$axios.get("student/dashboard/summarize");
-
         this.meeting = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e);
       }
     },
 
     async getUniList(status) {
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/university/shortlisted/" + status
         );
+        this.$Progress.finish();
 
         if (status == "waitlisted") {
           this.uni_list.waitlisted = response.data.data;
@@ -867,17 +853,20 @@ export default {
         }
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async getTodosList() {
+      this.$Progress.start();
       try {
         const response = await this.$axios.get("student/todos");
-
+        this.$Progress.finish();
         this.todos_list = response.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.finish();
         console.log(e);
       }
     },

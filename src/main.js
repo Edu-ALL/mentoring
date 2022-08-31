@@ -36,8 +36,21 @@ import Youtube from 'vue3-youtube'
 import Popper from 'vue3-popper'
 import Pagination from './components/library/pagination'
 import Editor from '@tinymce/tinymce-vue';
+import VueProgressBar from "@aacassandra/vue3-progressbar";
 
-
+const progressbarOptions = {
+    color: "#59c7ff",
+    failedColor: "#874b4b",
+    thickness: "3px",
+    transition: {
+        speed: "0.2s",
+        opacity: "0.6s",
+        termination: 300,
+    },
+    autoRevert: true,
+    location: "top",
+    inverse: false,
+};
 
 
 
@@ -62,6 +75,7 @@ app.use(router)
 app.use(VueTelInput, VueTelInputOptions)
 app.use(VueSplide)
 app.use(VueLazyLoad)
+app.use(VueProgressBar, progressbarOptions)
 app.component('datepicker', Datepicker)
 app.component(VueFeather.name, VueFeather)
 app.component('v-datepicker', Datetimepicker)

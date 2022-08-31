@@ -13,9 +13,10 @@
             </div>
             <div class="text-end float-end">
               <button
-                class="btn-allin bg-secondary"
+                class="btn btn-sm btn-allin bg-secondary fw-semi-bold"
                 @click="showModal('login')"
               >
+                <i class="bi bi-box-arrow-in-right me-2"></i>
                 Sign In
               </button>
             </div>

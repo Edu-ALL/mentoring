@@ -1,6 +1,9 @@
 <template>
   <div id="request">
-    <div class="container mt-3 p-2">
+    <div
+      class="container mt-3 p-2"
+      v-if="groups.data && groups.data.length >= 0"
+    >
       <div class="row p-4" v-if="groups.data && groups.data.length == 0">
         <div class="col text-center">
           <p>No project group yet.</p>
@@ -118,29 +121,29 @@ export default {
   },
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get("student/group/project/new");
-
+        this.$Progress.finish();
         this.groups = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async getPage(link) {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(link);
-
+        this.$Progress.finish();
         this.groups = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async handleConfirm(id, status) {

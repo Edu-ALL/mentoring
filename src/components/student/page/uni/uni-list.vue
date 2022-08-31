@@ -144,19 +144,19 @@ export default {
     },
 
     async getData(status = "shortlisted") {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/university/shortlisted/" + status
         );
-
+        this.$Progress.finish();
         this.getSummary();
         this.uniList = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
   },
   created() {

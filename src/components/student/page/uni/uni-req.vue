@@ -142,18 +142,18 @@ export default {
     },
 
     async getDataDocument(i = "all") {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/university/requirement/document/" + i
         );
-
+        this.$Progress.finish();
         this.documents = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async getDataText() {

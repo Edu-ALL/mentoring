@@ -74,7 +74,7 @@
         style="white-space: nowrap"
       >
         <button
-          class="btn me-2 py-1 px-3"
+          class="btn btn-sm me-2 py-1 px-3"
           :class="menus.key == i.slug ? 'btn-type-3' : 'btn-type-1'"
           @click="goTab(i.slug)"
           v-for="(i, index) in tab"
@@ -122,78 +122,6 @@
           :menus="menus"
         />
       </transition>
-
-      <!-- Event -->
-      <!-- <transition name="fade">
-        <div class="border p-3 rounded mt-3" v-if="activity == 'event'">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr class="text-center">
-                  <th>No</th>
-                  <th>Event Name</th>
-                  <th>Date & Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>20 Feburary 2022</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <hr />
-          <nav class="mt-2">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
-      </transition> -->
-
-      <!-- Files -->
-      <!-- <transition name="fade">
-        <div class="border p-3 rounded mt-3" v-if="activity == 'files'">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr class="text-center">
-                  <th>No</th>
-                  <th>File Name</th>
-                  <th>Uploaded Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" v-for="i in 5" :key="i">
-                  <td>{{ i }}</td>
-                  <td>Lorem Ipsum</td>
-                  <td>20 Feburary 2022</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <hr />
-          <nav class="mt-2">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
-      </transition> -->
     </div>
   </div>
 </template>
@@ -223,8 +151,8 @@ export default {
     return {
       activity: "meeting",
       tab: [
-        { slug: "meeting", name: "Meeting" },
-        { slug: "todos", name: "Todos" },
+        { slug: "meeting", name: "Meeting Logs" },
+        { slug: "todos", name: "Timeline" },
         { slug: "group", name: "Group Project" },
         { slug: "webinar", name: "Webinar" },
         { slug: "uni_shortlisted", name: "University Shortlisted" },
@@ -242,9 +170,12 @@ export default {
 
     async getData() {
       const id = this.menus.submenu;
-      // console.log(email)
-      const response = await this.$axios.get("student/detail/" + id);
-      this.students_detail = response.data.data;
+      try {
+        const response = await this.$axios.get("student/detail/" + id);
+        this.students_detail = response.data.data;
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   created() {

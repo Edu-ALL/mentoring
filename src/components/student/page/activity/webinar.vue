@@ -65,7 +65,7 @@
                 </div>
 
                 <!-- History -->
-                <div class="mt-3">
+                <div class="mt-3" v-if="webinar_history.data?.length >= 0">
                   <b class="text-primary">Webinar History</b>
                   <hr class="my-1" />
                   <!-- Empty  -->
@@ -282,33 +282,33 @@ export default {
     },
 
     async getData(i) {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/programme/detail/webinar/" + i
         );
-
+        this.$Progress.finish();
         this.webinar_data = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e);
       }
-      this.$alert.close();
     },
 
     async getHistory() {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/list/activities/webinar"
         );
-
+        this.$Progress.finish();
         this.webinar_history = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e);
       }
-      this.$alert.close();
     },
   },
   watch: {

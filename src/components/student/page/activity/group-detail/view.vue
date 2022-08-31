@@ -293,7 +293,7 @@ export default {
     },
 
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/detail/group/project/" + this.groupId
@@ -304,9 +304,9 @@ export default {
         this.group_member = response.data.data.group_member;
         this.student_info = response.data.data.student_info;
         // console.log(response.data);
-        this.$alert.close();
+        this.$Progress.finish();
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         this.$alert.toast("error", "Group project is not found");
         this.$router.push({ path: "/user/my-activity/group" });
         console.log(e.response);

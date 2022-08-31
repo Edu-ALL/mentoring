@@ -1,6 +1,6 @@
 <template>
   <div id="request">
-    <div class="container p-1">
+    <div class="container p-1" v-if="data.data?.length >= 0">
       <!-- Empty  -->
       <div class="row" v-if="data.data?.length == 0">
         <div class="col py-4 text-center">
@@ -100,27 +100,28 @@ export default {
   },
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "student/list/activities/1-on-1-call/new"
         );
-
+        this.$Progress.finish();
         this.data = response.data.data;
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async getPage(link) {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(link);
-
+        this.$Progress.finish();
         this.data = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
       this.$alert.close();
