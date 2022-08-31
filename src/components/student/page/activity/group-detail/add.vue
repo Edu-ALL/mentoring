@@ -97,6 +97,7 @@
         </div>
         <div class="col-6">
           <button
+            type="button"
             class="btn-mentoring py-1 btn-outline-danger"
             @click="$emit('modal', '')"
           >
@@ -191,13 +192,16 @@ export default {
       //   console.log(pair[0] + ", " + pair[1]);
       // }
 
-      this.$emit("modal", "");
       this.$alert.loading();
       try {
         const response = await this.$axios.post("student/group/project", form);
-
         if (response.data.success) {
-          this.handleMembers(response.data.data.id);
+          if (this.members.length > 0) {
+            this.handleMembers(response.data.data.id);
+          } else {
+            this.$emit("new_data", [{ modal: "", load: "new-group" }]);
+            this.$alert.toast("success", response.data.message);
+          }
         } else {
           this.$alert.toast("error", response.data.error);
         }
@@ -207,26 +211,25 @@ export default {
         // this.$alert.close();
         console.log(e.response);
       }
+      this.$alert.close();
     },
 
     async handleMembers(id) {
-      if (this.members) {
-        try {
-          const response = await this.$axios.post(
-            "student/group/project/participant",
-            {
-              group_id: id,
-              participant: this.members,
-            }
-          );
+      try {
+        const response = await this.$axios.post(
+          "student/group/project/participant",
+          {
+            group_id: id,
+            participant: this.members,
+          }
+        );
 
-          this.$emit("data", response.data);
-        } catch (e) {
-          console.log(e.response);
-          this.$emit("data", e.response.data);
-        }
+        this.$emit("new", "");
+        this.$alert.toast("success", response.data.message);
+      } catch (e) {
+        this.$emit("data", e.response.data);
+        console.log(e.response);
       }
-      this.$alert.close();
     },
   },
 };

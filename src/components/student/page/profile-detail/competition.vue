@@ -85,19 +85,42 @@
                     </div>
                     <div class="col-md-3 mb-1">
                       <input-group>
-                        <select class="form-mentoring form-control" id="month">
-                          <option :value="i" v-for="i in 12" :key="i">
-                            {{ i }}
-                          </option>
+                        <select
+                          class="form-mentoring form-control"
+                          id="month"
+                          v-model="competition.month"
+                          required
+                        >
+                          <option value="01">January</option>
+                          <option value="02">February</option>
+                          <option value="03">March</option>
+                          <option value="04">April</option>
+                          <option value="05">May</option>
+                          <option value="06">June</option>
+                          <option value="07">July</option>
+                          <option value="08">August</option>
+                          <option value="09">September</option>
+                          <option value="10">October</option>
+                          <option value="11">November</option>
+                          <option value="12">December</option>
                         </select>
                         <label for="month">Month</label>
                       </input-group>
                     </div>
                     <div class="col-md-3 mb-1">
                       <input-group>
-                        <select class="form-mentoring form-control" id="year">
-                          <option :value="i" v-for="i in 12" :key="i">
-                            {{ 2010 + i }}
+                        <select
+                          class="form-mentoring form-control"
+                          id="year"
+                          v-model="competition.year"
+                          required
+                        >
+                          <option
+                            :value="parseInt(year) - i + 1"
+                            v-for="i in 10"
+                            :key="i"
+                          >
+                            {{ parseInt(year) - i + 1 }}
                           </option>
                         </select>
                         <label for="year">Year</label>
@@ -119,27 +142,30 @@
             </fieldset>
           </form>
 
-          <div class="row row-cols-md-2 row-cols-1 g-2">
+          <div class="row row-cols-md-2 row-cols-1 g-2 align-items-stretch">
             <div class="col" v-for="i in competition_list" :key="i">
-              <div class="card shadow border-0">
+              <div class="card shadow-sm border-0 h-100">
                 <div class="card-body">
                   <div class="mb-2">
-                    <div class="row">
-                      <div class="col-11">
-                        <h5 class="text-muted">
+                    <div class="d-flex align-items-start">
+                      <div class="title" style="width: 90%">
+                        <h5 class="text-muted my-0">
                           {{ i.comp_name }}
                         </h5>
                       </div>
-                      <div class="col-1">
+                      <div class="text-end" style="width: 10%">
                         <i
                           class="bi bi-x-circle text-danger pointer"
                           @click="deleteCompetition(i.id)"
                         ></i>
                       </div>
                     </div>
-                    <small class="text font-italic">{{
-                      i.participation_level
-                    }}</small>
+                    <div class="badge bg-primary shadow-sm">
+                      {{ i.participation_level }}
+                    </div>
+                    <div class="badge bg-primary shadow-sm ms-1">
+                      {{ i.month + "/" + i.year }}
+                    </div>
                     <div class="my-0 mt-2">{{ i.accomplishments }}</div>
                   </div>
                 </div>
@@ -182,6 +208,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "competition",
   data() {
@@ -194,7 +221,10 @@ export default {
         name: "",
         level: "",
         accomplishment: "",
+        month: "",
+        year: "",
       },
+      year: moment().format("YYYY"),
     };
   },
   methods: {
@@ -215,6 +245,8 @@ export default {
           comp_name: this.competition.name,
           participation_level: this.competition.level,
           accomplishment: this.competition.accomplishment,
+          month: this.competition.month,
+          year: this.competition.year.toString(),
         });
 
         // console.log(response.data);
@@ -225,11 +257,13 @@ export default {
         this.competition.name = "";
         this.competition.level = "";
         this.competition.accomplishment = "";
+        this.competition.month = "";
+        this.competition.year = "";
 
         this.$alert.toast("success", response.data.message);
         this.getData();
       } catch (e) {
-        // console.log(e.response.data);
+        console.log(e.response.data);
         // this.$alert.close();
         this.$alert.toast("error", "Please try again");
       }

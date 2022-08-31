@@ -246,10 +246,14 @@ export default {
         if (e.response.status == 400) {
           console.log(e.response.data.error);
           this.error_form = e.response.data.error;
-          this.interest.name = "Other";
+          this.interest.name = null;
+          this.$alert.toast(
+            "error",
+            e.response.data.error.career_major_name[0]
+          );
+        } else {
+          this.$alert.toast("error", "Please try again");
         }
-
-        this.$alert.toast("error", "Please try again");
       }
     },
 

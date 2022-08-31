@@ -160,7 +160,7 @@ export default {
         this.$emit("summary", "new");
         setTimeout(() => {
           this.getData();
-        }, 1000);
+        }, 3000);
         // console.log(response.data);
       } catch (e) {
         this.$alert.close();

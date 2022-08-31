@@ -101,7 +101,7 @@ export default {
     this.menu.key2 = this.$route.params.key2;
 
     if (this.$route.params.submenu) {
-      this.activity = this.$route.params.submenu;
+      this.university = this.$route.params.submenu;
     }
   },
 };

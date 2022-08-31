@@ -34,6 +34,7 @@
         >
           <ul>
             <li @click="goToMenu('')" :class="params == '' ? 'active' : ''">
+              <i class="bi bi-speedometer2 me-1"></i>
               Dashboard
             </li>
             <li
@@ -47,19 +48,25 @@
                   : ''
               "
             >
+              <i class="bi bi-list-task me-1"></i>
               My Activities
             </li>
             <li
               @click="goToMenu('uni')"
               :class="params == 'uni' ? 'active' : ''"
             >
+              <i class="bi bi-building me-1"></i>
               Universities
             </li>
           </ul>
         </div>
         <div class="navbar-button d-md-block" :class="!menu ? 'd-none' : ''">
-          <button class="btn btn-allin bg-secondary px-4" @click="handleLogout">
-            <strong> Sign Out </strong>
+          <button
+            class="btn btn-allin btn-sm bg-secondary px-4"
+            @click="handleLogout"
+          >
+            <i class="bi bi-box-arrow-right me-1"></i>
+            Sign Out
           </button>
         </div>
       </div>

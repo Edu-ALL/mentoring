@@ -79,7 +79,11 @@
               <vue-tel-input
                 v-model="mentee.phone_number"
                 v-if="edit"
+                required
               ></vue-tel-input>
+              <small class="text-danger" v-if="error.phone_number">
+                {{ error.phone_number[0] }}
+              </small>
             </div>
           </div>
         </div>
@@ -95,6 +99,7 @@
                 placeholder="E-mail"
                 v-model="mentee.school_name"
                 v-if="edit"
+                required
               />
             </div>
           </div>
@@ -102,15 +107,22 @@
             <div class="field">
               <div class="label">Grade</div>
               <div class="data" v-if="!edit">
-                {{ mentee.grade == 0 ? "-" : "" }}
+                {{ mentee.grade }}
               </div>
-              <input
-                type="text"
-                class="form-mentoring form-control-sm w-100"
-                placeholder="E-mail"
+              <select
                 v-model="mentee.grade"
+                class="form-mentoring form-control-sm w-100"
+                required
                 v-if="edit"
-              />
+              >
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">Not High School</option>
+              </select>
             </div>
           </div>
         </div>
@@ -125,6 +137,7 @@
               class="form-mentoring w-100"
               v-model="mentee.address"
               rows="5"
+              required
             ></textarea>
           </div>
         </div>
@@ -155,6 +168,7 @@ export default {
     return {
       edit: false,
       mentee: [],
+      error: [],
     };
   },
   methods: {
@@ -167,6 +181,8 @@ export default {
           email: this.mentee.email,
           phone_number: this.mentee.phone_number,
           address: this.mentee.address,
+          school_name: this.mentee.school_name,
+          grade: this.mentee.grade,
         });
 
         this.edit = false;
@@ -176,6 +192,9 @@ export default {
         // console.log(response.data);
       } catch (e) {
         console.log(e.response.data);
+        if (e.response.status == 400) {
+          this.error = e.response.data.error;
+        }
         this.$alert.toast("error", "Please try again.");
       }
     },

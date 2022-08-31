@@ -38,26 +38,46 @@
               </legend>
               <div class="field">
                 <div class="data">
-                  <div class="mb-3">
-                    <input-group>
-                      <input
-                        type="text"
-                        v-model="academic.subject"
-                        class="form-mentoring form-control w-100"
-                        required
-                        placeholder="fill in here ..."
-                        id="school"
-                      />
-                      <label for="school">School Subject</label>
-                    </input-group>
-                  </div>
-
-                  <div class="row">
-                    <div class="col">
+                  <div class="row g-2">
+                    <div class="col-md-5">
                       <div class="mb-3">
                         <input-group>
                           <input
-                            type="number"
+                            type="text"
+                            v-model="academic.subject"
+                            class="form-mentoring form-control w-100"
+                            required
+                            placeholder="fill in here ..."
+                            id="school"
+                          />
+                          <label for="school">School Subject</label>
+                        </input-group>
+                      </div>
+                    </div>
+                    <div class="col-md-5 col-8">
+                      <div class="mb-3">
+                        <input-group>
+                          <select
+                            v-model="academic.curriculum"
+                            required
+                            class="form-mentoring form-control w-100"
+                            @change="checkCurriculum"
+                          >
+                            <option value="National" selected>National</option>
+                            <option value="IB">IB</option>
+                            <option value="Cambridge">Cambridge</option>
+                          </select>
+                          <label for="score">Curriculum</label>
+                        </input-group>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-4">
+                      <div class="mb-3">
+                        <input-group v-if="academic.curriculum != 'Cambridge'">
+                          <input
+                            :type="input_type.score_type"
+                            :max="input_type.max_score"
+                            :maxlength="input_type.length"
                             v-model="academic.score"
                             required
                             placeholder="fill in here ..."
@@ -66,14 +86,32 @@
                           />
                           <label for="score">Score</label>
                         </input-group>
+
+                        <input-group v-if="academic.curriculum == 'Cambridge'">
+                          <select
+                            v-model="academic.score"
+                            required
+                            class="form-mentoring form-control w-100"
+                          >
+                            <option value="A*" selected>A*</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                          </select>
+                          <label for="score">Score</label>
+                        </input-group>
                       </div>
                     </div>
-                    <div class="col">
+                    <!-- <div class="col-md-3 col-6">
                       <div class="mb-3">
                         <input-group>
                           <input
-                            type="number"
+                            :type="input_type.score_type"
                             v-model="academic.max_score"
+                            :max="input_type.max_score"
                             required
                             placeholder="fill in here ..."
                             id="maxScore"
@@ -82,7 +120,7 @@
                           <label for="maxScore">Max Score</label>
                         </input-group>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="text-end mt-1">
@@ -98,6 +136,7 @@
               </div>
             </fieldset>
           </form>
+
           <table class="table table-bordered table-hover mt-2">
             <tbody>
               <tr
@@ -175,12 +214,38 @@ export default {
       academic_list: [],
       academic: {
         subject: "",
+        curriculum: "National",
         score: "",
         max_score: "",
+      },
+      input_type: {
+        score_type: "number",
+        max_score: "100",
+        length: "3",
       },
     };
   },
   methods: {
+    checkCurriculum() {
+      let cur = this.academic.curriculum;
+      if (cur == "National") {
+        this.input_type.score_type = "number";
+        this.input_type.max_score = 100;
+        this.academic.max_score = 100;
+        this.input_type.length = 3;
+      } else if (cur == "IB") {
+        this.input_type.score_type = "number";
+        this.input_type.max_score = 7;
+        this.academic.max_score = 7;
+        this.input_type.length = 1;
+      } else if (cur == "National") {
+        this.input_type.score_type = "text";
+        this.input_type.max_score = "F";
+        this.academic.max_score = "F";
+        this.input_type.length = 2;
+      }
+    },
+
     async getData() {
       try {
         const response = await this.$axios.get("student/academic");

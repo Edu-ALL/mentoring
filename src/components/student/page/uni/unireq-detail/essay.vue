@@ -2,11 +2,11 @@
   <div id="essay">
     <div class="req-header p-2 py-1">
       <i
-        class="fa-solid fa-circle-xmark me-1 text-danger"
+        class="bi bi-bookmark-x-fill me-1 text-danger"
         v-if="data?.length == 0"
       ></i>
       <i
-        class="fa-solid fa-circle-check me-1 text-success"
+        class="bi bi-bookmark-check-fill me-1 text-success"
         v-if="data?.length != 0"
       ></i>
       ESSAYS
@@ -57,22 +57,22 @@
                   <a
                     :href="$base_url + i.med_file_path"
                     target="_blank"
-                    class="btn btn-mentoring bg-white p-1 px-3 mx-1"
+                    class="btn btn-mentoring bg-white p-1 px-2 mx-1"
                     download
                   >
-                    <i class="fa-solid fa-download text-primary"></i>
+                    <i class="bi bi-download text-primary"></i>
                   </a>
                   <button
-                    class="btn btn-mentoring bg-white p-1 px-3 mx-1"
+                    class="btn btn-mentoring bg-white p-1 px-2 mx-1"
                     @click="editMedia(i)"
                   >
-                    <i class="fa-solid fa-edit text-info"></i>
+                    <i class="bi bi-pencil-square text-info"></i>
                   </button>
                   <button
-                    class="btn btn-mentoring bg-white p-1 px-3 mx-1"
+                    class="btn btn-mentoring bg-white p-1 px-2 mx-1"
                     @click="deleteMedia(i.id)"
                   >
-                    <i class="fa-solid fa-trash text-danger"></i>
+                    <i class="bi bi-trash2-fill text-danger"></i>
                   </button>
                 </div>
               </div>
@@ -228,12 +228,14 @@
             class="btn-mentoring btn-warning btn-sm py-1 mx-1"
             @click="modal = ''"
           >
+            <i class="bi bi-x-circle me-1"></i>
             Cancel</button
           ><button
-            class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
+            class="btn-mentoring btn-outline-danger btn-sm py-1 mx-1"
             @click="handleDelete"
           >
-            Yes
+            <i class="bi bi-trash2 me-1"></i>
+            Yes, Delete
           </button>
         </div>
       </div>

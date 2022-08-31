@@ -2,11 +2,11 @@
   <div id="sat">
     <div class="req-header p-2 py-1">
       <i
-        class="fa-solid fa-circle-xmark me-1 text-danger"
+        class="bi bi-bookmark-x-fill me-1 text-danger"
         v-if="data?.length == 0"
       ></i>
       <i
-        class="fa-solid fa-circle-check me-1 text-success"
+        class="bi bi-bookmark-check-fill me-1 text-success"
         v-if="data?.length != 0"
       ></i>
       SAT
