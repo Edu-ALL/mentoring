@@ -1,7 +1,7 @@
 <template>
   <!-- {{ student_meeting }} -->
   <div id="meetings">
-    <div class="border p-1 rounded mt-3">
+    <div class="border p-2 rounded mt-3">
       <div class="table-responsive">
         <table class="table table-bordered align-middle">
           <thead>
@@ -10,17 +10,17 @@
               <th>Call with</th>
               <th>Subject</th>
               <th>Date & Time</th>
+              <th>Academic Performance</th>
+              <th>Exploration</th>
+              <th>Writing Skill</th>
+              <th>Personal Brand</th>
+              <th>Mentor Todos</th>
+              <th>Mentee Todos</th>
               <th>Status</th>
             </tr>
           </thead>
 
           <tbody>
-            <div
-              class="col-6 text-center p-4 text-muted"
-              v-if="student_meeting.length == 0"
-            >
-              No meeting yet
-            </div>
             <tr
               class="text-center"
               v-for="(i, index) in student_meeting.data"
@@ -43,6 +43,62 @@
                   {{ $customDate.date(i.call_date) }} <br />
                   {{ $customDate.time(i.call_date) }}
                 </small>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.academic_performance == null"
+                  >-</span
+                >
+                <div
+                  style="max-width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.academic_performance"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.exploration == null">-</span>
+                <div
+                  style="max-width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.exploration"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.writing_skills == null">-</span>
+                <div
+                  style="max-width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.writing_skills"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.personal_brand == null">-</span>
+                <div
+                  style="max-width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.personal_brand"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.mt_todos_note == null">-</span>
+                <div
+                  style="max-width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.mt_todos_note"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.st_todos_note == null">-</span>
+                <div
+                  style="max-width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.st_todos_note"
+                ></div>
               </td>
               <td nowrap style="text-transform: capitalize">
                 <i
@@ -67,6 +123,12 @@
           </tbody>
         </table>
       </div>
+      <div
+        class="text-center p-4 text-muted"
+        v-if="student_meeting.length == 0"
+      >
+        No meeting yet
+      </div>
       <v-pagination :datas="student_meeting" @result="getPage" />
     </div>
   </div>
@@ -86,33 +148,32 @@ export default {
 
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.menus.submenu;
       try {
-        const response = await this.$axios.get(
-          "mentor/list/activities/1-on-1-call?student=" + id
-        );
+        const response = await this.$axios.get("../v2/list/meeting-log/" + id);
         this.student_meeting = response.data.data;
-        this.$alert.close();
-        // console.log(response);
+        this.$Progress.finish();
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async getPage(link) {
       this.student_meeting = [];
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(link);
 
+        this.$Progress.finish();
         this.student_meeting = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e);
       }
-      this.$alert.close();
+      this.$Progress.fail();
     },
   },
   created() {

@@ -13,7 +13,7 @@
       >
         <!-- Tabs  -->
         <div class="row align-items-center">
-          <div class="col-md-9 col-8 menu-tab">
+          <div class="col-md-9 col-6 menu-tab">
             <button
               class="btn btn-sm mx-1 py-1"
               :class="tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
@@ -47,7 +47,7 @@
               </div>
             </button>
           </div>
-          <div class="col-md-3 col-4 text-end">
+          <div class="col-md-3 col-6 text-end">
             <button
               class="btn btn-sm btn-type-3 mx-1 py-1"
               @click="modal = 'add'"

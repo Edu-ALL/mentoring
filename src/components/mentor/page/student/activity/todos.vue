@@ -1,16 +1,16 @@
 <template>
   <!-- {{ todos_waiting }} -->
   <div id="todos">
-    <div class="border p-1 rounded mt-3">
+    <div class="border p-2 rounded mt-3">
       <div class="row row-cols-md-3 row-cols-1 g-3">
         <div class="col">
           <div
-            class="card border-1 shadow-sm my-2 btn-outline-primary pointer"
+            class="card border-1 shadow-sm mb-2 btn-outline-primary pointer"
             @click="modal = 'add'"
           >
             <div class="card-body py-1 text-center">
               <i class="fa-solid fa-plus me-2"></i>
-              New Todos
+              New Timeline
             </div>
           </div>
 
@@ -18,11 +18,11 @@
             class="border p-2 text-center text-muted"
             v-if="todos_waiting.waiting?.length == 0"
           >
-            No todos yet
+            No timeline yet
           </div>
 
           <div
-            class="card border-1 shadow-sm my-2 card-todos"
+            class="card border-1 shadow-sm mb-2 card-todos"
             v-for="(i, index) in todos_waiting.waiting"
             :key="index"
           >
@@ -59,11 +59,7 @@
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div
-                          class="long-desc"
-                          v-if="todos_id == i.id"
-                          v-html="i.description"
-                        ></div>
+                        <div class="long-desc" v-html="i.description"></div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i>
@@ -94,17 +90,17 @@
         </div>
 
         <div class="col">
-          <div class="card border-1 my-2 py-2 text-center bg-primary">
+          <div class="card border-1 mb-2 py-1 text-center bg-primary">
             <h6 class="my-0">Confirmation Needs</h6>
           </div>
           <div
             class="border p-2 text-center text-muted"
             v-if="todos_conf_need.confirmation_need?.length == 0"
           >
-            No todos yet
+            No timeline yet
           </div>
           <div
-            class="card border-1 shadow-sm my-2 card-todos"
+            class="card border-1 shadow-sm mb-2 card-todos"
             v-for="(i, index) in todos_conf_need.confirmation_need"
             :key="index"
           >
@@ -133,11 +129,7 @@
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div
-                          class="long-desc"
-                          v-if="todos_id == i.id"
-                          v-html="i.description"
-                        ></div>
+                        <div class="long-desc" v-html="i.description"></div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i
@@ -145,11 +137,17 @@
                       </small>
                     </div>
                     <div class="d-flex mt-2">
-                      <div class="checklist" @click="switchTodos(i.id, 3)">
-                        <i class="fa-solid fa-check-circle me-2"> </i
-                        ><label>Confirm</label>
+                      <div
+                        class="checklist shadow-sm p-1 me-1"
+                        @click="switchTodos(i.id, 3)"
+                      >
+                        <i class="fa-solid fa-check-circle me-2"> </i>
+                        <span>Confirm</span>
                       </div>
-                      <div class="reject" @click="switchTodos(i.id, 2)">
+                      <div
+                        class="reject shadow-sm p-1"
+                        @click="switchTodos(i.id, 2)"
+                      >
                         <i class="fa-solid fa-times-circle mx-2"></i
                         ><span>Reject</span>
                       </div>
@@ -178,19 +176,19 @@
         </div>
 
         <div class="col">
-          <div class="card border-1 my-2 py-2 text-center bg-primary">
-            <h6 class="my-0">Completed</h6>
+          <div class="card border-1 mb-2 py-1 text-center bg-primary">
+            <h6 class="my-0">Done</h6>
           </div>
 
           <div
             class="border p-2 text-center text-muted"
             v-if="todos_confirmed.completed?.length == 0"
           >
-            No todos yet
+            No timeline yet
           </div>
 
           <div
-            class="card border-1 shadow-sm my-2 card-todos text-muted"
+            class="card border-1 shadow-sm mb-2 card-todos text-muted"
             style="background: #f2efef; opacity: 0.7"
             v-for="(i, index) in todos_confirmed.completed"
             :key="index"
@@ -226,11 +224,7 @@
                         </div>
                       </transition>
                       <transition name="fade">
-                        <div
-                          class="long-desc"
-                          v-if="todos_id == i.id"
-                          v-html="i.description"
-                        ></div>
+                        <div class="long-desc" v-html="i.description"></div>
                       </transition>
                       <small class="d-block mt-3 text-muted">
                         <i class="fa-solid fa-calendar me-2"></i>
@@ -264,9 +258,12 @@
 
     <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
     <transition name="pop">
-      <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
+      <div
+        class="vue-modal vue-modal-md mentoring-scroll"
+        v-if="modal == 'add'"
+      >
         <!-- {{ todos }} -->
-        <h6 class="my-0">New Todos</h6>
+        <h6 class="my-0">New Timeline</h6>
         <hr class="mb-1" />
         <form method="post" @submit.prevent="handleSubmit">
           <div class="my-3">
@@ -301,7 +298,7 @@
               <v-editor
                 api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
                 cols="30"
-                rows="15"
+                rows="7"
                 class="form-control form-mentoring w-100"
                 v-model="todos.description"
                 placeholder="Project Description"
@@ -380,7 +377,7 @@ export default {
 
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get("select/todos/" + id);
@@ -388,9 +385,9 @@ export default {
         this.todos_conf_need = response.data.data;
         this.todos_confirmed = response.data.data;
         // console.log(response);
-        this.$alert.close();
+        this.$Progress.finish();
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
@@ -497,6 +494,7 @@ export default {
 
 .checklist,
 .reject {
+  cursor: pointer;
   color: #223872;
 }
 

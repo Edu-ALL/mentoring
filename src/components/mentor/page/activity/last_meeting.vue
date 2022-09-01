@@ -251,30 +251,32 @@ export default {
   },
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(
           "../v2/list/activities/1-on-1-call/history?meeting-minutes=yes"
         );
+        this.$Progress.finish();
         this.meeting = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async getPage(link) {
       if (link != null) {
-        this.$alert.loading();
+        this.$Progress.start();
         try {
+          this.$Progress.finish();
           const response = await this.$axios.get(link);
           this.meeting = response.data.data;
           // console.log(response.data);
         } catch (e) {
+          this.$Progress.fail();
           console.log(e.response);
         }
-        this.$alert.close();
       }
     },
 

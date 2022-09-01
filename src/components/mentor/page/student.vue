@@ -3,8 +3,8 @@
     <div class="container" v-if="menus.submenu == ''">
       <div class="row mb-4">
         <div class="col-md-12 mb-3">
-          <div class="row row-cols-md-4 row-cols-1 align-items-center">
-            <div class="mt-2 col">
+          <div class="row align-items-center g-2">
+            <div class="mt-2 col-md-4 col-12 mb-md-0 mb-3">
               <input-group>
                 <input
                   v-model="search.name"
@@ -12,36 +12,45 @@
                   placeholder="fill in"
                   id="search"
                   class="form-mentoring form-control"
+                  @change="searchData"
                 />
                 <label for="search">Search</label>
               </input-group>
             </div>
 
-            <div class="mt-2 col">
-              <select
-                class="form-mentoring form-control w-100"
-                v-model="search.progress"
-              >
-                <option value="">Select progress status</option>
-                <option value="ahead">Ahead</option>
-                <option value="ontrack">On-Track</option>
-                <option value="behind">Behind</option>
-              </select>
+            <div class="mt-2 col-md-4 col-6 mb-md-0 mb-3">
+              <input-group>
+                <select
+                  class="form-select w-100"
+                  v-model="search.progress"
+                  @change="searchData"
+                >
+                  <option value="">Select progress status</option>
+                  <option value="ahead">Ahead</option>
+                  <option value="ontrack">On-Track</option>
+                  <option value="behind">Behind</option>
+                </select>
+                <label for="progress">Progress Status</label>
+              </input-group>
             </div>
 
-            <div class="mt-2 col">
-              <select
-                class="form-mentoring form-control w-100"
-                v-model="search.tag"
-              >
-                <option value="">Select Tag</option>
-                <option :value="i.name" v-for="i in tag_list" :key="i">
-                  {{ i.name }}
-                </option>
-              </select>
+            <div class="mt-2 col-md-4 col-6 mb-md-0 mb-3">
+              <input-group>
+                <select
+                  class="form-select w-100"
+                  v-model="search.tag"
+                  @change="searchData"
+                >
+                  <option value="">Select Tag</option>
+                  <option :value="i.name" v-for="i in tag_list" :key="i">
+                    {{ i.name }}
+                  </option>
+                </select>
+                <label for="tag">Tag</label>
+              </input-group>
             </div>
 
-            <div class="mt-2 text-end col">
+            <!-- <div class="mt-2 text-end col">
               <button
                 class="btn-mentoring btn-secondary py-1"
                 @click="searchData"
@@ -49,7 +58,7 @@
                 <i class="fa-solid fa-search me-3"></i>
                 Search
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -59,6 +68,7 @@
               <table class="table table-bordered table-hover align-middle">
                 <thead>
                   <tr class="text-center">
+                    <td>#</td>
                     <td nowrap>No</td>
                     <td nowrap>Full Name</td>
                     <td nowrap>Email</td>
@@ -70,13 +80,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <div
-                    class="col-6 text-center p-4"
-                    v-if="students_data.length == 0"
-                  >
-                    No students yet
-                  </div>
                   <tr v-for="(i, index) in students_data.data" :key="index">
+                    <td>
+                      <v-tooltip placement="right" arrow="true">
+                        <i
+                          class="bi bi-lightbulb-fill"
+                          :class="
+                            i.progress_status == 'ahead'
+                              ? 'text-success'
+                              : i.progress_status == 'ontrack'
+                              ? 'text-info'
+                              : 'text-danger'
+                          "
+                        ></i>
+                        <template #content>
+                          <div style="text-transform: capitalize">
+                            {{ i.progress_status }}
+                          </div>
+                        </template>
+                      </v-tooltip>
+                    </td>
                     <td class="text-center">{{ index + 1 }}</td>
                     <td nowrap class="pointer" @click="checkDetail(i.id)">
                       {{ i.first_name + " " + i.last_name }}
@@ -166,12 +189,13 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="text-center" v-if="students_data.from == null">
-                <hr />
-                <h6>Sorry, data is not found</h6>
-              </div>
             </div>
-
+            <div
+              class="border p-3 text-center text-muted"
+              v-if="students_data.from == null"
+            >
+              Sorry, data is not found
+            </div>
             <v-pagination :datas="students_data" @result="getPage" />
           </div>
         </div>
@@ -257,7 +281,7 @@ export default {
     },
 
     searchData() {
-      this.$alert.loading();
+      this.$Progress.start();
       this.$axios
         .get(
           "student/list?keyword=" +
@@ -268,12 +292,12 @@ export default {
             this.search.tag
         )
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.students_data = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
-          this.$alert.close();
+          this.$Progress.fail();
           console.log(error);
         });
     },
@@ -308,14 +332,10 @@ export default {
 
     async tagList() {
       try {
-        this.$alert.loading();
         const response = await this.$axios.get("list/tag");
-
         this.tag_list = response.data.data;
         // console.log(response.data);
-        this.$alert.close();
       } catch (e) {
-        this.$alert.close();
         console.log(e.response);
       }
     },
@@ -346,26 +366,29 @@ export default {
 
     async getHistory() {
       try {
-        this.$alert.loading();
+        this.$Progress.start();
         const response = await this.$axios.get("student/list");
 
         this.students_data = response.data.data;
         // console.log(response.data);
-        this.$alert.close();
+        this.$Progress.finish();
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     getPage(link) {
+      this.$Progress.start();
       this.$axios
         .get(link)
         .then((response) => {
+          this.$Progress.finish();
           this.students_data = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
+          this.$Progress.fail();
           console.log(error);
         });
     },

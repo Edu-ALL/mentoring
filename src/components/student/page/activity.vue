@@ -13,6 +13,7 @@
                   :class="activity == 'meeting' ? 'active' : ''"
                   @click="activityCheck('meeting')"
                 >
+                  <i class="bi bi-telephone me-1"></i>
                   Meetings
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>
@@ -23,7 +24,9 @@
                   class="list-group-item list-group-item-action"
                   :class="activity == 'group' ? 'active' : ''"
                   @click="activityCheck('group')"
-                  >Groups
+                >
+                  <i class="bi bi-people me-1"></i>
+                  Groups
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>
                   </div>
@@ -34,6 +37,7 @@
                   :class="activity == 'webinar' ? 'active' : ''"
                   @click="activityCheck('webinar')"
                 >
+                  <i class="bi bi-record-btn me-1"></i>
                   Webinars
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>
@@ -53,6 +57,7 @@
                   :class="activity == 'internship' ? 'active' : ''"
                   @click="activityCheck('internship')"
                 >
+                  <i class="bi bi-briefcase me-1"></i>
                   Internship Program
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>
@@ -64,6 +69,7 @@
                   :class="activity == 'career-module' ? 'active' : ''"
                   @click="activityCheck('career-module')"
                 >
+                  <i class="bi bi-book me-1"></i>
                   Career Modules
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>

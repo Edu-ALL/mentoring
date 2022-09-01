@@ -1,12 +1,9 @@
 <template>
   <div id="profile">
     <div class="container mt-4 pb-5">
-      <div class="row">
-        <div class="col-12"></div>
-      </div>
       <div class="row g-3">
         <div class="col-md-4 mb-3">
-          <div class="card border-0 shadow-sm">
+          <div class="card border-0 shadow-sm sticky-md-top profile-top">
             <div class="card-body">
               <div class="pointer" style="top: 100px" @click="redirect">
                 <h5 class="">My Profile</h5>
@@ -21,6 +18,7 @@
                   :class="section == 'info' ? 'active' : ''"
                   @click="section = 'info'"
                 >
+                  <i class="bi bi-person-badge me-1"></i>
                   Personal Information
                 </a>
                 <a
@@ -29,6 +27,7 @@
                   :class="section == 'sosmed' ? 'active' : ''"
                   @click="section = 'sosmed'"
                 >
+                  <i class="bi bi-facebook me-1"></i>
                   Social Media
                 </a>
                 <a
@@ -37,6 +36,7 @@
                   :class="section == 'interest' ? 'active' : ''"
                   @click="section = 'interest'"
                 >
+                  <i class="bi bi-hand-thumbs-up"></i>
                   Interest
                 </a>
                 <a
@@ -45,6 +45,7 @@
                   :class="section == 'competition' ? 'active' : ''"
                   @click="section = 'competition'"
                 >
+                  <i class="bi bi-award me-1"></i>
                   Competition
                 </a>
                 <a
@@ -53,6 +54,7 @@
                   :class="section == 'academic' ? 'active' : ''"
                   @click="section = 'academic'"
                 >
+                  <i class="bi bi-journal-bookmark me-1"></i>
                   Academic
                 </a>
                 <a
@@ -61,6 +63,7 @@
                   @click="modal = 'change-password'"
                   class="list-group-item list-group-item-action"
                 >
+                  <i class="bi bi-key me-1"></i>
                   Change Password
                 </a>
               </ul>
@@ -284,7 +287,17 @@ export default {
 </style>
 
 <style scoped>
+.profile-top {
+  top: 13vh;
+}
+
 .active {
   background: #223872 !important;
+}
+
+@media only screen and (max-width: 800px) {
+  .profile-top {
+    top: 0;
+  }
 }
 </style>

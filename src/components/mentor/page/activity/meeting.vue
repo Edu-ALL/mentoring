@@ -1,51 +1,53 @@
 <template>
   <div id="meeting">
-    <div class="d-flex align-items-center justify-content-between">
-      <h6 class="my-0 py-0">Meeting</h6>
-      <button class="btn btn-sm py-1 btn-type-3 mx-1" @click="modal = 'new'">
-        <i class="fa-solid fa-add"></i>
-      </button>
-    </div>
-    <hr class="my-1" />
     <!-- Tabs  -->
     <div class="row mt-1">
-      <div
-        class="col-12 d-flex w-100 mentoring-scroll overflow-auto py-2"
-        style="white-space: nowrap"
-      >
-        <button
-          class="btn btn-sm mx-1 py-1 px-3"
-          :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
-          @click="goTab('pending')"
-        >
-          Pending
-          <div class="badge bg-primary ms-2" v-if="summary.pending > 0">
-            {{ summary.pending }}
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="">
+            <button class="btn btn-sm py-1 btn-type-3" @click="modal = 'new'">
+              <i class="fa-solid fa-add me-1"></i> New a Meeting
+            </button>
           </div>
-        </button>
-        <button
-          class="btn btn-sm mx-1 py-1 px-3"
-          :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
-          @click="goTab('upcoming')"
-        >
-          Upcoming
-          <div class="badge bg-primary ms-2" v-if="summary.upcoming > 0">
-            {{ summary.upcoming }}
+          <div
+            class="mentoring-scroll overflow-auto py-2 w-50 text-end"
+            style="white-space: nowrap"
+          >
+            <button
+              class="btn btn-sm mx-1 py-1 px-3"
+              :class="tab == 'pending' ? 'btn-type-1' : 'btn-type-2'"
+              @click="goTab('pending')"
+            >
+              Pending
+              <div class="badge bg-primary ms-2" v-if="summary.pending > 0">
+                {{ summary.pending }}
+              </div>
+            </button>
+            <button
+              class="btn btn-sm mx-1 py-1 px-3"
+              :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
+              @click="goTab('upcoming')"
+            >
+              Upcoming
+              <div class="badge bg-primary ms-2" v-if="summary.upcoming > 0">
+                {{ summary.upcoming }}
+              </div>
+            </button>
+            <button
+              class="btn btn-sm mx-1 py-1 px-3"
+              :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
+              @click="goTab('history')"
+            >
+              History
+              <div class="badge bg-primary ms-2" v-if="summary.history > 0">
+                {{ summary.history }}
+              </div>
+            </button>
           </div>
-        </button>
-        <button
-          class="btn btn-sm mx-1 py-1 px-3"
-          :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
-          @click="goTab('history')"
-        >
-          History
-          <div class="badge bg-primary ms-2" v-if="summary.history > 0">
-            {{ summary.history }}
-          </div>
-        </button>
+        </div>
       </div>
     </div>
-    <div class="border p-1">
+    <div class="border p-2">
       <!-- Data  -->
 
       <!-- Pending  -->
@@ -353,17 +355,18 @@ export default {
     },
 
     async getData(tab) {
-      this.$alert.loading();
+      this.$Progress.start();
       this.meeting_data = [];
       try {
         const response = await this.$axios.get(
           "../v2/list/activities/1-on-1-call/" + tab
         );
-
+        this.$Progress.finish();
         this.getSummary();
         this.meeting_data = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
       }
       this.$alert.close();
@@ -371,13 +374,15 @@ export default {
 
     async getPage(link) {
       if (link != null) {
-        this.$alert.loading();
+        this.$Progress.start();
         this.meeting_data = [];
         try {
           const response = await this.$axios.get(link);
+          this.$Progress.finish();
           this.meeting_data = response.data.data;
           // console.log(response.data);
         } catch (e) {
+          this.$Progress.fail();
           console.log(e.response);
         }
         this.$alert.close();

@@ -13,6 +13,7 @@
                   :class="university == 'shortlisted' ? 'active' : ''"
                   @click="univCheck('shortlisted')"
                 >
+                  <i class="bi bi-list-columns me-1"></i>
                   Shortlisted
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>
@@ -23,7 +24,9 @@
                   class="list-group-item list-group-item-action"
                   :class="university == 'requirements' ? 'active' : ''"
                   @click="univCheck('requirements')"
-                  >Requirements
+                >
+                  <i class="bi bi-card-checklist me-1"></i>
+                  Requirements
                   <div class="float-end">
                     <i class="fa-solid fa-arrow-circle-right"></i>
                   </div>

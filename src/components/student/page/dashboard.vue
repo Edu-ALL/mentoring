@@ -1,7 +1,7 @@
 <template>
   <div id="dashboard">
     <div class="container mt-4">
-      <div class="row g-3">
+      <div class="row g-2">
         <div class="col-md-4 text-center">
           <div class="card shadow-sm mb-2">
             <div class="card-body">
@@ -31,16 +31,16 @@
 
               <h5 class="mt-3">Hello,</h5>
               <h2 class="user-name mb-0">{{ mentee.first_name }}</h2>
-              <div class="user-desc d-md-block d-none">
+              <div class="user-desc">
                 <div class="py-1 me-3">
                   <i class="bi bi-envelope-check text-success"></i>
                   {{ mentee.email }}
                 </div>
-                <div class="py-1">
+                <div class="py-1" v-if="mentee.phone_number">
                   <i class="bi bi-phone"></i>
                   {{ mentee.phone_number }}
                 </div>
-                <div class="d-md-flex d-block justify-content-center w-100">
+                <div class="d-flex justify-content-center w-100">
                   <div
                     class="py-1 me-2 pointer"
                     v-for="i in sosmed"
@@ -76,7 +76,7 @@
 
               <router-link
                 to="/user/my-profile"
-                class="btn bg-primary mt-md-2 py-1"
+                class="btn bg-primary mt-2 py-1"
               >
                 <i class="bi bi-person-circle me-1"></i>
                 My Profile
@@ -84,7 +84,7 @@
             </div>
           </div>
 
-          <div class="card shadow-sm mb-2">
+          <div class="card shadow-sm">
             <div class="card-body">
               <h6 class="mb-1">UNIVERSITY SHORTLISTED</h6>
               <div class="row row-cols-1">
@@ -629,7 +629,47 @@
                                 {{ i.task_name }}
                               </div>
                             </div>
-                            <div class="task-status text-end">
+                            <div
+                              class="
+                                task-status
+                                d-flex
+                                align-items-center
+                                text-end
+                              "
+                            >
+                              <v-tooltip
+                                placement="top"
+                                arrow="true"
+                                class="text-start"
+                                v-if="i.status != 3"
+                              >
+                                <i
+                                  class="
+                                    bi bi-question-circle-fill
+                                    me-2
+                                    mb-0
+                                    pb-0
+                                    pointer
+                                  "
+                                  style="font-size: 1.4em"
+                                ></i>
+                                <template #content>
+                                  <div v-if="i.status == 0">
+                                    Click the finished button to inform <br />
+                                    your mentor that you have finished the task.
+                                  </div>
+                                  <div v-if="i.status == 1">
+                                    Click the cancel button to inform your
+                                    <br />
+                                    mentor that your task is unfinished.
+                                  </div>
+                                  <div v-if="i.status == 2">
+                                    Click the revised button to inform your
+                                    mentor <br />
+                                    that you have revised the task.
+                                  </div>
+                                </template>
+                              </v-tooltip>
                               <button
                                 class="btn btn-sm btn-primary py-1"
                                 style="font-size: 1em"
@@ -637,10 +677,10 @@
                                 @click="switchTodos(i.id, 1)"
                               >
                                 <i class="bi bi-hourglass pointer me-1"></i>
-                                Pending
+                                Finished
                               </button>
                               <button
-                                class="btn btn-sm btn-info py-1"
+                                class="btn btn-sm btn-outline-danger py-1"
                                 style="font-size: 1em"
                                 v-if="i.status == 1"
                                 @click="switchTodos(i.id, 0)"
@@ -648,7 +688,7 @@
                                 <i
                                   class="bi bi-hourglass-split pointer me-1"
                                 ></i>
-                                Waiting
+                                Cancel
                               </button>
                               <button
                                 class="btn btn-sm btn-warning py-1"
@@ -659,16 +699,16 @@
                                 <i
                                   class="bi bi-arrow-clockwise pointer me-1"
                                 ></i>
-                                Need Revision
+                                Revised
                               </button>
-                              <button
-                                class="btn btn-sm btn-success py-1"
+                              <div
+                                class="text-success py-1"
                                 style="font-size: 1em"
                                 v-if="i.status == 3"
                               >
                                 <i class="bi bi-check-circle pointer me-1"></i>
-                                Completed
-                              </button>
+                                Done
+                              </div>
                             </div>
                           </div>
                           <div
@@ -763,7 +803,7 @@ export default {
         shortlisted: [],
       },
       meeting: [],
-      uni_status: "waitlisted",
+      uni_status: "shortlisted",
       uploaded_file: [],
       showGroupMeeting: false,
     };

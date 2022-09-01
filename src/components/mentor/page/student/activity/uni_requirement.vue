@@ -13,11 +13,7 @@
           ALL
         </button> -->
         <div class="text-end" style="white-space: nowrap">
-          <select
-            class="form-mentoring"
-            v-model="uni_select"
-            @change="checkTab()"
-          >
+          <select class="form-select" v-model="uni_select" @change="checkTab()">
             <option value="all">General</option>
             <option :value="i.imported_id" v-for="i in uni_list" :key="i">
               {{ i.uni_name }}
@@ -97,7 +93,7 @@ export default {
     },
 
     async getDataDocument(i = "all") {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
@@ -105,10 +101,10 @@ export default {
         );
 
         this.documents = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
@@ -121,7 +117,7 @@ export default {
         );
 
         this.academic = response.data.data;
-        console.log(response.data.data);
+        // console.log(response.data.data);
       } catch (e) {
         console.log(e.response);
       }

@@ -19,9 +19,24 @@
           />
         </div>
         <div class="col-md-9 mt-md-0 mt-3">
-          <h5>
-            {{ students_detail.first_name + " " + students_detail.last_name }}
-          </h5>
+          <div class="d-flex justify-content-between">
+            <h5>
+              {{ students_detail.first_name + " " + students_detail.last_name }}
+            </h5>
+            <div class="status" style="text-transform: capitalize">
+              <i
+                class="bi bi-lightbulb-fill me-1"
+                :class="
+                  students_detail.progress_status == 'ahead'
+                    ? 'text-success'
+                    : students_detail.progress_status == 'ontrack'
+                    ? 'text-info'
+                    : 'text-danger'
+                "
+              ></i>
+              {{ students_detail.progress_status }}
+            </div>
+          </div>
           <hr class="my-0 mb-2" />
           <div class="row">
             <div class="col-md-6">
@@ -45,14 +60,18 @@
             <div class="col-md-6">
               <div class="mb-2">
                 <label>Social Media</label> <br />
-                <div v-for="i in students_detail.social_media" :key="i">
-                  <div class="" v-if="i.hyperlink != null">
-                    <vue-feather
-                      :type="i.social_media_name"
-                      class="float-start me-2 mt-1"
-                      size="16"
-                    ></vue-feather>
-                    {{ i.hyperlink }} <br />
+                <div class="d-flex">
+                  <div v-for="i in students_detail.social_media" :key="i">
+                    <a
+                      :href="i.hyperlink"
+                      target="_blank"
+                      class="border-1 shadow-sm py-1 px-3 me-1"
+                      style="text-decoration: none"
+                      v-if="i.hyperlink != null"
+                    >
+                      <i :class="'bi bi-' + i.social_media_name + ' me-1'"></i>
+                      {{ i.username }} <br />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -68,14 +87,14 @@
 
     <!-- Activity  -->
 
-    <div class="card-white">
+    <div class="card-white mb-0 pb-0 sticky-top tab-top">
       <div
-        class="overflow-auto d-flex w-100 mentoring-scroll py-2"
+        class="overflow-auto d-flex w-100 mentoring-scroll py-2 bg-white"
         style="white-space: nowrap"
       >
         <button
-          class="btn btn-sm me-2 py-1 px-3"
-          :class="menus.key == i.slug ? 'btn-type-3' : 'btn-type-1'"
+          class="btn btn-sm me-1 py-1 px-2 ms-1"
+          :class="menus.key == i.slug ? 'btn-type-3' : 'btn-type-2'"
           @click="goTab(i.slug)"
           v-for="(i, index) in tab"
           :key="index"
@@ -83,7 +102,8 @@
           {{ i.name }}
         </button>
       </div>
-
+    </div>
+    <div class="card-white mt-0 pt-0">
       <!-- Meetings -->
       <transition name="fade">
         <v-meeting
@@ -94,7 +114,7 @@
 
       <!-- Todos  -->
       <transition name="fade">
-        <v-todos v-if="menus.key == 'todos'" :menus="menus" />
+        <v-todos v-if="menus.key == 'timeline'" :menus="menus" />
       </transition>
 
       <!-- Group  -->
@@ -152,7 +172,7 @@ export default {
       activity: "meeting",
       tab: [
         { slug: "meeting", name: "Meeting Logs" },
-        { slug: "todos", name: "Timeline" },
+        { slug: "timeline", name: "Timeline" },
         { slug: "group", name: "Group Project" },
         { slug: "webinar", name: "Webinar" },
         { slug: "uni_shortlisted", name: "University Shortlisted" },
@@ -185,6 +205,11 @@ export default {
 </script>
 
 <style scoped>
+.tab-top {
+  top: 13vh;
+  z-index: 90;
+}
+
 label {
   color: #6d6d6d;
   font-size: 0.8em;
@@ -200,5 +225,12 @@ label {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+}
+
+@media only screen and (max-width: 800px) {
+  .tab-top {
+    top: 13vh;
+    z-index: 90;
+  }
 }
 </style>

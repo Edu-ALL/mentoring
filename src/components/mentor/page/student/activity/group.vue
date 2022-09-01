@@ -1,6 +1,6 @@
 <template>
   <div id="groups">
-    <div class="border p-1 rounded mt-3">
+    <div class="border p-2 rounded mt-3">
       <div class="row" v-if="menus.key2 == ''">
         <div class="col-md-3">
           <div
@@ -336,49 +336,49 @@ export default {
 
   methods: {
     async newRequest() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "student/group/project/new/" + id
         );
         this.new_request = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async inProgress() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "student/group/project/in-progress/" + id
         );
         this.in_progress = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async historyProject() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.menus.submenu;
       try {
         const response = await this.$axios.get(
           "student/group/project/completed/" + id
         );
         this.history_project = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },

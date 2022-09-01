@@ -1,6 +1,6 @@
 <template>
   <div id="completed">
-    <div class="container p-1">
+    <div class="container p-1" v-if="group?.data?.length >= 0">
       <div class="row p-4" v-if="group?.data?.length == 0">
         <div class="col text-center text-muted">
           <p>No project group yet.</p>

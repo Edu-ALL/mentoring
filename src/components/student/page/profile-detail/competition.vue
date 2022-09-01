@@ -221,8 +221,8 @@ export default {
         name: "",
         level: "",
         accomplishment: "",
-        month: "",
-        year: "",
+        month: moment().format("MM"),
+        year: moment().format("YYYY"),
       },
       year: moment().format("YYYY"),
     };

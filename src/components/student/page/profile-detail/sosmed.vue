@@ -41,7 +41,7 @@
           </div>
           <div class="col-md-9 py-1">
             <div class="field d-md-flex">
-              <div class="data w-100 pe-md-3 mb-md-0">
+              <div class="data w-100 pe-md-3 mb-md-0 mb-3">
                 <input type="hidden" v-model="sosmed.id" />
                 <input-group>
                   <input
@@ -87,7 +87,7 @@
           </div>
           <div class="col-md-9 py-1">
             <div class="field d-md-flex">
-              <div class="data w-100 pe-md-3 mb-md-0">
+              <div class="data w-100 pe-md-3 mb-md-0 mb-3">
                 <input-group>
                   <input
                     type="text"
@@ -134,7 +134,7 @@
           </div>
           <div class="col-md-9 py-1">
             <div class="field d-md-flex">
-              <div class="data w-100 pe-md-3 mb-md-0">
+              <div class="data w-100 pe-md-3 mb-md-0 mb-3">
                 <input-group>
                   <input
                     type="text"

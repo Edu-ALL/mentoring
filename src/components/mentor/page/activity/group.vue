@@ -1,38 +1,46 @@
 <template>
   <div id="group">
     <div id="view" v-if="menus.key == '' || menus.key2 == ''">
-      <div class="d-flex align-items-center justify-content-between">
-        <h6 class="my-0 py-0">Group Project</h6>
-        <button class="btn btn-sm py-1 btn-type-3 mx-1" @click="modal = 'add'">
-          <i class="fa-solid fa-add"></i>
-        </button>
-      </div>
-      <hr class="my-1" />
       <!-- Tabs  -->
-      <div class="row mt-1">
+      <div class="row">
         <div class="col-md-12 menu-tab">
-          <button
-            class="btn btn-sm py-1 mx-1"
-            :class="
-              tab == '' || tab == 'in-progress' ? 'btn-type-1' : 'btn-type-2'
-            "
-            @click="checkTab('in-progress')"
-          >
-            In Progress
-            <div class="badge bg-primary ms-2" v-if="summary.upcoming > 0">
-              {{ summary.upcoming }}
+          <div class="d-flex justify-content-between align-items-center">
+            <button
+              class="btn btn-sm py-1 btn-type-3 mx-1"
+              @click="modal = 'add'"
+            >
+              <i class="fa-solid fa-add me-1"></i> New a Group
+            </button>
+            <div
+              class="mentoring-scroll overflow-auto py-2 w-50 text-end"
+              style="white-space: nowrap"
+            >
+              <button
+                class="btn btn-sm py-1 mx-1"
+                :class="
+                  tab == '' || tab == 'in-progress'
+                    ? 'btn-type-1'
+                    : 'btn-type-2'
+                "
+                @click="checkTab('in-progress')"
+              >
+                In Progress
+                <div class="badge bg-primary ms-2" v-if="summary.upcoming > 0">
+                  {{ summary.upcoming }}
+                </div>
+              </button>
+              <button
+                class="btn btn-sm py-1 mx-1"
+                :class="tab == 'completed' ? 'btn-type-1' : 'btn-type-2'"
+                @click="checkTab('completed')"
+              >
+                Completed
+                <div class="badge bg-primary ms-2" v-if="summary.history > 0">
+                  {{ summary.history }}
+                </div>
+              </button>
             </div>
-          </button>
-          <button
-            class="btn btn-sm py-1 mx-1"
-            :class="tab == 'completed' ? 'btn-type-1' : 'btn-type-2'"
-            @click="checkTab('completed')"
-          >
-            Completed
-            <div class="badge bg-primary ms-2" v-if="summary.history > 0">
-              {{ summary.history }}
-            </div>
-          </button>
+          </div>
         </div>
       </div>
 
@@ -240,34 +248,37 @@ export default {
     },
 
     async getData(tab = "in-progress") {
-      this.$alert.loading();
+      this.$Progress.start();
       this.group_data = [];
       try {
         const response = await this.$axios.get(
           "list/mentor/group/project/" + tab
         );
+        this.$Progress.finish();
         this.getSummary();
         this.group_data = response.data.data;
         // console.log(response.data);
       } catch (e) {
+        this.$Progress.fail();
         console.log(e.response);
         // this.$router.push({ path: "/mentor/activity/" });
       }
-      this.$alert.close();
     },
 
     async getPage(link) {
       if (link != null) {
-        this.$alert.loading();
+        this.$Progress.loading();
         this.group_data = [];
         try {
           const response = await this.$axios.get(link);
+
+          this.$Progress.finish();
           this.group_data = response.data.data;
-          console.log(response.data);
+          // console.log(response.data);
         } catch (e) {
+          this.$Progress.fail();
           console.log(e.response);
         }
-        this.$alert.close();
       }
     },
 

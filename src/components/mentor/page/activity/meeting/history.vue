@@ -1,5 +1,5 @@
 <template>
-  <div id="history">
+  <div id="history" v-if="meeting?.data?.length >= 0">
     <div class="row p-4" v-if="meeting?.data?.length == 0">
       <div class="col text-center text-muted">
         <p class="my-0">No meeting yet.</p>

@@ -105,6 +105,7 @@ textarea {
 }
 
 .form-mentoring:focus,
+.form-select:focus,
 textarea:focus {
     outline: none;
     border: 2px solid #a2a2a2;
@@ -212,16 +213,23 @@ input-group select:not(:placeholder-shown)+label {
     color: #EFA859;
 }
 
-.form-control {
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 2px solid #dedede;
     box-shadow: none !important;
     outline: none !important;
+    font-size: .875rem;
+    font-weight: 300 !important;
 }
+
 
 .mce-content-body {
     font-size: .9em !important;
 }
 
 @supports (-webkit-touch-callout: none) {
+
     input-group {
         position: relative !important;
     }
@@ -254,7 +262,8 @@ input-group select:not(:placeholder-shown)+label {
 
 
     input-group input:not(:placeholder-shown)+label,
-    input-group textarea:not(:placeholder-shown)+label {
+    input-group textarea:not(:placeholder-shown)+label,
+    input-group select:not(:placeholder-shown)+label {
         top: -50px;
         left: 12px;
         background: #fff;

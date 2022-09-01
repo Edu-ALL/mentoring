@@ -51,39 +51,27 @@
         <div class="row" :class="sidebarClass">
           <div class="col p-1">
             <button
-              class="btn btn-menus shadow-sm"
+              class="btn btn-menus btn-sm py-1 shadow-sm"
               :class="menus.menu == '' ? 'active' : ''"
               @click="this.$router.push({ path: '/mentor/' })"
             >
-              <vue-feather
-                type="home"
-                class="float-start mt-1 me-2"
-                size="16"
-              ></vue-feather>
+              <i class="bi bi-speedometer2 me-1"></i>
               Home
             </button>
             <button
-              class="btn btn-menus shadow-sm"
+              class="btn btn-menus btn-sm py-1 shadow-sm"
               :class="menus.menu == 'student' ? 'active' : ''"
               @click="this.$router.push({ path: '/mentor/student' })"
             >
-              <vue-feather
-                type="users"
-                class="float-start mt-1 me-2"
-                size="16"
-              ></vue-feather>
+              <i class="bi bi-people me-1"></i>
               My Students
             </button>
             <button
-              class="btn btn-menus shadow-sm"
+              class="btn btn-menus btn-sm py-1 shadow-sm"
               :class="menus.menu == 'activity' ? 'active' : ''"
               @click="this.$router.push({ path: '/mentor/activity' })"
             >
-              <vue-feather
-                type="clipboard"
-                class="float-start mt-1 me-2"
-                size="16"
-              ></vue-feather>
+              <i class="bi bi-clipboard me-1"></i>
               My Activities
             </button>
           </div>
@@ -166,7 +154,7 @@ export default {
   background: #fff;
   border-radius: 10px;
   margin-right: 10px;
-  padding: 5px 25px;
+  padding: 5px 15px;
   transition: all 0.3s ease-in-out;
 }
 

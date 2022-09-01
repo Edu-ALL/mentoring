@@ -10,7 +10,7 @@
                 @click="goTo('')"
                 :class="menus.submenu == '' ? 'btn-type-1' : ''"
               >
-                <i class="fa-solid fa-phone fa-fw me-2"></i>
+                <i class="bi bi-telephone me-1"></i>
                 <span v-if="sidebar">Meetings</span>
               </div>
               <hr class="my-0" />
@@ -19,7 +19,7 @@
                 @click="goTo('group')"
                 :class="menus.submenu == 'group' ? 'btn-type-1' : ''"
               >
-                <i class="fa-solid fa-users fa-fw me-2"></i>
+                <i class="bi bi-people me-1"></i>
                 <span v-if="sidebar">Group Project</span>
               </div>
               <hr class="my-0" />
@@ -28,7 +28,7 @@
                 @click="goTo('last-meeting')"
                 :class="menus.submenu == 'last-meeting' ? 'btn-type-1' : ''"
               >
-                <i class="fa-solid fa-file fa-fw me-2"></i>
+                <i class="bi bi-journal-bookmark me-1"></i>
                 <span v-if="sidebar">Last Meeting Minutes</span>
               </div>
             </div>
