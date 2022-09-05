@@ -16,7 +16,7 @@
         :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
       >
         <strong>
-          Sign-in as
+          Sign in as
           <span style="text-transform: capitalize">
             {{ login_as }}
           </span></strong
@@ -120,7 +120,7 @@
             >
               click here</span
             >
-            to sign-in
+            to sign in
           </p>
         </div>
       </form>

@@ -42,7 +42,7 @@
                   <strong> Reset Password </strong>
                 </button>
                 <p class="mb-0">
-                  I'v remembered my password,
+                  I've remembered my password,
                   <u
                     class="text-secondary pointer"
                     @click="this.$emit('show', 'login')"
