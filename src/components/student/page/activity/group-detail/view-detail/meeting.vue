@@ -24,33 +24,34 @@
             :key="index"
           >
             <div class="row align-items-center">
-              <div class="col-1">{{ index + 1 }}</div>
               <div class="col-md-3 col-12 p-0">
-                <div
-                  :class="
-                    group.student_id == student.id ? 'meeting-subject' : ''
-                  "
-                >
+                <div :class="i.status == 0 ? 'meeting-subject' : ''">
                   {{ i.meeting_subject }}
                   <div
                     class="cancel justify-content-center"
-                    v-if="group.student_id == student.id && i.status == 0"
                     @click="cancelModal(i.id)"
+                    v-if="i.status == 0"
                   >
                     <div class="text-center">Cancel</div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-11 text-md-center">
-                {{ $customDate.date(i.meeting_date) }} <br />
-                {{ $customDate.time(i.meeting_date) }}
+              <div class="col-md-4 col-11 text-md-center">
+                {{ $customDate.date(i.start_meeting_date) }} <br />
+                <small>
+                  {{
+                    $customDate.time(i.start_meeting_date) +
+                    " - " +
+                    $customDate.time(i.end_meeting_date)
+                  }}
+                </small>
               </div>
               <div class="col-md-3 text-md-center">
                 <div class="text-primary" v-if="i.status == 0">Upcoming</div>
                 <div class="text-success" v-if="i.status == 1">Completed</div>
-                <div class="text-danger" v-if="i.status == 2">Cancel</div>
+                <div class="text-danger" v-if="i.status == 2">Canceled</div>
               </div>
-              <div class="col-md-2 text-md-end">
+              <div class="col-md-2 text-md-end p-0">
                 <button
                   :class="i.status != 0 ? 'bg-light text-muted' : 'bg-primary'"
                   :disabled="i.status != 0"
@@ -89,12 +90,13 @@
 
           <div class="mb-3">
             <div class="row g-2">
-              <div class="col">
+              <div class="col-12 mb-2">
                 <input-group>
                   <input
                     :type="input.date"
                     class="form-mentoring form-control w-100"
-                    v-model="meeting.meeting_date"
+                    v-model="meeting_date.date"
+                    :min="this.$customDate.todayDate()"
                     required
                     placeholder="fill in here"
                     @focus="input.date = 'date'"
@@ -104,19 +106,36 @@
                   <label for="date">Meeting Date</label>
                 </input-group>
               </div>
-              <div class="col">
+              <div class="col-6">
                 <input-group>
                   <input
-                    :type="input.time"
+                    :type="input.start"
                     class="form-mentoring form-control w-100"
-                    v-model="meeting.meeting_time"
+                    v-model="meeting_date.start"
                     required
                     placeholder="fill in here"
-                    @focus="input.time = 'time'"
-                    @blur="input.time = 'text'"
+                    @focus="input.start = 'time'"
+                    @blur="input.start = 'text'"
                     id="time"
+                    :disabled="meeting_date.date == ''"
                   />
-                  <label for="time">Time</label>
+                  <label for="time">Start Time</label>
+                </input-group>
+              </div>
+              <div class="col-6">
+                <input-group>
+                  <input
+                    :type="input.end"
+                    class="form-mentoring form-control w-100"
+                    v-model="meeting_date.end"
+                    required
+                    placeholder="fill in here"
+                    @focus="input.end = 'time'"
+                    @blur="input.end = 'text'"
+                    id="end"
+                    :disabled="meeting_date.start == ''"
+                  />
+                  <label for="end">End Time</label>
                 </input-group>
               </div>
             </div>
@@ -125,7 +144,7 @@
           <div class="mb-3">
             <input-group>
               <input
-                type="text"
+                type="url"
                 class="form-mentoring form-control w-100"
                 v-model="meeting.meeting_link"
                 required
@@ -143,6 +162,7 @@
                 class="btn-mentoring btn-sm py-1 btn-outline-danger"
                 @click="modal = ''"
               >
+                <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>
@@ -151,6 +171,7 @@
                 type="submit"
                 class="btn-mentoring btn-sm py-1 btn-success"
               >
+                <i class="bi bi-save me-1"></i>
                 Save
               </button>
             </div>
@@ -202,20 +223,33 @@ export default {
       meeting: {
         group_id: "",
         meeting_subject: "",
-        meeting_date: "",
+        start_date: "",
+        end_date: "",
         meeting_link: "",
         status: "0",
       },
-      input: { meeting: "text" },
+      meeting_date: {
+        date: "",
+        start: "",
+        end: "",
+      },
+      input: { date: "text", start: "text", end: "text" },
     };
   },
   methods: {
     async handleSubmit() {
       this.modal = "";
       this.meeting.group_id = this.group.id;
-      this.meeting.meeting_date =
-        this.meeting.meeting_date + " " + this.meeting.meeting_time;
-      this.meeting.meeting_date = moment(this.meeting.meeting_date).format(
+      // Start Date
+      this.meeting.start_date =
+        this.meeting_date.date + " " + this.meeting_date.start;
+      this.meeting.start_date = moment(this.meeting.start_date).format(
+        "YYYY-MM-DD HH:mm"
+      );
+      // End Date
+      this.meeting.end_date =
+        this.meeting_date.date + " " + this.meeting_date.end;
+      this.meeting.end_date = moment(this.meeting.end_date).format(
         "YYYY-MM-DD HH:mm"
       );
 
@@ -228,14 +262,27 @@ export default {
           this.meeting
         );
 
-        this.meeting.meeting_subject = "";
-        this.meeting.meeting_link = "";
+        if (response.data.success) {
+          this.meeting.meeting_subject = "";
+          this.meeting.meeting_link = "";
+          this.meeting_date.date = "";
+          this.meeting_date.start = "";
+          this.meeting_date.end = "";
 
-        // console.log(response.data);
-        this.$alert.toast("success", response.data.message);
-        setTimeout(() => {
-          this.$emit("check", "new");
-        }, 3000);
+          // console.log(response.data);
+          this.$alert.toast("success", response.data.message);
+          setTimeout(() => {
+            this.$emit("check", "new");
+          }, 3000);
+        } else {
+          this.modal = "new-meeting";
+
+          this.meeting_date.date = "";
+          this.meeting_date.start = "";
+          this.meeting_date.end = "";
+
+          this.$alert.toast("error", response.data.error);
+        }
       } catch (e) {
         console.log(e.response);
         this.$alert.toast("error", "Please try again");

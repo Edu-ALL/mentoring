@@ -41,14 +41,21 @@
                     </div>
                   </div>
                   <div class="mt-2">
-                    <div class="badge badge-group bg-info px-3 py-1">
+                    <!-- <div class="badge badge-group bg-info px-3 py-1">
                       {{ i.project_type }}
-                    </div>
-                    <div class="badge badge-group bg-info px-3 py-1 ms-1">
+                    </div> -->
+                    <div class="badge badge-group bg-primary px-3 py-1 ms-1">
                       {{ i.group_participant_count }} Members
                     </div>
                     <div
-                      class="badge badge-group bg-info px-3 py-1 ms-1"
+                      class="badge badge-group px-3 py-1 ms-1"
+                      :class="
+                        i.progress_status == 'ahead'
+                          ? 'bg-success'
+                          : i.progress_status == 'on-track'
+                          ? 'bg-info'
+                          : 'bg-danger'
+                      "
                       v-if="
                         i.progress_status != '' || i.progress_status != null
                       "

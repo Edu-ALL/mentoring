@@ -90,8 +90,10 @@
               v-model="members"
               :options="menteeList"
               placeholder="Invite new member"
-              :close-on-select="false"
-              :clear-on-select="false"
+              :close-on-select="true"
+              :clear-on-select="true"
+              deselect-label=""
+              select-label=""
               track-by="id"
               :custom-label="customLabel"
               :multiple="true"
@@ -109,6 +111,7 @@
                 class="btn-mentoring btn-sm py-1 btn-outline-danger"
                 @click="modal = ''"
               >
+                <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>
@@ -117,6 +120,7 @@
                 type="submit"
                 class="btn-mentoring btn-sm py-1 btn-success"
               >
+                <i class="bi bi-person-plus me-1"></i>
                 Invite
               </button>
             </div>
@@ -137,13 +141,15 @@
           class="btn-mentoring btn-sm py-1 btn-danger mx-1"
           @click="modal = ''"
         >
-          Cancel
+          <i class="bi bi-x-circle me-1"></i>
+          Close
         </button>
         <button
           class="btn-mentoring btn-sm py-1 btn-outline-success mx-1"
           @click="handleRemove()"
         >
-          Yes
+          <i class="bi bi-trash2 me-1"></i>
+          Yes, Remove
         </button>
       </div>
     </transition>

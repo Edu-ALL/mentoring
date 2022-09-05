@@ -49,7 +49,7 @@
                   >-</span
                 >
                 <div
-                  style="max-width: 500px"
+                  style="width: 500px"
                   class="py-0 my-0"
                   v-if="i.meeting_minutes"
                   v-html="i.meeting_minutes.academic_performance"
@@ -58,7 +58,7 @@
               <td class="text-start">
                 <span v-if="i.meeting_minutes?.exploration == null">-</span>
                 <div
-                  style="max-width: 500px"
+                  style="width: 500px"
                   class="py-0 my-0"
                   v-if="i.meeting_minutes"
                   v-html="i.meeting_minutes.exploration"
@@ -67,7 +67,7 @@
               <td class="text-start">
                 <span v-if="i.meeting_minutes?.writing_skills == null">-</span>
                 <div
-                  style="max-width: 500px"
+                  style="width: 500px"
                   class="py-0 my-0"
                   v-if="i.meeting_minutes"
                   v-html="i.meeting_minutes.writing_skills"
@@ -76,7 +76,7 @@
               <td class="text-start">
                 <span v-if="i.meeting_minutes?.personal_brand == null">-</span>
                 <div
-                  style="max-width: 500px"
+                  style="width: 500px"
                   class="py-0 my-0"
                   v-if="i.meeting_minutes"
                   v-html="i.meeting_minutes.personal_brand"
@@ -85,7 +85,7 @@
               <td class="text-start">
                 <span v-if="i.meeting_minutes?.mt_todos_note == null">-</span>
                 <div
-                  style="max-width: 500px"
+                  style="width: 500px"
                   class="py-0 my-0"
                   v-if="i.meeting_minutes"
                   v-html="i.meeting_minutes.mt_todos_note"
@@ -94,7 +94,7 @@
               <td class="text-start">
                 <span v-if="i.meeting_minutes?.st_todos_note == null">-</span>
                 <div
-                  style="max-width: 500px"
+                  style="width: 500px"
                   class="py-0 my-0"
                   v-if="i.meeting_minutes"
                   v-html="i.meeting_minutes.st_todos_note"

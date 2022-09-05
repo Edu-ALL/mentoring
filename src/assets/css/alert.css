@@ -29,3 +29,7 @@
 .colored-toast .swal2-html-container {
   color: white;
 }
+
+body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown .swal2-container.swal2-bottom-right {
+  z-index: 9999999 !important;
+}

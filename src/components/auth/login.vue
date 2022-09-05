@@ -16,7 +16,7 @@
         :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
       >
         <strong>
-          Login as
+          Sign-in as
           <span style="text-transform: capitalize">
             {{ login_as }}
           </span></strong
@@ -100,14 +100,17 @@
             to create one!
           </p> -->
           <p>
-            Sign in as
+            Are you a
+            <span v-if="login_as == 'student'">mentor</span>
+            <span v-if="login_as == 'mentor'">student</span>? <br />
+            Please
             <span
               class="pointer"
               :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
               @click="login_as = 'mentor'"
               v-if="login_as == 'student'"
             >
-              Mentor</span
+              click here</span
             >
             <span
               class="pointer"
@@ -115,8 +118,9 @@
               @click="login_as = 'student'"
               v-if="login_as == 'mentor'"
             >
-              Student</span
+              click here</span
             >
+            to sign-in
           </p>
         </div>
       </form>

@@ -13,9 +13,9 @@
           <div class="col-6">
             <div class="navbar-mentor-img float-end">
               <img
-                src="~@/assets/img/editor/alysha.webp"
+                src="~@/assets/img/person.png"
                 alt=""
-                class="dropdown-toggle pointer"
+                class="dropdown-toggle pointer p-1"
                 data-bs-toggle="dropdown"
               />
               <ul

@@ -10,6 +10,17 @@
         </div>
       </div>
       <div class="col-md-6 text-end mt-md-0 mt-3">
+        <i
+          class="bi bi-lightbulb-fill me-1"
+          :class="
+            group_info.progress_status == 'ahead'
+              ? 'text-success'
+              : group_info.progress_status == 'on-track'
+              ? 'text-info'
+              : 'text-danger'
+          "
+          v-if="group_info.progress_status"
+        ></i>
         <select
           v-model="group_info.progress_status"
           class="form-mentoring py-1 me-1"
@@ -19,9 +30,9 @@
           <option value="null" v-if="group_info.progress_status == null">
             Update progress here
           </option>
-          <option value="ahead">Ahead</option>
-          <option value="on-track">On-track</option>
-          <option value="behind">Behind</option>
+          <option value="ahead" class="text-success">&#9755; Ahead</option>
+          <option value="on-track" class="text-info">&#9755; On-track</option>
+          <option value="behind" class="text-danger">&#9755; Behind</option>
         </select>
         <button
           class="btn-mentoring py-1 px-3 btn-sm btn-outline-success"
@@ -123,7 +134,7 @@
                     <label for="groupName">Group Name</label>
                   </input-group>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <group-type
                     v-model="group_info.project_type"
                     :options="options"
@@ -132,25 +143,25 @@
                     class="mt-3"
                   >
                   </group-type>
-                </div>
+                </div> -->
                 <div class="mb-2">
                   <input-group>
-                    <textarea
+                    <v-editor
+                      api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
+                      rows="10"
+                      class="form-control form-mentoring w-100"
                       v-model="group_info.project_desc"
-                      class="form-mentoring form-control w-100"
-                      rows="5"
-                      placeholder="fill in here..."
+                      placeholder="Project Description"
                       id="desc"
-                    ></textarea>
-                    <label class="bg-white" for="desc">Group Description</label>
+                    ></v-editor>
                   </input-group>
                 </div>
-                <hr class="my-0 mb-2" />
-                <div class="text-end">
+                <div class="text-end mt-3">
                   <button
                     type="submit"
                     class="btn-mentoring btn-sm bg-primary py-1"
                   >
+                    <i class="bi bi-save me-1"></i>
                     Save Changes
                   </button>
                 </div>
@@ -218,7 +229,7 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+// import Multiselect from "vue-multiselect";
 
 import Meeting from "@/components/mentor/page/activity/group/view-detail/meeting";
 import Member from "@/components/mentor/page/activity/group/view-detail/member";
@@ -231,7 +242,7 @@ export default {
   components: {
     "v-meeting": Meeting,
     "v-member": Member,
-    "group-type": Multiselect,
+    // "group-type": Multiselect,
   },
   data() {
     return {

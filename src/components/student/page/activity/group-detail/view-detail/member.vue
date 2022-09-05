@@ -95,6 +95,7 @@
                 class="btn-mentoring btn-sm py-1 btn-outline-danger"
                 @click="modal = ''"
               >
+                <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>
@@ -103,6 +104,7 @@
                 type="submit"
                 class="btn-mentoring btn-sm py-1 btn-success"
               >
+                <i class="bi bi-person-plus me-1"></i>
                 Invite
               </button>
             </div>

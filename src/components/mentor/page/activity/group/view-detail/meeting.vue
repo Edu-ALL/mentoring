@@ -20,7 +20,6 @@
             :key="index"
           >
             <div class="row align-items-center">
-              <div class="col-1">{{ index + 1 }}</div>
               <div class="col-md-3 col-12 p-0">
                 <div :class="i.status == 0 ? 'meeting-subject' : ''">
                   {{ i.meeting_subject }}
@@ -33,9 +32,15 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-11 text-md-center">
-                {{ $customDate.date(i.meeting_date) }} <br />
-                {{ $customDate.time(i.meeting_date) }}
+              <div class="col-md-4 col-11 text-md-center">
+                {{ $customDate.date(i.start_meeting_date) }} <br />
+                <small>
+                  {{
+                    $customDate.time(i.start_meeting_date) +
+                    " - " +
+                    $customDate.time(i.end_meeting_date)
+                  }}
+                </small>
               </div>
               <div class="col-md-3 text-md-center">
                 <div class="text-primary" v-if="i.status == 0">Upcoming</div>
@@ -58,7 +63,7 @@
       </div>
     </div>
 
-    <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+    <div class="vue-modal-overlay" v-if="modal != ''"></div>
     <!-- New Meeting  -->
     <transition name="pop">
       <div class="vue-modal vue-modal-sm" v-if="modal == 'new-meeting'">
@@ -69,44 +74,80 @@
             <input-group>
               <input
                 type="text"
-                class="form-control form-mentoring w-100"
+                class="form-mentoring form-control w-100"
                 required
+                placeholder="fill in here"
                 v-model="meeting.meeting_subject"
-                placeholder="fill in here.."
-                id="meetingSubject"
+                id="subject"
               />
-              <label for="meetingSubject">Meeting Subject</label>
+              <label for="subject">Meeting Subject</label>
             </input-group>
+          </div>
+
+          <div class="mb-3">
+            <div class="row g-2">
+              <div class="col-12 mb-2">
+                <input-group>
+                  <input
+                    :type="input.date"
+                    class="form-mentoring form-control w-100"
+                    v-model="meeting_date.date"
+                    :min="this.$customDate.todayDate()"
+                    required
+                    placeholder="fill in here"
+                    @focus="input.date = 'date'"
+                    @blur="input.date = 'text'"
+                    id="date"
+                  />
+                  <label for="date">Meeting Date</label>
+                </input-group>
+              </div>
+              <div class="col-6">
+                <input-group>
+                  <input
+                    :type="input.start"
+                    class="form-mentoring form-control w-100"
+                    v-model="meeting_date.start"
+                    required
+                    placeholder="fill in here"
+                    @focus="input.start = 'time'"
+                    @blur="input.start = 'text'"
+                    :disabled="meeting_date.date == ''"
+                    id="time"
+                  />
+                  <label for="time">Start Time</label>
+                </input-group>
+              </div>
+              <div class="col-6">
+                <input-group>
+                  <input
+                    :type="input.end"
+                    class="form-mentoring form-control w-100"
+                    v-model="meeting_date.end"
+                    required
+                    placeholder="fill in here"
+                    @focus="input.end = 'time'"
+                    @blur="input.end = 'text'"
+                    :disabled="meeting_date.start == ''"
+                    id="end"
+                  />
+                  <label for="end">End Time</label>
+                </input-group>
+              </div>
+            </div>
           </div>
 
           <div class="mb-3">
             <input-group>
               <input
-                :type="input.meeting"
-                :min="this.$customDate.tomorrow()"
-                class="form-control form-mentoring w-100"
-                v-model="meeting.meeting_date"
-                placeholder="fill in here.."
-                required
-                @focus="input.meeting = 'datetime-local'"
-                @blur="input.meeting = 'text'"
-                id="meetingDate"
-              />
-              <label for="meetingDate">Meeting Date</label>
-            </input-group>
-          </div>
-
-          <div class="mb-3">
-            <input-group>
-              <input
-                type="text"
-                class="form-control form-mentoring w-100"
+                type="url"
+                class="form-mentoring form-control w-100"
                 v-model="meeting.meeting_link"
-                placeholder="fill in here.."
                 required
-                id="meetingLocation"
+                placeholder="fill in here"
+                id="link"
               />
-              <label for="meetingLocation">Location Link</label>
+              <label for="link">Location Link</label>
             </input-group>
           </div>
           <hr />
@@ -117,6 +158,7 @@
                 class="btn-mentoring btn-sm py-1 btn-outline-danger"
                 @click="modal = ''"
               >
+                <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>
@@ -125,6 +167,7 @@
                 type="submit"
                 class="btn-mentoring btn-sm py-1 btn-success"
               >
+                <i class="bi bi-save me-1"></i>
                 Save
               </button>
             </div>
@@ -176,18 +219,33 @@ export default {
       meeting: {
         group_id: "",
         meeting_subject: "",
-        meeting_date: "",
+        start_date: "",
+        end_date: "",
         meeting_link: "",
         status: "0",
       },
-      input: { meeting: "text" },
+      meeting_date: {
+        date: "",
+        start: "",
+        end: "",
+      },
+      input: { date: "text", start: "text", end: "text" },
     };
   },
   methods: {
     async handleSubmit() {
       this.modal = "";
       this.meeting.group_id = this.group.id;
-      this.meeting.meeting_date = moment(this.meeting.meeting_date).format(
+      // Start Date
+      this.meeting.start_date =
+        this.meeting_date.date + " " + this.meeting_date.start;
+      this.meeting.start_date = moment(this.meeting.start_date).format(
+        "YYYY-MM-DD HH:mm"
+      );
+      // End Date
+      this.meeting.end_date =
+        this.meeting_date.date + " " + this.meeting_date.end;
+      this.meeting.end_date = moment(this.meeting.end_date).format(
         "YYYY-MM-DD HH:mm"
       );
 
@@ -198,12 +256,23 @@ export default {
           this.meeting
         );
 
-        this.meeting.meeting_subject = "";
-        this.meeting.meeting_link = "";
-
         // console.log(response.data);
-        this.$emit("check", "new");
-        this.$alert.toast("success", response.data.message);
+        if (response.data.success) {
+          this.meeting.meeting_subject = "";
+          this.meeting.meeting_link = "";
+          this.meeting_date.date = "";
+          this.meeting_date.start = "";
+          this.meeting_date.end = "";
+
+          this.$emit("check", "new");
+          this.$alert.toast("success", response.data.message);
+        } else {
+          this.modal = "new-meeting";
+          this.meeting_date.date = "";
+          this.meeting_date.start = "";
+          this.meeting_date.end = "";
+          this.$alert.toast("error", response.data.error);
+        }
       } catch (e) {
         console.log(e.response.data);
         this.$alert.toast("error", "Please try again");

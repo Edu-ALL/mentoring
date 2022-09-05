@@ -28,14 +28,18 @@
             <td class="text-start" nowrap style="text-transform: capitalize">
               {{ i.students.first_name + " " + i.students.last_name }}
             </td>
-            <td nowrap style="text-transform: capitalize">
+            <td class="text-start" style="text-transform: capitalize">
               {{ i.module }}
             </td>
             <td nowrap>
-              {{ $customDate.date(i.call_date) }}
+              {{ $customDate.date(i.start_call_date) }}
             </td>
             <td nowrap>
-              {{ $customDate.time(i.call_date) }}
+              {{
+                $customDate.time(i.start_call_date) +
+                " - " +
+                $customDate.time(i.end_call_date)
+              }}
             </td>
             <td style="text-transform: capitalize">
               <small class="text-info">
@@ -43,11 +47,18 @@
                 {{ i.call_status }}
               </small>
             </td>
-            <td>
+            <td nowrap>
               <button
-                class="btn-mentoring btn-sm btn-outline-danger mx-1 mt-1 py-1"
+                class="
+                  btn-mentoring btn-sm btn-outline-danger
+                  mt-1
+                  py-1
+                  ps-1
+                  pe-2
+                "
                 @click="cancelMeeting(i.id)"
               >
+                <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </td>
@@ -63,20 +74,36 @@
     <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'cancel'">
       <div class="text-center">
         <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-        <h5 class="mt-2">Are you sure to cancel this meeting?</h5>
-        <div class="mt-3">
-          <button
-            class="btn-mentoring btn-warning btn-sm py-1 mx-1"
-            @click="modal = ''"
-          >
-            Cancel</button
-          ><button
-            class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
-            @click="handleCancel"
-          >
-            Yes
-          </button>
-        </div>
+        <div class="mt-2">Are you sure to cancel this meeting?</div>
+        <form @submit.prevent="handleCancel">
+          <div class="text-start mt-3">
+            <input-group>
+              <textarea
+                v-model="reason"
+                rows="5"
+                class="form-control"
+                required
+              ></textarea>
+              <label for="reason" class="text-dark">Reason</label>
+            </input-group>
+          </div>
+          <div class="mt-3">
+            <button
+              type="button"
+              class="btn-mentoring btn-warning btn-sm py-1 mx-1"
+              @click="modal = ''"
+            >
+              <i class="bi bi-x-circle me-1"></i>
+              Close</button
+            ><button
+              type="submit"
+              class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
+            >
+              <i class="bi bi-check me-1"></i>
+              Yes, Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </transition>
@@ -92,6 +119,7 @@ export default {
     return {
       modal: "",
       meeting_id: "",
+      reason: "",
     };
   },
   methods: {
@@ -109,7 +137,10 @@ export default {
       try {
         const response = await this.$axios.put(
           "mentor/cancel/activities/" + this.meeting_id,
-          { staus: "cancel" }
+          {
+            status: "cancel",
+            reason: this.reason,
+          }
         );
 
         this.modal = "";

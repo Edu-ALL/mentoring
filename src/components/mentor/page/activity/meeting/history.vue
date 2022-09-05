@@ -27,27 +27,45 @@
             <td class="text-start" nowrap style="text-transform: capitalize">
               {{ i.students.first_name + " " + i.students.last_name }}
             </td>
-            <td nowrap style="text-transform: capitalize">
+            <td class="text-start" style="text-transform: capitalize">
               {{ i.module }}
             </td>
             <td nowrap>
-              {{ $customDate.date(i.call_date) }}
+              {{ $customDate.date(i.start_call_date) }}
             </td>
             <td nowrap>
-              {{ $customDate.time(i.call_date) }}
+              {{
+                $customDate.time(i.start_call_date) +
+                " - " +
+                $customDate.time(i.end_call_date)
+              }}
             </td>
             <td nowrap style="text-transform: capitalize">
               <small class="text-warning" v-if="i.call_status == 'canceled'">
-                <i class="fa-solid fa-times"></i>
-                {{ i.call_status }}
+                <v-tooltip arrow placement="top" class="pointer">
+                  <i class="fa-solid fa-times"></i>
+                  {{ i.call_status }}
+                  <template #content v-if="i.mt_reason">
+                    <div style="max-width: 200px; white-space: normal">
+                      {{ i.mt_reason }}
+                    </div>
+                  </template>
+                </v-tooltip>
               </small>
               <small class="text-info" v-if="i.call_status == 'finished'">
                 <i class="fa-solid fa-check"></i>
                 {{ i.call_status }}
               </small>
               <small class="text-danger" v-if="i.call_status == 'rejected'">
-                <i class="fa-solid fa-times"></i>
-                {{ i.call_status }}
+                <v-tooltip arrow placement="top" class="pointer">
+                  <i class="fa-solid fa-times"></i>
+                  {{ i.call_status }}
+                  <template #content v-if="i.std_reason">
+                    <div style="max-width: 200px; white-space: normal">
+                      {{ i.std_reason }}
+                    </div>
+                  </template>
+                </v-tooltip>
               </small>
             </td>
           </tr>

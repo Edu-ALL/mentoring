@@ -1,6 +1,11 @@
 import moment from 'moment';
 
 export const customDate = {
+    todayDate() {
+        var date = new Date();
+        return moment(date).format("YYYY-MM-DD");
+    },
+
     tomorrow() {
         var date = new Date();
         date.setDate(date.getDate() + 1);

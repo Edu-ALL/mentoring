@@ -78,17 +78,17 @@
   </div>
 
   <!-- MODAL  -->
-  <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+  <div class="vue-modal-overlay" v-if="modal != ''"></div>
   <!-- ADD Group Project  -->
   <transition name="pop">
-    <div class="vue-modal vue-modal-lg" v-if="modal == 'add'">
+    <div class="vue-modal vue-modal-md" v-if="modal == 'add'">
       <form method="post" @submit.prevent="handleSubmit()">
         <div class="row align-items-center">
           <div class="col-12">
             <h5>New Group</h5>
             <hr class="my-1 mb-3" />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="my-2">
               <input-group>
                 <input
@@ -103,7 +103,7 @@
               </input-group>
             </div>
           </div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <div class="my-2">
               <group-type
                 v-model="group.project_type"
@@ -115,15 +115,17 @@
               >
               </group-type>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-12">
             <div class="my-1">
               <mentee
                 v-model="members"
                 :options="menteeList"
                 placeholder="Invite new member"
-                :close-on-select="false"
-                :clear-on-select="false"
+                deselect-label=""
+                select-label=""
+                :close-on-select="true"
+                :clear-on-select="true"
                 track-by="id"
                 :custom-label="customLabel"
                 :multiple="true"
@@ -155,11 +157,13 @@
               class="btn-mentoring btn-sm py-1 btn-outline-danger"
               @click="modal = ''"
             >
+              <i class="bi bi-x-circle me-1"></i>
               Cancel
             </button>
           </div>
           <div class="col-6 text-end">
             <button type="submit" class="btn-mentoring btn-sm py-1 btn-success">
+              <i class="bi bi-save me-1"></i>
               Submit
             </button>
           </div>
@@ -182,7 +186,7 @@ export default {
     menus: Object,
   },
   components: {
-    "group-type": Multiselect,
+    // "group-type": Multiselect,
     mentee: Multiselect,
     "v-progress": Progress,
     "v-complete": Complete,
@@ -267,7 +271,7 @@ export default {
 
     async getPage(link) {
       if (link != null) {
-        this.$Progress.loading();
+        this.$Progress.start();
         this.group_data = [];
         try {
           const response = await this.$axios.get(link);
@@ -283,7 +287,7 @@ export default {
     },
 
     async handleSubmit() {
-      this.group.student = [];
+      this.group.student_id = [];
       this.members.forEach((element) => {
         this.group.student_id.push(element.id);
       });
@@ -295,15 +299,17 @@ export default {
           this.group
         );
 
+        console.log(response.data);
+
         this.modal = "";
         if (response.data.success) {
-          this.getData("in-progress");
           this.$alert.toast("success", response.data.message);
+          setTimeout(() => {
+            this.getData("in-progress");
+          }, 3000);
         } else {
           this.$alert.toast("error", response.data.error);
         }
-        this.$alert.close();
-        // console.log(response.data);
       } catch (e) {
         this.$alert.close();
         console.log(e.response.error);

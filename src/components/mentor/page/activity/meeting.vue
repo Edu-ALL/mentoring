@@ -77,7 +77,7 @@
   </div>
 
   <!-- Modal  -->
-  <div class="vue-modal-overlay" v-if="modal != ''" @click="modal = ''"></div>
+  <div class="vue-modal-overlay" v-if="modal != ''"></div>
 
   <!-- ADD Meeting -->
   <transition name="pop">
@@ -90,32 +90,36 @@
       <hr class="my-1 mb-3" />
 
       <form method="post" @submit.prevent="handleSubmit">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mt-1 mb-3">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <div class="mt-1 mb-1">
               <multiselect
                 v-model="user_select"
                 :options="user_list"
                 placeholder="Select one mentee"
-                deselect-label="Can't remove this value"
+                deselect-label=""
+                select-label=""
                 track-by="id"
                 :custom-label="customLabel"
                 :searchable="true"
-                :allow-empty="false"
+                :allow-empty="true"
                 @select="checkUser"
                 style="margin-top: 13px"
               >
               </multiselect>
+              <small class="text-danger" v-if="error_form.student_id">{{
+                error_form.student_id[0]
+              }}</small>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-7">
-                <div class="mt-1 mb-3">
+          <div class="col-md-8">
+            <div class="row g-2">
+              <div class="col-md-6">
+                <div class="mt-1 mb-1">
                   <input-group>
                     <input
                       v-model="meeting_date.date"
-                      :min="this.$customDate.tomorrowDateOnly()"
+                      :min="this.$customDate.todayDate()"
                       :type="input.meeting"
                       class="form-control form-mentoring w-100"
                       required
@@ -128,31 +132,51 @@
                   </input-group>
                 </div>
               </div>
-              <div class="col-5">
-                <div class="mt-1 mb-3">
+              <div class="col-md-3 col-6">
+                <div class="mt-1 mb-1">
                   <input-group>
                     <input
-                      v-model="meeting_date.time"
-                      :type="input.time"
+                      v-model="meeting_date.start"
+                      :type="input.start"
                       class="form-control form-mentoring w-100"
-                      @focus="input.time = 'time'"
-                      @blur="input.time = 'text'"
+                      @focus="input.start = 'time'"
+                      @blur="input.start = 'text'"
+                      required
+                      placeholder="fill in here.."
+                      id="endTime"
+                      :disabled="meeting_date.date == ''"
+                    />
+                    <label for="endTime">Start Time</label>
+                  </input-group>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="mt-1 mb-1">
+                  <input-group>
+                    <input
+                      v-model="meeting_date.end"
+                      :type="input.end"
+                      class="form-control form-mentoring w-100"
+                      @focus="input.end = 'time'"
+                      @blur="input.end = 'text'"
                       required
                       placeholder="fill in here.."
                       id="meetingTime"
+                      :max="meeting_date.start"
+                      :disabled="meeting_date.start == ''"
                     />
-                    <label for="meetingTime">Time</label>
+                    <label for="meetingTime">End Time</label>
                   </input-group>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-8">
-            <div class="mt-1 mb-3">
+            <div class="mt-1 mb-1">
               <input-group>
                 <input
                   v-model="call_data.location_link"
-                  type="text"
+                  type="url"
                   class="form-control form-mentoring w-100"
                   required
                   placeholder="fill in here.."
@@ -166,7 +190,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="mt-1 mb-3">
+            <div class="mt-1 mb-1">
               <input-group>
                 <input
                   v-model="call_data.location_pw"
@@ -189,10 +213,8 @@
                   <label class="w-100">
                     <input
                       v-model="call_data.module"
-                      type="radio"
-                      required
+                      type="checkbox"
                       placeholder="fill in here.."
-                      name="product"
                       class="card-input-element"
                       value="life skills"
                     />
@@ -205,10 +227,8 @@
                   <label class="w-100">
                     <input
                       v-model="call_data.module"
-                      type="radio"
-                      required
+                      type="checkbox"
                       placeholder="fill in here.."
-                      name="product"
                       class="card-input-element"
                       value="career exploration"
                     />
@@ -221,15 +241,13 @@
                   <label class="w-100">
                     <input
                       v-model="call_data.module"
-                      type="radio"
-                      required
+                      type="checkbox"
                       placeholder="fill in here.."
-                      name="product"
                       class="card-input-element"
-                      value="university admission"
+                      value="admissions mentoring"
                     />
                     <div class="panel panel-default card-input">
-                      <div class="panel-heading">University Admission</div>
+                      <div class="panel-heading">Admissions Mentoring</div>
                     </div>
                   </label>
                 </div>
@@ -237,10 +255,8 @@
                   <label class="w-100">
                     <input
                       v-model="call_data.module"
-                      type="radio"
-                      required
+                      type="checkbox"
                       placeholder="fill in here.."
-                      name="product"
                       class="card-input-element"
                       value="life at university"
                     />
@@ -252,13 +268,14 @@
               </div>
             </div>
           </div>
-          <hr class="mt-3" />
+          <hr class="my-0 mb-2" />
           <div class="col-6">
             <button
               type="button"
               class="btn-mentoring btn-sm py-1 px-3 btn-outline-danger"
               @click="modal = ''"
             >
+              <i class="bi bi-x-circle"></i>
               Cancel
             </button>
           </div>
@@ -267,7 +284,8 @@
               type="submit"
               class="btn-mentoring btn-sm py-1 px-3 btn-success"
             >
-              Save Meeting
+              <i class="bi bi-calendar-plus me-1"></i>
+              Set a Meeting
             </button>
           </div>
         </div>
@@ -306,18 +324,17 @@ export default {
         location_link: "",
         location_pw: "",
         call_with: "mentor",
-        module: "",
-        call_date: "",
+        module: ["admissions mentoring"],
+        start_date: "",
+        end_date: "",
         created_by: "mentor",
       },
       meeting_date: {
         date: "",
-        time: "",
+        start: "",
+        end: "",
       },
-      input: {
-        meeting: "text",
-        time: "text",
-      },
+      input: { meeting: "text" },
       error_form: [],
     };
   },
@@ -402,12 +419,18 @@ export default {
       // Meeting Date
 
       let date = this.meeting_date.date;
-      let time = this.meeting_date.time;
-      let datetime = date + "T" + time;
+      let start_time = this.meeting_date.start;
+      let end_time = this.meeting_date.end;
 
-      this.call_data.call_date = datetime;
+      let start_date = date + "T" + start_time;
+      let end_date = date + "T" + end_time;
+
+      this.call_data.start_date = start_date;
+      this.call_data.end_date = end_date;
+
+      // console.log(this.call_data);
+
       this.$alert.loading();
-
       try {
         const response = await this.$axios.post(
           "../v2/create/activities/1-on-1-call",
@@ -423,13 +446,15 @@ export default {
             location_link: "",
             location_pw: "",
             call_with: "mentor",
-            module: "",
+            module: [],
             call_date: "",
             created_by: "mentor",
           };
+
           this.meeting_date = {
             date: "",
-            time: "",
+            start: "",
+            end: "",
           };
 
           this.modal = "";

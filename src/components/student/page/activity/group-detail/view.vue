@@ -196,6 +196,7 @@
                         class="form-mentoring form-control"
                         placeholder="Fill in your role here .."
                         id="role"
+                        required
                       />
                       <label for="role">Your role</label>
                     </input-group>
@@ -218,6 +219,7 @@
                         rows="5"
                         class="form-mentoring form-control w-100"
                         id="contribute"
+                        required
                       ></textarea>
                       <label for="contribute">Your contribution</label>
                     </input-group>

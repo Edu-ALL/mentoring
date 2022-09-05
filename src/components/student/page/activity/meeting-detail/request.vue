@@ -41,15 +41,17 @@
               <td nowrap>{{ $customDate.time(i.call_date) }}</td>
               <td nowrap>
                 <button
-                  class="btn-mentoring btn-sm btn-success mx-1 py-1"
+                  class="btn-mentoring btn-sm btn-success me-1 py-1 px-2 ps-1"
                   @click="handleAccept(i.id)"
                 >
+                  <i class="bi bi-check me-1"></i>
                   Accept
                 </button>
                 <button
-                  class="btn-mentoring btn-sm btn-danger mx-1 py-1"
+                  class="btn-mentoring btn-sm btn-danger py-1 px-2 ps-1"
                   @click="rejectMeeting(i.id)"
                 >
+                  <i class="bi bi-x me-1"></i>
                   Reject
                 </button>
               </td>
@@ -68,20 +70,36 @@
       <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'reject'">
         <div class="text-center">
           <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-          <h5 class="mt-2">Are you sure to reject this meeting?</h5>
-          <div class="mt-3">
-            <button
-              class="btn-mentoring btn-warning btn-sm py-1 mx-1"
-              @click="modal = ''"
-            >
-              Cancel</button
-            ><button
-              class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
-              @click="handleReject"
-            >
-              Yes
-            </button>
-          </div>
+          <div class="mt-2">Are you sure to reject this meeting?</div>
+          <form @submit.prevent="handleReject">
+            <div class="text-start mt-3">
+              <input-group>
+                <textarea
+                  v-model="reason"
+                  rows="5"
+                  class="form-control"
+                  required
+                ></textarea>
+                <label for="reason" class="text-dark">Reason</label>
+              </input-group>
+            </div>
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn-mentoring btn-warning btn-sm py-1 mx-1"
+                @click="modal = ''"
+              >
+                <i class="bi bi-x-circle me-1"></i>
+                Close</button
+              ><button
+                type="submit"
+                class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
+              >
+                <i class="bi bi-check me-1"></i>
+                Yes, Cancel
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </transition>
@@ -96,6 +114,7 @@ export default {
       modal: "",
       meeting_id: "",
       data: [],
+      reason: "",
     };
   },
   methods: {
@@ -167,9 +186,9 @@ export default {
           "student/reject/activities/" + this.meeting_id,
           {
             person: "student",
+            reason: this.reason,
           }
         );
-
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
           setTimeout(() => {

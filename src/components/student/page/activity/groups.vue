@@ -97,7 +97,7 @@
     <div class="vue-modal-overlay" v-if="modal != ''"></div>
     <transition name="pop">
       <div
-        class="vue-modal vue-modal-lg mentoring-scroll"
+        class="vue-modal vue-modal-md mentoring-scroll"
         v-if="modal == 'add'"
       >
         <!-- <v-add @modal="checkModal" @new="checkData"></v-add> -->
@@ -107,7 +107,7 @@
               <h5>New Group</h5>
               <hr class="my-1 mb-3" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="mb-3">
                 <input-group>
                   <input
@@ -122,7 +122,7 @@
                 </input-group>
               </div>
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <div class="mb-3">
                 <group-type
                   v-model="group.project_type"
@@ -134,7 +134,7 @@
                 >
                 </group-type>
               </div>
-            </div>
+            </div> -->
             <div class="col-md-12">
               <div class="mb-3">
                 <input-group>
@@ -186,7 +186,7 @@
               <div class="mb-3">
                 <input-group>
                   <v-editor
-                    cols="30"
+                    cols="100%"
                     rows="10"
                     api-key="h7t62ozvqkx2ifkeh051fsy3k9irz7axx1g2zitzpbaqfo8m"
                     v-model="group.project_desc"
@@ -220,7 +220,7 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+// import Multiselect from "vue-multiselect";
 
 import Request from "@/components/student/page/activity/group-detail/request";
 import Progress from "@/components/student/page/activity/group-detail/progress";
@@ -231,7 +231,7 @@ import View from "@/components/student/page/activity/group-detail/view";
 export default {
   name: "groups",
   components: {
-    "group-type": Multiselect,
+    // "group-type": Multiselect,
     "v-request": Request,
     "v-progress": Progress,
     "v-complete": Complete,
@@ -323,7 +323,7 @@ export default {
     async handleSubmit() {
       let form = new FormData();
       form.append("project_name", this.group.project_name);
-      form.append("project_type", this.group.project_type);
+      // form.append("project_type", this.group.project_type);
       form.append("project_desc", this.group.project_desc);
       form.append("project_status", this.group.project_status);
       form.append("status", this.group.status);
@@ -345,9 +345,8 @@ export default {
           } else {
             this.$alert.toast("success", response.data.message);
             setTimeout(() => {
-              this.load = "new-group";
+              this.checkData();
             }, 3000);
-            this.getSummary();
           }
         } else {
           this.$alert.toast("error", response.data.error);
@@ -372,9 +371,8 @@ export default {
 
         this.$alert.toast("success", response.data.message);
         setTimeout(() => {
-          this.load = "new-group";
+          this.checkData();
         }, 3000);
-        this.getSummary();
       } catch (e) {
         console.log(e.response);
         this.$alert.close();

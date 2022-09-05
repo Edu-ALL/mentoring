@@ -103,7 +103,7 @@
         </button>
       </div>
     </div>
-    <div class="card-white mt-0 pt-0">
+    <div class="card-white mt-0 pt-0 position-relative overflow-hidden">
       <!-- Meetings -->
       <transition name="fade">
         <v-meeting

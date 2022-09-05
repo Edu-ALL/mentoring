@@ -1,9 +1,9 @@
 <template>
   <div id="completed">
     <div class="container p-1" v-if="group?.data?.length >= 0">
-      <div class="row p-4" v-if="group?.data?.length == 0">
+      <div class="row p-4 border" v-if="group?.data?.length == 0">
         <div class="col text-center text-muted">
-          <p>No project group yet.</p>
+          <p class="my-0">No project group yet.</p>
         </div>
       </div>
 
@@ -46,7 +46,14 @@
                       {{ i.group_participant_count }} Members
                     </div>
                     <div
-                      class="badge badge-group bg-info px-3 py-1 ms-1"
+                      class="badge badge-group px-3 py-1 ms-1"
+                      :class="
+                        i.progress_status == 'ahead'
+                          ? 'bg-success'
+                          : i.progress_status == 'on-track'
+                          ? 'bg-info'
+                          : 'bg-danger'
+                      "
                       v-if="
                         i.progress_status != '' || i.progress_status != null
                       "
