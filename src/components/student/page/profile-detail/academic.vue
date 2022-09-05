@@ -238,7 +238,7 @@ export default {
         this.input_type.max_score = 7;
         this.academic.max_score = 7;
         this.input_type.length = 1;
-      } else if (cur == "National") {
+      } else if (cur == "Cambridge") {
         this.input_type.score_type = "text";
         this.input_type.max_score = "F";
         this.academic.max_score = "F";
