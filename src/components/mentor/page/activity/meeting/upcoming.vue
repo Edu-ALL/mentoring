@@ -286,6 +286,7 @@ export default {
         );
 
         this.modal = "";
+        this.reason = "";
         this.$emit("check", "history");
         this.$alert.toast("success", response.data.message);
       } catch (e) {

@@ -76,7 +76,8 @@
           </div>
 
           <div class="card-body">
-            <div class="float-end" v-if="mentor.id == group_info.user_id">
+            <!-- v-if="mentor.id == group_info.user_id" -->
+            <div class="float-end">
               <i
                 class="fa-solid fa-edit pointer"
                 v-if="!editGroup"

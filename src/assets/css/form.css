@@ -85,6 +85,7 @@
 
 .multiselect__content-wrapper {
     font-size: .8em !important;
+    z-index: 999999 !important;
 }
 
 .form-mentoring,
@@ -214,7 +215,8 @@ input-group select:not(:placeholder-shown)+label {
 }
 
 .form-control,
-.form-select {
+.form-select,
+.form-check-input {
     border-radius: 10px;
     border: 2px solid #dedede;
     box-shadow: none !important;

@@ -232,7 +232,7 @@ export default {
 
     async getMentee() {
       try {
-        const response = await this.$axios.get("student/list?paginate=no");
+        const response = await this.$axios.get("list/student");
 
         this.menteeList = response.data.data;
         // console.log(response);

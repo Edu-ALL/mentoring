@@ -1,5 +1,40 @@
 <template>
   <div id="history" v-if="meeting?.data?.length >= 0">
+    <div class="d-flex mb-2">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          v-model="status"
+          type="checkbox"
+          value="finished"
+          id="finish"
+          @change="filterStatus"
+        />
+        <label class="form-check-label ms-1" for="finish"> Finished </label>
+      </div>
+      <div class="form-check ms-2">
+        <input
+          class="form-check-input"
+          v-model="status"
+          type="checkbox"
+          value="canceled"
+          id="cancel"
+          @change="filterStatus"
+        />
+        <label class="form-check-label ms-1" for="cancel"> Canceled </label>
+      </div>
+      <div class="form-check ms-2">
+        <input
+          class="form-check-input"
+          v-model="status"
+          type="checkbox"
+          value="rejected"
+          id="reject"
+          @change="filterStatus"
+        />
+        <label class="form-check-label ms-1" for="reject"> Rejected </label>
+      </div>
+    </div>
     <div class="row p-4" v-if="meeting?.data?.length == 0">
       <div class="col text-center text-muted">
         <p class="my-0">No meeting yet.</p>
@@ -85,9 +120,15 @@ export default {
     return {
       modal: "",
       view_status: "",
+      status: [],
     };
   },
-  methods: {},
+  methods: {
+    filterStatus() {
+      let status = this.status.toString();
+      this.$emit("filter", status);
+    },
+  },
   created() {},
 };
 </script>

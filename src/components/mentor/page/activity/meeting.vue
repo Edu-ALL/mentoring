@@ -68,6 +68,7 @@
       <v-history
         v-if="tab == 'history'"
         :meeting="meeting_data"
+        @filter="filterStatus"
         @check="checkData"
       />
 
@@ -386,7 +387,6 @@ export default {
         this.$Progress.fail();
         console.log(e.response);
       }
-      this.$alert.close();
     },
 
     async getPage(link) {
@@ -470,6 +470,23 @@ export default {
           this.error_form = e.response.data.error;
         }
         this.$alert.toast("error", "Please try again.");
+      }
+    },
+
+    async filterStatus(data) {
+      this.$Progress.start();
+      this.meeting_data = [];
+      try {
+        const response = await this.$axios.get(
+          "../v2/list/activities/1-on-1-call/" + this.tab + "?filter=" + data
+        );
+        this.$Progress.finish();
+        this.getSummary();
+        this.meeting_data = response.data.data;
+        // console.log(response.data);
+      } catch (e) {
+        this.$Progress.fail();
+        console.log(e.response);
       }
     },
   },

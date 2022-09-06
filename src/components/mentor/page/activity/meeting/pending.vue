@@ -144,6 +144,7 @@ export default {
         );
 
         this.modal = "";
+        this.reason = "";
         this.$emit("check", "pending");
         this.$alert.toast("success", response.data.message);
       } catch (e) {

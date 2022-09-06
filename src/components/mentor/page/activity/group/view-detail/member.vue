@@ -80,6 +80,7 @@
     <transition name="pop">
       <div
         class="vue-modal vue-modal-md mentoring-scroll"
+        style="overflow: unset !important"
         v-if="modal == 'new'"
       >
         <form method="post" @submit.prevent="handleSubmit()">
@@ -89,6 +90,7 @@
             <v-member
               v-model="members"
               :options="menteeList"
+              :option-height="10"
               placeholder="Invite new member"
               :close-on-select="true"
               :clear-on-select="true"
@@ -186,7 +188,7 @@ export default {
 
     async getMentee() {
       try {
-        const response = await this.$axios.get("student/list?paginate=no");
+        const response = await this.$axios.get("list/student");
 
         this.menteeList = response.data.data;
         // console.log(response);

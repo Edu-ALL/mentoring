@@ -1,6 +1,6 @@
 <template>
   <div id="upcoming">
-    <div class="container p-1" v-if="data.data?.length >= 0">
+    <div class="container p-1" v-if="data.data">
       <!-- Empty  -->
       <div class="row" v-if="data.data?.length == 0">
         <div class="col py-4 text-center">
@@ -38,8 +38,14 @@
                 }}
               </td>
               <td nowrap style="text-transform: capitalize">{{ i.module }}</td>
-              <td nowrap>{{ $customDate.date(i.call_date) }}</td>
-              <td nowrap>{{ $customDate.time(i.call_date) }}</td>
+              <td nowrap>{{ $customDate.date(i.start_call_date) }}</td>
+              <td nowrap>
+                {{
+                  $customDate.time(i.start_call_date) +
+                  " - " +
+                  $customDate.time(i.end_call_date)
+                }}
+              </td>
               <td nowrap>
                 <div class="" v-if="view_pw[index]">
                   {{ i.location_pw }}

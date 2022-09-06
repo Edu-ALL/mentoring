@@ -27,6 +27,10 @@
               <div class="col-md-3 col-12 p-0">
                 <div :class="i.status == 0 ? 'meeting-subject' : ''">
                   {{ i.meeting_subject }}
+                  <i
+                    class="bi bi-x-circle ms-2 text-end text-danger"
+                    v-if="group.student_id == student.id && i.status == 0"
+                  ></i>
                   <div
                     class="cancel justify-content-center"
                     @click="cancelModal(i.id)"

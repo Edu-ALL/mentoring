@@ -101,7 +101,7 @@
                       <label for="projectName">Group Name</label>
                     </input-group>
                   </div>
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <group-type
                       v-model="group_info.project_type"
                       :options="options"
@@ -110,7 +110,7 @@
                       class="mt-3"
                     >
                     </group-type>
-                  </div>
+                  </div> -->
                   <div class="mb-4">
                     <input-group>
                       <input
@@ -255,7 +255,7 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+// import Multiselect from "vue-multiselect";
 
 import Meeting from "@/components/student/page/activity/group-detail/view-detail/meeting";
 import Member from "@/components/student/page/activity/group-detail/view-detail/member";
@@ -268,7 +268,7 @@ export default {
   components: {
     "v-meeting": Meeting,
     "v-member": Member,
-    "group-type": Multiselect,
+    // "group-type": Multiselect,
   },
   data() {
     return {
@@ -318,7 +318,7 @@ export default {
     async handleUpdateGroup() {
       let form = new FormData();
       form.append("project_name", this.group_info.project_name);
-      form.append("project_type", this.group_info.project_type);
+      // form.append("project_type", this.group_info.project_type);
       form.append("project_desc", this.group_info.project_desc);
       form.append("project_status", this.group_info.project_status);
       form.append("status", this.group_info.status);

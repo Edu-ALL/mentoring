@@ -1,6 +1,6 @@
 <template>
   <div id="request">
-    <div class="container p-1" v-if="data.data?.length >= 0">
+    <div class="container p-1" v-if="data.data">
       <!-- Empty  -->
       <div class="row" v-if="data.data?.length == 0">
         <div class="col py-4 text-center">
@@ -37,8 +37,14 @@
                 }}
               </td>
               <td nowrap style="text-transform: capitalize">{{ i.module }}</td>
-              <td nowrap>{{ $customDate.date(i.call_date) }}</td>
-              <td nowrap>{{ $customDate.time(i.call_date) }}</td>
+              <td nowrap>{{ $customDate.date(i.start_call_date) }}</td>
+              <td nowrap>
+                {{
+                  $customDate.time(i.start_call_date) +
+                  " - " +
+                  $customDate.time(i.end_call_date)
+                }}
+              </td>
               <td nowrap>
                 <button
                   class="btn-mentoring btn-sm btn-success me-1 py-1 px-2 ps-1"
@@ -189,10 +195,12 @@ export default {
             reason: this.reason,
           }
         );
+
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
           setTimeout(() => {
             this.getData();
+            this.reason = "";
             this.$emit("summary", "new");
           }, 3000);
         } else {
