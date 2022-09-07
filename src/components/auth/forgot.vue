@@ -16,8 +16,7 @@
           <transition name="fade">
             <div v-if="!sent">
               <div class="text-center mb-2">
-                Please enter your email and we'll send an email to reset your
-                password
+                Please enter your email to reset your password
               </div>
               <input-group>
                 <input

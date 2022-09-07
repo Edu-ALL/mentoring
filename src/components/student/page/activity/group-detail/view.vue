@@ -221,7 +221,7 @@
                         id="contribute"
                         required
                       ></textarea>
-                      <label for="contribute">Your contribution</label>
+                      <label for="contribute">Task Description</label>
                     </input-group>
                   </div>
                   <div class="text-center" v-if="editMember">

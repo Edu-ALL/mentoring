@@ -74,7 +74,7 @@
     <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'cancel'">
       <div class="text-center">
         <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-        <div class="mt-2">Are you sure to cancel this meeting?</div>
+        <div class="mt-2">Are you sure you want to cancel this meeting?</div>
         <form @submit.prevent="handleCancel">
           <div class="text-start mt-3">
             <input-group>
@@ -84,7 +84,9 @@
                 class="form-control"
                 required
               ></textarea>
-              <label for="reason" class="text-dark">Reason</label>
+              <label for="reason" class="text-dark"
+                >Please tell us your reason</label
+              >
             </input-group>
           </div>
           <div class="mt-3">

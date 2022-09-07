@@ -9,7 +9,7 @@
               class="btn btn-sm py-1 btn-type-3 mx-1"
               @click="modal = 'add'"
             >
-              <i class="fa-solid fa-add me-1"></i> New a Group
+              <i class="fa-solid fa-add me-1"></i> New Group
             </button>
             <div
               class="mentoring-scroll overflow-auto py-2 w-50 text-end"

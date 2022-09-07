@@ -64,7 +64,7 @@
               @click="this.$router.push({ path: '/mentor/student' })"
             >
               <i class="bi bi-people me-1"></i>
-              My Students
+              My Mentees
             </button>
             <button
               class="btn btn-menus btn-sm py-1 shadow-sm"

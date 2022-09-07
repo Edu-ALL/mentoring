@@ -85,7 +85,7 @@
               placeholder="fill in here ..."
               id="link"
             />
-            <label for="link">Hyperlink</label>
+            <label for="link">Publication URL</label>
           </input-group>
         </div>
         <div class="text-end">
@@ -103,7 +103,7 @@
     <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'delete'">
       <div class="text-center">
         <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-        <h5 class="mt-2">Are you sure to delete?</h5>
+        <h6 class="mt-2 text-light">Are you sure you want to delete this?</h6>
         <div class="mt-3">
           <button
             class="btn-mentoring btn-warning btn-sm py-1 mx-1"

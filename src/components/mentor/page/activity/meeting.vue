@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center justify-content-between">
           <div class="">
             <button class="btn btn-sm py-1 btn-type-3" @click="modal = 'new'">
-              <i class="fa-solid fa-add me-1"></i> New a Meeting
+              <i class="fa-solid fa-add me-1"></i> New Meeting
             </button>
           </div>
           <div
@@ -313,7 +313,7 @@ export default {
   },
   data() {
     return {
-      tab: "pending",
+      tab: "upcoming",
       user_select: "",
       modal: "",
       summary: [],

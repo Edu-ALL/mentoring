@@ -10,7 +10,7 @@
           >
             <div class="card-body py-1 text-center">
               <i class="fa-solid fa-plus me-2"></i>
-              New Timeline
+              New Task
             </div>
           </div>
 
@@ -18,7 +18,7 @@
             class="border p-2 text-center text-muted"
             v-if="todos_waiting.waiting?.length == 0"
           >
-            No timeline yet
+            No task yet
           </div>
 
           <div
@@ -97,7 +97,7 @@
             class="border p-2 text-center text-muted"
             v-if="todos_conf_need.confirmation_need?.length == 0"
           >
-            No timeline yet
+            No task yet
           </div>
           <div
             class="card border-1 shadow-sm mb-2 card-todos"
@@ -184,7 +184,7 @@
             class="border p-2 text-center text-muted"
             v-if="todos_confirmed.completed?.length == 0"
           >
-            No timeline yet
+            No task yet
           </div>
 
           <div
@@ -332,7 +332,7 @@
       v-if="modal == 'confirm'"
     >
       <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
-      <h5 class="mt-3 mb-3">Are you sure to delete?</h5>
+      <h5 class="mt-3 mb-3">Are you sure you want to delete this?</h5>
       <!-- <h5 class="mt-3 mb-3" v-if="confirm_status == 'in progress'">
         Are you sure this group back to in progress?
       </h5> -->

@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-8">
                   <div class="h-count">{{ total?.total_student }}</div>
-                  <div class="h-label">Students Total</div>
+                  <div class="h-label">Mentees Total</div>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@
                     class="text-center"
                     v-if="recent?.meeting?.upcoming?.length == 0"
                   >
-                    <td class="py-2">No Group Meeting Yet</td>
+                    <td class="py-2">No meeting yet</td>
                   </tr>
                   <tr
                     v-for="i in recent.meeting.upcoming"
@@ -152,8 +152,12 @@
                     </td>
                     <td class="text-center">
                       <div style="width: 150px">
-                        {{ $customDate.date(i.call_date) }} <br />
-                        {{ $customDate.time(i.call_date) }}
+                        {{ $customDate.date(i.start_call_date) }} <br />
+                        {{
+                          $customDate.time(i.start_call_date) +
+                          "-" +
+                          $customDate.time(i.end_call_date)
+                        }}
                       </div>
                     </td>
                     <td class="text-end">
@@ -183,7 +187,7 @@
                     class="text-center"
                     v-if="recent?.meeting?.latest_meeting?.length == 0"
                   >
-                    <td class="py-2">No Group Meeting Yet</td>
+                    <td class="py-2">No meeting history yet</td>
                   </tr>
                   <tr
                     v-for="i in recent.meeting.latest_meeting"
@@ -198,8 +202,12 @@
                     </td>
                     <td class="text-center">
                       <div style="width: 150px">
-                        {{ $customDate.date(i.call_date) }} <br />
-                        {{ $customDate.time(i.call_date) }}
+                        {{ $customDate.date(i.start_call_date) }} <br />
+                        {{
+                          $customDate.time(i.start_call_date) +
+                          "-" +
+                          $customDate.time(i.end_call_date)
+                        }}
                       </div>
                     </td>
                     <td class="text-end" nowrap>
@@ -236,7 +244,7 @@
                     class="text-center"
                     v-if="recent?.group?.attendances?.length == 0"
                   >
-                    <td class="py-2">No Group Meeting Yet</td>
+                    <td class="py-2">No group meeting yet</td>
                   </tr>
                   <tr
                     v-for="i in recent.group.attendances"
@@ -245,8 +253,12 @@
                   >
                     <td>{{ i.group_project.project_name }}</td>
                     <td class="text-center">
-                      {{ $customDate.date(i.meeting_date) }} <br />
-                      {{ $customDate.time(i.meeting_date) }}
+                      {{ $customDate.date(i.start_meeting_date) }} <br />
+                      {{
+                        $customDate.time(i.start_meeting_date) +
+                        "-" +
+                        $customDate.time(i.end_meeting_date)
+                      }}
                     </td>
                     <td class="text-end">
                       <button
@@ -288,8 +300,12 @@
                     <td>{{ i.group_project.project_name }}</td>
                     <td>{{ i.meeting_subject }}</td>
                     <td class="text-center">
-                      {{ $customDate.date(i.meeting_date) }} <br />
-                      {{ $customDate.time(i.meeting_date) }}
+                      {{ $customDate.date(i.start_meeting_date) }} <br />
+                      {{
+                        $customDate.time(i.start_meeting_date) +
+                        "-" +
+                        $customDate.time(i.end_meeting_date)
+                      }}
                     </td>
                     <td class="text-end">
                       <button

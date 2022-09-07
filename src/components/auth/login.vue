@@ -2,7 +2,7 @@
   <div id="login">
     <div
       class="vue-modal vue-modal-sm"
-      :class="login_as == 'student' ? 'bg-primary' : 'bg-secondary'"
+      :class="login_as == 'mentee' ? 'bg-primary' : 'bg-secondary'"
     >
       <div class="text-center mb-4">
         <img
@@ -13,7 +13,7 @@
       </div>
       <h4
         class="mb-4 text-center"
-        :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+        :class="login_as == 'mentee' ? 'text-secondary' : 'text-primary'"
       >
         <strong>
           Sign in as
@@ -35,9 +35,7 @@
             />
             <label
               :class="
-                login_as == 'student'
-                  ? 'bg-primary'
-                  : 'bg-secondary  text-white'
+                login_as == 'mentee' ? 'bg-primary' : 'bg-secondary  text-white'
               "
               for="login_email"
               >Email</label
@@ -46,7 +44,7 @@
           <p
             class="mt-1 small"
             v-if="error_login.email"
-            :class="login_as == 'student' ? 'text-warning' : 'text-white'"
+            :class="login_as == 'mentee' ? 'text-warning' : 'text-white'"
           >
             {{ error_login.email[0] }}
           </p>
@@ -63,7 +61,7 @@
             <label
               for="password"
               :class="
-                login_as == 'student' ? 'bg-primary' : 'bg-secondary text-white'
+                login_as == 'mentee' ? 'bg-primary' : 'bg-secondary text-white'
               "
               >Password</label
             >
@@ -71,7 +69,7 @@
           <p
             class="mt-1 small"
             v-if="error_login.password"
-            :class="login_as == 'student' ? 'text-warning' : 'text-white'"
+            :class="login_as == 'mentee' ? 'text-warning' : 'text-white'"
           >
             {{ error_login.password[0] }}
           </p>
@@ -85,7 +83,7 @@
         <div class="text-center">
           <button
             class="btn btn-primary btn-mentoring my-3 px-5"
-            :class="login_as == 'student' ? 'bg-secondary' : 'bg-primary'"
+            :class="login_as == 'mentee' ? 'bg-secondary' : 'bg-primary'"
             type="submit"
           >
             <strong> Sign In </strong>
@@ -100,27 +98,26 @@
             to create one!
           </p> -->
           <p>
-            Are you a
-            <span v-if="login_as == 'student'">mentor</span>
-            <span v-if="login_as == 'mentor'">student</span>? <br />
-            Please
+            Not a
+            <span v-if="login_as == 'mentor'">Mentor</span>
+            <span v-if="login_as == 'mentee'">Mentee</span>? <br />
+            Sign in as a
             <span
               class="pointer"
-              :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
+              :class="login_as == 'mentee' ? 'text-secondary' : 'text-primary'"
               @click="login_as = 'mentor'"
-              v-if="login_as == 'student'"
+              v-if="login_as == 'mentee'"
             >
-              click here</span
+              Mentor</span
             >
             <span
               class="pointer"
-              :class="login_as == 'student' ? 'text-secondary' : 'text-primary'"
-              @click="login_as = 'student'"
+              :class="login_as == 'mentee' ? 'text-secondary' : 'text-primary'"
+              @click="login_as = 'mentee'"
               v-if="login_as == 'mentor'"
             >
-              click here</span
+              Mentee</span
             >
-            to sign in
           </p>
         </div>
       </form>
@@ -136,7 +133,7 @@ export default {
         email: "",
         password: "",
       },
-      login_as: "student",
+      login_as: "mentee",
 
       error_login: [],
     };
@@ -145,7 +142,7 @@ export default {
     async handleSubmit() {
       this.$alert.loading();
 
-      if (this.login_as == "student") {
+      if (this.login_as == "mentee") {
         try {
           const response = await this.$axios.post("auth/s/login", {
             email: this.login.email,

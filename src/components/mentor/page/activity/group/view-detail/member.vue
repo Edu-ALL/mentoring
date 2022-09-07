@@ -138,7 +138,7 @@
         v-if="modal == 'remove-member'"
       >
         <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
-        <h5 class="mt-3 mb-3">Are you sure to remove this member?</h5>
+        <h5 class="mt-3 mb-3">Are you sure you want to remove this member?</h5>
         <button
           class="btn-mentoring btn-sm py-1 btn-danger mx-1"
           @click="modal = ''"

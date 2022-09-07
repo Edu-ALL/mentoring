@@ -639,7 +639,7 @@
                 :class="{ 'active-dropzone': active }"
                 class="dropzone"
               >
-                <span>Drag or Drop File</span>
+                <span>Drag and Drop File</span>
                 <span>OR</span>
                 <label for="dropzoneFile">Select File</label>
                 <input

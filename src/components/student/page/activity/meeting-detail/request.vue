@@ -76,7 +76,7 @@
       <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'reject'">
         <div class="text-center">
           <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-          <div class="mt-2">Are you sure to reject this meeting?</div>
+          <div class="mt-2">Are you sure you want to reject this meeting?</div>
           <form @submit.prevent="handleReject">
             <div class="text-start mt-3">
               <input-group>
@@ -86,7 +86,9 @@
                   class="form-control"
                   required
                 ></textarea>
-                <label for="reason" class="text-dark">Reason</label>
+                <label for="reason" class="text-dark"
+                  >Please tell us your reason</label
+                >
               </input-group>
             </div>
             <div class="mt-3">
@@ -102,7 +104,7 @@
                 class="btn-mentoring btn-outline-success btn-sm py-1 mx-1"
               >
                 <i class="bi bi-check me-1"></i>
-                Yes, Cancel
+                Yes, Reject
               </button>
             </div>
           </form>

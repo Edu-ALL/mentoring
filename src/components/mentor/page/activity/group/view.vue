@@ -208,10 +208,10 @@
     >
       <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
       <h5 class="mt-3 mb-3" v-if="confirm_status == 'completed'">
-        Are you sure to completing this group?
+        Are you sure that this project has completed?
       </h5>
       <h5 class="mt-3 mb-3" v-if="confirm_status == 'in progress'">
-        Are you sure this group back to in progress?
+        Are you sure this project is back in progress?
       </h5>
       <button
         class="btn-mentoring btn-sm py-1 btn-danger mx-1"

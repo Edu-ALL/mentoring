@@ -606,7 +606,7 @@
 
           <div class="card shadow-sm">
             <div class="card-body">
-              <h6 class="mb-1">TIMELINE</h6>
+              <h6 class="mb-1">TASKS</h6>
               <div class="card shadow-sm rounded-2 todos mentoring-scroll p-0">
                 <div class="card-body p-0">
                   <div
@@ -749,7 +749,7 @@
                 :class="{ 'active-dropzone': active }"
                 class="dropzone"
               >
-                <span>Drag or Drop File</span>
+                <span>Drag and Drop File</span>
                 <span>OR</span>
                 <label for="dropzoneFile">Select File</label>
                 <input

@@ -106,6 +106,7 @@
             </input-group>
           </div>
           <div class="mb-3">
+            <small class="text-secondary mb-0 pb-0">University</small>
             <v-uni
               v-model="uni_select"
               :options="uni_list"
@@ -130,7 +131,7 @@
               :class="{ 'active-dropzone': active }"
               class="dropzone"
             >
-              <span>Drag or Drop File</span>
+              <span>Drag and Drop File</span>
               <span>OR</span>
               <label for="dropzoneFile">Select File</label>
               <input
@@ -183,6 +184,7 @@
           </input-group>
         </div>
         <div class="mb-2">
+          <small class="text-secondary mb-0 pb-0">University</small>
           <v-uni
             v-model="file.uni_id"
             :options="uni_list"
@@ -222,7 +224,7 @@
     <div class="vue-modal vue-modal-sm bg-primary" v-if="modal == 'delete'">
       <div class="text-center">
         <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
-        <h5 class="mt-2">Are you sure to delete?</h5>
+        <h6 class="mt-2 text-light">Are you sure you want to delete this?</h6>
         <div class="mt-3">
           <button
             class="btn-mentoring btn-warning btn-sm py-1 mx-1"

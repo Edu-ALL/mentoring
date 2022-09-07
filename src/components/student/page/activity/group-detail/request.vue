@@ -98,7 +98,7 @@
         <div class="text-center">
           <i class="fa-solid fa-circle-exclamation fa-2xl"></i>
           <h5 class="mt-2">
-            Are you sure you want to refuse to join this group?
+            Are you sure you want to refuse joining this group?
           </h5>
           <div class="mt-3">
             <button

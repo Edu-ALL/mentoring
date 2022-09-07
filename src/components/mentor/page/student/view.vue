@@ -114,7 +114,7 @@
 
       <!-- Todos  -->
       <transition name="fade">
-        <v-todos v-if="menus.key == 'timeline'" :menus="menus" />
+        <v-todos v-if="menus.key == 'task'" :menus="menus" />
       </transition>
 
       <!-- Group  -->
@@ -172,11 +172,11 @@ export default {
       activity: "meeting",
       tab: [
         { slug: "meeting", name: "Meeting Logs" },
-        { slug: "timeline", name: "Timeline" },
+        { slug: "task", name: "Task" },
         { slug: "group", name: "Group Project" },
         { slug: "webinar", name: "Webinar" },
-        { slug: "uni_shortlisted", name: "University Shortlisted" },
-        { slug: "uni_requirement", name: "University Requirementes" },
+        { slug: "uni_shortlisted", name: "University List" },
+        { slug: "uni_requirement", name: "University Requirements" },
       ],
       students_detail: [],
     };

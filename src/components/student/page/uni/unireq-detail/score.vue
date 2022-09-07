@@ -9,7 +9,7 @@
         class="bi bi-bookmark-check-fill me-1 text-success"
         v-if="data?.length != 0"
       ></i>
-      IELTS/TOEFL Scores
+      TOEFL/IELTS Scores
       <div class="float-end">
         <i class="fa-solid fa-add pointer" @click="addScore"></i>
       </div>

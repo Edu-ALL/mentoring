@@ -328,7 +328,7 @@
       v-if="modal == 'confirm'"
     >
       <i class="fa-solid fa-circle-exclamation mx-1 fa-2xl"></i>
-      <h5 class="mt-3 mb-3">Are you sure to delete?</h5>
+      <h5 class="mt-3 mb-3">Are you sure you want to delete this?</h5>
       <!-- <h5 class="mt-3 mb-3" v-if="confirm_status == 'in progress'">
         Are you sure this group back to in progress?
       </h5> -->

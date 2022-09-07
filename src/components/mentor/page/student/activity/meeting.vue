@@ -7,7 +7,7 @@
           <thead>
             <tr class="text-center align-middle">
               <th>No</th>
-              <th>Call with</th>
+              <th class="sticky-table">Call with</th>
               <th>Subject</th>
               <th>Date & Time</th>
               <th>Academic Performance</th>
@@ -26,16 +26,14 @@
               v-for="(i, index) in student_meeting.data"
               :key="index"
             >
-              <td>{{ parseInt(index) + 1 }}</td>
+              <td class="sticky-table">{{ parseInt(index) + 1 }}</td>
 
-              <td nowrap class="text-start">
-                {{
-                  i.users.first_name +
-                  " " +
-                  i.users.last_name +
-                  " - " +
-                  i.call_with
-                }}
+              <td
+                nowrap
+                class="text-start sticky-table"
+                style="text-transform: capitalize"
+              >
+                {{ i.users.first_name + " " + i.users.last_name }}
               </td>
               <td style="text-transform: capitalize">{{ i.module }}</td>
               <td nowrap>
@@ -181,3 +179,32 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+td.sticky-table {
+  position: sticky;
+  left: 0px;
+  background-color: rgb(246, 246, 246) !important;
+  z-index: 1 !important;
+  font-weight: 500;
+  color: #000 !important;
+}
+
+.table-responsive {
+  overflow: auto !important;
+  height: 500px !important;
+}
+
+.table-responsive thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2 !important;
+}
+
+.table-responsive thead th.sticky-table {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 3 !important;
+  background: #91a3cf !important;
+}
+</style>
