@@ -299,10 +299,21 @@ export default {
           this.group
         );
 
-        console.log(response.data);
-
+        // console.log(response.data);
         this.modal = "";
+
         if (response.data.success) {
+          this.members = [];
+          this.group = {
+            project_name: "",
+            project_type: "",
+            project_desc: "",
+            project_status: "",
+            student_id: [],
+            status: "in progress",
+            owner_type: "mentor",
+          };
+
           this.$alert.toast("success", response.data.message);
           setTimeout(() => {
             this.getData("in-progress");

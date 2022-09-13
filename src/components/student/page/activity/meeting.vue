@@ -7,7 +7,7 @@
           <button
             class="btn btn-sm mx-1 py-1"
             :class="tab == '' || tab == 'request' ? 'btn-type-1' : 'btn-type-2'"
-            @click="tab = 'request'"
+            @click="checkTab('request')"
           >
             New Request
             <div class="badge bg-primary ms-2" v-if="summary?.request > 0">
@@ -24,7 +24,7 @@
           <button
             class="btn btn-sm mx-1 py-1"
             :class="tab == 'upcoming' ? 'btn-type-1' : 'btn-type-2'"
-            @click="tab = 'upcoming'"
+            @click="checkTab('upcoming')"
           >
             Upcoming
             <div class="badge bg-primary ms-2" v-if="summary?.upcoming > 0">
@@ -34,7 +34,7 @@
           <button
             class="btn btn-sm mx-1 py-1"
             :class="tab == 'history' ? 'btn-type-1' : 'btn-type-2'"
-            @click="tab = 'history'"
+            @click="checkTab('history')"
           >
             History
             <div class="badge bg-primary ms-2" v-if="summary?.history > 0">
@@ -327,6 +327,7 @@ export default {
 
     checkTab(i) {
       this.tab = i;
+      this.getSummary();
     },
 
     async getSummary() {

@@ -62,10 +62,7 @@
           <div class="col">
             <div class="card border-0 shadow-sm">
               <transition name="fade">
-                <v-request
-                  v-if="tab == 'request'"
-                  @summary="getSummary"
-                ></v-request>
+                <v-request v-if="tab == 'request'" @tab="checkTab"></v-request>
               </transition>
               <transition name="fade">
                 <v-progress
@@ -282,6 +279,11 @@ export default {
       this.tab = "progress";
     },
 
+    checkTab(i) {
+      this.tab = i;
+      this.getSummary();
+    },
+
     async getSummary() {
       this.summary = [];
       try {
@@ -340,6 +342,18 @@ export default {
         const response = await this.$axios.post("student/group/project", form);
 
         if (response.data.success) {
+          // Reset Form
+          this.member = "";
+          this.members = [];
+          this.group = {
+            project_name: "",
+            project_type: "",
+            project_desc: "",
+            project_status: "",
+            status: "in progress",
+            owner_type: "student",
+          };
+
           if (this.members.length > 0) {
             this.handleMembers(response.data.data.id);
           } else {

@@ -170,7 +170,7 @@ export default {
 
         // this.getData();
         this.$alert.toast("success", response.data.message);
-        this.$emit("summary", "new");
+        this.$emit("tab", status == "accept" ? "progress" : "request");
         setTimeout(() => {
           this.getData();
         }, 3000);

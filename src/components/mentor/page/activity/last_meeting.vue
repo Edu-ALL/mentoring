@@ -32,10 +32,14 @@
               {{ i.module }}
             </td>
             <td nowrap>
-              {{ $customDate.date(i.call_date) }}
+              {{ $customDate.date(i.start_call_date) }}
             </td>
             <td nowrap>
-              {{ $customDate.time(i.call_date) }}
+              {{
+                $customDate.time(i.start_call_date) +
+                " - " +
+                $customDate.time(i.end_call_date)
+              }}
             </td>
             <td nowrap style="text-transform: capitalize">
               <small class="text-warning" v-if="i.call_status == 'canceled'">
