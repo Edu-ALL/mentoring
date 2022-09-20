@@ -434,7 +434,7 @@ export default {
         this.$Progress.fail();
         this.getData();
         console.log(e.response);
-        this.$alert.toast("error", "Please try again.");
+        this.$alert.toast("error", e.response.data.error.value[0]);
       }
     },
 
