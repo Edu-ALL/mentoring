@@ -343,8 +343,6 @@ export default {
 
         if (response.data.success) {
           // Reset Form
-          this.member = "";
-          this.members = [];
           this.group = {
             project_name: "",
             project_type: "",
@@ -382,6 +380,9 @@ export default {
             participant: this.members,
           }
         );
+
+        this.member = "";
+        this.members = [];
 
         this.$alert.toast("success", response.data.message);
         setTimeout(() => {

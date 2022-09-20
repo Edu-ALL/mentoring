@@ -192,7 +192,7 @@ td.sticky-table {
 
 .table-responsive {
   overflow: auto !important;
-  height: 500px !important;
+  max-height: 500px !important;
 }
 
 .table-responsive thead th {

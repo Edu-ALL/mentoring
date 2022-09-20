@@ -3,21 +3,29 @@
     <nav class="bg-primary shadow">
       <div class="container">
         <div class="row py-md-3 py-1">
-          <div class="col-md-12">
-            <div class="text-start float-start">
+          <div
+            class="col-md-12 d-flex align-items-center justify-content-between"
+          >
+            <div class="text-start">
               <img
                 src="@/assets/img/logo-white.webp"
                 alt="Mentoring - ALL-in Eduspace"
                 class="header-logo"
               />
             </div>
-            <div class="text-end float-end">
+            <div class="text-end">
+              <small> Sign in as </small> <br />
               <button
-                class="btn btn-sm btn-allin bg-secondary fw-semi-bold"
-                @click="showModal('login')"
+                class="btn btn-sm bg-light fw-semi-bold me-1"
+                @click="login('mentee')"
               >
-                <i class="bi bi-box-arrow-in-right me-2"></i>
-                Sign In
+                <i class="bi bi-person-badge me-1"></i> Mentee
+              </button>
+              <button
+                class="btn btn-sm bg-secondary fw-semi-bold"
+                @click="login('mentor')"
+              >
+                <i class="bi bi-person me-1"></i> Mentor
               </button>
             </div>
           </div>
@@ -34,8 +42,9 @@ export default {
     return {};
   },
   methods: {
-    showModal(name) {
-      this.$emit("modal", name);
+    login(role) {
+      this.$emit("role", role);
+      this.$emit("modal", "login");
     },
   },
   created() {

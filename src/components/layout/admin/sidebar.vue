@@ -33,7 +33,7 @@
               @click="goTo('user/student')"
               :class="menus.submenu == 'student' ? 'active' : ''"
             >
-              <span>Students</span>
+              <span>Mentees</span>
             </li>
             <li
               @click="goTo('user/mentor')"
@@ -71,7 +71,7 @@
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
-        ><span v-if="sidebar">Todos</span>
+        ><span v-if="sidebar">Tasks</span>
       </li>
 
       <li :class="menus.menu == 'group' ? 'active' : ''" @click="goTo('group')">

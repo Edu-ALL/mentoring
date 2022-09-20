@@ -25,4 +25,8 @@ export const customDate = {
     time(i) {
         return moment(i).format("H:mm A");
     },
+
+    currentYear() {
+        return moment().format("YYYY");
+    },
 }

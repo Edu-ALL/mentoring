@@ -127,13 +127,16 @@
 <script>
 export default {
   name: "login",
+  props: {
+    role: String,
+  },
   data() {
     return {
       login: {
         email: "",
         password: "",
       },
-      login_as: "mentee",
+      login_as: this.role,
 
       error_login: [],
     };

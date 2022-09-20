@@ -80,7 +80,7 @@ export default {
       this.$alert.loading();
       try {
         const response = await this.$axios.post("auth/u/login", this.user);
-        console.log(response);
+        // console.log(response);
 
         // Admin Data
         localStorage.setItem("role", "admin");
@@ -88,10 +88,11 @@ export default {
         localStorage.setItem("admin", JSON.stringify(response.data.data.user));
         this.$alert.close();
         this.$alert.toast("success", "You Successfully Login");
-
-        window.location.href = "/admin/home";
-        // this.$router.push({ path: "/user" });
+        setTimeout(function () {
+          window.location.href = "/admin/home";
+        }, 3000);
       } catch (e) {
+        console.log(e.response);
         this.error_login = e.response.data.error;
         if (e.response.status == 400) {
           this.$alert.toast("error", e.response.data.error);
@@ -99,7 +100,6 @@ export default {
           this.error = e.response.data.error;
           this.$alert.close();
         }
-        // console.log(e.response);
       }
     },
   },

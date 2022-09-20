@@ -66,14 +66,14 @@
         :class="activity == '1on1' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('1on1')"
       >
-        Meetings
+        Meetings Log
       </button>
       <button
         class="btn-mentoring py-1 me-2"
         :class="activity == 'todos' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('todos')"
       >
-        Todos
+        Tasks
       </button>
       <button
         class="btn-mentoring py-1 me-2"

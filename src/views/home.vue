@@ -4,7 +4,7 @@
   </transition>
   <transition name="fade">
     <div id="home" v-if="!loading">
-      <v-header @modal="checkModal"></v-header>
+      <v-header @modal="checkModal" @role="checkRoleLogin"></v-header>
       <div
         id="homeMentoring"
         class="carousel slide"
@@ -178,7 +178,11 @@
       </transition>
       <!-- Login  -->
       <transition name="pop" appear>
-        <v-login v-if="showModal == 'login'" @show="checkModal"></v-login>
+        <v-login
+          v-if="showModal == 'login'"
+          @show="checkModal"
+          :role="login_role"
+        ></v-login>
       </transition>
 
       <!-- Set a new Password -->
@@ -242,6 +246,7 @@ export default {
     return {
       loading: true,
       showModal: "",
+      login_role: "",
     };
   },
   methods: {
@@ -254,6 +259,10 @@ export default {
     checkReset() {
       this.showModal = "reset";
     },
+    checkRoleLogin(role) {
+      this.login_role = role;
+    },
+
     checkRole() {
       let role = localStorage.getItem("role");
       if (role == "mentee") {

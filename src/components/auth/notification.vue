@@ -34,9 +34,15 @@ export default {
       message: "",
     };
   },
+  methods: {
+    urldecode(url) {
+      return decodeURIComponent(url.replace(/\+/g, " "));
+    },
+  },
   created() {
     if (this.$route.params.message) {
-      this.message = this.$route.params.message;
+      let url = this.$route.params.message;
+      this.message = this.urldecode(url);
     } else {
       this.$router.push({ path: "/" });
     }
