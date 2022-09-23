@@ -45,7 +45,7 @@
             </div>
             <div class="mb-3">
               <label>Descriptions</label> <br />
-              {{ webinar.detail?.dtl_desc }}
+              <div class="" v-html="webinar.detail?.dtl_desc"></div>
             </div>
             <div class="mb-3">
               <label>Video</label> <br />

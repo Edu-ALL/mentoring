@@ -35,7 +35,11 @@
               >
                 {{ i.users.first_name + " " + i.users.last_name }}
               </td>
-              <td style="text-transform: capitalize">{{ i.module }}</td>
+              <td style="text-transform: capitalize">
+                <div class="" style="width: 200px">
+                  {{ i.module }}
+                </div>
+              </td>
               <td nowrap>
                 <small>
                   {{ $customDate.date(i.call_date) }} <br />

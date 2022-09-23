@@ -40,14 +40,17 @@ export const alert = {
                     })
                     .then(() => {
                         // console.log(response);
-                        this.close()
+                        // this.close()
                         this.toast("success", "Your file has been deleted.");
 
-                        if (to == '') {
-                            router.go()
-                        } else {
-                            router.push({ path: to })
-                        }
+                        setTimeout(() => {
+                            if (to == '') {
+                                router.go()
+                            } else {
+                                router.push({ path: to })
+                            }
+                        }, 3000)
+
                     })
                     .catch((error) => {
                         this.close()

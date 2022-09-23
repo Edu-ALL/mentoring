@@ -95,14 +95,14 @@
         ><span v-if="sidebar">Webinar List</span>
       </li>
 
-      <li :class="menus.menu == 'mail' ? 'active' : ''" @click="goTo('mail')">
+      <!-- <li :class="menus.menu == 'mail' ? 'active' : ''" @click="goTo('mail')">
         <vue-feather
           type="mail"
           size="18"
           :class="sidebar ? 'float-start mt-1 me-2' : ''"
         ></vue-feather
         ><span v-if="sidebar">Mail Log</span>
-      </li>
+      </li> -->
 
       <!-- Files  -->
       <!-- <li :class="menus.menu == 'files' ? 'active' : ''" @click="goTo('files')">

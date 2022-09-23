@@ -10,7 +10,7 @@
           >
             <div class="card-body py-1 text-center">
               <i class="fa-solid fa-plus me-2"></i>
-              New Todos
+              New Task
             </div>
           </div>
 
@@ -374,7 +374,7 @@ export default {
 
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
         const response = await this.$axios.get("select/todos/" + id);
@@ -382,9 +382,9 @@ export default {
         this.todos_conf_need = response.data.data;
         this.todos_confirmed = response.data.data;
         // console.log(response);
-        this.$alert.close();
+        this.$Progress.finish();
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },

@@ -1,7 +1,7 @@
 <template>
   <div id="group">
     <div class="card-white" v-if="!$route.params.submenu">
-      <div class="row mb-2 justify-content-end">
+      <div class="row mb-2 justify-content-between">
         <div class="col-md-3">
           <input-group>
             <input
@@ -22,6 +22,21 @@
             <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
           </span>
         </div>
+
+        <div class="col-3">
+          <input-group>
+            <select
+              v-model="status"
+              @change="getData(status)"
+              class="form-select"
+            >
+              <option value="">All</option>
+              <option value="ongoing">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+            <label for="">Select Status</label>
+          </input-group>
+        </div>
         <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
           Sync Students Data
@@ -36,7 +51,7 @@
             <tr class="text-center">
               <th>No</th>
               <th>Projects Name</th>
-              <th>Projects Type</th>
+              <!-- <th>Projects Type</th> -->
               <th>Progress Status</th>
               <th>Status</th>
               <th>Member</th>
@@ -51,13 +66,13 @@
               :key="index"
               @click="$router.push({ path: '/admin/group/' + i.id })"
             >
-              <td>{{ groups.from + parseInt(index) }}</td>
+              <td class="text-center">{{ groups.from + parseInt(index) }}</td>
               <td>
                 {{ i.project_name }}
               </td>
-              <td>
+              <!-- <td>
                 {{ i.project_type }}
-              </td>
+              </td> -->
               <td class="text-center">
                 <div
                   class="badge"
@@ -137,13 +152,14 @@ export default {
         bar: false,
         name: "",
       },
+      status: "",
     };
   },
   methods: {
-    getData() {
+    getData(status = "all") {
       this.$alert.loading();
       this.$axios
-        .get(this.$url + "list/group-project")
+        .get(this.$url + "list/group-project?status=" + status)
         .then((response) => {
           this.$alert.close();
           this.groups = response.data.data;
@@ -205,7 +221,13 @@ export default {
     },
   },
   created() {
-    this.getData();
+    if (localStorage.getItem("group_status")) {
+      this.status = localStorage.getItem("group_status");
+      this.getData(localStorage.getItem("group_status"));
+      localStorage.removeItem("group_status");
+    } else {
+      this.getData();
+    }
   },
 };
 </script>

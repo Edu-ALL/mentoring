@@ -35,7 +35,7 @@
 
               <div class="mb-3">
                 <select
-                  class="form-control form-mentoring"
+                  class="form-select form-mentoring"
                   v-model="webinar.dtl_category"
                 >
                   <option value="">Select Webinar Category</option>
@@ -164,11 +164,14 @@ export default {
       this.$axios
         .post(this.$url + "create/programme/detail", this.webinar)
         .then((response) => {
-          this.$router.push({
-            path: "/admin/webinar/detail/" + response.data.data.prog_detail.id,
-          });
-          this.$alert.close();
           this.$alert.toast("success", "Webinar has been created");
+
+          setTimeout(() => {
+            this.$router.push({
+              path:
+                "/admin/webinar/detail/" + response.data.data.prog_detail.id,
+            });
+          }, 3000);
           // console.log(response);
         })
         .catch((error) => {

@@ -65,14 +65,14 @@
         :class="activity == '1on1' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('1on1')"
       >
-        1on1 Calls
+        Meetings
       </button>
       <button
         class="btn-mentoring me-2"
         :class="activity == 'student' ? 'btn-type-1' : 'btn-type-2'"
         @click="getActivity('student')"
       >
-        Student List
+        Mentees
       </button>
 
       <!-- 1on1 Calls  -->
@@ -87,7 +87,6 @@
                   <th>Category</th>
                   <th>Date & Time</th>
                   <th>Status</th>
-                  <th>Location</th>
                 </tr>
               </thead>
               <tbody>
@@ -108,14 +107,13 @@
                     </small>
                   </td>
                   <td style="text-transform: capitalize">
-                    {{ i.std_act_status }}
+                    {{ i.call_status }}
                   </td>
-                  <td>{{ i.location_link }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <v-pagination :datas="activities.one_on_one.from" @result="getPage" />
+          <v-pagination :datas="activities.one_on_one" @result="getPage1on1" />
         </div>
       </transition>
 
@@ -128,7 +126,7 @@
               <thead>
                 <tr class="text-center">
                   <th width="2%">No</th>
-                  <th>Students Name</th>
+                  <th>Mentee Name</th>
                   <th>Email</th>
                   <th>School Name</th>
                   <th>Grade</th>
@@ -149,7 +147,7 @@
               </tbody>
             </table>
           </div>
-          <v-pagination :datas="activities.students.from" @result="getPage" />
+          <v-pagination :datas="activities.students" @result="getPageStudent" />
         </div>
       </transition>
     </div>
@@ -200,6 +198,29 @@ export default {
     getStudents(id) {
       this.$axios
         .get(this.$url + "select/students/use/user/" + id)
+        .then((response) => {
+          this.activities.students = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getPage1on1(link) {
+      this.$axios
+        .get(link)
+        .then((response) => {
+          this.activities.one_on_one = response.data.data;
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getPageStudent(link) {
+      this.$axios
+        .get(link)
         .then((response) => {
           this.activities.students = response.data.data;
           // console.log(response);

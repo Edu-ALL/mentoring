@@ -33,11 +33,13 @@
       <!-- {{ mentors }} -->
       <table class="table table-bordered table-hover pointer">
         <thead>
-          <tr>
+          <tr class="text-center align-middle">
             <th width="1%" class="text-center">No</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Phone Number</th>
+            <th>Active Mentee</th>
+            <th>Pass Mentee</th>
           </tr>
         </thead>
         <tbody>
@@ -47,14 +49,18 @@
             @click="this.$router.push({ path: '/admin/user/mentor/' + i.id })"
           >
             <td class="text-center">{{ mentors.from + index }}</td>
-            <td>
+            <td nowrap>
               <i class="fa-regular fa-user fa-fw"></i>
               {{ i.first_name + " " + i.last_name }}
             </td>
-            <td><i class="fa-solid fa-at fa-fw"></i> {{ i.email }}</td>
-            <td>
+            <td nowrap><i class="fa-solid fa-at fa-fw"></i> {{ i.email }}</td>
+            <td nowrap>
               <i class="fa-solid fa-mobile-screen fa-fw"></i>
               {{ i.phone_number == null ? "N/A" : i.phone_number }}
+            </td>
+            <td class="text-center">{{ i.students_active }}</td>
+            <td class="text-center">
+              {{ i.students_pass }}
             </td>
           </tr>
         </tbody>
@@ -88,13 +94,13 @@ export default {
       this.$axios
         .get(this.$url + "list/user/mentor")
         .then((response) => {
+          console.log(response.data);
           this.$alert.close();
           this.mentors = response.data.data;
-          // console.log(response);
         })
         .catch((error) => {
           this.$alert.close();
-          console.log(error);
+          console.log(error.response);
         });
     },
 
@@ -118,7 +124,7 @@ export default {
         this.$alert.close();
       } else {
         this.$axios
-          .get(this.$url + "find/user/mentor?keyword=" + this.search.name)
+          .get(this.$url + "list/user/mentor?keyword=" + this.search.name)
           .then((response) => {
             this.$alert.close();
             this.mentors = response.data.data;

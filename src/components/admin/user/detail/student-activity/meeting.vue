@@ -3,44 +3,106 @@
   <div id="meetings">
     <div class="border p-3 rounded mt-3">
       <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table table-bordered align-middle">
           <thead>
-            <tr class="text-center">
+            <tr class="text-center align-middle">
               <th>No</th>
-              <th>Call with</th>
+              <th class="sticky-table">Call with</th>
               <th>Subject</th>
               <th>Date & Time</th>
+              <th>Academic Performance</th>
+              <th>Exploration</th>
+              <th>Writing Skill</th>
+              <th>Personal Brand</th>
+              <th>Mentor Todos</th>
+              <th>Mentee Todos</th>
               <th>Status</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr class="text-center" v-if="student_meeting?.data?.length == 0">
-              <td class="text-muted" colspan="5">No data!</td>
-            </tr>
             <tr
               class="text-center"
               v-for="(i, index) in student_meeting.data"
               :key="index"
             >
-              <td>{{ parseInt(index) + 1 }}</td>
+              <td class="sticky-table">{{ parseInt(index) + 1 }}</td>
 
-              <td>
-                {{
-                  i.users.first_name +
-                  " " +
-                  i.users.last_name +
-                  " - " +
-                  i.call_with
-                }}
+              <td
+                nowrap
+                class="text-start sticky-table"
+                style="text-transform: capitalize"
+              >
+                {{ i.users.first_name + " " + i.users.last_name }}
               </td>
-              <td style="text-transform: capitalize">{{ i.module }}</td>
-              <td>
+              <td style="text-transform: capitalize">
+                <div class="" style="width: 200px">
+                  {{ i.module }}
+                </div>
+              </td>
+              <td nowrap>
                 <small>
                   {{ $customDate.date(i.call_date) }} <br />
                   {{ $customDate.time(i.call_date) }}
                 </small>
               </td>
-              <td style="text-transform: capitalize">
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.academic_performance == null"
+                  >-</span
+                >
+                <div
+                  style="width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.academic_performance"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.exploration == null">-</span>
+                <div
+                  style="width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.exploration"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.writing_skills == null">-</span>
+                <div
+                  style="width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.writing_skills"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.personal_brand == null">-</span>
+                <div
+                  style="width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.personal_brand"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.mt_todos_note == null">-</span>
+                <div
+                  style="width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.mt_todos_note"
+                ></div>
+              </td>
+              <td class="text-start">
+                <span v-if="i.meeting_minutes?.st_todos_note == null">-</span>
+                <div
+                  style="width: 500px"
+                  class="py-0 my-0"
+                  v-if="i.meeting_minutes"
+                  v-html="i.meeting_minutes.st_todos_note"
+                ></div>
+              </td>
+              <td nowrap style="text-transform: capitalize">
                 <i
                   class="fa-solid fa-ban text-danger"
                   v-if="i.call_status == 'rejected'"
@@ -63,7 +125,12 @@
           </tbody>
         </table>
       </div>
-
+      <div
+        class="text-center p-4 text-muted"
+        v-if="student_meeting.length == 0"
+      >
+        No meeting yet
+      </div>
       <v-pagination :datas="student_meeting" @result="getPage" />
     </div>
   </div>
@@ -80,33 +147,31 @@ export default {
 
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
-        const response = await this.$axios.get(
-          "mentor/list/activities/1-on-1-call?student=" + id
-        );
+        const response = await this.$axios.get("../v2/list/meeting-log/" + id);
         this.student_meeting = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async getPage(link) {
       this.student_meeting = [];
-      this.$alert.loading();
+      this.$Progress.start();
       try {
         const response = await this.$axios.get(link);
-
+        this.$Progress.finish();
         this.student_meeting = response.data.data;
         // console.log(response.data);
       } catch (e) {
         console.log(e);
+        this.$Progress.fail();
       }
-      this.$alert.close();
     },
   },
   created() {
@@ -114,3 +179,33 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+td.sticky-table {
+  position: sticky;
+  left: 0px;
+  background-color: rgb(246, 246, 246) !important;
+  z-index: 1 !important;
+  font-weight: 500;
+  color: #000 !important;
+}
+
+.table-responsive {
+  overflow: auto !important;
+  max-height: 500px !important;
+}
+
+.table-responsive thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2 !important;
+}
+
+.table-responsive thead th.sticky-table {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 3 !important;
+  background: #91a3cf !important;
+}
+</style>
+

@@ -3,7 +3,10 @@
     <div class="container mt-4">
       <div class="row row-cols-md-4 row-cols-2 g-2">
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div
+            class="card h-card shadow-sm pointer"
+            @click="$router.push({ path: 'user/student' })"
+          >
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -18,7 +21,10 @@
           </div>
         </div>
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div
+            class="card h-card shadow-sm"
+            @click="$router.push({ path: 'user/mentor' })"
+          >
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -33,7 +39,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div class="card h-card shadow-sm" @click="goMeeting('upcoming')">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -48,7 +54,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div class="card h-card shadow-sm" @click="goMeeting('canceled')">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -63,7 +69,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div class="card h-card shadow-sm" @click="goMeeting('rejected')">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -78,7 +84,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div class="card h-card shadow-sm" @click="goMeeting('completed')">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -89,14 +95,14 @@
                 </div>
                 <div class="col-8">
                   <div class="h-count">{{ users.meeting?.completed }}</div>
-                  <div class="h-label">Completed Meeting</div>
+                  <div class="h-label">Finished Meeting</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card h-card shadow-sm">
+          <div class="card h-card shadow-sm" @click="goGroup('ongoing')">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
@@ -112,7 +118,7 @@
         </div>
         <div class="col">
           <div class="card h-card shadow-sm">
-            <div class="card-body">
+            <div class="card-body" @click="goGroup('completed')">
               <div class="row align-items-center">
                 <div class="col-4 text-center">
                   <vue-feather type="check-square" class="h-ico"></vue-feather>
@@ -225,6 +231,16 @@ export default {
           this.$alert.close();
           console.log(error.response.data);
         });
+    },
+
+    goMeeting(status) {
+      localStorage.setItem("meeting_status", status);
+      this.$router.push({ path: "1on1" });
+    },
+
+    goGroup(status) {
+      localStorage.setItem("group_status", status);
+      this.$router.push({ path: "group" });
     },
   },
   created() {

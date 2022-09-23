@@ -58,6 +58,16 @@
               <i class="bi bi-building me-1"></i>
               Universities
             </li>
+            <li>
+              <a
+                href="/guideline/mentee.pdf"
+                download
+                class="text-decoration-none"
+              >
+                <i class="bi bi-question-circle me-1"></i>
+                Guidebook
+              </a>
+            </li>
           </ul>
         </div>
         <div class="navbar-button d-md-block" :class="!menu ? 'd-none' : ''">
@@ -113,6 +123,15 @@ export default {
 <style scoped>
 .navbar-menu {
   margin-left: 150px;
+}
+
+li a {
+  color: #fff;
+}
+
+li a:hover,
+li:hover a {
+  color: #000 !important;
 }
 
 @media only screen and (max-width: 800px) {

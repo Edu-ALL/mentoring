@@ -2,18 +2,26 @@
   <div id="todos">
     <div class="card-white">
       <div class="row mb-2 justify-content-end">
-        <div class="col-md-3">
-          <input-group>
+        <div class="col-5 d-flex">
+          <select name="" id="" class="form-select w-50" v-model="keyword">
+            <option value="">Search by Keyword</option>
+            <option value="mentor">Mentor Name</option>
+            <option value="mentee">Mentee Name</option>
+          </select>
+          <input-group class="w-100 ms-2">
             <input
               type="text"
               class="form-mentoring form-control w-100"
               v-model="search.name"
               @change="searchData"
               placeholder="Search"
+              :readonly="keyword == ''"
               id="search"
             />
             <label for="search">Search</label>
           </input-group>
+        </div>
+        <div class="col-12">
           <span
             class="badge bg-primary px-3 d-inline-block float-end mt-1"
             v-if="search.bar && search.name != ''"
@@ -36,7 +44,7 @@
             <tr class="text-center">
               <th>No</th>
               <th>Mentors Name</th>
-              <th>Students Name</th>
+              <th>Mentees Name</th>
               <th>Waiting</th>
               <th>Confirmation Needs</th>
               <th>Completed</th>
@@ -52,10 +60,10 @@
               :key="index"
             >
               <td>{{ todos.from + parseInt(index) }}</td>
-              <td>
+              <td class="text-start">
                 {{ i.mentor_name }}
               </td>
-              <td>
+              <td class="text-start">
                 {{ i.first_name + " " + i.last_name }}
               </td>
               <!-- <td style="text-transform: capitalize">
@@ -122,6 +130,7 @@ export default {
   data() {
     return {
       todos: [],
+      keyword: "",
       search: {
         bar: false,
         name: "",
@@ -163,8 +172,15 @@ export default {
         this.search.bar = false;
         this.$alert.close();
       } else {
+        let type = "";
+        if (this.keyword == "mentor") {
+          type = "&type=mentor";
+        } else {
+          type = "";
+        }
+
         this.$axios
-          .get(this.$url + "list/todos?keyword=" + this.search.name, {
+          .get(this.$url + "list/todos?keyword=" + this.search.name + type, {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -185,6 +201,7 @@ export default {
     closeSearch() {
       this.search.bar = false;
       this.search.name = "";
+      this.keyword = "";
       this.getData();
     },
 

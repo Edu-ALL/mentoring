@@ -97,7 +97,7 @@ export default {
     },
 
     async getDataDocument(i = "all") {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
         const response = await this.$axios.get(
@@ -105,10 +105,10 @@ export default {
         );
 
         this.documents = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },

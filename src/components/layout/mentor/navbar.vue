@@ -74,6 +74,14 @@
               <i class="bi bi-clipboard me-1"></i>
               My Activities
             </button>
+            <a
+              href="/guideline/mentor.pdf"
+              download
+              class="btn btn-menus btn-sm py-1 shadow-sm"
+            >
+              <i class="bi bi-question-circle me-1"></i>
+              Guidebook
+            </a>
           </div>
         </div>
       </div>

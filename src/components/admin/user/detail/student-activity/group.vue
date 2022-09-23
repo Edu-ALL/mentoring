@@ -30,9 +30,10 @@
                   >
                     {{ i.project_type }}
                   </div>
-                  <div class="group-desc mt-3">
-                    {{ $customText.text(i.project_desc, 20) }}
-                  </div>
+                  <div
+                    v-html="$customText.text(i.project_desc, 20)"
+                    class="group-desc mt-3"
+                  ></div>
                   <hr class="my-1" />
                   <div
                     class="d-flex justify-content-between align-items-center"
@@ -79,9 +80,10 @@
                   >
                     {{ i.project_type }}
                   </div>
-                  <div class="group-desc mt-3">
-                    {{ $customText.text(i.project_desc, 20) }}
-                  </div>
+                  <div
+                    v-html="$customText.text(i.project_desc, 20)"
+                    class="group-desc mt-3"
+                  ></div>
                   <hr class="my-1" />
                   <div
                     class="d-flex justify-content-between align-items-center"
@@ -129,9 +131,10 @@
                   >
                     {{ i.project_type }}
                   </div>
-                  <div class="group-desc mt-3">
-                    {{ $customText.text(i.project_desc, 20) }}
-                  </div>
+                  <div
+                    v-html="$customText.text(i.project_desc, 20)"
+                    class="group-desc mt-3"
+                  ></div>
                   <hr class="my-1" />
                   <div
                     class="d-flex justify-content-between align-items-center"
@@ -175,49 +178,49 @@ export default {
 
   methods: {
     async newRequest() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
         const response = await this.$axios.get(
           "student/group/project/new/" + id
         );
         this.new_request = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async inProgress() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
         const response = await this.$axios.get(
           "student/group/project/in-progress/" + id
         );
         this.in_progress = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
 
     async historyProject() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
         const response = await this.$axios.get(
           "student/group/project/completed/" + id
         );
         this.history_project = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },

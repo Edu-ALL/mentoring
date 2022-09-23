@@ -56,8 +56,20 @@
                     : students_detail.grade
                 }}
               </div>
+              <!-- <div class="mb-2">
+                <label>Application Year</label> <br />
+                {{ student.application_year }}
+              </div> -->
             </div>
             <div class="col-md-6">
+              <!-- <div class="mb-2">
+                <label>Mentee Relationship</label> <br />
+                {{ student.mentee_relationship }}
+              </div>
+              <div class="mb-2">
+                <label>Parent Relationship</label> <br />
+                {{ student.parent_relationship }}
+              </div> -->
               <div class="mb-2">
                 <label>Social Media</label> <br />
                 <div class="d-flex">

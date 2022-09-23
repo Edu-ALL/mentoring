@@ -33,10 +33,26 @@
               </div>
               <div class="mb-2">
                 <label>Grade</label> <br />
-                {{ student.grade }}
+                {{
+                  student.grade == null || student.grade == 0
+                    ? "N/A"
+                    : student.grade
+                }}
+              </div>
+              <div class="mb-2">
+                <label>Application Year</label> <br />
+                {{ student.application_year }}
               </div>
             </div>
             <div class="col-md-6">
+              <div class="mb-2">
+                <label>Mentee Relationship</label> <br />
+                {{ student.mentee_relationship }}
+              </div>
+              <div class="mb-2">
+                <label>Parent Relationship</label> <br />
+                {{ student.parent_relationship }}
+              </div>
               <div class="mb-2">
                 <label>Social Media</label> <br />
                 <div class="mb-2" v-for="i in student.social_media" :key="i">
@@ -363,76 +379,76 @@ export default {
   },
   methods: {
     getData(id) {
-      this.$alert.loading();
+      this.$Progress.start();
       this.$axios
         .get(this.$url + "student/detail/" + id)
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.student = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
-          this.$alert.close();
+          this.$Progress.fail();
           console.log(error.response);
         });
     },
 
     get1on1(email) {
-      this.$alert.loading();
+      this.$Progress.start();
       this.$axios
         .get(this.$url + "list/activities/1-on-1-call?mail=" + email)
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.activities.calls = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
-          this.$alert.close();
+          this.$Progress.fail();
           console.log(error);
         });
     },
 
     getWebinar(email) {
-      this.$alert.loading();
+      this.$Progress.start();
       this.$axios
         .get(this.$url + "list/activities/webinar?mail=" + email)
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.activities.webinars = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
-          this.$alert.close();
+          this.$Progress.fail();
           console.log(error);
         });
     },
 
     getEvent(email) {
-      this.$alert.loading();
+      this.$Progress.start();
       this.$axios
         .get(this.$url + "list/activities/event?mail=" + email)
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.activities.events = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
-          this.$alert.close();
+          this.$Progress.fail();
           console.log(error);
         });
     },
 
     getFiles(email) {
-      this.$alert.loading();
+      this.$Progress.start();
       this.$axios
         .get(this.$url + "list/student/files?mail=" + email)
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.activities.files = response.data.data;
           // console.log(response);
         })
         .catch((error) => {
-          this.$alert.close();
+          this.$Progress.fail();
           console.log(error.response.data);
         });
     },
@@ -458,7 +474,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+label {
+  font-size: 11px;
+}
 .card-white {
   background: #fff;
   padding: 20px;

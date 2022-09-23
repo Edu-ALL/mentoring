@@ -41,8 +41,9 @@
           </div>
           <div class="s-header-img">
             <img
-              src="~@/assets/img/editor/alysha.webp"
+              src="~@/assets/img/person.png"
               alt=""
+              class="dropdown-toggle pointer p-1"
               data-bs-toggle="dropdown"
             />
             <ul class="dropdown-menu">

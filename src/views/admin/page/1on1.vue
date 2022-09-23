@@ -1,7 +1,7 @@
 <template>
   <div id="1on1">
     <div class="card-white">
-      <div class="row mb-2 justify-content-end">
+      <div class="row mb-2 justify-content-between">
         <div class="col-md-3">
           <input-group>
             <input
@@ -21,6 +21,23 @@
             {{ search.name }}
             <i class="fa-solid fa-close ms-3 pointer" @click="closeSearch"></i>
           </span>
+        </div>
+
+        <div class="col-3">
+          <input-group>
+            <select
+              v-model="status"
+              @change="getData(status)"
+              class="form-select"
+            >
+              <option value="">All</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="completed">Finsihed</option>
+              <option value="canceled">Canceled</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <label for="">Select Status</label>
+          </input-group>
         </div>
         <!-- <div class="col-md-6 text-md-end text-center">
         <button class="btn-mentoring btn-type-1 me-2">
@@ -115,21 +132,22 @@ export default {
         bar: false,
         name: "",
       },
+      status: "",
     };
   },
   methods: {
-    getData() {
-      this.$alert.loading();
+    getData(status = "all") {
+      this.$Progress.start();
       this.$axios
-        .get(this.$url + "list/activities/1-on-1-call")
+        .get(this.$url + "list/activities/1-on-1-call?status=" + status)
         .then((response) => {
-          this.$alert.close();
+          this.$Progress.finish();
           this.calls = response.data.data;
-          console.log(response.data.data);
+          // console.log(response.data);
         })
         .catch((error) => {
-          this.$alert.close();
-          console.log(error);
+          this.$Progress.fail();
+          console.log(error.response);
         });
     },
 
@@ -187,7 +205,13 @@ export default {
     },
   },
   created() {
-    this.getData();
+    if (localStorage.getItem("meeting_status")) {
+      this.status = localStorage.getItem("meeting_status");
+      this.getData(localStorage.getItem("meeting_status"));
+      localStorage.removeItem("meeting_status");
+    } else {
+      this.getData();
+    }
   },
 };
 </script>

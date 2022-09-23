@@ -181,8 +181,8 @@
                       <label v-if="i.grade == 0"> N/A</label>
                       <label v-if="i.grade != 0"> {{ i.grade }}</label>
                     </td>
-                    <td nowrap class="pointer" @click="checkDetail(i.id)">
-                      {{ i.phone_number }}
+                    <td nowrap>
+                      {{ i.phone_number == "0" ? "-" : i.phone_number }}
                     </td>
                     <td>
                       <select
@@ -196,7 +196,7 @@
                           )
                         "
                       >
-                        <option value="" disabled>
+                        <option value="null" disabled>
                           Select application year
                         </option>
                         <option
@@ -423,7 +423,7 @@ export default {
         );
 
         this.$Progress.finish();
-        this.getData();
+        // this.getData();
 
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
@@ -449,7 +449,7 @@ export default {
         );
 
         this.$Progress.finish();
-        this.getData();
+        // this.getData();
 
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
@@ -474,11 +474,11 @@ export default {
         );
 
         this.$Progress.finish();
-        if (value == 0) {
-          this.getData("active");
-        } else {
-          this.getData("inactive");
-        }
+        // if (value == 0) {
+        //   this.getData("active");
+        // } else {
+        //   this.getData("inactive");
+        // }
 
         if (response.data.success) {
           this.$alert.toast("success", response.data.message);
@@ -498,7 +498,7 @@ export default {
           "update/student/" + id + "/progress-status",
           { progress: s }
         );
-        this.getData();
+        // this.getData();
 
         this.$alert.toast("success", response.data.message);
       } catch (e) {

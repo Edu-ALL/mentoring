@@ -425,6 +425,7 @@ export default {
         const response = await this.$axios.post("create/shortlisted", this.uni);
         this.uni.univ_id = "";
         this.uni.major = "";
+        this.uni_select = [];
 
         // console.log(response.data);
         this.$alert.toast("success", response.data.message);

@@ -89,17 +89,17 @@ export default {
 
   methods: {
     async getData() {
-      this.$alert.loading();
+      this.$Progress.start();
       const id = this.$route.params.key;
       try {
         const response = await this.$axios.get(
           "mentor/list/activities/webinar?student=" + id
         );
         this.student_webinar = response.data.data;
-        this.$alert.close();
+        this.$Progress.finish();
         // console.log(response);
       } catch (e) {
-        this.$alert.close();
+        this.$Progress.fail();
         console.log(e.response);
       }
     },
