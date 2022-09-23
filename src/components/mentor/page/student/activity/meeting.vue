@@ -42,8 +42,9 @@
               </td>
               <td nowrap>
                 <small>
-                  {{ $customDate.date(i.call_date) }} <br />
-                  {{ $customDate.time(i.call_date) }}
+                  {{ $customDate.date(i.start_call_date) }} <br />
+                  {{ $customDate.time(i.start_call_date) }} -
+                  {{ $customDate.time(i.end_call_date) }}
                 </small>
               </td>
               <td class="text-start">

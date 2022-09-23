@@ -99,11 +99,12 @@
                   <td>
                     {{ i.students.first_name + " " + i.students.last_name }}
                   </td>
-                  <td>{{ i.module }}</td>
+                  <td style="text-transform: capitalize">{{ i.module }}</td>
                   <td>
                     <small>
-                      {{ getDay(i.created_at) }} <br />
-                      {{ getTime(i.created_at) }}
+                      {{ $customDate.date(i.start_call_date) }} <br />
+                      {{ $customDate.time(i.start_call_date) }} -
+                      {{ $customDate.time(i.end_call_date) }}
                     </small>
                   </td>
                   <td style="text-transform: capitalize">

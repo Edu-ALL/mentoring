@@ -39,31 +39,10 @@
                     </div>
                   </div>
                   <div class="mt-2">
-                    <!-- <div class="badge badge-group bg-info px-3 py-1">
-                      {{ i.project_type }}
-                    </div> -->
-                    <div
-                      class="badge badge-group bg-primary px-3 py-1 ms-1"
-                      v-if="i.group_participant_count > 0"
-                    >
-                      {{ i.group_participant_count }} Members
-                    </div>
-                    <div
-                      class="badge badge-group px-3 py-1 ms-1"
-                      :class="
-                        i.progress_status == 'ahead'
-                          ? 'bg-success'
-                          : i.progress_status == 'on-track'
-                          ? 'bg-info'
-                          : 'bg-danger'
-                      "
-                      v-if="
-                        i.progress_status != '' || i.progress_status != null
-                      "
-                      style="text-transform: capitalize"
-                    >
-                      {{ i.progress_status }}
-                    </div>
+                    <small class="text-muted">
+                      <i class="bi bi-calendar-date me-1"></i>
+                      {{ $customDate.date(i.created_at) }}
+                    </small>
                   </div>
                 </div>
                 <div class="col-md-3 text-md-center mt-md-0 mt-3">

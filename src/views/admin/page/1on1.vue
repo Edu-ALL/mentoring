@@ -78,8 +78,9 @@
               </td>
               <td>
                 <small>
-                  {{ $customDate.date(i.created_at) }} <br />
-                  {{ $customDate.time(i.created_at) }}
+                  {{ $customDate.date(i.start_call_date) }} <br />
+                  {{ $customDate.time(i.start_call_date) }} -
+                  {{ $customDate.time(i.end_call_date) }}
                 </small>
               </td>
               <td style="text-transform: capitalize">

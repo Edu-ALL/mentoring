@@ -37,7 +37,9 @@
                   i.call_with
                 }}
               </td>
-              <td nowrap style="text-transform: capitalize">{{ i.module }}</td>
+              <td nowrap class="text-start" style="text-transform: capitalize">
+                {{ i.module }}
+              </td>
               <td nowrap>{{ $customDate.date(i.start_call_date) }}</td>
               <td nowrap>
                 {{
