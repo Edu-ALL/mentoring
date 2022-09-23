@@ -397,7 +397,6 @@ export default {
     },
 
     async insertMentor(id, mt_id, priority) {
-      alert("test");
       this.$Progress.start();
       try {
         const response = await this.$axios.put(
